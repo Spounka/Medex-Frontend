@@ -1,0 +1,103 @@
+import React from "react";
+
+import { Routes, Route } from "react-router-dom";
+
+import Layout from "../components/Supplier/shared/Layout";
+import NotFound from "../pages/shared/NotFound";
+
+import Dashboard from "../pages/Supplier/Dashboard";
+
+import Register from "../pages/Supplier/Register";
+import Profile from "../pages/Supplier/Profile";
+
+import RequestForQuotes from "../pages/shared/RequestForQuotes";
+import QuoteList from "../pages/Supplier/QuoteList";
+
+import CreateProduct from "../pages/Supplier/CreateProduct";
+import ProductList from "../pages/Supplier/ProductList";
+import ProductDetails from "../pages/Supplier/ProductDetails";
+import UpdateProduct from "../pages/Supplier/UpdateProduct";
+
+import Chat from "../pages/shared/Chat";
+import ChatMessagesList from "../pages/shared/ChatMessagesList";
+
+import OrderList from "../pages/Supplier/OrderList";
+
+import SupplierProfile from "../pages/Buyer/SupplierProfile";
+
+import SupplierProtectedRoutes from "../utils/SupplierProtectedRoutes";
+
+import { TbListDetails, TbEdit } from "react-icons/tb";
+import QuoteDetails from "../pages/Supplier/QuoteDetails";
+import OfferInvoice from "../pages/Supplier/OfferInvoice";
+import OfferList from "../pages/Supplier/OfferList";
+import OrderDetails from "../pages/Supplier/OrderDetails";
+
+const SupplierRoutes = () => {
+    return (
+        <Routes>
+            <Route path="account/register" element={<Register />} />
+            <Route path="profile/:id" element={<SupplierProfile />} />
+
+            <Route path="/" element={<Layout />}>
+                <Route path="/" element={<SupplierProtectedRoutes />}>
+                    <Route path="dashboard" element={<Dashboard />} />
+
+                    <Route
+                        path="/request-for-quote"
+                        element={<RequestForQuotes />}
+                    />
+                    <Route path="/quotes" element={<QuoteList />} />
+                    <Route path="/quotes/:id" element={<QuoteDetails />} />
+                    <Route
+                        path="/offer/invoice/:id"
+                        element={<OfferInvoice />}
+                    />
+                    <Route path="/quotes/offers" element={<OfferList />} />
+
+                    <Route path="account/profile" element={<Profile />} />
+
+                    <Route path="chat" element={<Chat />} />
+                    <Route path="chat/:id" element={<ChatMessagesList />} />
+
+                    <Route path="products/create" element={<CreateProduct />} />
+                    <Route
+                        path="products/list"
+                        element={
+                            <ProductList
+                                buttonLink={`/supplier/products/`}
+                                buttonText={"View Details"}
+                                buttonIcon={<TbListDetails />}
+                            />
+                        }
+                    />
+                    <Route
+                        path="products/update"
+                        element={
+                            <ProductList
+                                buttonLink={`/supplier/products/update/`}
+                                buttonText={"Update Product"}
+                                buttonIcon={<TbEdit />}
+                            />
+                        }
+                    />
+                    <Route
+                        path="products/update/:product_sku"
+                        element={<UpdateProduct />}
+                    />
+                    <Route
+                        path="products/:product_sku"
+                        element={<ProductDetails />}
+                    />
+
+                    <Route path="orders" element={<OrderList />} />
+                    <Route path="order/:id" element={<OrderDetails />} />
+                </Route>
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+        </Routes>
+    );
+};
+
+export default SupplierRoutes;
