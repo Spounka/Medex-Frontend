@@ -523,7 +523,8 @@ const Header = () => {
                                                                     cat.parent ===
                                                                     null
                                                                 ) {
-                                                                    return (
+                                                                    return cat.children_count !==
+                                                                        0 ? (
                                                                         <button
                                                                             key={`tablink_${cat.id}`}
                                                                             className="tablinks"
@@ -540,95 +541,153 @@ const Header = () => {
                                                                                 cat?.name
                                                                             }
                                                                         </button>
+                                                                    ) : (
+                                                                        <button
+                                                                            key={`tablink_${cat.id}`}
+                                                                            className="tablinks"
+                                                                            onMouseOver={(
+                                                                                event
+                                                                            ) =>
+                                                                                openTab(
+                                                                                    event,
+                                                                                    "no_categories"
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                cat?.name
+                                                                            }
+                                                                        </button>
                                                                     );
                                                                 }
                                                                 return null;
                                                             }
                                                         )}
                                                     </div>
-                                                    {uniqueParentSlugs.map(
-                                                        (parentSlug) => (
-                                                            <div
-                                                                id={parentSlug}
-                                                                key={`tabcontent_${parentSlug}`}
-                                                                className="tabcontent"
-                                                            >
-                                                                <div className="mt-2 mb-3 w-100 position-relative">
-                                                                    <IoSearchSharp
-                                                                        className="chat__search-icon"
-                                                                        size="1.6rem"
-                                                                    />
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control chat__search-input"
-                                                                        placeholder={`${t(
-                                                                            "header.search"
-                                                                        )}...`}
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            setSearchQuery(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                </div>
 
-                                                                {categories
-                                                                    .filter(
-                                                                        (cat) =>
-                                                                            cat.parent_slug ===
-                                                                            parentSlug
-                                                                    )
-                                                                    .filter(
-                                                                        (cat) =>
-                                                                            cat.name
-                                                                                .toLowerCase()
-                                                                                .includes(
-                                                                                    searchQuery.toLowerCase()
-                                                                                )
-                                                                    )
-                                                                    .map(
-                                                                        (
-                                                                            cat
-                                                                        ) => (
-                                                                            <Link
-                                                                                className="d-flex flex-column align-items-center gap-3"
-                                                                                key={`category_${cat.id}`}
-                                                                                to={`/products?category=${cat.parent_slug}&sub-category=${cat.slug}`}
-                                                                            >
-                                                                                <img
-                                                                                    src={
-                                                                                        import.meta
-                                                                                            .env
-                                                                                            .VITE_BACKEND_URL +
-                                                                                        cat?.image
-                                                                                    }
-                                                                                    alt="Cat Image"
-                                                                                    className="rounded-circle shadow object-fit-cover"
-                                                                                    width={
-                                                                                        80
-                                                                                    }
-                                                                                    height={
-                                                                                        80
-                                                                                    }
-                                                                                />
-                                                                                <span className="text-dark">
-                                                                                    {
-                                                                                        cat?.name
-                                                                                    }
-                                                                                </span>
-                                                                            </Link>
+                                                    <div
+                                                        id="no_categories"
+                                                        key="tabcontent_no_categories"
+                                                        className="tabcontent"
+                                                    >
+                                                        <div className="mt-4 w-100 position-relative text-center">
+                                                            <p>
+                                                                {t(
+                                                                    "no_categories"
+                                                                )}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    {uniqueParentSlugs.map(
+                                                        (parentSlug) => {
+                                                            const filteredCategories =
+                                                                categories.filter(
+                                                                    (cat) =>
+                                                                        cat.parent_slug ===
+                                                                            parentSlug &&
+                                                                        cat.name
+                                                                            .toLowerCase()
+                                                                            .includes(
+                                                                                searchQuery.toLowerCase()
+                                                                            )
+                                                                );
+
+                                                            return (
+                                                                <div
+                                                                    id={
+                                                                        parentSlug
+                                                                    }
+                                                                    key={`tabcontent_${parentSlug}`}
+                                                                    className="tabcontent"
+                                                                >
+                                                                    <div className="mt-2 mb-3 w-100 position-relative">
+                                                                        <IoSearchSharp
+                                                                            className="chat__search-icon"
+                                                                            size="1.6rem"
+                                                                        />
+                                                                        <input
+                                                                            type="text"
+                                                                            className="form-control chat__search-input"
+                                                                            placeholder={`${t(
+                                                                                "header.search"
+                                                                            )}...`}
+                                                                            value={
+                                                                                searchQuery
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) => {
+                                                                                setSearchQuery(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                );
+                                                                                testEmpty(
+                                                                                    parentSlug
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                    </div>
+
+                                                                    {filteredCategories.length >
+                                                                    0 ? (
+                                                                        filteredCategories.map(
+                                                                            (
+                                                                                cat
+                                                                            ) => (
+                                                                                <Link
+                                                                                    className="d-flex flex-column align-items-center gap-3"
+                                                                                    key={`category_${cat.id}`}
+                                                                                    to={`/products?category=${cat.parent_slug}&sub-category=${cat.slug}`}
+                                                                                >
+                                                                                    <img
+                                                                                        src={
+                                                                                            import.meta
+                                                                                                .env
+                                                                                                .VITE_BACKEND_URL +
+                                                                                            cat?.image
+                                                                                        }
+                                                                                        alt="Cat Image"
+                                                                                        className="rounded-circle shadow object-fit-cover"
+                                                                                        width={
+                                                                                            80
+                                                                                        }
+                                                                                        height={
+                                                                                            80
+                                                                                        }
+                                                                                    />
+                                                                                    <span className="text-dark">
+                                                                                        {
+                                                                                            cat?.name
+                                                                                        }
+                                                                                    </span>
+                                                                                </Link>
+                                                                            )
                                                                         )
+                                                                    ) : (
+                                                                        <div
+                                                                            className="text-center"
+                                                                            style={{
+                                                                                gridColumn:
+                                                                                    "1 / span 4",
+                                                                            }}
+                                                                        >
+                                                                            {t(
+                                                                                "no_categories"
+                                                                            )}
+                                                                        </div>
                                                                     )}
-                                                            </div>
-                                                        )
+                                                                </div>
+                                                            );
+                                                        }
                                                     )}
                                                 </div>
                                             ) : (
-                                                <p className="text-center">
+                                                <p
+                                                    className="text-center"
+                                                    id="no_categories_msg"
+                                                >
                                                     {t("no_categories")}!
                                                 </p>
                                             )}
@@ -726,18 +785,22 @@ const openTab = (evt, categoryName) => {
 
     // Display the selected tab content
     cat = document.getElementById(categoryName);
-    cat.style.display = "grid";
-    cat.style.gridTemplateColumns = "repeat(4, 1fr)";
-    cat.style.justifyItems = "center";
-    cat.style.alignContent = "start";
-    cat.style.rowGap = "15px";
 
-    // Add "active" class to the clicked tab link
-    evt.currentTarget.className += " active";
+    if (cat) {
+        cat.style.display = "grid";
+        cat.style.gridTemplateColumns = "repeat(4, 1fr)";
+        cat.style.justifyItems = "center";
+        cat.style.alignContent = "start";
+        cat.style.rowGap = "15px";
 
-    // Set the first child element (search input) to occupy the entire row width
-    const firstChild = cat.firstElementChild;
-    firstChild.style.gridColumn = "1 / span 4";
+        // Add "active" class to the clicked tab link
+        evt.currentTarget.className += " active";
+
+        // Set the first child element (search input) to occupy the entire row width
+        const firstChild = cat.firstElementChild;
+
+        firstChild.style.gridColumn = "1 / span 4";
+    }
 };
 
 export default Header;

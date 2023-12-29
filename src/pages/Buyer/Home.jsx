@@ -378,11 +378,7 @@ const Home = (props) => {
                                     >
                                         <div className="card shadow d-flex align-items-center justify-content-center home__brand-card">
                                             <img
-                                                src={
-                                                    import.meta.env
-                                                        .VITE_BACKEND_URL +
-                                                    brand.image
-                                                }
+                                                src={brand.image}
                                                 alt="Brand"
                                                 className="img-fluid px-4"
                                             />
