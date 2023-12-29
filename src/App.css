@@ -251,6 +251,7 @@ a:hover {
     height: 100dvh;
     background-color: #f9f9f9;
     padding: 70px 0 0 0;
+    overflow-y: scroll;
 }
 
 .navbar__category-menu-mobile li {
