@@ -50,7 +50,7 @@ body {
 }
 
 main {
-    min-height: 35vh;
+    min-height: 35dvh;
 }
 
 .website__loader-container {
@@ -1259,7 +1259,6 @@ footer {
 
 .dashboard__main {
     width: 100dvw;
-    max-width: max-content;
 }
 
 .dashboard__main-container {
@@ -1500,6 +1499,10 @@ footer {
     .dashboard__stats-card-icon {
         font-size: 2rem;
         padding: 0 7px;
+    }
+
+    .dashboard__main-container main {
+        width: 100dvw !important;
     }
 }
 

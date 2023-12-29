@@ -18,7 +18,7 @@ import {
     TbDatabaseSearch,
     TbLanguage,
 } from "react-icons/tb";
-import { BsGearFill } from "react-icons/bs";
+import { BsGearFill, BsTruck } from "react-icons/bs";
 import { LuTextQuote } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 
@@ -105,6 +105,19 @@ const Sidebar = (props) => {
                             </span>
                         </Link>
                     </li>
+
+                    <li>
+                        <Link
+                            to="/supplier/tracking"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <BsTruck size="1.5rem" />
+                            <span className="ms-1">
+                                {t("supplier_sidebar.tracking")}
+                            </span>
+                        </Link>
+                    </li>
+
                     <li>
                         <Link
                             to="#quotes"

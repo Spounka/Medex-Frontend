@@ -102,7 +102,8 @@
         "quotes": "عروض الأسعار",
         "quote_requests": "طلبات عروض الأسعار",
         "offers_list": "قائمة العروض",
-        "language": "اللغة"
+        "language": "اللغة",
+        "tracking": "تتبع الطلبات"
     },
     "auth_context": {
         "login_successful": "تم تسجيل الدخول بنجاح",

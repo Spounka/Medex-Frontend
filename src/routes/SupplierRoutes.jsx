@@ -32,6 +32,8 @@ import QuoteDetails from "../pages/Supplier/QuoteDetails";
 import OfferInvoice from "../pages/Supplier/OfferInvoice";
 import OfferList from "../pages/Supplier/OfferList";
 import OrderDetails from "../pages/Supplier/OrderDetails";
+import TrackingList from "../pages/Supplier/TrackingList";
+import TrackingDetails from "../pages/Supplier/TrackingDetails";
 
 const SupplierRoutes = () => {
     return (
@@ -92,6 +94,9 @@ const SupplierRoutes = () => {
 
                     <Route path="orders" element={<OrderList />} />
                     <Route path="order/:id" element={<OrderDetails />} />
+
+                    <Route path="tracking" element={<TrackingList />} />
+                    <Route path="tracking/:id" element={<TrackingDetails />} />
                 </Route>
             </Route>
 

@@ -12,16 +12,14 @@ import {
     MdOutlineCalendarMonth,
     MdProductionQuantityLimits,
     MdOutlinePriceCheck,
-    MdOutlineMailOutline,
+    MdOutlineNextPlan,
 } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
-import { RiShieldUserLine } from "react-icons/ri";
-import { CiPhone, CiLocationOn } from "react-icons/ci";
+import { BsTruck } from "react-icons/bs";
 
-import userImage from "../../assets/images/user.png";
 import { toast } from "react-toastify";
 
-const OrderDetails = () => {
+const TrackingDetails = () => {
     const { t } = useTranslation();
 
     const location = useLocation();
@@ -193,17 +191,7 @@ const OrderDetails = () => {
                     {t("supplier_pages.order_details.title")}
                 </h2>
                 <div className="row row-flex">
-                    <div className="col-12 col-md-5">
-                        <img
-                            src={
-                                import.meta.env.VITE_BACKEND_URL +
-                                order?.product?.thumbnail
-                            }
-                            alt="Product"
-                            className="img-fluid border shadow rounded content"
-                        />
-                    </div>
-                    <div className="col-12 col-md-7">
+                    <div className="col-12">
                         <div className="card shadow content">
                             <div className="card-body">
                                 <h4 className="detail__title m-0 py-2">
@@ -242,69 +230,122 @@ const OrderDetails = () => {
                 <div className="row my-5">
                     <div className="col-12">
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title mb-4">
-                            <RiShieldUserLine size="2.3rem" />
-                            {t("supplier_pages.order_details.user_details")}
+                            <BsTruck size="2.3rem" />
+                            {t("supplier_pages.order_details.status")}
                         </h2>
                         <div className="card shadow">
                             <div className="card-body">
-                                <div className="row d-flex align-items-center">
-                                    <div className="col-12 col-md-3">
-                                        <div className="d-flex flex-column justify-content-center align-items-center gap-3">
-                                            <img
-                                                src={
-                                                    order?.user?.profile
-                                                        ?.profile_picture
-                                                        ? `
-                                                            ${
-                                                                import.meta.env
-                                                                    .VITE_BACKEND_URL +
-                                                                order?.user
-                                                                    ?.profile
-                                                                    ?.profile_picture
-                                                            }
-                                                            `
-                                                        : `${userImage}`
-                                                }
-                                                className="img-fluid rounded-circle shadow"
-                                                alt="User"
-                                                width={120}
-                                                height={120}
-                                            />
-                                            <span>
-                                                {order?.user?.full_name}
-                                            </span>
+                                <div className="container">
+                                    <div className="row py-5 px-md-4">
+                                        <div className="col-12">
+                                            <div className="step-indicator">
+                                                <div className="step step1 active">
+                                                    <div className="step-icon">
+                                                        1
+                                                    </div>
+                                                    <p>
+                                                        {t(
+                                                            "supplier_pages.order_details.or"
+                                                        )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={`indicator-line ${
+                                                        order?.shipping_status ===
+                                                            "P" ||
+                                                        order?.shipping_status ===
+                                                            "OTW" ||
+                                                        order?.shipping_status ===
+                                                            "DE"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                ></div>
+                                                <div
+                                                    className={`step step2 ${
+                                                        order?.shipping_status ===
+                                                            "P" ||
+                                                        order?.shipping_status ===
+                                                            "OTW" ||
+                                                        order?.shipping_status ===
+                                                            "DE"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <div className="step-icon">
+                                                        2
+                                                    </div>
+                                                    <p className="stepper__text-2">
+                                                        {t(
+                                                            "supplier_pages.order_details.p"
+                                                        )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={`indicator-line ${
+                                                        order?.shipping_status ===
+                                                            "OTW" ||
+                                                        order?.shipping_status ===
+                                                            "DE"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                ></div>
+                                                <div
+                                                    className={`step step3 ${
+                                                        order?.shipping_status ===
+                                                            "OTW" ||
+                                                        order?.shipping_status ===
+                                                            "DE"
+                                                            ? "active"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <div className="step-icon">
+                                                        3
+                                                    </div>
+                                                    <p>
+                                                        {t(
+                                                            "supplier_pages.order_details.otw"
+                                                        )}
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    className={`indicator-line ${
+                                                        order?.shipping_status ==
+                                                            "DE" && "active"
+                                                    }`}
+                                                ></div>
+                                                <div
+                                                    className={`step step4 ${
+                                                        order?.shipping_status ==
+                                                            "DE" && "active"
+                                                    }`}
+                                                >
+                                                    <div className="step-icon">
+                                                        4
+                                                    </div>
+                                                    <p>
+                                                        {t(
+                                                            "supplier_pages.order_details.de"
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="col-12 col-md-9">
-                                        <p className="text-xs d-flex align-items-center gap-2">
-                                            <CiPhone size="1.3rem" />
-                                            {t("phone")}: +{order?.user?.phone}
-                                        </p>
-                                        <p className="text-xs d-flex align-items-center gap-2">
-                                            <MdOutlineMailOutline size="1.3rem" />
-                                            {t("email")}: {order?.user?.email}
-                                        </p>
-                                        <p className="text-xs d-flex align-items-center gap-2">
-                                            <CiLocationOn size="1.3rem" />
-                                            {t(
-                                                "supplier_pages.order_details.ship_add"
-                                            )}
-                                            : {country}{" "}
-                                            {state != "" && `, ${state}`}
-                                            {
-                                                order?.user?.shipping_address
-                                                    ?.postal_code
-                                            }
-                                            {city != "" && `, ${city}`},{" "}
-                                            {
-                                                order?.user?.shipping_address
-                                                    ?.address_1
-                                            }
-                                            {order?.user?.shipping_address
-                                                ?.address_2 !== "" &&
-                                                `, ${order?.user?.shipping_address?.address_2}`}
-                                        </p>
-                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-footer py-3">
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <button
+                                        className="btn btn-primary d-flex align-items-center gap-2"
+                                        onClick={() => handleAdvance(order?.id)}
+                                    >
+                                        <MdOutlineNextPlan size="1.3rem" />
+                                        {t("supplier_pages.order_details.next")}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -315,4 +356,4 @@ const OrderDetails = () => {
     );
 };
 
-export default OrderDetails;
+export default TrackingDetails;
