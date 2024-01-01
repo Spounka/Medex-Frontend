@@ -22,9 +22,9 @@ const ProductImagesForm = ({
                 >
                     <BsImage size="1.5rem" />
                     {update ? (
-                        <span>{t("update_thumbnail")}</span>
+                        <span>{t("product_form.update_thumbnail")}</span>
                     ) : (
-                        <span>{t("product_thumbnail")} *</span>
+                        <span>{t("product_form.product_thumbnail")} *</span>
                     )}
                 </label>
                 <input
@@ -53,7 +53,7 @@ const ProductImagesForm = ({
                             className="form-label d-flex align-items-center gap-2"
                         >
                             <BsImages size="1.5rem" />
-                            {t("other_image")} 1
+                            {t("product_form.other_image")} 1
                         </label>
                         <input
                             type="file"
@@ -80,7 +80,7 @@ const ProductImagesForm = ({
                             className="form-label d-flex align-items-center gap-2"
                         >
                             <BsImages size="1.5rem" />
-                            {t("other_image")} 2
+                            {t("product_form.other_image")} 2
                         </label>
                         <input
                             type="file"
@@ -107,7 +107,7 @@ const ProductImagesForm = ({
                             className="form-label d-flex align-items-center gap-2"
                         >
                             <BsImages size="1.5rem" />
-                            {t("other_image")} 3
+                            {t("product_form.other_image")} 3
                         </label>
                         <input
                             type="file"
@@ -134,7 +134,7 @@ const ProductImagesForm = ({
                             className="form-label d-flex align-items-center gap-2"
                         >
                             <BsImages size="1.5rem" />
-                            {t("other_image")} 4
+                            {t("product_form.other_image")} 4
                         </label>
                         <input
                             type="file"
@@ -155,7 +155,9 @@ const ProductImagesForm = ({
                             </>
                         )}
                     </div>
-                    <span className="form-text">{t("other_image_tip")} .</span>
+                    <span className="form-text">
+                        {t("product_form.other_image_tip")} .
+                    </span>
                 </>
             ) : (
                 <div className="mb-5">

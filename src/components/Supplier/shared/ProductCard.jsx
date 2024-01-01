@@ -15,7 +15,7 @@ const ProductCard = (props) => {
                 className="card-link"
             >
                 <img
-                    src={import.meta.env.VITE_BACKEND_URL + product.thumbnail}
+                    src={product.thumbnail}
                     className="card-img-top home__card-img"
                     width="100%"
                     alt="product"

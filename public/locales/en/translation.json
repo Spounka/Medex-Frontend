@@ -91,7 +91,10 @@
         "currently": "Currently",
         "other_image": "Other Product Image",
         "other_images": "Other Product Images",
-        "other_image_tip": "You can upload up to 4 images for your product"
+        "other_image_tip": "You can upload up to 4 images for your product",
+        "returnable": "Product Returnability",
+        "returnable_question": "Is Returnable",
+        "returnable_dl": "Maximum Days To Return"
     },
     "supplier_sidebar": {
         "products": "Products",
@@ -217,7 +220,9 @@
             "wish": "Add To Wishlist",
             "unwish": "Remove From Wishlist",
             "share": "Share Product Link",
-            "share_success": "Link Copies To Clipboard"
+            "share_success": "Link Copied To Clipboard",
+            "unreturnable": "Product is unreturnable",
+            "return_valid": "Within {{days}} days from buying"
         },
         "quote_requests": {
             "all": "All Quote Requests",

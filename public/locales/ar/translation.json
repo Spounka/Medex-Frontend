@@ -91,7 +91,10 @@
         "currently": "حاليًا",
         "other_image": "صورة أخرى للمنتج",
         "other_images": "صور أخرى للمنتج",
-        "other_image_tip": "يمكنك تحميل ما يصل إلى 4 صور لمنتجك"
+        "other_image_tip": "يمكنك تحميل ما يصل إلى 4 صور لمنتجك",
+        "returnable": "إمكانية الإسترجاع",
+        "returnable_question": "هل المنتج قابل للإسترجاع",
+        "returnable_dl": "أقصى فترة للاسترجاع"
     },
     "supplier_sidebar": {
         "products": "المنتجات",
@@ -217,7 +220,9 @@
             "wish": "إضافة إلى قائمة الرغبات",
             "unwish": "إزالة من قائمة الرغبات",
             "share": "مشاركة رابط المنتج",
-            "share_success": "تم نسخ الرابط إلى الحافظة"
+            "share_success": "تم نسخ الرابط إلى الحافظة",
+            "unreturnable": "المنتج غير قابل للإسترجاع",
+            "return_valid": "خلال {{days}} يوم من الشراء"
         },
         "quote_requests": {
             "all": "كل طلبات العروض",

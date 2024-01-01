@@ -7,8 +7,9 @@ import {
     MdMoneyOff,
     MdOutlinePriceChange,
     MdOutlineWarehouse,
+    MdAssignmentReturn,
 } from "react-icons/md";
-
+import { TbTruckReturn } from "react-icons/tb";
 import { LuWarehouse } from "react-icons/lu";
 
 import { useTranslation } from "react-i18next";
@@ -22,6 +23,8 @@ const ProductDetailsForm = ({
     priceRangeMax,
     stockQuantity,
     isAvailable,
+    isReturnable,
+    returnDeadline,
     updateFieldsState,
 }) => {
     const { t } = useTranslation();
@@ -64,9 +67,14 @@ const ProductDetailsForm = ({
                             id="price"
                             required
                             value={price}
-                            onChange={(e) =>
-                                updateFieldsState({ price: e.target.value })
-                            }
+                            onChange={(e) => {
+                                updateFieldsState({ price: e.target.value });
+                            }}
+                            onBlur={(e) => {
+                                if (e.target.value === "") {
+                                    updateFieldsState({ price: 0 });
+                                }
+                            }}
                         />
                     </div>
                     <div className="mb-3">
@@ -86,6 +94,11 @@ const ProductDetailsForm = ({
                             onChange={(e) =>
                                 updateFieldsState({ salePrice: e.target.value })
                             }
+                            onBlur={(e) => {
+                                if (e.target.value === "") {
+                                    updateFieldsState({ salePrice: 0 });
+                                }
+                            }}
                         />
                     </div>
                 </div>
@@ -115,6 +128,11 @@ const ProductDetailsForm = ({
                                     priceRangeMin: e.target.value,
                                 })
                             }
+                            onBlur={(e) => {
+                                if (e.target.value === "") {
+                                    updateFieldsState({ priceRangeMin: 0 });
+                                }
+                            }}
                         />
                     </div>
                     <div className="mb-3">
@@ -136,32 +154,16 @@ const ProductDetailsForm = ({
                                     priceRangeMax: e.target.value,
                                 })
                             }
+                            onBlur={(e) => {
+                                if (e.target.value === "") {
+                                    updateFieldsState({ priceRangeMax: 0 });
+                                }
+                            }}
                         />
                     </div>
                 </div>
             </div>
             <div className="row mb-5">
-                <div className="col-12 col-md-5">
-                    <label
-                        htmlFor="stockQuantity"
-                        className="form-label d-flex align-items-center gap-2"
-                    >
-                        <LuWarehouse size="1.5rem" />
-                        {t("product_form.stock")} *
-                    </label>
-                    <input
-                        type="number"
-                        min={0}
-                        className="form-control"
-                        id="stockQuantity"
-                        required
-                        value={stockQuantity}
-                        onChange={(e) =>
-                            updateFieldsState({ stockQuantity: e.target.value })
-                        }
-                    />
-                </div>
-                <div className="col-2 d-none d-md-block"></div>
                 <div className="col-12 col-md-5 d-flex flex-column justify-content-center">
                     <p className="form-label d-flex align-items-center gap-2">
                         <MdOutlineWarehouse size="1.5rem" />
@@ -188,6 +190,76 @@ const ProductDetailsForm = ({
                             {t("product_form.available_question")} ?
                         </label>
                     </div>
+                </div>
+                <div className="col-2 d-none d-md-block"></div>
+                <div className="col-12 col-md-5">
+                    <label
+                        htmlFor="stockQuantity"
+                        className="form-label d-flex align-items-center gap-2"
+                    >
+                        <LuWarehouse size="1.5rem" />
+                        {t("product_form.stock")} *
+                    </label>
+                    <input
+                        type="number"
+                        min={0}
+                        className="form-control"
+                        id="stockQuantity"
+                        required
+                        value={stockQuantity}
+                        onChange={(e) =>
+                            updateFieldsState({ stockQuantity: e.target.value })
+                        }
+                    />
+                </div>
+            </div>
+            <div className="row mb-5">
+                <div className="col-12 col-md-5 d-flex flex-column justify-content-center">
+                    <p className="form-label d-flex align-items-center gap-2">
+                        <TbTruckReturn size="1.5rem" />
+                        {t("product_form.returnable")}
+                    </p>
+                    <div className="form-check form-switch">
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="isReturnable"
+                            value={isReturnable}
+                            checked={isReturnable}
+                            onChange={(e) => {
+                                updateFieldsState({
+                                    isReturnable: e.target.checked,
+                                });
+                            }}
+                        />
+                        <label class="form-check-label" for="isReturnable">
+                            {t("product_form.returnable_question")}
+                        </label>
+                    </div>
+                </div>
+                <div className="col-2 d-none d-md-block"></div>
+                <div className="col-12 col-md-5">
+                    <label
+                        htmlFor="returnDeadline"
+                        className="form-label d-flex align-items-center gap-2"
+                    >
+                        <MdAssignmentReturn size="1.5rem" />
+                        {t("product_form.returnable_dl")}
+                    </label>
+                    <input
+                        type="number"
+                        min={0}
+                        className="form-control"
+                        id="returnDeadline"
+                        value={returnDeadline}
+                        onChange={(e) =>
+                            updateFieldsState({
+                                returnDeadline: e.target.value,
+                            })
+                        }
+                        disabled={isReturnable !== true}
+                    />
                 </div>
             </div>
             <div className="mb-5">
