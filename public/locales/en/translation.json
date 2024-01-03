@@ -206,7 +206,14 @@
             "none": "There are no offers made yet"
         },
         "order_history": {
-            "none": "There are no orders yet"
+            "none": "There are no orders yet",
+            "return": "Return Product",
+            "return_status": "Return Status",
+            "applied": "Applied",
+            "declined": "Declined by Supplier",
+            "approved": "Approved by Supplier",
+            "returned": "Return Completed",
+            "decline_reason": "Reason for decline"
         },
         "product_details": {
             "was": "Price Was",
@@ -282,6 +289,25 @@
             "already": "Already have an account",
             "not": "Not a buyer",
             "as": "Register as a"
+        },
+        "return_request": {
+            "title": "Return Product",
+            "images": "Upload Evidence",
+            "reason": "Reason For Return",
+            "reason_placeholder": "Select Reason For Return",
+            "poor": "Poor quality",
+            "wrong": "Wrong materials",
+            "address": "Shipped to a wrong address",
+            "description": "Description",
+            "description_placeholder": "I want to return this product because",
+            "images_tip": "Evidence Tips",
+            "images_tip_1": "Upload product images, videos, and chat history as supporting materials",
+            "images_tip_2": "Accepted Formats: JPEG, JPG, PNG, MP4, AVI, and WAV",
+            "images_tip_3": "Upload limit: Maximum 20 files",
+            "max_files_err": "You can upload a maximum of {{max_files}} files",
+            "file_type_err": "Invalid file extension. Only JPG, JPEG, PNG, MP4, AVI, and WAV files are allowed",
+            "success": "You have successfully requested to return this product. Please wait for the supplier approval / denial",
+            "exists": "You can only request returning a product once"
         }
     },
     "shared": {

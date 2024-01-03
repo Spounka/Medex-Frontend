@@ -166,7 +166,7 @@ const ProductImagesForm = ({
                         className="form-label d-flex align-items-center gap-2"
                     >
                         <BsImages size="1.5rem" />
-                        {t("other_images")}
+                        {t("product_form.other_images")}
                     </label>
                     <input
                         type="file"

@@ -358,7 +358,7 @@ const Header = () => {
                                         </li>
                                         <li className="nav-item">
                                             <Link
-                                                to="cart"
+                                                to="/cart"
                                                 className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue position-relative"
                                             >
                                                 <svg
@@ -622,9 +622,6 @@ const Header = () => {
                                                                                     e
                                                                                         .target
                                                                                         .value
-                                                                                );
-                                                                                testEmpty(
-                                                                                    parentSlug
                                                                                 );
                                                                             }}
                                                                         />

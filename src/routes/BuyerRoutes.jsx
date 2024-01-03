@@ -35,6 +35,7 @@ import BuyerProtectedRoutes from "../utils/BuyerProtectedRoutes";
 
 import AuthContext from "../context/AuthContext";
 import OrderHistory from "../pages/Buyer/OrderHistory";
+import RequestRefund from "../pages/Buyer/RequestRefund";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -135,6 +136,8 @@ const BuyerRoutes = () => {
                             path="order-history"
                             element={<OrderHistory />}
                         />
+                        <Route path="return/:id" element={<RequestRefund />} />
+
                         <Route path="quotes" element={<QuoteList />} />
                         <Route
                             path="request-for-quote"

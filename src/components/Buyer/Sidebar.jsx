@@ -65,7 +65,7 @@ const Sidebar = (props) => {
                                     </span>
                                 </Link>
                                 <Link
-                                    to="/account/request-for-quote"
+                                    to="/account/dashboard/request-for-quote"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
                                     <MdRequestQuote size="1.5rem" />

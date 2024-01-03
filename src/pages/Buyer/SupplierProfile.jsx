@@ -6,6 +6,10 @@ import axios from "axios";
 import Header from "../../components/Buyer/shared/Header";
 import Footer from "../../components/Buyer/shared/Footer";
 
+import MobileNavigation from "../../components/Buyer/shared/MobileNavigation";
+
+import { ToastContainer } from "react-toastify";
+
 import userImage from "../../assets/images/user.png";
 
 import {
@@ -22,21 +26,29 @@ import {
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
+import ProductCart from "../../components/Buyer/shared/ProductCard";
+
+import { CartContext } from "../../context/CartContext";
+
 const SupplierProfile = () => {
     const { t } = useTranslation();
+
+    const { addToCart } = useContext(CartContext);
 
     const { user } = useContext(AuthContext);
 
     const location = useLocation();
-    const [supplier, setSupplier] = useState({});
 
     const navigate = useNavigate();
 
     const params = useParams();
 
-    const getSupplier = async () => {
-        const supplierID = params?.id;
+    const supplierID = params?.id;
 
+    const [supplier, setSupplier] = useState({});
+    const [supplierProducts, setSupplierProducts] = useState({});
+
+    const getSupplier = async () => {
         if (supplierID == user?.user_id) {
             navigate("/supplier/account/profile");
         }
@@ -53,20 +65,37 @@ const SupplierProfile = () => {
                     }/api/account/profile/${supplierID}`
                 );
                 setSupplier(response.data);
-                console.log(response);
             } catch (err) {
                 navigate("/not-found/");
             }
         }
     };
 
+    const getSupplierProducts = async () => {
+        await axios
+            .get(
+                `${
+                    import.meta.env.VITE_BACKEND_URL
+                }/api/product/product/by-supplier/${supplierID}/`
+            )
+            .then((res) => {
+                setSupplierProducts(res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
     useEffect(() => {
         getSupplier();
+        getSupplierProducts();
     }, []);
 
     return (
         <>
             <Header />
+            <MobileNavigation />
+            <ToastContainer newestOnTop={true} />
             <main>
                 <section className="container py-3">
                     <div className="row">
@@ -265,6 +294,32 @@ const SupplierProfile = () => {
                         </div>
                     </div>
                 </section>
+                <div className="container py-5">
+                    <div className="row">
+                        {supplierProducts.length > 0 ? (
+                            supplierProducts.map((product) => {
+                                return (
+                                    <div
+                                        className="col-6 col-md-3 py-3"
+                                        key={product.sku}
+                                    >
+                                        <ProductCart
+                                            product={product}
+                                            cart={true}
+                                            addToCart={addToCart}
+                                        />
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div className="col-12 py-5">
+                                <p className="text-center">
+                                    {t("buyer_pages.home.none")}!
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </main>
             <Footer />
         </>

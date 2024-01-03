@@ -8,6 +8,8 @@ import {
     MdAccessTime,
 } from "react-icons/md";
 import { BsTruck } from "react-icons/bs";
+import { GiReturnArrow } from "react-icons/gi";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -30,6 +32,7 @@ const OrderHistory = () => {
             .then((res) => {
                 setOrderItems(res.data.results.results);
                 setTotalPages(Math.ceil(res.data.count / 20));
+                console.log(res.data.results.results);
             });
     };
 
@@ -92,21 +95,51 @@ const OrderHistory = () => {
                                                             )}
                                                         </small>
                                                     </div>
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary btn-sm mt-3 d-flex align-items-center gap-2"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target={`#orderModal-${order.id}`}
-                                                    >
-                                                        <BsTruck size="1.2rem" />
-                                                        {t(
-                                                            "supplier_pages.order_details.status"
+
+                                                    <div className="d-flex align-items-center gap-4">
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary btn-sm mt-3 d-flex align-items-center gap-2"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target={`#orderModal-${order.id}`}
+                                                        >
+                                                            <BsTruck size="1.2rem" />
+                                                            {t(
+                                                                "supplier_pages.order_details.status"
+                                                            )}
+                                                        </button>
+
+                                                        {order.is_return_requested ? (
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-outline-primary btn-sm mt-3 d-flex align-items-center gap-2"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target={`#returnOrderModal-${order.id}`}
+                                                            >
+                                                                <GiReturnArrow size="1.2rem" />
+                                                                {t(
+                                                                    "buyer_pages.order_history.return_status"
+                                                                )}
+                                                            </button>
+                                                        ) : (
+                                                            order.is_returnable && (
+                                                                <Link
+                                                                    to={`/account/dashboard/return/${order.id}`}
+                                                                    className="btn btn-outline-primary btn-sm mt-3 d-flex align-items-center gap-2"
+                                                                >
+                                                                    <GiReturnArrow size="1.2rem" />
+                                                                    {t(
+                                                                        "buyer_pages.order_history.return"
+                                                                    )}
+                                                                </Link>
+                                                            )
                                                         )}
-                                                    </button>
+                                                    </div>
+
                                                     <div
                                                         className="modal fade"
                                                         id={`orderModal-${order.id}`}
-                                                        tabindex="-1"
+                                                        tabIndex="-1"
                                                         aria-labelledby={`orderModal-${order.id}`}
                                                         aria-hidden="true"
                                                     >
@@ -211,6 +244,168 @@ const OrderHistory = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        className="modal fade"
+                                                        id={`returnOrderModal-${order.id}`}
+                                                        tabIndex="-1"
+                                                        aria-labelledby={`returnOrderModal-${order.id}`}
+                                                        aria-hidden="true"
+                                                    >
+                                                        <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+                                                            <div className="modal-content">
+                                                                <div className="modal-body px-5 pt-4">
+                                                                    <div className="step-indicator mb-5">
+                                                                        <div className="step step1 active">
+                                                                            <div className="step-icon">
+                                                                                1
+                                                                            </div>
+                                                                            <p>
+                                                                                {t(
+                                                                                    "buyer_pages.order_history.applied"
+                                                                                )}
+                                                                            </p>
+                                                                        </div>
+
+                                                                        {order?.status !==
+                                                                        "DEC" ? (
+                                                                            <>
+                                                                                <div
+                                                                                    className={`indicator-line ${
+                                                                                        order?.status ===
+                                                                                            "APR" ||
+                                                                                        order?.status ===
+                                                                                            "OTW" ||
+                                                                                        order?.status ===
+                                                                                            "CMP"
+                                                                                            ? "active"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                ></div>
+                                                                                <div
+                                                                                    className={`step step2 ${
+                                                                                        order?.status ===
+                                                                                            "APR" ||
+                                                                                        order?.status ===
+                                                                                            "OTW" ||
+                                                                                        order?.status ===
+                                                                                            "CMP"
+                                                                                            ? "active"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                >
+                                                                                    <div className="step-icon">
+                                                                                        2
+                                                                                    </div>
+                                                                                    <p className="stepper__text-2">
+                                                                                        {t(
+                                                                                            "buyer_pages.order_history.approved"
+                                                                                        )}
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div
+                                                                                    className={`indicator-line ${
+                                                                                        order?.status ===
+                                                                                            "OTW" ||
+                                                                                        order?.status ===
+                                                                                            "CMP"
+                                                                                            ? "active"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                ></div>
+                                                                                <div
+                                                                                    className={`step step3 ${
+                                                                                        order?.status ===
+                                                                                            "OTW" ||
+                                                                                        order?.status ===
+                                                                                            "CMP"
+                                                                                            ? "active"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                >
+                                                                                    <div className="step-icon">
+                                                                                        3
+                                                                                    </div>
+                                                                                    <p>
+                                                                                        {t(
+                                                                                            "supplier_pages.order_details.otw"
+                                                                                        )}
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div
+                                                                                    className={`indicator-line ${
+                                                                                        order?.status ==
+                                                                                            "CMP" &&
+                                                                                        "active"
+                                                                                    }`}
+                                                                                ></div>
+                                                                                <div
+                                                                                    className={`step step4 ${
+                                                                                        order?.status ==
+                                                                                            "CMP" &&
+                                                                                        "active"
+                                                                                    }`}
+                                                                                >
+                                                                                    <div className="step-icon">
+                                                                                        4
+                                                                                    </div>
+                                                                                    <p>
+                                                                                        {t(
+                                                                                            "buyer_pages.order_history.returned"
+                                                                                        )}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <div
+                                                                                    className={`indicator-line ${
+                                                                                        order?.status ===
+                                                                                        "DEC"
+                                                                                            ? "bg-danger"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                ></div>
+                                                                                <div className="step step2">
+                                                                                    <div
+                                                                                        className={`step-icon ${
+                                                                                            order?.status ===
+                                                                                            "DEC"
+                                                                                                ? "bg-danger"
+                                                                                                : ""
+                                                                                        }`}
+                                                                                    >
+                                                                                        2
+                                                                                    </div>
+                                                                                    <p className="stepper__text-2 text-danger">
+                                                                                        {t(
+                                                                                            "buyer_pages.order_history.declined"
+                                                                                        )}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                                {order?.status ===
+                                                                    "DEC" && (
+                                                                    <div className="modal-footer align-items-start flex-column">
+                                                                        <h6 className="d-flex gap-2 align-items-center">
+                                                                            <FaExclamationTriangle />
+                                                                            {t(
+                                                                                "buyer_pages.order_history.decline_reason"
+                                                                            )}
+                                                                        </h6>
+                                                                        <p>
+                                                                            {
+                                                                                order?.decline_reason
+                                                                            }
+                                                                        </p>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>

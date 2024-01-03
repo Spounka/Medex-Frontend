@@ -25,6 +25,8 @@ const Chat = () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + "/api/chat/")
             .then((res) => {
+                console.log(res.data);
+
                 setThreadsList(res.data);
             });
     };
@@ -149,7 +151,7 @@ const Chat = () => {
                                                                           .first
                                                                           .full_name}
                                                             </h3>
-                                                            <p className="text-black m-0 px-0 px-md-1 chat__user-message">
+                                                            <p className="text-muted m-0 px-0 px-md-1 chat__user-message pt-2">
                                                                 {
                                                                     thread
                                                                         ?.last_message
