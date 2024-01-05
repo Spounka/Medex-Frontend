@@ -21,7 +21,7 @@ const RequestRefund = () => {
     const { t } = useTranslation();
     const [reason, setReason] = useState("");
     const [description, setDescription] = useState("");
-    const [images, setImages] = useState([]);
+    const [files, setFiles] = useState([]);
     const multiFileRef = useRef();
 
     const api = useAxios();
@@ -50,7 +50,7 @@ const RequestRefund = () => {
             toast.error(t("buyer_pages.return_request.file_type_err"));
             multiFileRef.current.value = null;
         } else {
-            setImages(selectedFiles);
+            setFiles(selectedFiles);
         }
     };
 
@@ -63,7 +63,7 @@ const RequestRefund = () => {
                 {
                     reason: reason,
                     description: "description",
-                    images: images,
+                    files: files,
                 }
             )
             .then((res) => {
@@ -163,7 +163,7 @@ const RequestRefund = () => {
 
                         <div className="mb-5">
                             <label
-                                htmlFor="images"
+                                htmlFor="fiels"
                                 className="form-label d-flex align-items-center gap-2"
                             >
                                 <BsImages size="1.5rem" />

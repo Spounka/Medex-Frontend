@@ -106,7 +106,8 @@
         "quote_requests": "Quote Requests",
         "offers_list": "Offers List",
         "language": "Language",
-        "tracking": "Shipment Tracking"
+        "tracking": "Shipment Tracking",
+        "return_requests": "Return Requests"
     },
     "auth_context": {
         "login_successful": "You have logged in successfully",
@@ -293,6 +294,7 @@
         "return_request": {
             "title": "Return Product",
             "images": "Upload Evidence",
+            "evidence": "Evidence",
             "reason": "Reason For Return",
             "reason_placeholder": "Select Reason For Return",
             "poor": "Poor quality",
@@ -446,6 +448,20 @@
             "de": "Delivered",
             "next": "Advance Shipment",
             "success": "The shipment has successfully progressed to the next step"
+        },
+        "return_list": {
+            "none": "There are no products requested to be returned yet"
+        },
+        "return_request": {
+            "approve": "Approve Return Request",
+            "decline": "Decline Return Request",
+            "reason": "Reason for decline",
+            "reason_placeholder": "Enter the reason for decline",
+            "approve_success": "You have successfully approved to refund this product",
+            "decline_success": "You have successfully declined to refund this product",
+            "status": "Request Status",
+            "decline_msg": "You have declined this return request",
+            "approve_msg": "You have approved this return request"
         }
     }
 }

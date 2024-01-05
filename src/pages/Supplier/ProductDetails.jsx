@@ -56,8 +56,7 @@ const ProductDetails = () => {
                 );
                 setProduct(response.data);
             } catch (err) {
-                console.log(err);
-                // navigate("/not-found/");
+                navigate("/not-found/");
             }
         }
     };
