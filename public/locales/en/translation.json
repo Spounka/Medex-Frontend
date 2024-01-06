@@ -368,7 +368,9 @@
             "att_hint": "Hint: You can attach relevant images or PDF files here to specify your sourcing needs",
             "consent": "I understand and agree to abide by the buying request posting rules",
             "submit": "Invite Suppliers To Quote",
-            "due_date": "Due Date and Time"
+            "due_date": "Due Date and Time",
+            "supplier": "Target Supplier",
+            "supplier_hint": "Select a specific supplier if you want to get a quote for your request by them only"
         }
     },
     "supplier_pages": {
