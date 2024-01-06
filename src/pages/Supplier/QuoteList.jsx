@@ -24,6 +24,7 @@ import {
     BsCalendarDate,
     BsGlobeEuropeAfrica,
     BsSignpost2,
+    BsCalendar2Date,
 } from "react-icons/bs";
 import { TfiLocationArrow } from "react-icons/tfi";
 
@@ -59,15 +60,15 @@ const QuoteList = () => {
     const [brand, setBrand] = useState([]);
     const [notes, setNotes] = useState([]);
     const [quantity, setQuantity] = useState([]);
-    const [productPrice, setProductPrice] = useState([]);
-    const [totalPrice, setTotalPrice] = useState([]);
+    const [productPrice, setProductPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [country, setCountry] = useState({});
     const [state, setState] = useState({});
     const [city, setCity] = useState({});
     const [postalCode, setPostalCode] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
-    const [tax, setTax] = useState([]);
+    const [tax, setTax] = useState(0);
     const [deliveryDate, setDeliveryDate] = useState([]);
     const [paymentType, setPaymentType] = useState([]);
 
@@ -97,6 +98,18 @@ const QuoteList = () => {
         getQuotes();
         fetchBrands();
     }, []);
+
+    useEffect(() => {
+        const calculateTotalPrice = () => {
+            const price = parseFloat(productPrice);
+            const taxPercentage = parseFloat(tax) / 100;
+            const taxAmount = price * taxPercentage;
+            const total = price + taxAmount;
+            setTotalPrice(total.toFixed(2));
+        };
+
+        calculateTotalPrice();
+    }, [productPrice, tax]);
 
     const handleSubmit = async (e, quote) => {
         e.preventDefault();
@@ -360,6 +373,20 @@ const QuoteList = () => {
                                                                 }{" "}
                                                                 {t("ago")}
                                                             </li>
+                                                            <li className="list-group-item d-flex align-items-center gap-2">
+                                                                <BsCalendar2Date />
+                                                                {t(
+                                                                    "shared.rfq.due_date"
+                                                                )}
+                                                                : &nbsp;
+                                                                {
+                                                                    quote.due_date_display
+                                                                }{" "}
+                                                                -{" "}
+                                                                {
+                                                                    quote.due_time_display
+                                                                }
+                                                            </li>
                                                             {quote?.attachments
                                                                 .length > 0 &&
                                                                 quote.attachments.map(
@@ -538,6 +565,7 @@ const QuoteList = () => {
                                                                                     }}
                                                                                 />
                                                                             </div>
+
                                                                             <div className="mb-3">
                                                                                 <label
                                                                                     htmlFor="product_price"
@@ -568,43 +596,6 @@ const QuoteList = () => {
                                                                                         e
                                                                                     ) =>
                                                                                         setProductPrice(
-                                                                                            e
-                                                                                                .target
-                                                                                                .value
-                                                                                        )
-                                                                                    }
-                                                                                />
-                                                                            </div>
-                                                                            <div className="mb-3">
-                                                                                <label
-                                                                                    htmlFor="product_total_price"
-                                                                                    className="form-label d-flex align-items-center gap-2"
-                                                                                >
-                                                                                    <GrMoney size="1.4rem" />
-                                                                                    {t(
-                                                                                        "supplier_pages.quote_list.price_tot"
-                                                                                    )}
-
-                                                                                    *
-                                                                                </label>
-                                                                                <input
-                                                                                    type="number"
-                                                                                    min={
-                                                                                        0
-                                                                                    }
-                                                                                    id="product_total_price"
-                                                                                    className="form-control"
-                                                                                    placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.price_tot_plc"
-                                                                                    )}...`}
-                                                                                    required
-                                                                                    value={
-                                                                                        totalPrice
-                                                                                    }
-                                                                                    onChange={(
-                                                                                        e
-                                                                                    ) =>
-                                                                                        setTotalPrice(
                                                                                             e
                                                                                                 .target
                                                                                                 .value
@@ -646,6 +637,43 @@ const QuoteList = () => {
                                                                                         e
                                                                                     ) =>
                                                                                         setTax(
+                                                                                            e
+                                                                                                .target
+                                                                                                .value
+                                                                                        )
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                            <div className="mb-3">
+                                                                                <label
+                                                                                    htmlFor="product_total_price"
+                                                                                    className="form-label d-flex align-items-center gap-2"
+                                                                                >
+                                                                                    <GrMoney size="1.4rem" />
+                                                                                    {t(
+                                                                                        "supplier_pages.quote_list.price_tot"
+                                                                                    )}
+
+                                                                                    *
+                                                                                </label>
+                                                                                <input
+                                                                                    type="number"
+                                                                                    min={
+                                                                                        0
+                                                                                    }
+                                                                                    id="product_total_price"
+                                                                                    className="form-control"
+                                                                                    placeholder={`${t(
+                                                                                        "supplier_pages.quote_list.price_tot_plc"
+                                                                                    )}...`}
+                                                                                    required
+                                                                                    value={
+                                                                                        totalPrice
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        e
+                                                                                    ) =>
+                                                                                        setTotalPrice(
                                                                                             e
                                                                                                 .target
                                                                                                 .value

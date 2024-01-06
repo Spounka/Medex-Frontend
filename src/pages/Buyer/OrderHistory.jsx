@@ -306,7 +306,7 @@ const OrderHistory = () => {
                                                                                         )}
                                                                                     </p>
                                                                                 </div>
-                                                                                <div
+                                                                                {/* <div
                                                                                     className={`indicator-line ${
                                                                                         order?.status ===
                                                                                             "OTW" ||
@@ -357,7 +357,7 @@ const OrderHistory = () => {
                                                                                             "buyer_pages.order_history.returned"
                                                                                         )}
                                                                                     </p>
-                                                                                </div>
+                                                                                </div> */}
                                                                             </>
                                                                         ) : (
                                                                             <>

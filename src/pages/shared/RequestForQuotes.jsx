@@ -61,6 +61,7 @@ const RequestForQuotes = () => {
         formData.append("product", e.target.product.value);
         formData.append("quantity", e.target.quantity.value);
         formData.append("unit", e.target.unit.value);
+        formData.append("due_date", e.target.due_date.value);
         formData.append("requirements", e.target.requirements.value);
         const fileInput = e.target.attachments;
         for (let i = 0; i < fileInput.files.length; i++) {
@@ -79,6 +80,7 @@ const RequestForQuotes = () => {
                 e.target.unit.value = "piece";
                 e.target.quantity.value = "";
                 e.target.requirements.value = "";
+                e.target.due_date.value = "";
                 e.target.agree.checked = false;
                 handleReset();
                 onClear();
@@ -264,6 +266,20 @@ const RequestForQuotes = () => {
                                     >
                                         {TEXT_MAX}
                                     </span>
+                                </div>
+                                <div className="mb-4 position-relative">
+                                    <label
+                                        htmlFor="due_date"
+                                        className="form-label"
+                                    >
+                                        {t("shared.rfq.due_date")} *
+                                    </label>
+                                    <input
+                                        type="datetime-local"
+                                        name="due_date"
+                                        className="form-control"
+                                        required
+                                    />
                                 </div>
                                 <div className="mb-4">
                                     <label
