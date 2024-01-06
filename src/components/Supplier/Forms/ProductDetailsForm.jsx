@@ -210,6 +210,7 @@ const ProductDetailsForm = ({
                         onChange={(e) =>
                             updateFieldsState({ stockQuantity: e.target.value })
                         }
+                        disabled={isAvailable !== true}
                     />
                 </div>
             </div>
