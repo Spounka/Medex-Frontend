@@ -280,6 +280,12 @@ const QuoteList = () => {
                                 {t("buyer_pages.quote_requests.added")}: &nbsp;
                                 {quote.created_since} {t("ago")}
                               </li>
+                              <li className="list-group-item d-flex align-items-center gap-2">
+                                <BsCalendar2Date />
+                                {t("shared.rfq.due_date")}: &nbsp;
+                                {quote.due_date_display} -{" "}
+                                {quote.due_time_display}
+                              </li>
                               {quote?.attachments.length > 0 &&
                                 quote.attachments.map((attachment, index) => {
                                   return (
