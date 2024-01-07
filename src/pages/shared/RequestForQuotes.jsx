@@ -136,7 +136,7 @@ const RequestForQuotes = () => {
 
                     <div className="row">
                         <div
-                            className={`mt-5 col-12 col-md-7 ${
+                            className={`mt-5 col-12 px-4 ${
                                 window.location.href.indexOf("supplier") ===
                                     -1 &&
                                 window.location.href.indexOf("dashboard") === -1

@@ -1,5 +1,5 @@
 {
-    "home": "الصفحة الرئيسية",
+    "home": "الرئيسية",
     "all_categories": "جميع الفئات",
     "all_brands": "جميع العلامات التجارية",
     "all_products": "جميع المنتجات",
@@ -50,8 +50,8 @@
     },
     "header": {
         "search_product": "ابحث عن المنتج هنا",
-        "favorite": "المفضلة",
-        "wishlist": "قائمة الرغبات",
+        "wishlist": "المفضلة",
+        "favorite": "القائمة",
         "your": "حسابك",
         "your_profile": "ملفك الشخصي",
         "account": "الشخصي",

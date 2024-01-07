@@ -120,7 +120,13 @@ const ProductDetails = () => {
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <div className="details__image-container shadow">
-                                <img src={product.thumbnail} alt="Product" />
+                                <img
+                                    src={
+                                        import.meta.env.VITE_BACKEND_URL +
+                                        product.thumbnail
+                                    }
+                                    alt="Product"
+                                />
                             </div>
 
                             <div className="detail__other-images">
@@ -168,7 +174,7 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="col-12 col-md-6 mt-4 mt-md-0">
-                            <div className="card shadow">
+                            <div className="card">
                                 <div className="card-body">
                                     <p className="text-muted d-flex align-items-center gap-2">
                                         <AiOutlineSafetyCertificate size="1.1rem" />
@@ -283,7 +289,7 @@ const ProductDetails = () => {
                                     </span>
 
                                     <button
-                                        onClick={() => shareProduct(t)}
+                                        onClick={shareProduct}
                                         className="btn shadow mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
                                     >
                                         <BsShare size="1.3rem" />

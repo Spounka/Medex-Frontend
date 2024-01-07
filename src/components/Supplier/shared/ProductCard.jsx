@@ -8,7 +8,7 @@ const ProductCard = (props) => {
     const { product, buttonLink, buttonIcon, buttonText } = props;
 
     return (
-        <div className="card rounded-3 shadow position-relative ">
+        <div className="card rounded-3 position-relative ">
             <Link
                 to={`/supplier/products/${product.sku}`}
                 state={{ product: product }}

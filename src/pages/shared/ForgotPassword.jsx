@@ -51,7 +51,7 @@ const ForgotPassword = () => {
                     <div className="row mt-5">
                         <div className="col-12 col-md-6 mx-auto">
                             <div className="d-flex justify-content-center align-items-center">
-                                <div className="card login__card shadow rounded-3">
+                                <div className="card login__card rounded-3">
                                     <div className="card-body">
                                         <h3 className="card-title login__title text-center">
                                             {t("shared.forgot.title")}?

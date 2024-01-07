@@ -36,7 +36,7 @@ const Sidebar = (props) => {
         <aside
             className={`p-0 mt-5 pt-2 dashboard__sidebar-container ${
                 menuOpen && "dashboard__sidebar-container-visible"
-            }`}
+            } ${i18n.resolvedLanguage == 'en' ? '' : 'ar'}`}
         >
             <div className="d-flex flex-column align-items-start text-white">
                 <ul
