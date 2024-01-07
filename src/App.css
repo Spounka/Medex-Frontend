@@ -1471,7 +1471,7 @@ footer {
 
     .dashboard__sidebar-container {
         top: 0;
-        left: -300px;
+        left: -320px;
     }
 
   .dashboard__orders-list {
@@ -1490,7 +1490,7 @@ footer {
     .buyer__dashboard-sidebar-container {
         position: fixed;
         top: 0;
-        left: -400px;
+        left: -450px;
         z-index: 1000 !important;
         height: 100dvh;
         background-color: white;

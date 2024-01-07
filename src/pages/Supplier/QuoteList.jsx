@@ -21,9 +21,10 @@ import { BiMoneyWithdraw } from "react-icons/bi";
 import { GrMoney, GrNote } from "react-icons/gr";
 import { RiSendPlaneLine } from "react-icons/ri";
 import {
-  BsCalendarDate,
-  BsGlobeEuropeAfrica,
-  BsSignpost2,
+    BsCalendarDate,
+    BsGlobeEuropeAfrica,
+    BsSignpost2,
+    BsCalendar2Date,
 } from "react-icons/bs";
 import { TfiLocationArrow } from "react-icons/tfi";
 
@@ -56,20 +57,20 @@ const QuoteList = () => {
   const [quotes, setQuotes] = useState({});
   const [selectedQuote, setSelectedQuote] = useState("");
 
-  const [brand, setBrand] = useState([]);
-  const [notes, setNotes] = useState([]);
-  const [quantity, setQuantity] = useState([]);
-  const [productPrice, setProductPrice] = useState([]);
-  const [totalPrice, setTotalPrice] = useState([]);
-  const [country, setCountry] = useState({});
-  const [state, setState] = useState({});
-  const [city, setCity] = useState({});
-  const [postalCode, setPostalCode] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [tax, setTax] = useState([]);
-  const [deliveryDate, setDeliveryDate] = useState([]);
-  const [paymentType, setPaymentType] = useState([]);
+    const [brand, setBrand] = useState([]);
+    const [notes, setNotes] = useState([]);
+    const [quantity, setQuantity] = useState([]);
+    const [productPrice, setProductPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [country, setCountry] = useState({});
+    const [state, setState] = useState({});
+    const [city, setCity] = useState({});
+    const [postalCode, setPostalCode] = useState("");
+    const [address1, setAddress1] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [tax, setTax] = useState(0);
+    const [deliveryDate, setDeliveryDate] = useState([]);
+    const [paymentType, setPaymentType] = useState([]);
 
   const [showDownloadBtn, setShowDownloadBtn] = useState(false);
   const [offerInvoice, setOfferInvoice] = useState({});

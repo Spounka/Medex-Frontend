@@ -119,9 +119,11 @@ const ProductDetails = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <div className="details__image-container">
+                            <div className="details__image-container shadow">
                                 <img
-                                    src={product.thumbnail
+                                    src={
+                                        import.meta.env.VITE_BACKEND_URL +
+                                        product.thumbnail
                                     }
                                     alt="Product"
                                 />
@@ -288,7 +290,7 @@ const ProductDetails = () => {
 
                                     <button
                                         onClick={shareProduct}
-                                        className="btn mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
+                                        className="btn shadow mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
                                     >
                                         <BsShare size="1.3rem" />
                                         {t("buyer_pages.product_details.share")}

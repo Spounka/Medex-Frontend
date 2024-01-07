@@ -358,7 +358,7 @@ const Header = () => {
                                         </li>
                                         <li className="nav-item">
                                             <Link
-                                                to="cart"
+                                                to="/cart"
                                                 className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue position-relative"
                                             >
                                                 <svg
@@ -630,9 +630,6 @@ const Header = () => {
                                                                                         .target
                                                                                         .value
                                                                                 );
-                                                                                testEmpty(
-                                                                                    parentSlug
-                                                                                );
                                                                             }}
                                                                         />
                                                                     </div>
@@ -708,14 +705,21 @@ const openTab = (evt, categoryName) => {
     cat.style.alignContent = "start";
     cat.style.rowGap = "15px";
 
-    // Add "active" class to the clicked tab link
-    evt.currentTarget.className += " active";
+    if (cat) {
+        cat.style.display = "grid";
+        cat.style.gridTemplateColumns = "repeat(4, 1fr)";
+        cat.style.justifyItems = "center";
+        cat.style.alignContent = "start";
+        cat.style.rowGap = "15px";
 
-    // Set the first child element (search input) to occupy the entire row width
-    const firstChild = cat.firstElementChild;
+        // Add "active" class to the clicked tab link
+        evt.currentTarget.className += " active";
 
-    firstChild.style.gridColumn = "1 / span 4";
-  }
-};
+        // Set the first child element (search input) to occupy the entire row width
+        const firstChild = cat.firstElementChild;
+
+        firstChild.style.gridColumn = "1 / span 4";
+    }
+};}
 
 export default Header;
