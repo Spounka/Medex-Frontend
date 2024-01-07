@@ -8,7 +8,6 @@ import { MdOutlineClear, MdOutlineTextSnippet } from "react-icons/md";
 import { toast } from "react-toastify";
 
 import useAxios from "../../utils/useAxios";
-
 import { validateFileExtensions } from "../../utils/ValidateFiles";
 
 const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "mp4", "avi", "wav"];
@@ -66,18 +65,19 @@ const RequestRefund = () => {
                     files: files,
                 }
             )
-            .then((res) => {
+            .then(() => {
+                setReason("");
+                setDescription("");
+                multiFileRef.current.value = null;
+
                 toast.success(t("buyer_pages.return_request.success"));
             })
             .catch((err) => {
                 if (err?.response?.data?.error == "exists") {
                     toast.error(t("buyer_pages.return_request.exists"));
                 }
+                console.log(err);
             });
-
-        setReason("");
-        setDescription("");
-        multiFileRef.current.value = null;
     };
 
     return (

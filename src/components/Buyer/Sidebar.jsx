@@ -9,6 +9,7 @@ import {
 import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { IoStatsChart } from "react-icons/io5";
 
 const Sidebar = (props) => {
     const { t } = useTranslation();
@@ -73,6 +74,18 @@ const Sidebar = (props) => {
                                 </Link>
                             </li>
                         </ul>
+                    </li>
+
+                    <li>
+                        <Link
+                            to="/account/dashboard/statistics"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <IoStatsChart size="1.5rem" />
+                            <span className="ms-1">
+                                {t("buyer_sidebar.stats")}
+                            </span>
+                        </Link>
                     </li>
 
                     <li>

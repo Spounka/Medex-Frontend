@@ -67,7 +67,8 @@
         "my_quotes": "My Quote Requests",
         "messages": "Messages",
         "settings": "Settings",
-        "my_profile": "My Profile"
+        "my_profile": "My Profile",
+        "stats": "My Statistics"
     },
     "product_form": {
         "category": "Product Category",
@@ -102,6 +103,7 @@
         "create_product": "Create Product",
         "update_product": "Update Product",
         "sales": "Sales",
+        "all_sales": "All Sales",
         "quotes": "Quotes",
         "quote_requests": "Quote Requests",
         "offers_list": "Offers List",
@@ -154,7 +156,7 @@
             "success": "You have successfully completed your purchase! Thank you",
             "your_cart": "Your Cart",
             "bill_address": "Billing Address",
-            "same": "Shipping address is the same as my billing address",
+            "same": "Billing address is the same as my shipping address",
             "payment": "Payment",
             "cash": "Cash On Delivery",
             "finish": "Finish Checkout Process",
@@ -310,6 +312,14 @@
             "file_type_err": "Invalid file extension. Only JPG, JPEG, PNG, MP4, AVI, and WAV files are allowed",
             "success": "You have successfully requested to return this product. Please wait for the supplier approval / denial",
             "exists": "You can only request returning a product once"
+        },
+        "statistics": {
+            "title": "My Statistics",
+            "yearly_payments": "Yearly Payments",
+            "yearly_purchases": "Yearly Purchases",
+            "return_request": "Returned Orders",
+            "rfq": "Accepted Quote Offers",
+            "categories": "Ordered Categories"
         }
     },
     "shared": {
@@ -422,8 +432,8 @@
             "del": "Delete Product",
             "del_msg": "Are you sure that you want to delete this product"
         },
-        "order_list": {
-            "title": "Recent Order List"
+        "sales_list": {
+            "title": "Recent Sales List"
         },
         "dashboard": {
             "title": "Dashboard",

@@ -20,8 +20,8 @@ Chart.register(
     Legend
 );
 
-const YearlySales = (props) => {
-    const { months, yearlySales } = props;
+const YearlyPayments = (props) => {
+    const { months, yearlyPayments } = props;
 
     const getGradient = (ctx, chartArea) => {
         let gradient, width, height;
@@ -49,8 +49,8 @@ const YearlySales = (props) => {
         labels: months,
         datasets: [
             {
-                data: yearlySales,
-                label: "Monthly Sales (S.A.R)",
+                data: yearlyPayments,
+                label: "Monthly Payments (S.A.R)",
                 borderColor: function (context) {
                     const chart = context.chart;
                     const { ctx, chartArea } = chart;
@@ -115,4 +115,4 @@ const YearlySales = (props) => {
     );
 };
 
-export default YearlySales;
+export default YearlyPayments;

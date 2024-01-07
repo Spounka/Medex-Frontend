@@ -32,7 +32,6 @@ const OrderHistory = () => {
             .then((res) => {
                 setOrderItems(res.data.results.results);
                 setTotalPages(Math.ceil(res.data.count / 20));
-                console.log(res.data.results.results);
             });
     };
 

@@ -36,6 +36,7 @@ import BuyerProtectedRoutes from "../utils/BuyerProtectedRoutes";
 import AuthContext from "../context/AuthContext";
 import OrderHistory from "../pages/Buyer/OrderHistory";
 import RequestRefund from "../pages/Buyer/RequestRefund";
+import Statistics from "../pages/Buyer/Statistics";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -144,6 +145,8 @@ const BuyerRoutes = () => {
                             element={<RequestForQuotes />}
                         />
                         <Route path="chat" element={<Chat />} />
+
+                        <Route path="statistics" element={<Statistics />} />
                     </Route>
                 </Route>
             </Route>

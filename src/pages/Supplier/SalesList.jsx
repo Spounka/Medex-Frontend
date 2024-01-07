@@ -40,7 +40,7 @@ const OrderList = () => {
                 <div className="container-fluid">
                     <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
                         <AiOutlineFieldTime size="2.5rem" />
-                        {t("supplier_pages.order_list.title")}
+                        {t("supplier_pages.sales_list.title")}
                     </h2>
                     <div className="row">
                         {orderItems.length > 0 ? (
@@ -126,7 +126,7 @@ const OrderList = () => {
                                                         </td>
                                                         <td className="text-nowrap">
                                                             <Link
-                                                                to={`/supplier/order/${order?.id}`}
+                                                                to={`/supplier/sales/${order?.id}`}
                                                                 state={{
                                                                     order: order,
                                                                 }}
