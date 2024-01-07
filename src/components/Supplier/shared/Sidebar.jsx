@@ -6,6 +6,7 @@ import {
     MdRequestQuote,
     MdListAlt,
     MdList,
+    MdOutlinePointOfSale,
 } from "react-icons/md";
 import {
     BiSolidDownArrow,
@@ -17,6 +18,7 @@ import {
     TbDatabaseEdit,
     TbDatabaseSearch,
     TbLanguage,
+    TbTruckReturn,
 } from "react-icons/tb";
 import { BsGearFill, BsTruck } from "react-icons/bs";
 import { LuTextQuote } from "react-icons/lu";
@@ -96,6 +98,57 @@ const Sidebar = (props) => {
 
                     <li>
                         <Link
+                            to="#sales"
+                            data-bs-toggle="collapse"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <MdListAlt size="1.5rem" />
+                            <span className="ms-1">
+                                {t("supplier_sidebar.sales")}
+                            </span>
+                            <BiSolidDownArrow size=".5rem" />
+                        </Link>
+                        <ul
+                            className="collapse nav flex-column mx-3"
+                            id="sales"
+                            data-bs-parent="#menu"
+                        >
+                            <li className="w-100">
+                                <Link
+                                    to="/supplier/sales"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <MdOutlinePointOfSale size="1.3rem" />
+                                    {t("supplier_sidebar.all_sales")}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/supplier/tracking"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <BsTruck size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.tracking")}
+                                    </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/supplier/return-requests"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <TbTruckReturn size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.return_requests")}
+                                    </span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    {/* <li>
+                        <Link
                             to="/supplier/orders"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
@@ -117,6 +170,18 @@ const Sidebar = (props) => {
                             </span>
                         </Link>
                     </li>
+
+                    <li>
+                        <Link
+                            to="/supplier/return-requests"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <TbTruckReturn size="1.5rem" />
+                            <span className="ms-1">
+                                {t("supplier_sidebar.return_requests")}
+                            </span>
+                        </Link>
+                    </li> */}
 
                     <li>
                         <Link

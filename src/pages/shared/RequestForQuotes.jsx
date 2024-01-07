@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
+import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 import { RiMailSendLine } from "react-icons/ri";
@@ -18,9 +19,13 @@ const RequestForQuotes = () => {
     const api = useAxios();
 
     const [productNameOptions, setProductNameOptions] = useState([]);
+    const [supplierNameOptions, setSupplierNameOptions] = useState([]);
+
     const [selectedProduct, setSelectedProduct] = useState("");
+    const [selectedSupplier, setSelectedSupplier] = useState("");
 
     const fileRef = useRef(null);
+    const creatableSelectInputRef = useRef(null);
     const selectInputRef = useRef(null);
 
     const getProducts = async () => {
@@ -36,10 +41,26 @@ const RequestForQuotes = () => {
             });
     };
 
+    const getSuppliers = async () => {
+        await api
+            .get(
+                import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/list/"
+            )
+            .then((res) => {
+                const nameOptions = res.data.map((supplier) => ({
+                    value: supplier.id,
+                    label: supplier.full_name,
+                }));
+
+                setSupplierNameOptions(nameOptions);
+            });
+    };
+
     useEffect(() => {
         document.getElementById("count_message").innerHTML = "0 / " + TEXT_MAX;
 
         getProducts();
+        getSuppliers();
     }, []);
 
     const handleReset = () => {
@@ -52,6 +73,7 @@ const RequestForQuotes = () => {
 
     const onClear = () => {
         selectInputRef.current.clearValue();
+        creatableSelectInputRef.current.clearValue();
     };
 
     const handleSubmit = async (e) => {
@@ -59,8 +81,10 @@ const RequestForQuotes = () => {
 
         const formData = new FormData();
         formData.append("product", e.target.product.value);
+        formData.append("supplier", e.target.supplier.value);
         formData.append("quantity", e.target.quantity.value);
         formData.append("unit", e.target.unit.value);
+        formData.append("due_date", e.target.due_date.value);
         formData.append("requirements", e.target.requirements.value);
         const fileInput = e.target.attachments;
         for (let i = 0; i < fileInput.files.length; i++) {
@@ -75,10 +99,12 @@ const RequestForQuotes = () => {
                 toast.success(`${t("shared.rfq.success")}!`);
 
                 setSelectedProduct("");
+                setSelectedSupplier("");
 
                 e.target.unit.value = "piece";
                 e.target.quantity.value = "";
                 e.target.requirements.value = "";
+                e.target.due_date.value = "";
                 e.target.agree.checked = false;
                 handleReset();
                 onClear();
@@ -110,7 +136,7 @@ const RequestForQuotes = () => {
 
                     <div className="row">
                         <div
-                            className={`mt-5 col-12 col-md-7 ${
+                            className={`mt-5 col-12 px-4 ${
                                 window.location.href.indexOf("supplier") ===
                                     -1 &&
                                 window.location.href.indexOf("dashboard") === -1
@@ -139,10 +165,37 @@ const RequestForQuotes = () => {
                                         onChange={(e) => {
                                             setSelectedProduct(e?.value);
                                         }}
-                                        ref={selectInputRef}
+                                        ref={creatableSelectInputRef}
                                     />
                                     <div className="form-text">
                                         {t("shared.rfq.hint")}.
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="supplier"
+                                        className="form-label"
+                                    >
+                                        {t("shared.rfq.supplier")}
+                                    </label>
+                                    <Select
+                                        className="basic-single"
+                                        classNamePrefix="select"
+                                        isClearable={true}
+                                        placeholder={`${t(
+                                            "shared.rfq.supplier"
+                                        )}`}
+                                        isSearchable={true}
+                                        name="supplier"
+                                        options={supplierNameOptions}
+                                        defaultValue={selectedSupplier}
+                                        onChange={(e) => {
+                                            setSelectedSupplier(e?.value);
+                                        }}
+                                        ref={selectInputRef}
+                                    />
+                                    <div className="form-text">
+                                        {t("shared.rfq.supplier_hint")}.
                                     </div>
                                 </div>
                                 <div className="mb-4">
@@ -264,6 +317,20 @@ const RequestForQuotes = () => {
                                     >
                                         {TEXT_MAX}
                                     </span>
+                                </div>
+                                <div className="mb-4 position-relative">
+                                    <label
+                                        htmlFor="due_date"
+                                        className="form-label"
+                                    >
+                                        {t("shared.rfq.due_date")} *
+                                    </label>
+                                    <input
+                                        type="datetime-local"
+                                        name="due_date"
+                                        className="form-control"
+                                        required
+                                    />
                                 </div>
                                 <div className="mb-4">
                                     <label

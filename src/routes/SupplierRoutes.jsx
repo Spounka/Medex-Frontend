@@ -21,7 +21,7 @@ import UpdateProduct from "../pages/Supplier/UpdateProduct";
 import Chat from "../pages/shared/Chat";
 import ChatMessagesList from "../pages/shared/ChatMessagesList";
 
-import OrderList from "../pages/Supplier/OrderList";
+import SalesList from "../pages/Supplier/SalesList";
 
 import SupplierProfile from "../pages/Buyer/SupplierProfile";
 
@@ -31,9 +31,11 @@ import { TbListDetails, TbEdit } from "react-icons/tb";
 import QuoteDetails from "../pages/Supplier/QuoteDetails";
 import OfferInvoice from "../pages/Supplier/OfferInvoice";
 import OfferList from "../pages/Supplier/OfferList";
-import OrderDetails from "../pages/Supplier/OrderDetails";
+import SalesDetails from "../pages/Supplier/SalesDetails";
 import TrackingList from "../pages/Supplier/TrackingList";
 import TrackingDetails from "../pages/Supplier/TrackingDetails";
+import ReturnRequests from "../pages/Supplier/ReturnRequests";
+import ReturnDetails from "../pages/Supplier/ReturnDetails";
 
 const SupplierRoutes = () => {
     return (
@@ -92,11 +94,20 @@ const SupplierRoutes = () => {
                         element={<ProductDetails />}
                     />
 
-                    <Route path="orders" element={<OrderList />} />
-                    <Route path="order/:id" element={<OrderDetails />} />
+                    <Route path="sales" element={<SalesList />} />
+                    <Route path="sales/:id" element={<SalesDetails />} />
 
                     <Route path="tracking" element={<TrackingList />} />
                     <Route path="tracking/:id" element={<TrackingDetails />} />
+
+                    <Route
+                        path="return-requests"
+                        element={<ReturnRequests />}
+                    />
+                    <Route
+                        path="return-requests/:id"
+                        element={<ReturnDetails />}
+                    />
                 </Route>
             </Route>
 

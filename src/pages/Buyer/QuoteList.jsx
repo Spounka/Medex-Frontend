@@ -7,6 +7,7 @@ import { CiTimer } from "react-icons/ci";
 import { CgMenuMotion } from "react-icons/cg";
 import { AiOutlineFileText } from "react-icons/ai";
 import { LuView } from "react-icons/lu";
+import { BsCalendar2Date } from "react-icons/bs";
 
 import userImage from "../../assets/images/user.png";
 
@@ -240,6 +241,20 @@ const QuoteList = () => {
                                                                     quote.created_since
                                                                 }{" "}
                                                                 {t("ago")}
+                                                            </li>
+                                                            <li className="list-group-item d-flex align-items-center gap-2">
+                                                                <BsCalendar2Date />
+                                                                {t(
+                                                                    "shared.rfq.due_date"
+                                                                )}
+                                                                : &nbsp;
+                                                                {
+                                                                    quote.due_date_display
+                                                                }{" "}
+                                                                -{" "}
+                                                                {
+                                                                    quote.due_time_display
+                                                                }
                                                             </li>
                                                             {quote?.attachments
                                                                 .length > 0 &&

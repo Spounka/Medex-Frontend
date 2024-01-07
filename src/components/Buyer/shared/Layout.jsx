@@ -8,7 +8,7 @@ import MobileNavigation from "./MobileNavigation";
 import { ToastContainer } from "react-toastify";
 import ChatFixedIcon from "../../shared/ChatFixedIcon";
 
-const Layout = (props) => {
+const Layout = () => {
     return (
         <>
             <Header />

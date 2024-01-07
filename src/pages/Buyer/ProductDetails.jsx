@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { LuWarehouse } from "react-icons/lu";
+import { TbTruckReturn } from "react-icons/tb";
 
 import { toast } from "react-toastify";
 
@@ -250,6 +251,27 @@ const ProductDetails = (props) => {
                                             <span>
                                                 {t(
                                                     "buyer_pages.product_details.unavailable"
+                                                )}
+                                            </span>
+                                        )}
+                                    </span>
+
+                                    <span className="text-muted fw-normal mt-3 d-flex align-items-center gap-2">
+                                        <TbTruckReturn size="1.3rem" />
+                                        {t("product_form.returnable")}:
+                                        {product?.is_returnable ? (
+                                            <span>
+                                                {t(
+                                                    "buyer_pages.product_details.return_valid",
+                                                    {
+                                                        days: product?.return_deadline,
+                                                    }
+                                                )}
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                {t(
+                                                    "buyer_pages.product_details.unreturnable"
                                                 )}
                                             </span>
                                         )}

@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
@@ -9,9 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import WebsiteLoader from "./components/shared/WebsiteLoader";
 
+import NotFound from "./pages/shared/NotFound";
 import BuyerRoutes from "./routes/BuyerRoutes";
 import SupplierRoutes from "./routes/SupplierRoutes";
-import NotFound from "./pages/shared/NotFound";
 
 import { useTranslation } from "react-i18next";
 

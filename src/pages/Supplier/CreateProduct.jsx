@@ -21,6 +21,8 @@ const INITIAL_DATA = {
     priceRangeMax: 0.0,
     stockQuantity: 0,
     isAvailable: false,
+    isReturnable: false,
+    returnDeadline: 30,
     category: "",
     categoryImage: {},
     subCategory: "",

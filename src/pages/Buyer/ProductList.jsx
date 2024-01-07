@@ -156,7 +156,7 @@ const OurStore = (props) => {
                     </div>
                     <div className="row mt-2 mt-md-3 ">
                         <div className="col-12 col-md-3">
-                            <div className="d-md-none">
+                            <div className="d-md-none" >
                                 <button
                                     onClick={showFilterMenu}
                                     className="gradient-bg-color w-75 mx-auto py-1 text-white rounded shadow fw-bold text-center d-flex justify-content-center align-items-center gap-2 border-0"
@@ -165,7 +165,7 @@ const OurStore = (props) => {
                                     {t("buyer_pages.products_list.filter")}
                                 </button>
                             </div>
-                            <div className="store__filter-card mb-3 store__filter-menu">
+                            <div className="store__filter-card mb-3 store__filter-menu" style={{boxShadow: 'none', border:'1px solid rgb(210, 210, 208)'}}>
                                 <div className="row mb-3 d-block d-md-none">
                                     <div className="col-12 text-end">
                                         <AiOutlineCloseCircle
@@ -314,7 +314,7 @@ const OurStore = (props) => {
                             </div>
                         </div>
                         <div className="col-12 col-md-9">
-                            <div className="store__sorting-menu shadow py-3">
+                            <div className="store__sorting-menu py-3" style={{border: '1px solid #d2d2d0'}}>
                                 <div className="d-flex align-items-center gap-5">
                                     <p className="mb-0 d-flex align-items-center gap-2">
                                         <BsSortUpAlt size="1.5rem" />
@@ -361,12 +361,12 @@ const OurStore = (props) => {
                                     </select>
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="gg">
                                 {productsList.length > 0 ? (
                                     productsList.map((product) => {
                                         return (
                                             <div
-                                                className="col-6 col-md-3 py-3"
+                                                className="py-3"
                                                 key={product.sku}
                                             >
                                                 <ProductCart

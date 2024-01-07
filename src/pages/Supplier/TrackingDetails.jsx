@@ -337,17 +337,23 @@ const TrackingDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-footer py-3">
-                                <div className="d-flex justify-content-center align-items-center">
-                                    <button
-                                        className="btn btn-primary d-flex align-items-center gap-2"
-                                        onClick={() => handleAdvance(order?.id)}
-                                    >
-                                        <MdOutlineNextPlan size="1.3rem" />
-                                        {t("supplier_pages.order_details.next")}
-                                    </button>
+                            {order?.shipping_status !== "DE" && (
+                                <div className="card-footer py-3">
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <button
+                                            className="btn btn-primary d-flex align-items-center gap-2"
+                                            onClick={() =>
+                                                handleAdvance(order?.id)
+                                            }
+                                        >
+                                            <MdOutlineNextPlan size="1.3rem" />
+                                            {t(
+                                                "supplier_pages.order_details.next"
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -42,11 +42,12 @@ const ProductList = (props) => {
                         <TbDatabaseSearch size="2.5rem" />
                         {t("supplier_pages.product_list.title")}
                     </h2>
-                    <div className="row">
+                    <div className="row" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                         {products.length > 0 ? (
                             products.map((product) => (
                                 <div
-                                    className="col-6 col-md-3 mt-4"
+                                    className="mt-4"
+                                    style={{width: '270px'}}
                                     key={product.sku}
                                 >
                                     <ProductCard

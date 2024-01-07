@@ -1,4 +1,4 @@
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
 
 import { PiMoney } from "react-icons/pi";
 import { IoTicketOutline } from "react-icons/io5";
@@ -12,6 +12,7 @@ import { BsShare } from "react-icons/bs";
 import { AiOutlineSafetyCertificate, AiOutlineDelete } from "react-icons/ai";
 import { LuWarehouse } from "react-icons/lu";
 import { MdOutlineCancel } from "react-icons/md";
+import { TbTruckReturn } from "react-icons/tb";
 
 import { toast } from "react-toastify";
 
@@ -28,13 +29,41 @@ const ProductDetails = () => {
     const { user } = useContext(AuthContext);
 
     const location = useLocation();
-    const { product } = location.state;
+
+    const [product, setProduct] = useState({});
+
+    const params = useParams();
 
     const [isDeleted, setIsDeleted] = useState(false);
 
     const navigate = useNavigate();
 
     const api = useAxios();
+
+    const getProduct = async () => {
+        let productState = location?.state?.product;
+
+        if (productState) {
+            setProduct(location?.state?.product);
+        } else {
+            const productID = params?.product_sku;
+
+            try {
+                const response = await api.get(
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
+                    }/api/product/product/${productID}`
+                );
+                setProduct(response.data);
+            } catch (err) {
+                navigate("/not-found/");
+            }
+        }
+    };
+
+    useEffect(() => {
+        getProduct();
+    }, []);
 
     useEffect(() => {
         document
@@ -90,11 +119,9 @@ const ProductDetails = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <div className="details__image-container shadow">
+                            <div className="details__image-container">
                                 <img
-                                    src={
-                                        import.meta.env.VITE_BACKEND_URL +
-                                        product.thumbnail
+                                    src={product.thumbnail
                                     }
                                     alt="Product"
                                 />
@@ -145,7 +172,7 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="col-12 col-md-6 mt-4 mt-md-0">
-                            <div className="card shadow">
+                            <div className="card">
                                 <div className="card-body">
                                     <p className="text-muted d-flex align-items-center gap-2">
                                         <AiOutlineSafetyCertificate size="1.1rem" />
@@ -238,9 +265,30 @@ const ProductDetails = () => {
                                         )}
                                     </span>
 
+                                    <span className="text-muted fw-normal mt-3 d-flex align-items-center gap-2">
+                                        <TbTruckReturn size="1.3rem" />
+                                        {t("product_form.returnable")}:
+                                        {product?.is_returnable ? (
+                                            <span>
+                                                {t(
+                                                    "buyer_pages.product_details.return_valid",
+                                                    {
+                                                        days: product?.return_deadline,
+                                                    }
+                                                )}
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                {t(
+                                                    "buyer_pages.product_details.unreturnable"
+                                                )}
+                                            </span>
+                                        )}
+                                    </span>
+
                                     <button
                                         onClick={shareProduct}
-                                        className="btn shadow mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
+                                        className="btn mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
                                     >
                                         <BsShare size="1.3rem" />
                                         {t("buyer_pages.product_details.share")}
@@ -267,7 +315,7 @@ const ProductDetails = () => {
                                             >
                                                 <AiOutlineDelete />
                                                 {t(
-                                                    "supplier_pages.product_details.delete"
+                                                    "supplier_pages.product_details.del"
                                                 )}
                                             </button>
                                         </div>
@@ -333,7 +381,7 @@ const ProductDetails = () => {
     );
 };
 
-const shareProduct = () => {
+const shareProduct = (t) => {
     const link = window.location.href;
 
     navigator.clipboard.writeText(link);

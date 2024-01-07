@@ -67,7 +67,8 @@
         "my_quotes": "My Quote Requests",
         "messages": "Messages",
         "settings": "Settings",
-        "my_profile": "My Profile"
+        "my_profile": "My Profile",
+        "stats": "My Statistics"
     },
     "product_form": {
         "category": "Product Category",
@@ -91,7 +92,10 @@
         "currently": "Currently",
         "other_image": "Other Product Image",
         "other_images": "Other Product Images",
-        "other_image_tip": "You can upload up to 4 images for your product"
+        "other_image_tip": "You can upload up to 4 images for your product",
+        "returnable": "Product Returnability",
+        "returnable_question": "Is Returnable",
+        "returnable_dl": "Maximum Days To Return"
     },
     "supplier_sidebar": {
         "products": "Products",
@@ -99,11 +103,13 @@
         "create_product": "Create Product",
         "update_product": "Update Product",
         "sales": "Sales",
+        "all_sales": "All Sales",
         "quotes": "Quotes",
         "quote_requests": "Quote Requests",
         "offers_list": "Offers List",
         "language": "Language",
-        "tracking": "Shipment Tracking"
+        "tracking": "Shipment Tracking",
+        "return_requests": "Return Requests"
     },
     "auth_context": {
         "login_successful": "You have logged in successfully",
@@ -150,7 +156,7 @@
             "success": "You have successfully completed your purchase! Thank you",
             "your_cart": "Your Cart",
             "bill_address": "Billing Address",
-            "same": "Shipping address is the same as my billing address",
+            "same": "Billing address is the same as my shipping address",
             "payment": "Payment",
             "cash": "Cash On Delivery",
             "finish": "Finish Checkout Process",
@@ -203,7 +209,14 @@
             "none": "There are no offers made yet"
         },
         "order_history": {
-            "none": "There are no orders yet"
+            "none": "There are no orders yet",
+            "return": "Return Product",
+            "return_status": "Return Status",
+            "applied": "Applied",
+            "declined": "Declined by Supplier",
+            "approved": "Approved by Supplier",
+            "returned": "Return Completed",
+            "decline_reason": "Reason for decline"
         },
         "product_details": {
             "was": "Price Was",
@@ -217,7 +230,9 @@
             "wish": "Add To Wishlist",
             "unwish": "Remove From Wishlist",
             "share": "Share Product Link",
-            "share_success": "Link Copies To Clipboard"
+            "share_success": "Link Copied To Clipboard",
+            "unreturnable": "Product is unreturnable",
+            "return_valid": "Within {{days}} days from buying"
         },
         "quote_requests": {
             "all": "All Quote Requests",
@@ -277,6 +292,34 @@
             "already": "Already have an account",
             "not": "Not a buyer",
             "as": "Register as a"
+        },
+        "return_request": {
+            "title": "Return Product",
+            "images": "Upload Evidence",
+            "evidence": "Evidence",
+            "reason": "Reason For Return",
+            "reason_placeholder": "Select Reason For Return",
+            "poor": "Poor quality",
+            "wrong": "Wrong materials",
+            "address": "Shipped to a wrong address",
+            "description": "Description",
+            "description_placeholder": "I want to return this product because",
+            "images_tip": "Evidence Tips",
+            "images_tip_1": "Upload product images, videos, and chat history as supporting materials",
+            "images_tip_2": "Accepted Formats: JPEG, JPG, PNG, MP4, AVI, and WAV",
+            "images_tip_3": "Upload limit: Maximum 20 files",
+            "max_files_err": "You can upload a maximum of {{max_files}} files",
+            "file_type_err": "Invalid file extension. Only JPG, JPEG, PNG, MP4, AVI, and WAV files are allowed",
+            "success": "You have successfully requested to return this product. Please wait for the supplier approval / denial",
+            "exists": "You can only request returning a product once"
+        },
+        "statistics": {
+            "title": "My Statistics",
+            "yearly_payments": "Yearly Payments",
+            "yearly_purchases": "Yearly Purchases",
+            "return_request": "Returned Orders",
+            "rfq": "Accepted Quote Offers",
+            "categories": "Ordered Categories"
         }
     },
     "shared": {
@@ -334,7 +377,10 @@
             "att": "Attachments",
             "att_hint": "Hint: You can attach relevant images or PDF files here to specify your sourcing needs",
             "consent": "I understand and agree to abide by the buying request posting rules",
-            "submit": "Invite Suppliers To Quote"
+            "submit": "Invite Suppliers To Quote",
+            "due_date": "Due Date and Time",
+            "supplier": "Target Supplier",
+            "supplier_hint": "Select a specific supplier if you want to get a quote for your request by them only"
         }
     },
     "supplier_pages": {
@@ -386,8 +432,8 @@
             "del": "Delete Product",
             "del_msg": "Are you sure that you want to delete this product"
         },
-        "order_list": {
-            "title": "Recent Order List"
+        "sales_list": {
+            "title": "Recent Sales List"
         },
         "dashboard": {
             "title": "Dashboard",
@@ -415,6 +461,20 @@
             "de": "Delivered",
             "next": "Advance Shipment",
             "success": "The shipment has successfully progressed to the next step"
+        },
+        "return_list": {
+            "none": "There are no products requested to be returned yet"
+        },
+        "return_request": {
+            "approve": "Approve Return Request",
+            "decline": "Decline Return Request",
+            "reason": "Reason for decline",
+            "reason_placeholder": "Enter the reason for decline",
+            "approve_success": "You have successfully approved to refund this product",
+            "decline_success": "You have successfully declined to refund this product",
+            "status": "Request Status",
+            "decline_msg": "You have declined this return request",
+            "approve_msg": "You have approved this return request"
         }
     }
 }

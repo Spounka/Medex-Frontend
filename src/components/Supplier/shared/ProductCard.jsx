@@ -8,14 +8,14 @@ const ProductCard = (props) => {
     const { product, buttonLink, buttonIcon, buttonText } = props;
 
     return (
-        <div className="card rounded-3 shadow position-relative ">
+        <div className="card rounded-3 position-relative ">
             <Link
                 to={`/supplier/products/${product.sku}`}
                 state={{ product: product }}
                 className="card-link"
             >
                 <img
-                    src={import.meta.env.VITE_BACKEND_URL + product.thumbnail}
+                    src={product.thumbnail}
                     className="card-img-top home__card-img"
                     width="100%"
                     alt="product"

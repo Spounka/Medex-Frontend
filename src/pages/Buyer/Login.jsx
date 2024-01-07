@@ -54,7 +54,7 @@ const Login = () => {
                         </div>
                         <div className="col-12 col-md-6">
                             <div className="d-flex justify-content-center align-items-center">
-                                <div className="card login__card shadow rounded-3">
+                                <div className="card login__card rounded-3">
                                     <div className="card-body">
                                         <h3 className="card-title login__title">
                                             {t("login")}

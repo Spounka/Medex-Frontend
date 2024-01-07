@@ -5,7 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import useAxios from "../../utils/useAxios";
 
 const ChatFixedIcon = () => {
-    const [messagesCount, setMessagesCount] = useState(0);
+    const [messagesCount, setMessagesCount] = useState(null);
 
     const { user, authTokens } = useContext(AuthContext);
 
@@ -14,11 +14,13 @@ const ChatFixedIcon = () => {
     const getMessagesCount = async () => {
         try {
             if (user) {
-                const response = await api.get(
-                    import.meta.env.VITE_BACKEND_URL +
-                        `/api/chat/${user.user_id}/count/`
-                );
-                setMessagesCount(response.data);
+                if (!messagesCount) {
+                    const response = await api.get(
+                        import.meta.env.VITE_BACKEND_URL +
+                            `/api/chat/${user.user_id}/count/`
+                    );
+                    setMessagesCount(response.data);
+                }
             }
         } catch (error) {
             setMessagesCount(0);

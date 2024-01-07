@@ -22,6 +22,8 @@ const INITIAL_DATA = {
     priceRangeMax: 0.0,
     stockQuantity: 0,
     isAvailable: false,
+    isReturnable: false,
+    returnDeadline: 30,
     category: "",
     categoryImage: {},
     subCategory: "",
@@ -62,6 +64,8 @@ const UpdateProduct = () => {
                     priceRangeMax: data.price_range_max || 0,
                     stockQuantity: data.stock_quantity,
                     isAvailable: data.is_available,
+                    isReturnable: data.is_returnable,
+                    returnDeadline: data.return_deadline,
                     category: {
                         label: data.category.parent_name,
                         value: data.category.parent_slug,
@@ -198,7 +202,7 @@ const UpdateProduct = () => {
                 <div className="container">
                     <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
                         <TbDatabaseEdit size="2.5rem" />
-                        `${t("supplier_pages.update_product.title")}!`
+                        {t("supplier_pages.update_product.title")}
                     </h2>
                     <div className="row mt-5">
                         <div className="col-12">
