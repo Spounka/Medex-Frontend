@@ -1529,12 +1529,12 @@ footer {
   }
 }
 
+
 @media screen and (max-width: 300px) {
   .supplier__header-brand {
     font-size: 0.9rem;
   }
 }
-
 /* Dashboard End */
 
 /* Create Product Start */
@@ -1814,5 +1814,10 @@ footer {
     bottom: -70px !important;
   }
 }
-
+@media screen and (max-width: 1023px) {
+  .gra{
+    flex-direction: column;
+  }
+  
+}
 /* Order Details End */

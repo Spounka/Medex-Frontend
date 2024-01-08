@@ -15,6 +15,7 @@ import useAxios from "../../utils/useAxios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+
 const Dashboard = () => {
     const { t } = useTranslation();
 
@@ -101,7 +102,7 @@ const Dashboard = () => {
                     </h2>
                     <div className="row">
                         <div className="col-sm-12 col-lg-6 mt-3">
-                            <div className="card p-4 shadow dashboard__stats-card-1">
+                            <div className="card p-4 dashboard__stats-card-1">
                                 <div className="row">
                                     <div className="col-9">
                                         <div className="mb-4">

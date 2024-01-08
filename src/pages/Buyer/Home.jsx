@@ -134,6 +134,12 @@ const Home = (props) => {
       {
         breakpoint: 768,
         settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 375,
+        settings: {
           slidesToShow: 1,
         },
       },
