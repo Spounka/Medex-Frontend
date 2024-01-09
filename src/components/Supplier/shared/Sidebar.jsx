@@ -7,6 +7,7 @@ import {
     MdListAlt,
     MdList,
     MdOutlinePointOfSale,
+    MdAddToQueue,
 } from "react-icons/md";
 import {
     BiSolidDownArrow,
@@ -22,6 +23,8 @@ import {
 } from "react-icons/tb";
 import { BsGearFill, BsTruck } from "react-icons/bs";
 import { LuTextQuote } from "react-icons/lu";
+import { FaRegFileExcel } from "react-icons/fa";
+
 import { useTranslation } from "react-i18next";
 
 import arFlag from "../../../assets/images/sa-flag.png";
@@ -78,13 +81,50 @@ const Sidebar = (props) => {
                                     <TbDatabaseSearch size="1.3rem" />
                                     {t("supplier_sidebar.products_list")}
                                 </Link>
+                            </li>
+
+                            <li>
                                 <Link
-                                    to="/supplier/products/create"
+                                    to="#createProduct"
+                                    data-bs-toggle="collapse"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbDatabasePlus size="1.3rem" />
-                                    {t("supplier_sidebar.create_product")}
+                                    <TbDatabasePlus size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.create_product")}
+                                    </span>
+                                    <BiSolidDownArrow size=".5rem" />
                                 </Link>
+                                <ul
+                                    className="collapse nav flex-column mx-3"
+                                    id="createProduct"
+                                    data-bs-parent="#product"
+                                >
+                                    <li>
+                                        <Link
+                                            to="/supplier/products/create"
+                                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                        >
+                                            <MdAddToQueue size="1.3rem" />
+                                            {t(
+                                                "supplier_sidebar.create_product_form"
+                                            )}
+                                        </Link>
+
+                                        <Link
+                                            to="/supplier/products/excel-create"
+                                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                        >
+                                            <FaRegFileExcel size="1.3rem" />
+                                            {t(
+                                                "supplier_sidebar.create_product_excel"
+                                            )}
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <Link
                                     to="/supplier/products/update"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
@@ -146,42 +186,6 @@ const Sidebar = (props) => {
                             </li>
                         </ul>
                     </li>
-
-                    {/* <li>
-                        <Link
-                            to="/supplier/orders"
-                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                        >
-                            <MdListAlt size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.sales")}
-                            </span>
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            to="/supplier/tracking"
-                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                        >
-                            <BsTruck size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.tracking")}
-                            </span>
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            to="/supplier/return-requests"
-                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                        >
-                            <TbTruckReturn size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.return_requests")}
-                            </span>
-                        </Link>
-                    </li> */}
 
                     <li>
                         <Link

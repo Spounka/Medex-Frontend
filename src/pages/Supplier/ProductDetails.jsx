@@ -374,7 +374,7 @@ const ProductDetails = () => {
                             <h3 className="fw-bold product__description">
                                 {t("product_form.description")}
                             </h3>
-                            <div>{parse(product?.description)}</div>
+                            <div>{parse(String(product?.description))}</div>
                         </div>
                     </div>
                 </div>

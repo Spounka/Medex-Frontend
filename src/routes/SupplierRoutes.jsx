@@ -14,6 +14,7 @@ import RequestForQuotes from "../pages/shared/RequestForQuotes";
 import QuoteList from "../pages/Supplier/QuoteList";
 
 import CreateProduct from "../pages/Supplier/CreateProduct";
+import CreateProductExcel from "../pages/Supplier/CreateProductExcel";
 import ProductList from "../pages/Supplier/ProductList";
 import ProductDetails from "../pages/Supplier/ProductDetails";
 import UpdateProduct from "../pages/Supplier/UpdateProduct";
@@ -65,6 +66,11 @@ const SupplierRoutes = () => {
                     <Route path="chat/:id" element={<ChatMessagesList />} />
 
                     <Route path="products/create" element={<CreateProduct />} />
+                    <Route
+                        path="products/excel-create"
+                        element={<CreateProductExcel />}
+                    />
+
                     <Route
                         path="products/list"
                         element={

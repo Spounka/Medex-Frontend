@@ -1678,6 +1678,17 @@ footer {
   direction: rtl;
 }
 
+.arabic .dashboard__sidebar-container {
+    right: 0 !important;
+    top: 0;
+    left: auto;
+}
+
+.arabic .dashboard__main-container main {
+    margin-right: 250px;
+    margin-left: 0;
+}
+
 .english * {
   direction: ltr !important;
 }

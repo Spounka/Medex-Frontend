@@ -101,6 +101,8 @@
         "products": "Products",
         "products_list": "Products List",
         "create_product": "Create Product",
+        "create_product_form": "Create Product (Form)",
+        "create_product_excel": "Create Product (EXCEL)",
         "update_product": "Update Product",
         "sales": "Sales",
         "all_sales": "All Sales",
@@ -448,6 +450,23 @@
         "create_product": {
             "max_images_err": "You can't upload more than 4 images",
             "success": "You have successfully created a new product"
+        },
+        "create_product_excel": {
+            "success": "Your products have been have successfully added",
+            "fail": "There was an error creating new products from the file you uploaded, please check if you followed all the tips and try again",
+            "file_label": "Upload EXCEL file",
+            "submit": "Upload File and Create Products",
+            "file_type_err": "Invalid file extension. Only XLSX files are allowed",
+            "tip": "Tips for creating products with an Excel file",
+            "tip1": "Ensure Excel File Format: Please upload an Excel file in the appropriate format (e.g., XLSX) to ensure compatibility with the system",
+            "tip2": "Prepare Spreadsheet: Organize your spreadsheet with the product details. Make sure each column corresponds to the correct field (e.g., name, description, price, category, etc.). See example below",
+            "tip2_image": "Download this example image",
+            "tip3": "Validate Price and Price Range: Check the following requirements for the price and price range fields",
+            "tip3_1": "If the price is greater than 0, both the minimum and maximum price range should be 0",
+            "tip3_2": "If the product has a sale price, input the regular price in the \"price\" field and the sale price (which is the price after the sale) in the \"sale_price\" field. Leave the \"price_range_min\" and \"price_range_max\" fields as 0, as they are not applicable in this case",
+            "tip3_3": "If the product does not have a specific price, set both the price and the sale price to 0. Then input the desired price range values in the \"price_range_min\" field as the minimum value and in the \"price_range_max\" field as the maximum value",
+            "tip4": "If the product is available, enter the stock quantity in the \"stock_quantity\" field. If the product is not available, enter 0 in the \"stock_quantity\" field",
+            "tip5": "If the product is returnable, enter the number of days within which the product can be returned in the \"return_deadline\" field. If the product is not returnable, enter 0 in the \"return_deadline\" field"
         },
         "order_details": {
             "ordered": "Ordered",

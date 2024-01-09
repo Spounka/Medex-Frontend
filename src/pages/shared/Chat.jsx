@@ -25,8 +25,6 @@ const Chat = () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + "/api/chat/")
             .then((res) => {
-                console.log(res.data);
-
                 setThreadsList(res.data);
             });
     };
