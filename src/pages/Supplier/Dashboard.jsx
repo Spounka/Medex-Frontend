@@ -312,7 +312,7 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            <section className="py-3">
+            {/* <section className="py-3">
                 <div className="container-fluid">
                     <div className="row">
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
@@ -480,7 +480,7 @@ const Dashboard = () => {
                         )}
                     </div>
                 </div>
-            </section>
+            </section> */}
         </main>
     );
 };
