@@ -1310,7 +1310,7 @@ footer {
 .buyer__dashboard-sidebar-container {
   width: 320px;
   transition: all 0.5s ease-in-out;
-  z-index: 100;
+  z-index: 1;
   overflow-y: auto !important;
 }
 
@@ -1352,60 +1352,23 @@ footer {
   color: #fff !important;
 }
 
-.dashboard__stats-card-1 {
-  border: 1px solid #1e2f97;
-  border-bottom: 5px solid #1e2f97;
+.dashboard__stats-card {
+  background-color: white;
+  border-radius: 13px;
+  border: 1px solid #cccccc;
+  width: 250px;
+  height: 150px;
+  box-shadow: 1px 3px 6px 0px #00000017;
 }
-
-.dashboard__stats-card-2 {
-  border: 1px solid #797ef6;
-  border-bottom: 5px solid #797ef6;
+.as{
+  justify-content: space-between;
 }
-
-.dashboard__stats-card-3 {
-  border: 1px solid #1aa7ec;
-  border-bottom: 5px solid #1aa7ec;
+@media screen and (max-width: 558px) {
+  .as{
+    justify-content: center;
+    column-gap: 20px;
+  }
 }
-
-.dashboard__stats-card-4 {
-  border: 1px solid #4adede;
-  border-bottom: 5px solid #4adede;
-}
-
-.dashboard__stats-card-icon {
-  color: white;
-  padding: 0 13px;
-  border-radius: 50%;
-}
-
-.dashboard__stats-card-1 .dashboard__stats-card-icon {
-  background: #1e2f97;
-}
-
-.dashboard__stats-card-2 .dashboard__stats-card-icon {
-  background: #797ef6;
-}
-
-.dashboard__stats-card-3 .dashboard__stats-card-icon {
-  background: #1aa7ec;
-}
-
-.dashboard__stats-card-4 .dashboard__stats-card-icon {
-  background: #4adede;
-}
-
-.dashboard__stats-card-icon {
-  font-size: 3.5rem;
-}
-
-.dashboard__stats-card-success {
-  color: greenyellow;
-}
-
-.dashboard__stats-card-danger {
-  color: red;
-}
-
 .dashboard__chart {
   min-height: 400px;
 }
@@ -1429,7 +1392,14 @@ footer {
   color: gray;
   background: none;
 }
-
+.dashboard__stats-card-text{
+  text-wrap: nowrap;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+.dashboard__stats-card-title{
+  text-wrap: nowrap;
+}
 @media screen and (max-width: 768px) {
   .dashboard__sidebar-toggle {
     display: inline-flex;
@@ -1519,22 +1489,21 @@ footer {
     font-size: 0.9rem;
   }
 
-  .dashboard__stats-card-icon {
-    font-size: 2rem;
-    padding: 0 7px;
-  }
-
   .dashboard__main-container main {
     width: 100dvw !important;
   }
+  .dashboard__stats-card{
+    width: 180px;
+    height: 120px;
+  }
 }
+
 
 @media screen and (max-width: 300px) {
   .supplier__header-brand {
     font-size: 0.9rem;
   }
 }
-
 /* Dashboard End */
 
 /* Create Product Start */
@@ -1825,5 +1794,18 @@ footer {
     bottom: -70px !important;
   }
 }
-
+@media screen and (max-width: 1023px) {
+  .gra{
+    flex-direction: column;
+  }
+  
+}
 /* Order Details End */
+@media screen and (max-width: 993px) {
+  .ad{
+    flex-direction: column;
+  }
+  .as{
+    width: 100%;
+  }
+}

@@ -275,7 +275,7 @@ const Header = () => {
                                                     <>
                                                         <li>
                                                             <Link
-                                                                className=" dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                                                className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
                                                                 to="/account/login"
                                                             >
                                                                 <BiLogIn size="1.5rem" />
