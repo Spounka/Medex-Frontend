@@ -163,13 +163,14 @@ const RequestRefund = () => {
 
                         <div className="mb-5">
                             <label
-                                htmlFor="fiels"
+                                htmlFor="files"
                                 className="form-label d-flex align-items-center gap-2"
                             >
                                 <BsImages size="1.5rem" />
                                 {t("buyer_pages.return_request.images")} *
                             </label>
                             <input
+                                id="files"
                                 type="file"
                                 multiple
                                 onChange={handleFileChange}

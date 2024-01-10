@@ -144,10 +144,14 @@ const BuyerRoutes = () => {
                             element={<TrackingList />}
                         />
 
+                        <Route path="statistics" element={<Statistics />} />
+
                         <Route
                             path="return-requests"
                             element={<ReturnRequests />}
                         />
+
+                        <Route path="return/:id" element={<RequestRefund />} />
 
                         <Route path="quotes" element={<QuoteList />} />
                         <Route
