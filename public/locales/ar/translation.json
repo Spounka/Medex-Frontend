@@ -63,7 +63,10 @@
         "support": "الدعم"
     },
     "buyer_sidebar": {
+        "orders": "الطلبات",
         "order_history": "سجل الطلبات",
+        "tracking": "تتبع الطلبات",
+        "refund": "طلبات الاسترجاع",
         "my_quotes": "طلبات عروض الأسعار",
         "messages": "الرسائل",
         "settings": "الإعدادات",

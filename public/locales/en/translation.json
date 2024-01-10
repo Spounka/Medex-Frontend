@@ -63,7 +63,10 @@
         "support": "Support"
     },
     "buyer_sidebar": {
+        "orders": "Orders",
         "order_history": "Order History",
+        "tracking": "Orders Tracking",
+        "return": "Return Requests",
         "my_quotes": "My Quote Requests",
         "messages": "Messages",
         "settings": "Settings",
@@ -489,8 +492,8 @@
             "decline": "Decline Return Request",
             "reason": "Reason for decline",
             "reason_placeholder": "Enter the reason for decline",
-            "approve_success": "You have successfully approved to refund this product",
-            "decline_success": "You have successfully declined to refund this product",
+            "approve_success": "You have successfully approved to return this product",
+            "decline_success": "You have successfully declined to return this product",
             "status": "Request Status",
             "decline_msg": "You have declined this return request",
             "approve_msg": "You have approved this return request"

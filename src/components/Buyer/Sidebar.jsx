@@ -10,6 +10,9 @@ import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { IoStatsChart } from "react-icons/io5";
+import { FaHistory } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
+import { GiReturnArrow } from "react-icons/gi";
 
 const Sidebar = (props) => {
     const { t } = useTranslation();
@@ -28,16 +31,58 @@ const Sidebar = (props) => {
                     id="menu"
                 >
                     <h4 className="fw-bold">{t("dashboard")}</h4>
+
                     <li>
                         <Link
-                            to="/account/dashboard/order-history"
+                            to="#orders"
+                            data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdListAlt size="1.5rem" />
                             <span className="ms-1">
-                                {t("buyer_sidebar.order_history")}
+                                {t("buyer_sidebar.orders")}
                             </span>
+                            <BiSolidDownArrow size=".5rem" />
                         </Link>
+                        <ul
+                            className="collapse nav flex-column mx-3"
+                            id="orders"
+                            data-bs-parent="#menu"
+                        >
+                            <li>
+                                <Link
+                                    to="/account/dashboard/order-history"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <FaHistory size="1.3rem" />
+                                    <span className="ms-1">
+                                        {t("buyer_sidebar.order_history")}
+                                    </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/account/dashboard/order-tracking"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <TbTruckDelivery size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("buyer_sidebar.tracking")}
+                                    </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/account/dashboard/return-requests"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <GiReturnArrow size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("buyer_sidebar.return")}
+                                    </span>
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
 
                     <li>
