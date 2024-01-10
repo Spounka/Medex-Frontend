@@ -363,7 +363,7 @@ const Home = (props) => {
                   >
                     <div
                       className="card d-flex align-items-center justify-content-center home__brand-card"
-                      style={{ borderRadius: "20px" }}
+                      style={{ borderRadius: "10px" }}
                     >
                       <img
                         src={brand.image}

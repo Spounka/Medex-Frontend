@@ -439,9 +439,10 @@
             "title": "Dashboard",
             "new_orders": "New Orders",
             "new_buyers": "New Buyers",
+            "income":"Income Overview",
             "monthly": "Monthly Sales",
             "messages": "New Messages",
-            "report": "Monthly Sales Report",
+            "report": "Sales Report",
             "recent": "Recent Orders",
             "view": "View"
         },

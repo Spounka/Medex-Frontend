@@ -1,5 +1,4 @@
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
-import { AiOutlineFieldTime } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 
@@ -7,12 +6,11 @@ import userImage from "../../assets/images/user.png";
 
 import MonthlyBarChart from "../../components/Supplier/Charts/IncomeAreaChart";
 import IncomeBarChart from "../../components/Supplier/Charts/IncomeBarChart";
-import OrderTable from "./OrderHistory";
 
-import useAxios from "../../utils/useAxios";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@mui/material";
+import useAxios from "../../utils/useAxios";
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -312,26 +310,49 @@ const Dashboard = () => {
             <h2 className="d-flex align-items-center gap-2 dashboard__title">
               {t("supplier_pages.dashboard.recent")}
             </h2>
-            {/* {orderItems.length > 0 ? (
+            {orderItems.length > 0 ? (
               <div className="col-12 mt-3">
-                <div className="table-responsive">
-                  <table className="table table-hover max-vw-100 rounded bg-white shadow dashboard__orders-list">
-                    <thead className="dashboard__orders-table-header">
+                <div
+                  className="table-responsive p-2"
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "15px",
+                    border: "1px solid rgb(204, 204, 204)",
+                    boxShadow: "rgba(0, 0, 0, 0.09) 1px 3px 6px 0px",
+                  }}
+                >
+                  <table className="table max-vw-100 rounded bg-white">
+                    <thead>
                       <tr>
-                        <th># ID</th>
-                        <th className="text-nowrap">
+                        <th style={{ fontWeight: "500" }}>#ID</th>
+                        <th
+                          className="text-nowrap"
+                          style={{ fontWeight: "500" }}
+                        >
                           {t("supplier_pages.update_product.buyer")}
                         </th>
-                        <th className="text-nowrap">
+                        <th
+                          style={{ fontWeight: "500" }}
+                          className="text-nowrap"
+                        >
                           {t("buyer_pages.cart.product")}
                         </th>
-                        <th className="text-nowrap">
+                        <th
+                          style={{ fontWeight: "500" }}
+                          className="text-nowrap"
+                        >
                           {t("buyer_pages.cart.qty")}
                         </th>
-                        <th className="text-nowrap">
+                        <th
+                          style={{ fontWeight: "500" }}
+                          className="text-nowrap"
+                        >
                           {t("buyer_pages.cart.total")}
                         </th>
-                        <th className="text-nowrap">
+                        <th
+                          style={{ fontWeight: "500" }}
+                          className="text-nowrap"
+                        >
                           {t("buyer_pages.offers_list.status")}
                         </th>
                       </tr>
@@ -387,7 +408,15 @@ const Dashboard = () => {
                   </table>
                 </div>
                 <div className="d-flex align-items-center justify-content-end">
-                  <ul className="pagination justify-content-end shadow">
+                  <ul
+                    className="pagination justify-content-end mt-3"
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "7px",
+                      border: "1px solid rgb(204, 204, 204)",
+                      boxShadow: "rgba(0, 0, 0, 0.09) 1px 3px 6px 0px",
+                    }}
+                  >
                     <li className="page-item ">
                       <button
                         disabled={currentPage === 1}
@@ -429,8 +458,7 @@ const Dashboard = () => {
               <p className="mt-3 text-center">
                 {t("buyer_pages.order_history.none")}!
               </p>
-            )} */}
-            <OrderTable />
+            )}
           </div>
         </div>
       </section>

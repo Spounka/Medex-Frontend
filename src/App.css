@@ -1310,7 +1310,7 @@ footer {
 .buyer__dashboard-sidebar-container {
   width: 320px;
   transition: all 0.5s ease-in-out;
-  z-index: 100;
+  z-index: 1;
   overflow-y: auto !important;
 }
 
@@ -1356,7 +1356,7 @@ footer {
   background-color: white;
   border-radius: 13px;
   border: 1px solid #cccccc;
-  width: 220px;
+  width: 250px;
   height: 150px;
   box-shadow: 1px 3px 6px 0px #00000017;
 }
@@ -1369,7 +1369,6 @@ footer {
     column-gap: 20px;
   }
 }
-
 .dashboard__chart {
   min-height: 400px;
 }
