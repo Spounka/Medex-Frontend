@@ -22,11 +22,11 @@ const Dashboard = () => {
 
   const [months, setMonths] = useState([]);
   const [monthlySales, setMonthlySales] = useState([]);
+
   const [days, setDays] = useState([]);
   const [dailySales, setDailySales] = useState([]);
 
   const [currentMonthlySales, setCurrentMonthlySales] = useState([]);
-
   const [percentagePreviousMonthlySales, setPercentagePreviousMonthlySales] =
     useState([]);
 
@@ -58,13 +58,18 @@ const Dashboard = () => {
       .then((res) => {
         setOrderItems(res.data.results.results);
         setTotalPages(Math.ceil(res.data.count / 10));
+
         setMonths(res.data.results.stats.monthly_sales[0]);
         setMonthlySales(res.data.results.stats.monthly_sales[1]);
-        setCurrentMonthlySales(res.data.results.stats.current_monthly_sales[0])
+
         setDays(res.data.results.stats.daily_sales[0]);
         setDailySales(res.data.results.stats.daily_sales[1]);
+
+        setMonthlySales(res.data.results.stats.current_monthly_sales[0]);
         setPercentagePreviousMonthlySales(
-          Math.round(parseFloat(res.data.results.stats.current_monthly_sales[1]))
+          Math.round(
+            parseFloat(res.data.results.stats.current_monthly_sales[1])
+          )
         );
         setMonthlySalesCount(res.data.results.stats.monthly_sales_count[0]);
         setPercentagePreviousMonthlySalesCount(
@@ -108,7 +113,21 @@ const Dashboard = () => {
                         {monthlySalesCount > 0 ? monthlySalesCount : 0}
                       </h2>
                       <div
-                        className={`d-flex align-items-center gap-1 px-3 py-1 ${percentagePreviousMonthlySalesCount > 0 ? "gainColor": "lossColor"}`}>
+                        className="d-flex align-items-center gap-1 px-3 py-1"
+                        style={
+                          percentagePreviousMonthlySalesCount > 0
+                            ? {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#2c77df",
+                              }
+                            : {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#faad14",
+                              }
+                        }
+                      >
                         {Math.abs(percentagePreviousMonthlySalesCount)}%
                         {percentagePreviousMonthlySalesCount > 0 ? (
                           <FaArrowTrendUp size="1rem" />
@@ -135,7 +154,20 @@ const Dashboard = () => {
                         {monthlyBuyersCount > 0 ? monthlyBuyersCount : 0}
                       </h2>
                       <div
-                        className={`d-flex align-items-center gap-1 px-3 py-1 ${percentagePreviousMonthlyBuyersCount > 0 ? "gainColor": "lossColor"}`}
+                        className="d-flex align-items-center gap-1 px-3 py-1"
+                        style={
+                          percentagePreviousMonthlySalesCount > 0
+                            ? {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#2c77df",
+                              }
+                            : {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#faad14",
+                              }
+                        }
                       >
                         {Math.abs(percentagePreviousMonthlyBuyersCount)}%
                         {percentagePreviousMonthlyBuyersCount > 0 ? (
@@ -164,8 +196,21 @@ const Dashboard = () => {
                         {t("sar")}
                       </h2>
                       <div
-                        className={`d-flex align-items-center gap-1 px-3 py-1 ${percentagePreviousMonthlySales > 0 ? "gainColor": "lossColor"}`}
-                        >
+                        className="d-flex align-items-center gap-1 px-3 py-1"
+                        style={
+                          percentagePreviousMonthlySalesCount > 0
+                            ? {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#2c77df",
+                              }
+                            : {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#faad14",
+                              }
+                        }
+                      >
                         {Math.abs(percentagePreviousMonthlySales)}%
                         {percentagePreviousMonthlySales > 0 ? (
                           <FaArrowTrendUp size="1rem" />
@@ -192,8 +237,21 @@ const Dashboard = () => {
                         {monthlyThreadsCount > 0 ? monthlyThreadsCount : 0}
                       </h2>
                       <div
-                        className={`d-flex align-items-center gap-1 px-3 py-1 ${percentagePreviousMonthlyThreadsCount > 0 ? "gainColor": "lossColor"}`}
-                        >
+                        className="d-flex align-items-center gap-1 px-3 py-1"
+                        style={
+                          percentagePreviousMonthlySalesCount > 0
+                            ? {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#2c77df",
+                              }
+                            : {
+                                borderRadius: "5px",
+                                color: "white",
+                                backgroundColor: "#faad14",
+                              }
+                        }
+                      >
                         {Math.abs(percentagePreviousMonthlyThreadsCount)}%
                         {percentagePreviousMonthlyThreadsCount > 0 ? (
                           <FaArrowTrendUp size="1rem" />
@@ -244,7 +302,7 @@ const Dashboard = () => {
               <div className="d-flex justify-content-between">
                 <h2
                   className="d-flex align-items-center gap-2 dashboard__title"
-                  style={{ textWrap: "wrap" }}
+                  style={{ textWrap: "nowrap" }}
                 >
                   {t("supplier_pages.dashboard.income")}
                 </h2>
@@ -277,33 +335,49 @@ const Dashboard = () => {
                   <table className="table max-vw-100 rounded bg-white">
                     <thead>
                       <tr>
-                        <th style={{ fontWeight: "500" }}>#ID</th>
+                        <th
+                          style={{
+                            fontWeight: "500",
+                          }}
+                        >
+                          #ID
+                        </th>
                         <th
                           className="text-nowrap"
-                          style={{ fontWeight: "500" }}
+                          style={{
+                            fontWeight: "500",
+                          }}
                         >
                           {t("supplier_pages.update_product.buyer")}
                         </th>
                         <th
-                          style={{ fontWeight: "500" }}
+                          style={{
+                            fontWeight: "500",
+                          }}
                           className="text-nowrap"
                         >
                           {t("buyer_pages.cart.product")}
                         </th>
                         <th
-                          style={{ fontWeight: "500" }}
+                          style={{
+                            fontWeight: "500",
+                          }}
                           className="text-nowrap"
                         >
                           {t("buyer_pages.cart.qty")}
                         </th>
                         <th
-                          style={{ fontWeight: "500" }}
+                          style={{
+                            fontWeight: "500",
+                          }}
                           className="text-nowrap"
                         >
                           {t("buyer_pages.cart.total")}
                         </th>
                         <th
-                          style={{ fontWeight: "500" }}
+                          style={{
+                            fontWeight: "500",
+                          }}
                           className="text-nowrap"
                         >
                           {t("buyer_pages.offers_list.status")}
