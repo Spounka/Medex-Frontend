@@ -1299,10 +1299,10 @@ footer {
   z-index: 100;
   overflow-y: auto !important;
 }
-.ar{
+.ar {
   left: unset;
 }
-.ar:nth-child(3){
+.ar:nth-child(3) {
   margin-right: 250px;
   margin-left: 0;
 }
@@ -1360,11 +1360,11 @@ footer {
   height: 150px;
   box-shadow: 1px 3px 6px 0px #00000017;
 }
-.as{
+.as {
   justify-content: space-between;
 }
 @media screen and (max-width: 558px) {
-  .as{
+  .as {
     justify-content: center;
     column-gap: 20px;
   }
@@ -1392,12 +1392,12 @@ footer {
   color: gray;
   background: none;
 }
-.dashboard__stats-card-text{
+.dashboard__stats-card-text {
   text-wrap: nowrap;
   font-size: 1.5rem;
   font-weight: normal;
 }
-.dashboard__stats-card-title{
+.dashboard__stats-card-title {
   text-wrap: nowrap;
 }
 @media screen and (max-width: 768px) {
@@ -1439,10 +1439,10 @@ footer {
     z-index: 100000 !important;
   }
 
-    .dashboard__sidebar-container {
-        top: 0;
-        left: -320px;
-    }
+  .dashboard__sidebar-container {
+    top: 0;
+    left: -320px;
+  }
 
   .dashboard__orders-list {
     overflow-x: visible;
@@ -1457,15 +1457,15 @@ footer {
     height: 20px;
   }
 
-    .buyer__dashboard-sidebar-container {
-        position: fixed;
-        top: 0;
-        left: -450px;
-        z-index: 1000 !important;
-        height: 100dvh;
-        background-color: white;
-        width: 100%;
-    }
+  .buyer__dashboard-sidebar-container {
+    position: fixed;
+    top: 0;
+    left: -450px;
+    z-index: 1000 !important;
+    height: 100dvh;
+    background-color: white;
+    width: 100%;
+  }
 
   .buyer__dashboard-sidebar-container-visible {
     left: 0;
@@ -1492,17 +1492,26 @@ footer {
   .dashboard__main-container main {
     width: 100dvw !important;
   }
-  .dashboard__stats-card{
+  .dashboard__stats-card {
     width: 180px;
     height: 120px;
   }
 }
 
-
 @media screen and (max-width: 300px) {
   .supplier__header-brand {
     font-size: 0.9rem;
   }
+}
+.gainColor {
+  border-radius: 5px;
+  color: white;
+  background-color: #2c77df;
+}
+.lossColor {
+  border-radius: 5px;
+  color: white;
+  background-color: #faad14;
 }
 /* Dashboard End */
 
@@ -1650,7 +1659,8 @@ footer {
 .english * {
   direction: ltr !important;
 }
-.slick-list, .dash {
+.slick-list,
+.dash {
   direction: ltr;
 }
 /* Arabic Styles End */
@@ -1784,17 +1794,16 @@ footer {
   }
 }
 @media screen and (max-width: 1023px) {
-  .gra{
+  .gra {
     flex-direction: column;
   }
-  
 }
 /* Order Details End */
 @media screen and (max-width: 993px) {
-  .ad{
+  .ad {
     flex-direction: column;
   }
-  .as{
+  .as {
     width: 100%;
   }
 }
