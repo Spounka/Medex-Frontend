@@ -445,8 +445,9 @@
             "new_orders": "New Orders",
             "new_buyers": "New Buyers",
             "monthly": "Monthly Sales",
+            "income": "Income Overview",
             "messages": "New Messages",
-            "report": "Monthly Sales Report",
+            "report": "Sales Report",
             "recent": "Recent Orders",
             "view": "View"
         },

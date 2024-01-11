@@ -291,7 +291,7 @@ const Dashboard = () => {
               <div className="d-flex justify-content-between">
                 <h2
                   className="d-flex align-items-center gap-2 dashboard__title"
-                  style={{ textWrap: "nowrap" }}
+                  style={{ textWrap: "wrap" }}
                 >
                   {t("supplier_pages.dashboard.income")}
                 </h2>
