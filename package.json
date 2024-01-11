@@ -11,6 +11,9 @@
         "relocate": "vite build && rm -rf ../backend/dist && mv -f dist ../backend"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.3",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.15.4",
         "@tinymce/tinymce-react": "^4.3.2",
         "axios": "^1.5.1",
         "chart.js": "^4.4.0",
@@ -25,6 +28,7 @@
         "jspdf": "^2.5.1",
         "jwt-decode": "^3.1.2",
         "react": "^18.2.0",
+        "react-apexcharts": "^1.4.1",
         "react-chartjs-2": "^5.2.0",
         "react-country-state-city": "^1.1.0",
         "react-dom": "^18.2.0",
