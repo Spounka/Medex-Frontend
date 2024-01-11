@@ -160,16 +160,16 @@ const QuoteList = () => {
               {t("supplier_pages.quote_list.title")}
             </h2>
           </div>
-          <div className="row gra mt-3">
+          <div className="row mt-3">
             {quotes.length > 0 ? (
               <>
-                <div className="col-12" id="list-tab" role="tablist" style={{width: '300px'}}>
+                <div className="col-12 col-md-5" id="list-tab" role="tablist">
                   {quotes.map((quote) => {
                     return (
                       <Link
                         className={`list-group-item list-group-item-action `}
                         id={`list-${quote.id}-list`}
-                        data-bs-toggle={"list"}
+                        data-bs-toggle={window.innerWidth < 768 ? "" : "list"}
                         to={
                           window.innerWidth < 768
                             ? `/supplier/quotes/${quote.id}`
@@ -177,8 +177,11 @@ const QuoteList = () => {
                         }
                         state={{ quote: quote }}
                         role={window.innerWidth < 768 ? "" : "tab"}
+                        aria-controls={
+                          window.innerWidth < 768 ? "" : `list-${quote.id}`
+                        }
                         key={quote.id}
-                        onClick={ selectedQuote == "" ? () => setSelectedQuote(quote) : () => setSelectedQuote("")}
+                        onClick={() => setSelectedQuote(quote)}
                       >
                         <div
                           className={`card mb-2 shadow p-2 ${
@@ -228,7 +231,7 @@ const QuoteList = () => {
                     );
                   })}
                 </div>
-                <div className="col-7" style={{width:"100%"}}>
+                <div className="col-7 d-none d-md-block">
                   <div className="tab-content mb-5" id="nav-tabContent">
                     {quotes.map((quote) => {
                       return (
@@ -241,7 +244,7 @@ const QuoteList = () => {
                           aria-labelledby={`list-${quote.id}-list`}
                           key={quote.id}
                         >
-                          <div className="card p-3 shadow" style={{minWidth: '300px'}}>
+                          <div className="card p-3 shadow">
                             <div className="d-flex align-items-center gap-4 mb-3">
                               <img
                                 src={

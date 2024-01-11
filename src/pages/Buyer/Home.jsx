@@ -134,12 +134,6 @@ const Home = (props) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 375,
-        settings: {
           slidesToShow: 1,
         },
       },
@@ -363,7 +357,7 @@ const Home = (props) => {
                   >
                     <div
                       className="card d-flex align-items-center justify-content-center home__brand-card"
-                      style={{ borderRadius: "10px" }}
+                      style={{ borderRadius: "20px" }}
                     >
                       <img
                         src={brand.image}
