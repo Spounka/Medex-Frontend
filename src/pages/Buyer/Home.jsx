@@ -10,7 +10,6 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 
 import { useTranslation } from "react-i18next";
-import img from "../../assets/images/test.jpg";
 import { CiSearch } from "react-icons/ci";
 
 const Home = (props) => {
@@ -184,6 +183,7 @@ const Home = (props) => {
     autoplay: true,
     cssEase: "ease-in",
     dots: true,
+    arrows: false,
   };
 
   return (
@@ -230,11 +230,19 @@ const Home = (props) => {
               </div>
             </form>
           </div>
-
-          <img
-            style={{ width: "100%", borderRadius: "10px" }}
-            src={import.meta.env.VITE_BACKEND_URL + ads.thumbnail}
-          />
+          {ads && ads.length > 0 ? (
+            <Slider {...settings3}>
+              {ads.map(ad => (
+                <img
+                  key={ad.id}
+                  style={{ width: "100%", borderRadius: "10px" }}
+                  src={import.meta.env.VITE_BACKEND_URL + ad.thumbnail}
+                />
+              ))}
+            </Slider>
+          ) : (
+            ""
+          )}
         </div>
       </section>
       <section className="pb-5">
@@ -264,7 +272,10 @@ const Home = (props) => {
               {featuredCategories.length > 0 ? (
                 <Slider {...settings2} className="home__featured-section">
                   {featuredCategories.map((category) => (
-                    <Link key={category.id} to={`/products?category=${category.slug}`}>
+                    <Link
+                      key={category.id}
+                      to={`/products?category=${category.slug}`}
+                    >
                       <div className={`home__featured-div`}>
                         <div className="card home__featured-card position-relative h-100">
                           <div className="position-absolute w-100 h-100">
