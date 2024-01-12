@@ -158,7 +158,6 @@ const Header = () => {
 
           <div
             className="collapse navbar-collapse d-none d-md-block"
-            id="navbarSupportedContent"
           >
             <ul
               className={`navbar-nav ${

@@ -11,7 +11,8 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 
 import { useTranslation } from "react-i18next";
-import heroVideo from "../../assets/videos/hero-video.mp4";
+import img from "../../assets/images/test.jpg";
+import { CiSearch } from "react-icons/ci";
 
 const Home = (props) => {
   const { t, i18n } = useTranslation();
@@ -98,13 +99,6 @@ const Home = (props) => {
     fetchBestSellingProducts();
   }, []);
 
-  useEffect(() => {
-    const headerHeight =
-      document.getElementsByTagName("header")[0].clientHeight;
-    document.getElementById("hero").style.height =
-      window.innerHeight - headerHeight - 1 + "px";
-  }, []);
-
   const settings = {
     infinite: true,
     speed: 500,
@@ -139,55 +133,87 @@ const Home = (props) => {
       },
     ],
   };
+  const settings2 = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    cssEase: "ease-in",
+    dots: true,
+    centerMode: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          centerMode: false,
+        },
+      },
+    ],
+  };
 
   return (
     <main>
-      <section
-        className="d-flex justify-content-center align-items-center position-relative"
-        id="hero"
-      >
-        <video
-          style={{
-            zIndex: 1,
-            objectFit: "cover",
-            objectPosition: "50% 50%",
-          }}
-          className="position-absolute w-100 h-100"
-          autoPlay
-          muted
-          preload="auto"
-          loop
-          playsInline
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
-        <div
-          style={{ zIndex: 2 }}
-          className="text-center col-11 col-md-8 home__hero-banner p-5 shadow"
-        >
-          <div className=" mb-4">
-            <div>
-              <h1 className="display-3 fw-bolder">
-                {t("buyer_pages.home.welcome")}
-              </h1>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <p>{t("buyer_pages.home.intro")}.</p>
-
-              <Link
-                to="/products"
-                className="gradient-bg-color px-3 py-2 text-white rounded shadow mt-3 fw-bold"
+      <section className="container">
+        <div className="pb-5 pt-2">
+          <div className="p-3 two">
+            <form method="get" action="/products">
+              <div
+                className={`w-100 ${
+                  i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                }`}
               >
-                {t("buyer_pages.home.more")}
-              </Link>
-            </div>
+                <div className="nav-link">
+                  <div
+                    className="input-group m-0"
+                    style={{
+                      direction: "ltr",
+                    }}
+                  >
+                    <input
+                      type="text"
+                      name="keyword"
+                      className="form-control py-2"
+                      placeholder={`${t("header.search_product")}...`}
+                      aria-label={`${t("header.search_product")}...`}
+                      aria-describedby="header-search-bar"
+                      style={{ borderRight: "none", height: "35px" }}
+                    />
+
+                    <button
+                      type="submit"
+                      className="input-group-text "
+                      id="header-search-bar"
+                      style={{ backgroundColor: "transparent" }}
+                    >
+                      <CiSearch
+                        className="fs-5"
+                        style={{ color: "rgb(147 147 147)" }}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
+          <img style={{ width: "100%", borderRadius: "10px" }} src={img} />
         </div>
       </section>
-      <section className="py-5">
+      <section className="pb-5">
         <div className="container">
           <div className="row d-flex align-items-center">
             <div className="col-8">
@@ -211,68 +237,41 @@ const Home = (props) => {
           </div>
           <div className="row py-4">
             <div className="col-12">
-              <div className="home__featured-section">
-                {featuredCategories && featuredCategories.length > 0 ? (
-                  featuredCategories.slice(0, 6).map((category, index) => (
-                    <div
-                      className={`home__featured-div${index + 1}`}
-                      key={category.id}
-                    >
-                      <div
-                        className={`card home__featured-card position-relative ${
-                          index + 1 == 4 && " h-100"
-                        }`}
-                      >
-                        <div className="position-absolute w-100 h-100">
-                          <img
-                            src={
-                              import.meta.env.VITE_BACKEND_URL + category.image
-                            }
-                            alt="Category"
-                            className="home__featured-card-img"
-                          />
-                        </div>
-                        <div className="home__featured-card-content position-relative">
-                          <div className="d-flex h-100 flex-column justify-content-between align-items-between">
-                            <div className="d-flex flex-column gap-2">
-                              <h5 className="home__featured-card-content-title text-white">
-                                {category.name}
-                              </h5>
+              {featuredCategories.length > 0 ? (
+                <Slider {...settings2} className="home__featured-section">
+                  {featuredCategories.map((category) => (
+                    <Link to={`/products?category=${category.slug}`}>
+                      <div className={`home__featured-div`} key={category.id}>
+                        <div className="card home__featured-card position-relative h-100">
+                          <div className="position-absolute w-100 h-100">
+                            <img
+                              src={
+                                import.meta.env.VITE_BACKEND_URL +
+                                category.image
+                              }
+                              alt="Category"
+                              className="home__featured-card-img"
+                            />
+                          </div>
+                          <div className="home__featured-card-content position-relative">
+                            <div className="d-flex h-100 flex-column justify-content-between align-items-between">
+                              <div className="d-flex flex-column gap-2">
+                                <h5 className="home__featured-card-content-title text-white text-nowrap">
+                                  {category.name}
+                                </h5>
+                              </div>
                             </div>
                           </div>
-                          {category.level == 0 ? (
-                            <Link
-                              to={`/products?category=${category.slug}`}
-                              className="position-absolute d-flex justify-content-center align-items-center home__featured-card-content-link gradient-bg-color"
-                            >
-                              {i18n.resolvedLanguage == "en" ? (
-                                <BiSolidRightArrowAlt />
-                              ) : (
-                                <BiSolidLeftArrowAlt />
-                              )}
-                            </Link>
-                          ) : (
-                            <Link
-                              to={`/products?category=${category.parent_slug}&sub-category=${category.slug}`}
-                              className="position-absolute d-flex justify-content-center align-items-center home__featured-card-content-link gradient-bg-color"
-                            >
-                              {i18n.resolvedLanguage == "en" ? (
-                                <BiSolidRightArrowAlt />
-                              ) : (
-                                <BiSolidLeftArrowAlt />
-                              )}
-                            </Link>
-                          )}
                         </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-center">
-                    {t("buyer_pages.home.no_featured")}!
-                  </p>
-                )}
-              </div>
+                    </Link>
+                  ))}
+                </Slider>
+              ) : (
+                <p className="text-center">
+                  {t("buyer_pages.home.no_featured")}!
+                </p>
+              )}
             </div>
           </div>
         </div>
