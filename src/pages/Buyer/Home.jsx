@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { BiSolidLeftArrowAlt, BiSolidRightArrowAlt } from "react-icons/bi";
 
 import Slider from "react-slick";
 
@@ -18,6 +17,7 @@ const Home = (props) => {
   const { t, i18n } = useTranslation();
 
   const { addToCart } = props;
+  const [ads, setAds] = useState("");
 
   const [featuredCategories, setFeaturedCategories] = useState([]);
   const [sale, setSale] = useState([]);
@@ -56,11 +56,13 @@ const Home = (props) => {
         response = await axios.get(
           `${
             import.meta.env.VITE_BACKEND_URL
-          }/api/product/product?order=${query}`
+          }/api/product/product?order=${query}&ads=${true}`
         );
       } else {
         response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/product/product?on_sale=true`
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/product/product?on_sale=true&ads=${true}`
         );
       }
 
@@ -73,22 +75,25 @@ const Home = (props) => {
   useEffect(() => {
     const fetchProductsOnSale = async () => {
       const products = await fetchProductsByQuery("on_sale");
-      if (products) {
-        setSale(products);
+      if (products?.products) {
+        setSale(products?.products);
+        setAds(products?.ads);
       }
     };
 
     const fetchRecentlyAddedProducts = async () => {
       const products = await fetchProductsByQuery("-created");
-      if (products) {
-        setRecent(products);
+      if (products?.products) {
+        setRecent(products?.products);
+        setAds(products?.ads);
       }
     };
 
     const fetchBestSellingProducts = async () => {
       const products = await fetchProductsByQuery("-best_suppliers");
-      if (products) {
-        setBestSupplier(products);
+      if (products?.products) {
+        setBestSupplier(products?.products);
+        setAds(products?.ads);
       }
     };
 
@@ -158,6 +163,13 @@ const Home = (props) => {
       },
       {
         breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          centerMode: false,
+        },
+      },
+      {
+        breakpoint: 425,
         settings: {
           slidesToShow: 2,
           centerMode: false,

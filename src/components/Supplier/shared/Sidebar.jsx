@@ -8,6 +8,7 @@ import {
     MdList,
     MdOutlinePointOfSale,
     MdAddToQueue,
+    MdOutlinePreview,
 } from "react-icons/md";
 import {
     BiSolidDownArrow,
@@ -24,6 +25,8 @@ import {
 import { BsGearFill, BsTruck } from "react-icons/bs";
 import { LuTextQuote } from "react-icons/lu";
 import { FaRegFileExcel } from "react-icons/fa";
+import { IoStatsChart, IoStorefrontOutline } from "react-icons/io5";
+import { TbHomeEdit } from "react-icons/tb";
 
 import { useTranslation } from "react-i18next";
 
@@ -39,7 +42,7 @@ const Sidebar = (props) => {
         <aside
             className={`p-0 mt-5 pt-2 dashboard__sidebar-container ${
                 menuOpen && "dashboard__sidebar-container-visible"
-            } ${i18n.resolvedLanguage == 'en' ? '' : 'ar'}`}
+            } ${i18n.resolvedLanguage == "en" ? "" : "ar"}`}
         >
             <div className="d-flex flex-column align-items-start text-white">
                 <ul
@@ -53,6 +56,18 @@ const Sidebar = (props) => {
                         >
                             <MdSpaceDashboard size="1.5rem" />
                             <span className="ms-1">{t("dashboard")}</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            to="/supplier/statistics"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <IoStatsChart size="1.5rem" />
+                            <span className="ms-1">
+                                {t("buyer_sidebar.stats")}
+                            </span>
                         </Link>
                     </li>
 
@@ -228,6 +243,46 @@ const Sidebar = (props) => {
                                     <BiSolidOffer size="1.5rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.offers_list")}{" "}
+                                    </span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <Link
+                            to="#store"
+                            data-bs-toggle="collapse"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <IoStorefrontOutline size="1.5rem" />
+                            <span className="ms-1">
+                                {t("supplier_sidebar.store")}
+                            </span>
+                            <BiSolidDownArrow size=".5rem" />
+                        </Link>
+                        <ul
+                            className="collapse nav flex-column mx-3"
+                            id="store"
+                            data-bs-parent="#menu"
+                        >
+                            <li className="w-100">
+                                <Link
+                                    to="/supplier/store/edit"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <TbHomeEdit size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.edit_store")}
+                                    </span>
+                                </Link>
+                                <Link
+                                    to="/supplier/store/view"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <MdOutlinePreview size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.view_store")}
                                     </span>
                                 </Link>
                             </li>

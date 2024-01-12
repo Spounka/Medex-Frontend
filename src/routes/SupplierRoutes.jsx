@@ -37,6 +37,9 @@ import TrackingList from "../pages/Supplier/TrackingList";
 import TrackingDetails from "../pages/Supplier/TrackingDetails";
 import ReturnRequests from "../pages/Supplier/ReturnRequests";
 import ReturnDetails from "../pages/Supplier/ReturnDetails";
+import Statistics from "../pages/Supplier/Statistics";
+import ViewStore from "../pages/Supplier/ViewStore";
+import EditStore from "../pages/Supplier/EditStore";
 
 const SupplierRoutes = () => {
     return (
@@ -114,6 +117,10 @@ const SupplierRoutes = () => {
                         path="return-requests/:id"
                         element={<ReturnDetails />}
                     />
+
+                    <Route path="statistics" element={<Statistics />} />
+                    <Route path="store/view" element={<ViewStore />} />
+                    <Route path="store/edit" element={<EditStore />} />
                 </Route>
             </Route>
 
