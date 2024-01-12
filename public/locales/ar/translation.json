@@ -114,7 +114,10 @@
         "offers_list": "قائمة العروض",
         "language": "اللغة",
         "tracking": "تتبع الطلبات",
-        "return_requests": "طلبات الإرجاع"
+        "return_requests": "طلبات الإرجاع",
+        "store": "المتجر",
+        "edit_store": "تعديل المتجر",
+        "view_store": "استعراض المتجر"
     },
     "auth_context": {
         "login_successful": "تم تسجيل الدخول بنجاح",
@@ -445,7 +448,7 @@
             "new_orders": "الطلبات الجديدة",
             "new_buyers": "المشترين الجدد",
             "monthly": "المبيعات الشهرية",
-            "income":"نظرة عامة على الدخل",
+            "income": "نظرة عامة على الدخل",
             "messages": "رسائل جديدة",
             "report": "تقرير المبيعات",
             "recent": "الطلبات الأخيرة",

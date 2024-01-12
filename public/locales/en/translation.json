@@ -114,7 +114,10 @@
         "offers_list": "Offers List",
         "language": "Language",
         "tracking": "Shipment Tracking",
-        "return_requests": "Return Requests"
+        "return_requests": "Return Requests",
+        "store": "Store",
+        "edit_store": "Edit Store",
+        "view_store": "View Store"
     },
     "auth_context": {
         "login_successful": "You have logged in successfully",
