@@ -17,7 +17,7 @@ const Home = (props) => {
   const { t, i18n } = useTranslation();
 
   const { addToCart } = props;
-  const [ads, setAds] = useState("");
+  const [ads, setAds] = useState([]);
 
   const [featuredCategories, setFeaturedCategories] = useState([]);
   const [sale, setSale] = useState([]);
@@ -103,7 +103,6 @@ const Home = (props) => {
     fetchRecentlyAddedProducts();
     fetchBestSellingProducts();
   }, []);
-
   const settings = {
     infinite: true,
     speed: 500,
@@ -177,6 +176,15 @@ const Home = (props) => {
       },
     ],
   };
+  const settings3 = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    cssEase: "ease-in",
+    dots: true,
+  };
 
   return (
     <main>
@@ -222,7 +230,11 @@ const Home = (props) => {
               </div>
             </form>
           </div>
-          <img style={{ width: "100%", borderRadius: "10px" }} src={img} />
+
+          <img
+            style={{ width: "100%", borderRadius: "10px" }}
+            src={import.meta.env.VITE_BACKEND_URL + ads.thumbnail}
+          />
         </div>
       </section>
       <section className="pb-5">
@@ -252,8 +264,8 @@ const Home = (props) => {
               {featuredCategories.length > 0 ? (
                 <Slider {...settings2} className="home__featured-section">
                   {featuredCategories.map((category) => (
-                    <Link to={`/products?category=${category.slug}`}>
-                      <div className={`home__featured-div`} key={category.id}>
+                    <Link key={category.id} to={`/products?category=${category.slug}`}>
+                      <div className={`home__featured-div`}>
                         <div className="card home__featured-card position-relative h-100">
                           <div className="position-absolute w-100 h-100">
                             <img
@@ -268,9 +280,9 @@ const Home = (props) => {
                           <div className="home__featured-card-content position-relative">
                             <div className="d-flex h-100 flex-column justify-content-between align-items-between">
                               <div className="d-flex flex-column gap-2">
-                                <h5 className="home__featured-card-content-title text-white text-nowrap">
+                                <h4 className="home__featured-card-content-title text-white text-nowrap">
                                   {category.name}
-                                </h5>
+                                </h4>
                               </div>
                             </div>
                           </div>

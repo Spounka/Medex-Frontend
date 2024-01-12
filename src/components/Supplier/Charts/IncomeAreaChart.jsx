@@ -30,9 +30,8 @@ const areaChartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const IncomeAreaChart = ({ slot }) => {
+const IncomeAreaChart = ({ slot, monthlySales, dailySales, months, days }) => {
   const theme = useTheme();
-
   const { primary, secondary } = theme.palette.text;
   const line = theme.palette.divider;
 
@@ -45,21 +44,8 @@ const IncomeAreaChart = ({ slot }) => {
       xaxis: {
         categories:
           slot === "month"
-            ? [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-              ]
-            : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            ? [...months]
+            : [...days],
         labels: {
           style: {
             colors: [
@@ -98,26 +84,28 @@ const IncomeAreaChart = ({ slot }) => {
         theme: "light",
       },
     }));
-  }, [primary, secondary, line, theme, slot]);
+  }, [primary, secondary, line, theme, slot, days, months, dailySales, monthlySales]);
 
   const [series, setSeries] = useState([
     {
       name: "Sales",
-      data: [0, 86, 28, 115, 48, 210, 136],
+      data:
+          slot === "month"
+            ? [0,0,0,0,0,0,0,0,0,0,0,0]
+            : [0,0,0,0,0,0,0,0,0,0,0,0],
     }
   ]);
-
   useEffect(() => {
     setSeries([
       {
         name: "Sales",
         data:
           slot === "month"
-            ? [76, 85, 101, 98, 87, 105, 91, 114, 94, 86, 115, 35]
-            : [31, 40, 28, 51, 42, 109, 100],
+            ? [...monthlySales]
+            : [...dailySales],
       }
     ]);
-  }, [slot]);
+  }, [slot, days, months, dailySales, monthlySales]);
 
   return (
     <Chart

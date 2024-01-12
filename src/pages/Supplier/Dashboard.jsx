@@ -237,7 +237,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="col-12 mt-3">
-                <MonthlyBarChart slot={slot} />
+                <MonthlyBarChart slot={slot} dailySales={dailySales} monthlySales={monthlySales} days={days} months={months} />
               </div>
             </div>
             <div className="col-lg-4 as">

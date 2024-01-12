@@ -16,8 +16,8 @@ body {
 :root {
   --theme-color-darkblue: #2c77df;
   --theme-color-blue: #2c77df;
-  --theme-color-lightblue: white;
-  --theme-color-white: white;
+  --theme-color-lightblue: #bdbdbd;
+  --theme-color-white: #ffffff;
 }
 
 ::-webkit-scrollbar {
@@ -80,6 +80,7 @@ a:hover {
 
 .gradient-bg-color {
   background: var(--theme-color-blue);
+  transition: 0.2s;
 }
 
 .gradient-bg-color:hover {
@@ -399,7 +400,7 @@ footer {
   height: 100%;
   padding: 25px;
   color: var(--theme-color-darkblue);
-  background-color: rgb(32 119 236 / 37%);
+  background-color: #8e65c13b;
 }
 
 .home__featured-card-content-description {
@@ -585,7 +586,7 @@ footer {
   }
 
   .home__featured-card-content-title {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .home__featured-card-content-description {
