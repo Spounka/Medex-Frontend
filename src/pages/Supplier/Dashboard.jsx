@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import userImage from "../../assets/images/user.png";
 
-import MonthlyBarChart from "../../components/Supplier/Charts/IncomeAreaChart";
+import MonthlyBarChart from "../../components/Supplier/Charts/MonthlyBarChart";
 import IncomeBarChart from "../../components/Supplier/Charts/IncomeBarChart";
 
 import { Button } from "@mui/material";
@@ -336,7 +336,7 @@ const Dashboard = () => {
                                 </h2>
                             </div>
                             <div className="col-12 mt-3">
-                                <IncomeBarChart />
+                                <IncomeBarChart days={days} dailySales={dailySales} />
                             </div>
                         </div>
                     </div>
