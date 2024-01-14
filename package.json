@@ -18,7 +18,6 @@
         "apexcharts": "^3.45.1",
         "axios": "^1.5.1",
         "chart.js": "^4.4.0",
-        "ckeditor5-custom-build": "file:ckeditor5",
         "dayjs": "^1.11.10",
         "file": "^0.2.2",
         "html-react-parser": "^4.2.10",
