@@ -506,7 +506,11 @@
             "monthly_orders_statistics": "Current Month Sales",
             "orders_max": "Maximum Sales Value",
             "orders_min": "Minimum Sales Value",
-            "orders_avg": "Average Sales Value"
+            "orders_avg": "Average Sales Value",
+            "categories_statistics": "Products Per Category",
+            "sales_statistics": "Sales Statistics",
+            "monthly_sales": "Monthly Sales Count",
+            "product_count": "Total Products Count"
         }
     }
 }
