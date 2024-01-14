@@ -11,6 +11,11 @@ import ProductCard from "../../components/Buyer/shared/ProductCard";
 
 import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
+import { FaXRay } from "react-icons/fa6";
+import { FaBriefcaseMedical } from "react-icons/fa";
+import { FaPumpMedical } from "react-icons/fa";
+import { ImLab } from "react-icons/im";
+import { GiChemicalTank } from "react-icons/gi";
 
 const Home = (props) => {
   const { t, i18n } = useTranslation();
@@ -104,21 +109,28 @@ const Home = (props) => {
   }, []);
   const settings = {
     infinite: true,
-    speed: 500,
-    slidesToShow: 4,
+    speed: 350,
+    slidesToShow: 6,
     slidesToScroll: 1,
     autoplay: true,
     lazyLoad: true,
     className: "center",
     autoplaySpeed: 2500,
-    cssEase: "ease-in",
     responsive: [
       {
         breakpoint: 1300,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 5,
           centerPadding: "30px",
           centerMode: true,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          centerMode: true,
+          arrows: false,
         },
       },
       {
@@ -126,12 +138,21 @@ const Home = (props) => {
         settings: {
           slidesToShow: 3,
           centerMode: true,
+          arrows: false,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 2,
+          arrows: false,
         },
       },
     ],
@@ -139,10 +160,9 @@ const Home = (props) => {
   const settings2 = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
-    cssEase: "ease-in",
     dots: true,
     centerMode: true,
     arrows: false,
@@ -150,27 +170,36 @@ const Home = (props) => {
       {
         breakpoint: 1300,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 5,
+          centerMode: true,
         },
       },
       {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
+          centerMode: true,
         },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 3,
-          centerMode: false,
+          centerMode: true,
         },
       },
       {
-        breakpoint: 425,
+        breakpoint: 500,
         settings: {
           slidesToShow: 2,
-          centerMode: false,
+          centerMode: true,
+        },
+      },
+      {
+        breakpoint: 350,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
         },
       },
     ],
@@ -218,12 +247,13 @@ const Home = (props) => {
                       type="submit"
                       className="input-group-text "
                       id="header-search-bar"
-                      style={{ backgroundColor: "transparent" }}
+                      style={{
+                        borderLeft: "none",
+                        borderColor: "#bbbbbb",
+                        backgroundColor: "#ffffff",
+                      }}
                     >
-                      <CiSearch
-                        className="fs-5"
-                        style={{ color: "rgb(147 147 147)" }}
-                      />
+                      <CiSearch className="fs-5" style={{ color: "#8e65c1" }} />
                     </button>
                   </div>
                 </div>
@@ -232,10 +262,10 @@ const Home = (props) => {
           </div>
           {ads && ads.length > 0 ? (
             <Slider {...settings3}>
-              {ads.map(ad => (
+              {ads.map((ad) => (
                 <img
+                  className="imgg"
                   key={ad.id}
-                  style={{ width: "100%", borderRadius: "10px" }}
                   src={import.meta.env.VITE_BACKEND_URL + ad.thumbnail}
                 />
               ))}
@@ -247,38 +277,61 @@ const Home = (props) => {
       </section>
       <section className="pb-5">
         <div className="container">
-          <div className="row d-flex align-items-center">
-            <div className="col-8">
-              <h3 className="m-0 home__sections-title fw-bolder">
-                {t("buyer_pages.home.featured_cat")}
-              </h3>
+          <div>
+            <div className="row d-flex align-items-center">
+              <div className="col-8">
+                <h3 className="m-0 home__sections-title fw-bolder">
+                  {t("buyer_pages.home.featured_cat")}
+                </h3>
+              </div>
+              <div className="col-4 d-flex justify-content-end">
+                <Link
+                  style={{ backgroundColor: "white", borderRadius: "8px" }}
+                  to="/categories"
+                  className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
+                >
+                  {t("buyer_pages.home.all")}
+                  {i18n.resolvedLanguage == "en" ? (
+                    <AiOutlineArrowRight />
+                  ) : (
+                    <AiOutlineArrowLeft />
+                  )}
+                </Link>
+              </div>
             </div>
-            <div className="col-4 d-flex justify-content-end">
-              <Link
-                to="/categories"
-                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
-              >
-                {t("buyer_pages.home.all")}
-                {i18n.resolvedLanguage == "en" ? (
-                  <AiOutlineArrowRight />
-                ) : (
-                  <AiOutlineArrowLeft />
-                )}
-              </Link>
-            </div>
-          </div>
-          <div className="row py-4">
-            <div className="col-12">
-              {featuredCategories.length > 0 ? (
-                <Slider {...settings2} className="home__featured-section">
-                  {featuredCategories.map((category) => (
-                    <Link
-                      key={category.id}
-                      to={`/products?category=${category.slug}`}
-                    >
-                      <div className={`home__featured-div`}>
+            <div className="row pt-4">
+              <div className="col-12">
+                <div className="d-flex gap-3 justify-content-around flex-wrap">
+                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <FaXRay className="p-3" size={100} />
+                    <p className="text-center m-0">XRay</p>
+                  </div>
+                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <FaBriefcaseMedical className="p-3" size={100} />
+                    <p className="text-center m-0">Medical</p>
+                  </div>
+                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <FaPumpMedical className="p-3" size={100} />
+                    <p className="text-center m-0">MedicalL</p>
+                  </div>
+                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <ImLab className="p-3" size={100} />
+                    <p className="text-center m-0">Labs</p>
+                  </div>
+                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <GiChemicalTank className="p-3" size={100} />
+                    <p className="text-center m-0">Chemicals</p>
+                  </div>
+                </div>
+                {/* {featuredCategories.length > 0 ? (
+                  <Slider {...settings2}>
+                    {featuredCategories.map((category) => (
+                      <Link
+                        key={category.id}
+                        to={`/products?category=${category.slug}`}
+                      >
                         <div className="card home__featured-card position-relative h-100">
-                          <div className="position-absolute w-100 h-100">
+                          <div className=" w-100 h-100">
                             <img
                               src={
                                 import.meta.env.VITE_BACKEND_URL +
@@ -288,25 +341,19 @@ const Home = (props) => {
                               className="home__featured-card-img"
                             />
                           </div>
-                          <div className="home__featured-card-content position-relative">
-                            <div className="d-flex h-100 flex-column justify-content-between align-items-between">
-                              <div className="d-flex flex-column gap-2">
-                                <h4 className="home__featured-card-content-title text-white text-nowrap">
-                                  {category.name}
-                                </h4>
-                              </div>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  ))}
-                </Slider>
-              ) : (
-                <p className="text-center">
-                  {t("buyer_pages.home.no_featured")}!
-                </p>
-              )}
+                        <h5 className="home__featured-card-content-title text-center">
+                          {category.name}
+                        </h5>
+                      </Link>
+                    ))}
+                  </Slider>
+                ) : (
+                  <p className="text-center">
+                    {t("buyer_pages.home.no_featured")}!
+                  </p>
+                )} */}
+              </div>
             </div>
           </div>
         </div>
@@ -336,12 +383,7 @@ const Home = (props) => {
           <div className="row py-4">
             <div className="col-14 p-0 p-md-2">
               {bestSupplier && bestSupplier.length > 0 ? (
-                <Slider
-                  {...settings}
-                  slidesToShow={
-                    bestSupplier.length < 4 ? bestSupplier.length : 4
-                  }
-                >
+                <Slider {...settings}>
                   {bestSupplier.map((product) => (
                     <ProductCard
                       product={product}
@@ -360,51 +402,51 @@ const Home = (props) => {
       </section>
       <section className="py-5">
         <div className="container">
-          <div className="row d-flex align-items-center">
-            <div className="col-8">
-              <h3 className="m-0 home__sections-title fw-bolder">
-                {t("buyer_pages.home.by_brand")}
-              </h3>
+          <div>
+            <div className="row d-flex align-items-center">
+              <div className="col-8">
+                <h3 className="m-0 home__sections-title fw-bolder">
+                  {t("buyer_pages.home.by_brand")}
+                </h3>
+              </div>
+              <div className="col-4 d-flex justify-content-end">
+                <Link
+                  to="brands"
+                  className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                >
+                  {t("buyer_pages.home.all")}
+                  {i18n.resolvedLanguage == "en" ? (
+                    <AiOutlineArrowRight />
+                  ) : (
+                    <AiOutlineArrowLeft />
+                  )}
+                </Link>
+              </div>
             </div>
-            <div className="col-4 d-flex justify-content-end">
-              <Link
-                to="brands"
-                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
-              >
-                {t("buyer_pages.home.all")}
-                {i18n.resolvedLanguage == "en" ? (
-                  <AiOutlineArrowRight />
-                ) : (
-                  <AiOutlineArrowLeft />
-                )}
-              </Link>
+            <div className="pt-2 gg">
+              {brands && brands.length > 0 ? (
+                brands.map((brand) => {
+                  return (
+                    <Link to={`/products?brand=${brand.slug}`} key={brand.id}>
+                      <div
+                        className="card d-flex align-items-center justify-content-center home__brand-card"
+                        style={{ borderRadius: "10px" }}
+                      >
+                        <img
+                          src={brand.image}
+                          alt="Brand"
+                          className="img-fluid px-4"
+                        />
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+                <p className="text-center">
+                  {t("buyer_pages.brands_list.none")}
+                </p>
+              )}
             </div>
-          </div>
-          <div className="py-4 gg">
-            {brands && brands.length > 0 ? (
-              brands.map((brand) => {
-                return (
-                  <Link
-                    to={`/products?brand=${brand.slug}`}
-                    className="my-2"
-                    key={brand.id}
-                  >
-                    <div
-                      className="card d-flex align-items-center justify-content-center home__brand-card"
-                      style={{ borderRadius: "20px" }}
-                    >
-                      <img
-                        src={brand.image}
-                        alt="Brand"
-                        className="img-fluid px-4"
-                      />
-                    </div>
-                  </Link>
-                );
-              })
-            ) : (
-              <p className="text-center">{t("buyer_pages.brands_list.none")}</p>
-            )}
           </div>
         </div>
       </section>
@@ -433,10 +475,7 @@ const Home = (props) => {
           <div className="row py-4">
             <div className="col-12 p-0 p-md-0">
               {recent && recent.length > 0 ? (
-                <Slider
-                  {...settings}
-                  slidesToShow={recent.length < 4 ? recent.length : 4}
-                >
+                <Slider {...settings}>
                   {recent.map((product) => (
                     <ProductCard
                       product={product}
@@ -479,10 +518,7 @@ const Home = (props) => {
           <div className="row py-4">
             <div className="col-14 p-0 p-md-1">
               {sale && sale.length > 0 ? (
-                <Slider
-                  {...settings}
-                  slidesToShow={sale.length < 4 ? sale.length : 4}
-                >
+                <Slider {...settings}>
                   {sale.map((product) => (
                     <ProductCard
                       product={product}

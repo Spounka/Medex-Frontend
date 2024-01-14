@@ -333,6 +333,7 @@ const ProductDetails = (props) => {
                                                     <MdFavoriteBorder
                                                         size="1.5rem"
                                                         className="home__card-button-fav-icon"
+                                                        style={{color:"red"}}
                                                     />
                                                     {t(
                                                         "buyer_pages.product_details.wish"

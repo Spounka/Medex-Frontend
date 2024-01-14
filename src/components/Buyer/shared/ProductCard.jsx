@@ -66,7 +66,7 @@ const ProductCard = (props) => {
   return (
     <div
       className="cardd card home__card"
-      style={{ borderRadius: "15px" }}
+      style={{ borderRadius: "5px" }}
     >
       <Link
         to={`/products/${product.sku}`}
@@ -85,9 +85,8 @@ const ProductCard = (props) => {
           </h5>
         </div>
       </Link>
-      <div className="card-body d-flex justify-content-between align-items-center">
-        <div>
-          <span className="fw-bold home__card-price">
+      <div className="d-flex flex-column justify-content-between align-items-center">
+          <span className="fw-bold home__card-price d-flex align-items-center justify-content-around" style={{width:"100%", gap:"10px"}}>
             {product.price > 0 && (
               <span
                 className={
@@ -110,35 +109,34 @@ const ProductCard = (props) => {
                 {product.price_range_max}&nbsp; {t("sar")}
               </span>
             )}
-          </span>
-        </div>
-        <div className="d-flex gap-2 justify-content-center align-items-center">
-          <button
+            <button
             role="button"
             className="border-0 bg-transparent"
             onClick={handleWishButtonClick}
           >
             <div className="home__card-button-fav">
               {isInWishlist ? (
-                <MdFavorite className="home__card-button-fav-icon" />
+                <MdFavorite className="home__card-button-fav-icon" style={{color:"red"}} />
               ) : (
                 <MdFavoriteBorder className="home__card-button-fav-icon" />
               )}
             </div>
           </button>
-
+          </span>
+        </div>
+        <div className="d-flex flex-column justify-content-center align-items-center py-2">
           {product.price > 0 && cart !== false && (
             <button
-              className="gradient-bg-color home__card-button-cart"
+              className="bttn text-nowrap"
+              style={{backgroundColor:"#8e65c1", border:"none", borderRadius:"7px"}}
               id={`item-cart-button-${product.sku}`}
               onClick={() => addToCart(product, 1)}
             >
-              <IoMdCart className="home__card-button-cart-icon" />
+              Add to cart
             </button>
           )}
         </div>
       </div>
-    </div>
   );
 };
 

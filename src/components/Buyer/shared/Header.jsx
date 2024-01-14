@@ -55,22 +55,32 @@ const Header = () => {
         ]);
       });
   };
-
   useEffect(() => {
     getCategories();
   }, []);
 
+  const [scrolled, setScrolled] = useState(false);
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 103) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+  window.addEventListener("scroll", handleScroll);
+
   return (
     <header>
       <nav
-        className="navbar navbar-expand-lg py-2 py-md-2"
-        style={{ zIndex: "12" }}
+        className={`navbar navbar-expand-lg py-2 py-md-2 ${scrolled == true ? "position-fixed w-100": ""}`}
+        style={{ zIndex: "12", backgroundColor: "#ffffff", boxShadow:"0 1px 5px #bbbbbb" }}
       >
         <div
           className="container-xxl"
           style={{ padding: "0 25px", flexWrap: "nowrap" }}
         >
-          <Link to="/" className="navbar-brand fs-2 text-color-blue fw-bold">
+          <Link to="/" className="navbar-brand fs-2 fw-bold">
             Medex
           </Link>
           <div className="d-flex justify-content-center align-items-center gap-4 d-md-none">
@@ -82,7 +92,7 @@ const Header = () => {
                 id="Capa_1"
                 width="20px"
                 height="20px"
-                fill="#010147"
+                fill="white"
                 className="svg-fill"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 64 64"
@@ -156,9 +166,7 @@ const Header = () => {
             </div>
           </div>
 
-          <div
-            className="collapse navbar-collapse d-none d-md-block"
-          >
+          <div className="collapse navbar-collapse d-none d-md-block">
             <ul
               className={`navbar-nav ${
                 i18n.resolvedLanguage == "en" ? "ms-auto" : "me-auto"
@@ -192,196 +200,183 @@ const Header = () => {
                             aria-describedby="header-search-bar"
                           />
 
-                                                    <button
-                                                        type="submit"
-                                                        className="input-group-text gradient-bg-color"
-                                                        id="header-search-bar"
-                                                    >
-                                                        <CiSearch className="text-white fs-5" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </form>
-                                </div>
-                                <div className="d-flex flex-column justify-content align-items-center navbar__top-section">
-                                    <div className="d-flex w-100 navbar__top-links">
-                                        <li className="nav-item">
-                                            <Link
-                                                to="wishlist"
-                                                className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue"
-                                            >
-                                                <svg
-                                                    id="Capa_1"
-                                                    width="37px"
-                                                    height="37px"
-                                                    fill="#010147"
-                                                    className="svg-fill"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 64 64"
-                                                >
-                                                    <g
-                                                        id="Layer_46"
-                                                        data-name="Layer 46"
-                                                    >
-                                                        <path d="M56.73,10.82a16.36,16.36,0,0,0-23,0L32,12.51l-1.7-1.69a16.36,16.36,0,0,0-23,0,16.28,16.28,0,0,0,0,23L30.94, 57.52a1.51,1.51,0,0,0,2.12,0L56.73,33.85A16.36,16.36,0,0,0,56.73,10.82ZM54.61,31.73,32,54.33,9.39,31.73a13.21, 13.21,0,0,1-3.89-9.4A13.35,13.35,0,0,1,18.79,9.05a13.16,13.16,0,0,1,9.39,3.89l2.76,2.75a1.49,1.49,0,0,0,2.12,0l2.76-2.75A13.29,13.29,0,0,1,54.61,31.73Z"></path>
-                                                    </g>
-                                                </svg>
-                                                <p className="m-0 header__link">
-                                                    {t("header.favorite")}
-                                                    <br />{" "}
-                                                    {t("header.wishlist")}
-                                                </p>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item dropdown">
-                                            <div
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                                className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue header__account-dropdown"
-                                            >
-                                                <svg
-                                                    id="Capa_1"
-                                                    height="35px"
-                                                    width="35px"
-                                                    viewBox="0 0 32 32"
-                                                    xmlSpace="http://www.w3.org/2000/svg"
-                                                >
-                                                    <g>
-                                                        <path
-                                                            d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"
-                                                            id="id_101"
-                                                            style={{
-                                                                fill: "#010147",
-                                                            }}
-                                                            className="svg-fill"
-                                                        ></path>
-                                                        <path
-                                                            d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"
-                                                            id="id_102"
-                                                            style={{
-                                                                fill: "#010147",
-                                                            }}
-                                                            className="svg-fill"
-                                                        ></path>
-                                                    </g>
-                                                </svg>
-                                                {t("header.your")} <br />{" "}
-                                                {t("header.account")}
-                                            </div>
-                                            <ul className="dropdown-menu navbar__category-menu">
-                                                {!user ? (
-                                                    <>
-                                                        <li>
-                                                            <Link
-                                                                className=" dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                to="/account/login"
-                                                            >
-                                                                <BiLogIn size="1.5rem" />
-                                                                {t("login")}
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link
-                                                                className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                to="/account/register"
-                                                            >
-                                                                <BiUserPlus size="1.5rem" />
-                                                                {t("register")}
-                                                            </Link>
-                                                        </li>
-                                                    </>
-                                                ) : (
-                                                    user.role == "buyer" && (
-                                                        <>
-                                                            <li>
-                                                                <Link
-                                                                    className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                    to="/account/dashboard"
-                                                                >
-                                                                    <MdOutlineSpaceDashboard size="1.5rem" />
-                                                                    {t(
-                                                                        "dashboard"
-                                                                    )}
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link
-                                                                    className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                    to="/account/profile"
-                                                                >
-                                                                    <BiUserCircle size="1.5rem" />
-                                                                    {t(
-                                                                        "header.your_profile"
-                                                                    )}
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link
-                                                                    className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                    to="/account/request-for-quote"
-                                                                >
-                                                                    <MdOutlineRequestQuote size="1.5rem" />
-                                                                    {t("rfq")}
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link
-                                                                    className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                    to="/account/quotes"
-                                                                >
-                                                                    <MdOutlineFeaturedPlayList size="1.5rem" />
-                                                                    {t(
-                                                                        "my_rfq"
-                                                                    )}
-                                                                </Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link
-                                                                    className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
-                                                                    role="button"
-                                                                    onClick={
-                                                                        logoutUser
-                                                                    }
-                                                                >
-                                                                    <BiLogOut size="1.5rem" />
-                                                                    {t(
-                                                                        "logout"
-                                                                    )}
-                                                                </Link>
-                                                            </li>
-                                                        </>
-                                                    )
-                                                )}
-                                            </ul>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link
-                                                to="/cart"
-                                                className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue position-relative"
-                                            >
-                                                <svg
-                                                    id="Capa_1"
-                                                    height="37px"
-                                                    width="37px"
-                                                    fill="#010147"
-                                                    className="svg-fill m-0 p-0"
-                                                    version="1.1"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                                                    x="0px"
-                                                    y="0px"
-                                                    viewBox="0 0 511.999 511.999"
-                                                    style={{
-                                                        enableBackground:
-                                                            "new 0 0 511.999 511.999",
-                                                    }}
-                                                    xmlSpace="preserve"
-                                                >
-                                                    <g>
-                                                        <g>
-                                                            <path
-                                                                d="M214.685,402.828c-24.829,0-45.029,20.2-45.029,45.029c0,24.829,20.2,45.029,45.029,45.029s45.029-20.2,45.029-45.029
+                          <button
+                            type="submit"
+                            className="input-group-text"
+                            id="header-search-bar"
+                            style={{ borderLeft: "none", borderColor:"#bbbbbb", backgroundColor:"white"}}
+                          >
+                            <CiSearch className="fs-5" style={{color:"#8e65c1"}} />
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </form>
+                </div>
+                <div className="d-flex flex-column justify-content align-items-center navbar__top-section">
+                  <div className="d-flex w-100 navbar__top-links">
+                    <li className="nav-item">
+                      <Link
+                        to="wishlist"
+                        className="nav-link d-flex justify-content-center align-items-center gap-2"
+                      >
+                        <svg
+                          id="Capa_1"
+                          width="37px"
+                          height="37px"
+                          fill="#2d2822"
+                          className="svg-fill"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 64 64"
+                        >
+                          <g id="Layer_46" data-name="Layer 46">
+                            <path d="M56.73,10.82a16.36,16.36,0,0,0-23,0L32,12.51l-1.7-1.69a16.36,16.36,0,0,0-23,0,16.28,16.28,0,0,0,0,23L30.94, 57.52a1.51,1.51,0,0,0,2.12,0L56.73,33.85A16.36,16.36,0,0,0,56.73,10.82ZM54.61,31.73,32,54.33,9.39,31.73a13.21, 13.21,0,0,1-3.89-9.4A13.35,13.35,0,0,1,18.79,9.05a13.16,13.16,0,0,1,9.39,3.89l2.76,2.75a1.49,1.49,0,0,0,2.12,0l2.76-2.75A13.29,13.29,0,0,1,54.61,31.73Z"></path>
+                          </g>
+                        </svg>
+                        <p className="m-0 header__link">
+                          {t("header.favorite")}
+                          <br /> {t("header.wishlist")}
+                        </p>
+                      </Link>
+                    </li>
+                    <li className="nav-item dropdown">
+                      <div
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        className="nav-link d-flex justify-content-center align-items-center gap-2 header__account-dropdown"
+                      >
+                        <svg
+                          id="Capa_1"
+                          height="35px"
+                          width="35px"
+                          viewBox="0 0 32 32"
+                          xmlSpace="http://www.w3.org/2000/svg"
+                        >
+                          <g>
+                            <path
+                              d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"
+                              id="id_101"
+                              style={{
+                                fill: "#2d2822",
+                              }}
+                              className="svg-fill"
+                            ></path>
+                            <path
+                              d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"
+                              id="id_102"
+                              style={{
+                                fill: "#2d2822",
+                              }}
+                              className="svg-fill"
+                            ></path>
+                          </g>
+                        </svg>
+                        <span className="header__link">
+                          {t("header.your")} <br /> {t("header.account")}
+                        </span>
+                      </div>
+                      <ul className="dropdown-menu navbar__category-menu">
+                        {!user ? (
+                          <>
+                            <li>
+                              <Link
+                                className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                to="/account/login"
+                              >
+                                <BiLogIn size="1.5rem" />
+                                {t("login")}
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                to="/account/register"
+                              >
+                                <BiUserPlus size="1.5rem" />
+                                {t("register")}
+                              </Link>
+                            </li>
+                          </>
+                        ) : (
+                          user.role == "buyer" && (
+                            <>
+                              <li>
+                                <Link
+                                  className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                  to="/account/dashboard"
+                                >
+                                  <MdOutlineSpaceDashboard size="1.5rem" />
+                                  {t("dashboard")}
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                  to="/account/profile"
+                                >
+                                  <BiUserCircle size="1.5rem" />
+                                  {t("header.your_profile")}
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                  to="/account/request-for-quote"
+                                >
+                                  <MdOutlineRequestQuote size="1.5rem" />
+                                  {t("rfq")}
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                  to="/account/quotes"
+                                >
+                                  <MdOutlineFeaturedPlayList size="1.5rem" />
+                                  {t("my_rfq")}
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
+                                  role="button"
+                                  onClick={logoutUser}
+                                >
+                                  <BiLogOut size="1.5rem" />
+                                  {t("logout")}
+                                </Link>
+                              </li>
+                            </>
+                          )
+                        )}
+                      </ul>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        to="/cart"
+                        className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue position-relative"
+                      >
+                        <svg
+                          id="Capa_1"
+                          height="37px"
+                          width="37px"
+                          fill="#2d2822"
+                          className="svg-fill m-0 p-0"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlnsXlink="http://www.w3.org/1999/xlink"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 511.999 511.999"
+                          style={{
+                            enableBackground: "new 0 0 511.999 511.999",
+                          }}
+                          xmlSpace="preserve"
+                        >
+                          <g>
+                            <g>
+                              <path
+                                d="M214.685,402.828c-24.829,0-45.029,20.2-45.029,45.029c0,24.829,20.2,45.029,45.029,45.029s45.029-20.2,45.029-45.029
                                                                     C259.713,423.028,239.513,402.828,214.685,402.828z M214.685,467.742c-10.966,0-19.887-8.922-19.887-19.887
                                                                     c0-10.966,8.922-19.887,19.887-19.887s19.887,8.922,19.887,19.887C234.572,458.822,225.65,467.742,214.685,467.742z"
                               ></path>
@@ -441,7 +436,7 @@ const Header = () => {
                         </svg>
                         <span
                           id="header-cart-count"
-                          className="badge gradient-bg-color text-xs p-1 header__cart-badge"
+                          className="badge text-xs p-1 header__cart-badge"
                         >
                           {countCartItems}
                         </span>
@@ -470,7 +465,7 @@ const Header = () => {
                     </NavLink>
                     <NavLink
                       to="/categories"
-                      className="d-flex gap-2 align-items-center cat"
+                      className="d-flex gap-2 align-items-center"
                       onMouseEnter={(e) => {
                         let elm = document.querySelector(
                           ".navbar__bottom-menu-dropdown"
@@ -599,39 +594,27 @@ const Header = () => {
                   cat.name.toLowerCase().includes(searchQuery.toLowerCase())
               );
 
-                                                            return (
-                                                                <div
-                                                                    id={
-                                                                        parentSlug
-                                                                    }
-                                                                    key={`tabcontent_${parentSlug}`}
-                                                                    className="tabcontent"
-                                                                >
-                                                                    <div className="mt-2 mb-3 w-100 position-relative">
-                                                                        <IoSearchSharp
-                                                                            className="chat__search-icon"
-                                                                            size="1.6rem"
-                                                                        />
-                                                                        <input
-                                                                            type="text"
-                                                                            className="form-control chat__search-input"
-                                                                            placeholder={`${t(
-                                                                                "header.search"
-                                                                            )}...`}
-                                                                            value={
-                                                                                searchQuery
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) => {
-                                                                                setSearchQuery(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                );
-                                                                            }}
-                                                                        />
-                                                                    </div>
+              return (
+                <div
+                  id={parentSlug}
+                  key={`tabcontent_${parentSlug}`}
+                  className="tabcontent"
+                >
+                  <div className="mt-2 mb-3 w-100 position-relative">
+                    <IoSearchSharp
+                      className="chat__search-icon"
+                      size="1.6rem"
+                    />
+                    <input
+                      type="text"
+                      className="form-control chat__search-input"
+                      placeholder={`${t("header.search")}...`}
+                      value={searchQuery}
+                      onChange={(e) => {
+                        setSearchQuery(e.target.value);
+                      }}
+                    />
+                  </div>
 
                   {filteredCategories.length > 0 ? (
                     filteredCategories.map((cat) => (
@@ -705,20 +688,21 @@ const openTab = (evt, categoryName) => {
     cat.style.rowGap = "15px";
 
     if (cat) {
-        cat.style.display = "grid";
-        cat.style.gridTemplateColumns = "repeat(4, 1fr)";
-        cat.style.justifyItems = "center";
-        cat.style.alignContent = "start";
-        cat.style.rowGap = "15px";
+      cat.style.display = "grid";
+      cat.style.gridTemplateColumns = "repeat(4, 1fr)";
+      cat.style.justifyItems = "center";
+      cat.style.alignContent = "start";
+      cat.style.rowGap = "15px";
 
-        // Add "active" class to the clicked tab link
-        evt.currentTarget.className += " active";
+      // Add "active" class to the clicked tab link
+      evt.currentTarget.className += " active";
 
-        // Set the first child element (search input) to occupy the entire row width
-        const firstChild = cat.firstElementChild;
+      // Set the first child element (search input) to occupy the entire row width
+      const firstChild = cat.firstElementChild;
 
-        firstChild.style.gridColumn = "1 / span 4";
+      firstChild.style.gridColumn = "1 / span 4";
     }
-};}
+  }
+};
 
 export default Header;

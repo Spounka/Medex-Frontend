@@ -159,19 +159,20 @@ const OurStore = (props) => {
                             <div className="d-md-none" >
                                 <button
                                     onClick={showFilterMenu}
-                                    className="gradient-bg-color w-75 mx-auto py-1 text-white rounded shadow fw-bold text-center d-flex justify-content-center align-items-center gap-2 border-0"
+                                    className="w-75 mx-auto py-1 mb-1 fw-bold text-center d-flex justify-content-center align-items-center gap-2"
+                                    style={{backgroundColor:"white", border:"1px solid #8e65c1", color:"#8e65c1", borderRadius:"5px"}}
                                 >
                                     <BiFilterAlt size="1.2rem" />
                                     {t("buyer_pages.products_list.filter")}
                                 </button>
                             </div>
                             <div className="store__filter-card mb-3 store__filter-menu" style={{boxShadow: 'none', border:'1px solid rgb(210, 210, 208)'}}>
-                                <div className="row mb-3 d-block d-md-none">
+                                <div className="row mt-3 d-block d-md-none">
                                     <div className="col-12 text-end">
                                         <AiOutlineCloseCircle
                                             onClick={closeFilterMenu}
                                             size="1.5rem"
-                                            color="#3a0ca3"
+                                            color="black"
                                         />
                                     </div>
                                 </div>
@@ -183,6 +184,7 @@ const OurStore = (props) => {
                                     type="text"
                                     name="keyword"
                                     className="form-control"
+                                    style={{borderRight:"1px solid #bbbbbb"}}
                                     placeholder={`${t(
                                         "buyer_pages.products_list.type"
                                     )}...`}
@@ -314,7 +316,7 @@ const OurStore = (props) => {
                             </div>
                         </div>
                         <div className="col-12 col-md-9">
-                            <div className="store__sorting-menu py-3" style={{border: '1px solid #d2d2d0'}}>
+                            <div className="store__sorting-menu py-2" style={{border: '1px solid #d2d2d0'}}>
                                 <div className="d-flex align-items-center gap-5">
                                     <p className="mb-0 d-flex align-items-center gap-2">
                                         <BsSortUpAlt size="1.5rem" />
@@ -324,6 +326,7 @@ const OurStore = (props) => {
                                         name="sort"
                                         className="form-control form-select store__sorting-select"
                                         defaultValue="alphabet_ascending"
+                                        style={{borderRight:"1px solid #bbbbbb"}}
                                         onChange={(e) =>
                                             setQuery(e.target.value)
                                         }

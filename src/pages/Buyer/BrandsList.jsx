@@ -33,13 +33,14 @@ const BrandsList = () => {
             <AiOutlineSafetyCertificate size="2rem" />
             {t("buyer_pages.brands_list.all")}
           </h3>
-          <div className="row mt-3">
+          <div className="row mt-3 d-flex flex-wrap gap-2">
             {brands.length > 0 ? (
               brands.map((brand) => {
                 return (
                   <Link
                     to={`/products?brand=${brand.slug}`}
-                    className="col-6 col-md-2 my-2"
+                    className="my-2"
+                    style={{width:"fit-content"}}
                     key={brand.id}
                   >
                     <div className="card d-flex align-items-center justify-content-center home__brand-card">
