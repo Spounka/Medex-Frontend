@@ -501,6 +501,12 @@
             "status": "Request Status",
             "decline_msg": "You have declined this return request",
             "approve_msg": "You have approved this return request"
+        },
+        "statistics": {
+            "monthly_orders_statistics": "Current Month Sales",
+            "orders_max": "Maximum Sales Value",
+            "orders_min": "Minimum Sales Value",
+            "orders_avg": "Average Sales Value"
         }
     }
 }
