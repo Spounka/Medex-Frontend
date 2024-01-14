@@ -1815,7 +1815,10 @@ footer {
   }
 }
 /* Order Details End */
-@media screen and (max-width: 993px) {
+.ad{
+  column-gap: 50px;
+}
+@media screen and (max-width: 1070px) {
   .ad {
     flex-direction: column;
   }

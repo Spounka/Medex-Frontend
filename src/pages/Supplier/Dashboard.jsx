@@ -276,7 +276,7 @@ const Dashboard = () => {
             </section>
             <section className="py-5">
                 <div className="container-fluid">
-                    <div className="d-flex gap-5 justify-content-between ad">
+                    <div className="d-flex ad">
                         <div className="col-lg-7 as">
                             <div className="d-flex justify-content-between">
                                 <h2 className="d-flex align-items-center gap-2 dashboard__title">
@@ -331,7 +331,6 @@ const Dashboard = () => {
                             <div className="d-flex justify-content-between">
                                 <h2
                                     className="d-flex align-items-center gap-2 dashboard__title"
-                                    style={{ textWrap: "wrap" }}
                                 >
                                     {t("supplier_pages.dashboard.income")}
                                 </h2>
