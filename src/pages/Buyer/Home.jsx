@@ -302,26 +302,77 @@ const Home = (props) => {
             <div className="row pt-4">
               <div className="col-12">
                 <div className="d-flex gap-3 justify-content-around flex-wrap">
-                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                  <Link
+                    to="/products?category=X-Ray"
+                    className="cat d-flex flex-column p-2"
+                    style={{
+                      backgroundColor: "rgb(250 250 250)",
+                      borderRadius: "10px",
+                      height: "125px",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                    src
+                  >
                     <FaXRay className="p-3" size={100} />
-                    <p className="text-center m-0">XRay</p>
-                  </div>
-                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                    <p className="text-center m-0 text-black">XRay</p>
+                  </Link>
+                  <Link
+                    to="/products?category=medex"
+                    className="cat d-flex flex-column p-2"
+                    style={{
+                      backgroundColor: "rgb(250 250 250)",
+                      borderRadius: "10px",
+                      height: "125px",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
                     <FaBriefcaseMedical className="p-3" size={100} />
                     <p className="text-center m-0">Medical</p>
-                  </div>
-                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                  </Link>
+                  <Link
+                    to="/products?category=Medll"
+                    className="cat d-flex flex-column p-2"
+                    style={{
+                      backgroundColor: "rgb(250 250 250)",
+                      borderRadius: "10px",
+                      height: "125px",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
                     <FaPumpMedical className="p-3" size={100} />
                     <p className="text-center m-0">MedicalL</p>
-                  </div>
-                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                  </Link>
+                  <Link
+                    to="/products?category=Medx"
+                    className="cat d-flex flex-column p-2"
+                    style={{
+                      backgroundColor: "rgb(250 250 250)",
+                      borderRadius: "10px",
+                      height: "125px",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
                     <ImLab className="p-3" size={100} />
                     <p className="text-center m-0">Labs</p>
-                  </div>
-                  <div className="cat d-flex flex-column p-2" style={{backgroundColor:"rgb(250 250 250)", borderRadius:"10px", height:"125px", cursor:"pointer", transition:"0.3s"}}>
+                  </Link>
+                  <Link
+                    to="/products?category=XxMed"
+                    className="cat d-flex flex-column p-2"
+                    style={{
+                      backgroundColor: "rgb(250 250 250)",
+                      borderRadius: "10px",
+                      height: "125px",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                  >
                     <GiChemicalTank className="p-3" size={100} />
                     <p className="text-center m-0">Chemicals</p>
-                  </div>
+                  </Link>
                 </div>
                 {/* {featuredCategories.length > 0 ? (
                   <Slider {...settings2}>
@@ -352,7 +403,7 @@ const Home = (props) => {
                   <p className="text-center">
                     {t("buyer_pages.home.no_featured")}!
                   </p>
-                )} */}
+                )}*/}
               </div>
             </div>
           </div>
