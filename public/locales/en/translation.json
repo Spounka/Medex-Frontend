@@ -510,7 +510,9 @@
             "categories_statistics": "Products Per Category",
             "sales_statistics": "Sales Statistics",
             "monthly_sales": "Monthly Sales Count",
-            "product_count": "Total Products Count"
+            "product_count": "Total Products Count",
+            "quotes_statistics": "Quotes Statistics",
+            "best_buyers_statistics": "Top 3 Buyers' Spendings"
         }
     }
 }

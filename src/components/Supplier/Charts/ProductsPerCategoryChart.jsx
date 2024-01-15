@@ -10,7 +10,7 @@ import { Bar } from "react-chartjs-2";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-const ProductsPerCategory = (props) => {
+const ProductsPerCategoryChart = (props) => {
     const { categories, productCounts } = props;
 
     const capitalizedCategories = categories.map((category) => {
@@ -58,4 +58,4 @@ const ProductsPerCategory = (props) => {
     );
 };
 
-export default ProductsPerCategory;
+export default ProductsPerCategoryChart;

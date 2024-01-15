@@ -502,5 +502,17 @@
         "status": "حالة الطلب",
         "decline_msg": "لقد قمت برفض طلب الإرجاع هذا",
         "approve_msg": "لقد قمت بالموافقة على طلب الإرجاع هذا"
+    },
+    "statistics": {
+        "monthly_orders_statistics": "مبيعات الشهر الحالي",
+        "orders_max": "أقصى قيمة مبيعات",
+        "orders_min": "أدنى قيمة مبيعات",
+        "orders_avg": "متوسط قيمة المبيعات",
+        "categories_statistics": "عدد المنتجات في كل فئة",
+        "sales_statistics": "إحصاءات المبيعات",
+        "monthly_sales": "عدد المبيعات الشهرية",
+        "product_count": "إجمالي عدد المنتجات",
+        "quotes_statistics": "إحصاءات العروض",
+        "best_buyers_statistics": "أعلى 3 مشترين - إجمالي المصروفات"
     }
 }
