@@ -95,7 +95,7 @@ const Dashboard = () => {
     >
       <section>
         <div className="container-fluid">
-          <h2 className="d-flex align-items-center gap-2 dashboard__title">
+          <h2 className="d-flex align-items-center gap-2 dashboard__title mt-2">
             {t("supplier_pages.dashboard.title")}
           </h2>
           <div className={`d-flex flex-wrap as`}>
@@ -108,7 +108,7 @@ const Dashboard = () => {
                         {t("supplier_pages.dashboard.new_orders")}
                       </h5>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-2">
                       <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
                         {monthlySalesCount > 0 ? monthlySalesCount : 0}
                       </h2>
@@ -140,7 +140,7 @@ const Dashboard = () => {
                         {t("supplier_pages.dashboard.new_buyers")}
                       </h5>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-2">
                       <h2 className="mb-0 dashboard__stats-card-text">
                         {monthlyBuyersCount > 0 ? monthlyBuyersCount : 0}
                       </h2>
@@ -172,7 +172,7 @@ const Dashboard = () => {
                         {t("supplier_pages.dashboard.monthly")}
                       </h5>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-2">
                       <h2 className="d-flex align-items-center mb-0  dashboard__stats-card-text">
                         {currentMonthlySales > 0 ? currentMonthlySales : 0}{" "}
                         {t("sar")}
@@ -205,7 +205,7 @@ const Dashboard = () => {
                         {t("supplier_pages.dashboard.messages")}
                       </h5>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-2">
                       <h2 className="d-flex align-items-center mb-0  dashboard__stats-card-text">
                         {monthlyThreadsCount > 0 ? monthlyThreadsCount : 0}
                       </h2>
@@ -231,7 +231,7 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <section className="py-5">
+      <section className="py-4">
         <div className="container-fluid">
           <div className="d-flex ad">
             <div
@@ -240,7 +240,6 @@ const Dashboard = () => {
                 padding: "20px",
                 backgroundColor: "white",
                 borderRadius: "15px",
-                border: "1px solid #cccccc",
               }}
             >
               <div className="d-flex justify-content-between">
@@ -277,12 +276,11 @@ const Dashboard = () => {
               </div>
             </div>
             <div
-              className="col-lg-4 as"
+              className="col-lg-4 as dn"
               style={{
                 padding: "20px",
                 backgroundColor: "white",
                 borderRadius: "15px",
-                border: "1px solid #cccccc",
               }}
             >
               <div className="d-flex justify-content-between">
@@ -298,13 +296,12 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <section className="py-3">
+      <section className="pb-3">
         <div className="container-fluid">
           <div className="" style={{
                 padding: "20px",
                 backgroundColor: "white",
                 borderRadius: "15px",
-                border: "1px solid #cccccc",
               }} >
             <h2 className="d-flex align-items-center gap-2 dashboard__title">
               {t("supplier_pages.dashboard.recent")}
@@ -421,7 +418,7 @@ const Dashboard = () => {
                   <ul
                     className="pagination justify-content-end mt-3"
                     style={{
-                      backgroundColor: "#8e65c1",
+                      backgroundColor: "#00cab6",
                       borderRadius: "7px",
                     }}
                   >

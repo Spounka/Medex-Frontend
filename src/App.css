@@ -1370,17 +1370,16 @@ footer {
 .dashboard__stats-card {
   background-color: white;
   border-radius: 13px;
-  border: 1px solid #cccccc;
   width: 250px;
   height: 150px;
+  margin: auto;
 }
 .as {
-  justify-content: space-between;
+  column-gap: 20px;  
 }
-@media screen and (max-width: 558px) {
+@media screen and (max-width: 583px) {
   .as {
     justify-content: center;
-    column-gap: 20px;
   }
 }
 .dashboard__chart {
@@ -1414,7 +1413,7 @@ footer {
 .dashboard__stats-card-title {
   text-wrap: nowrap;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 831px) {
   .dashboard__sidebar-toggle {
     display: inline-flex;
   }
@@ -1511,7 +1510,6 @@ footer {
     height: 120px;
   }
 }
-
 @media screen and (max-width: 300px) {
   .supplier__header-brand {
     font-size: 0.9rem;
@@ -1520,7 +1518,7 @@ footer {
 .gainColor {
   border-radius: 5px;
   color: white;
-  background-color: #2c77df;
+  background-color: #00cab6;
 }
 .lossColor {
   border-radius: 5px;
@@ -1814,7 +1812,10 @@ footer {
 }
 /* Order Details End */
 .ad{
-  column-gap: 50px;
+  gap: 30px;
+}
+.dn {
+  width: 39%;
 }
 @media screen and (max-width: 1070px) {
   .ad {
@@ -1823,6 +1824,9 @@ footer {
   .as {
     width: 100%;
   }
+}
+.nav-pills .nav-link{
+  color: #727272;
 }
 .imgg {
   border-radius: 10px
