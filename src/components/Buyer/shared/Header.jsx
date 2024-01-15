@@ -59,21 +59,21 @@ const Header = () => {
     getCategories();
   }, []);
 
-  const [scrolled, setScrolled] = useState(false);
-  const handleScroll = () => {
-    const offset = window.scrollY;
-    if (offset > 103) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-  };
-  window.addEventListener("scroll", handleScroll);
+  // const [scrolled, setScrolled] = useState(false);
+  // const handleScroll = () => {
+  //   const offset = window.scrollY;
+  //   if (offset > 103) {
+  //     setScrolled(true);
+  //   } else {
+  //     setScrolled(false);
+  //   }
+  // };
+  // window.addEventListener("scroll", handleScroll);
 
   return (
     <header>
       <nav
-        className={`navbar navbar-expand-lg py-2 py-md-2 ${scrolled == true ? "position-fixed w-100": ""}`}
+        className={`navbar navbar-expand-lg py-2 py-md-2 `}
         style={{ zIndex: "12", backgroundColor: "#ffffff", boxShadow:"0 1px 5px #bbbbbb" }}
       >
         <div
