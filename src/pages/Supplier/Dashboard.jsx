@@ -399,7 +399,7 @@ const Dashboard = () => {
                             </td>
                             <td className="text-nowrap">
                               <Link
-                                style={{ color: "#2c77df" }}
+                                style={{ color: "#00cab6" }}
                                 to={`/supplier/order/${order?.id}`}
                                 state={{
                                   order: order,

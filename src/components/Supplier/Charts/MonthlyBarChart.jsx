@@ -6,7 +6,7 @@ const MonthlyBarChart = ({ slot, monthlySales, dailySales, months, days }) => {
     datasets: [
       {
         data: slot === "month" ? [423, 535, 726, 188, 100, 745] : [...dailySales],
-        backgroundColor: "#2c77df",
+        backgroundColor: "#00cab6",
         fill: true,
         lineTension: 0.5,
       },

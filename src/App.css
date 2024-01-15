@@ -1826,7 +1826,12 @@ footer {
   }
 }
 .nav-pills .nav-link{
-  color: #727272;
+  color: #a7a7a7;
+}
+.dashboard__link:hover,
+.dashboard__link:active,
+.dashboard__link:focus {
+  color: #000;
 }
 .imgg {
   border-radius: 10px
