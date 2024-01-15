@@ -275,7 +275,7 @@ const Header = () => {
                           {t("header.your")} <br /> {t("header.account")}
                         </span>
                       </div>
-                      <ul className="dropdown-menu navbar__category-menu">
+                      <ul className="dropdown-menu navbar__category-menu" style={{position:"absolute"}}>
                         {!user ? (
                           <>
                             <li>

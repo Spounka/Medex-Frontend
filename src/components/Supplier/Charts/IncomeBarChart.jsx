@@ -51,13 +51,6 @@ const MonthlyBarChart = ({dailySales, days }) => {
       options={options}
       data={data}
       height={445}
-      style={{
-        padding: "10px",
-        backgroundColor: "white",
-        borderRadius: "15px",
-        border: "1px solid #cccccc",
-        boxShadow: "1px 3px 6px 0px #00000017",
-      }}
     />
   );
 };

@@ -32,52 +32,56 @@ import { useTranslation } from "react-i18next";
 
 import arFlag from "../../../assets/images/sa-flag.png";
 import enFlag from "../../../assets/images/us-flag.png";
+import { useState } from "react";
 
 const Sidebar = (props) => {
     const { t, i18n } = useTranslation();
 
     const { menuOpen } = props;
+    const [li, setLi] = useState(1);
+    
 
     return (
         <aside
             className={`p-0 mt-5 pt-2 dashboard__sidebar-container ${
                 menuOpen && "dashboard__sidebar-container-visible"
             } ${i18n.resolvedLanguage == "en" ? "" : "ar"}`}
+            style={{backgroundColor:"rgb(250, 250, 251)"}}
         >
             <div className="d-flex flex-column align-items-start text-white">
                 <ul
                     className="nav nav-pills flex-column mt-4 px-3 mb-sm-auto mb-0 align-items-start"
                     id="menu"
                 >
-                    <li>
+                    <li style= {li == 1 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 1 ? "px-3":""} onClick={()=> setLi(1)} >
                         <Link
                             to="/supplier/dashboard"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <MdSpaceDashboard size="1.5rem" />
+                            <MdSpaceDashboard size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}} />
                             <span className="ms-1">{t("dashboard")}</span>
                         </Link>
                     </li>
 
-                    <li>
+                    <li style= {li == 2 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 2 ? "px-3":""} onClick={()=> setLi(2)}>
                         <Link
                             to="/supplier/statistics"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <IoStatsChart size="1.5rem" />
+                            <IoStatsChart size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("buyer_sidebar.stats")}
                             </span>
                         </Link>
                     </li>
 
-                    <li>
+                    <li style= {li == 3 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 3 ? "px-3":""} onClick={()=> setLi(3)}>
                         <Link
                             to="#products"
                             data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <MdShop2 size="1.5rem" />
+                            <MdShop2 size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("supplier_sidebar.products")}
                             </span>
@@ -93,7 +97,7 @@ const Sidebar = (props) => {
                                     to="/supplier/products/list"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbDatabaseSearch size="1.3rem" />
+                                    <TbDatabaseSearch size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     {t("supplier_sidebar.products_list")}
                                 </Link>
                             </li>
@@ -104,7 +108,7 @@ const Sidebar = (props) => {
                                     data-bs-toggle="collapse"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbDatabasePlus size="1.5rem" />
+                                    <TbDatabasePlus size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.create_product")}
                                     </span>
@@ -120,7 +124,7 @@ const Sidebar = (props) => {
                                             to="/supplier/products/create"
                                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                         >
-                                            <MdAddToQueue size="1.3rem" />
+                                            <MdAddToQueue size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                             {t(
                                                 "supplier_sidebar.create_product_form"
                                             )}
@@ -130,7 +134,7 @@ const Sidebar = (props) => {
                                             to="/supplier/products/excel-create"
                                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                         >
-                                            <FaRegFileExcel size="1.3rem" />
+                                            <FaRegFileExcel size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                             {t(
                                                 "supplier_sidebar.create_product_excel"
                                             )}
@@ -144,20 +148,20 @@ const Sidebar = (props) => {
                                     to="/supplier/products/update"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbDatabaseEdit size="1.3rem" />
+                                    <TbDatabaseEdit size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     {t("supplier_sidebar.update_product")}
                                 </Link>
                             </li>
                         </ul>
                     </li>
 
-                    <li>
+                    <li style= {li == 4 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 4 ? "px-3":""} onClick={()=> setLi(4)}>
                         <Link
                             to="#sales"
                             data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <MdListAlt size="1.5rem" />
+                            <MdListAlt size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("supplier_sidebar.sales")}
                             </span>
@@ -173,7 +177,7 @@ const Sidebar = (props) => {
                                     to="/supplier/sales"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdOutlinePointOfSale size="1.3rem" />
+                                    <MdOutlinePointOfSale size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     {t("supplier_sidebar.all_sales")}
                                 </Link>
                             </li>
@@ -182,7 +186,7 @@ const Sidebar = (props) => {
                                     to="/supplier/tracking"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <BsTruck size="1.5rem" />
+                                    <BsTruck size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.tracking")}
                                     </span>
@@ -193,7 +197,7 @@ const Sidebar = (props) => {
                                     to="/supplier/return-requests"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbTruckReturn size="1.5rem" />
+                                    <TbTruckReturn size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.return_requests")}
                                     </span>
@@ -202,13 +206,13 @@ const Sidebar = (props) => {
                         </ul>
                     </li>
 
-                    <li>
+                    <li style= {li == 5 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 5 ? "px-3":""} onClick={()=> setLi(5)}>
                         <Link
                             to="#quotes"
                             data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <LuTextQuote size="1.5rem" />
+                            <LuTextQuote size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("supplier_sidebar.quotes")}
                             </span>
@@ -224,7 +228,7 @@ const Sidebar = (props) => {
                                     to="/supplier/quotes"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdList size="1.5rem" />
+                                    <MdList size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.quote_requests")}
                                     </span>
@@ -233,14 +237,14 @@ const Sidebar = (props) => {
                                     to="/supplier/request-for-quote"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdRequestQuote size="1.5rem" />
+                                    <MdRequestQuote size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">{t("rfq")}</span>
                                 </Link>
                                 <Link
                                     to="/supplier/quotes/offers"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <BiSolidOffer size="1.5rem" />
+                                    <BiSolidOffer size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.offers_list")}{" "}
                                     </span>
@@ -249,13 +253,13 @@ const Sidebar = (props) => {
                         </ul>
                     </li>
 
-                    <li>
+                    <li style= {li == 7 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 7 ? "px-3":""} onClick={()=> setLi(7)}>
                         <Link
                             to="#store"
                             data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <IoStorefrontOutline size="1.5rem" />
+                            <IoStorefrontOutline size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("supplier_sidebar.store")}
                             </span>
@@ -271,7 +275,7 @@ const Sidebar = (props) => {
                                     to="/supplier/store/edit"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbHomeEdit size="1.5rem" />
+                                    <TbHomeEdit size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.edit_store")}
                                     </span>
@@ -280,7 +284,7 @@ const Sidebar = (props) => {
                                     to="/supplier/store/view"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdOutlinePreview size="1.5rem" />
+                                    <MdOutlinePreview size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.view_store")}
                                     </span>
@@ -289,25 +293,25 @@ const Sidebar = (props) => {
                         </ul>
                     </li>
 
-                    <li>
+                    <li style= {li == 8 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 8 ? "px-3":""} onClick={()=> setLi(8)}>
                         <Link
                             to="/supplier/chat"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <BiSolidMessageAltDetail size="1.5rem" />
+                            <BiSolidMessageAltDetail size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("buyer_sidebar.messages")}
                             </span>
                         </Link>
                     </li>
 
-                    <li>
+                    <li style= {li == 9 ? {backgroundColor:"white", borderRadius:"8px", boxShadow:"#cdcdcd 0px 4px 11px 1px"} : {}} className={li == 9 ? "px-3":""} onClick={()=> setLi(9)}>
                         <Link
                             to="#settings"
                             data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <BsGearFill size="1.5rem" />
+                            <BsGearFill size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                             <span className="ms-1">
                                 {t("buyer_sidebar.settings")}
                             </span>
@@ -324,7 +328,7 @@ const Sidebar = (props) => {
                                     data-bs-toggle="collapse"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbLanguage size="1.5rem" />
+                                    <TbLanguage size="2rem" style={{backgroundColor:"#fff", padding:"5px", boxShadow:"rgb(191 191 191) 0px 2px 4px 1px", borderRadius:"5px"}}/>
                                     <span className="ms-1">
                                         {t("supplier_sidebar.language")}
                                     </span>

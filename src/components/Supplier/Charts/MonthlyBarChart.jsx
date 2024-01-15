@@ -50,14 +50,8 @@ const MonthlyBarChart = ({ slot, monthlySales, dailySales, months, days }) => {
       className="dashboard__chart w-100"
       options={options}
       data={data}
-      height={205}
-      style={{
-        padding: "10px",
-        backgroundColor: "white",
-        borderRadius: "15px",
-        border: "1px solid #cccccc",
-        boxShadow: "1px 3px 6px 0px #00000017",
-      }}
+      height={210}
+      
     />
   );
 };
