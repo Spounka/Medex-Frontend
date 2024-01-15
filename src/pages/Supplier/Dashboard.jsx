@@ -253,7 +253,7 @@ const Dashboard = () => {
                     color={slot === "month" ? "primary" : "inherit"}
                     variant={slot === "month" ? "outlined" : "text"}
                   >
-                    Month
+                    {t("supplier_pages.dashboard.month")}
                   </Button>
                   <Button
                     size="medium"
@@ -261,7 +261,7 @@ const Dashboard = () => {
                     color={slot === "week" ? "primary" : "inherit"}
                     variant={slot === "week" ? "outlined" : "text"}
                   >
-                    Week
+                    {t("supplier_pages.dashboard.week")}
                   </Button>
                 </div>
               </div>

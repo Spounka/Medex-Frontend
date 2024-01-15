@@ -444,6 +444,8 @@
             "title": "Recent Sales List"
         },
         "dashboard": {
+            "week":"Week",
+            "month":"Month",
             "title": "Dashboard",
             "new_orders": "New Orders",
             "new_buyers": "New Buyers",

@@ -45,15 +45,16 @@ const Sidebar = (props) => {
     >
       <div className="d-flex flex-column align-items-start text-white">
         <ul
-          className="nav nav-pills flex-column mt-4 px-3 mb-sm-auto mb-0 align-items-start"
+          className="nav nav-pills flex-column mt-4 px-3 w-100 mb-sm-auto mb-0 align-items-start"
           id="menu"
         >
           <li
             style={
               li == 1
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -63,7 +64,7 @@ const Sidebar = (props) => {
           >
             <Link
               to="/supplier/dashboard"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link text-black"
             >
               <MdSpaceDashboard size="1.5rem" />
               <span className="ms-1">{t("dashboard")}</span>
@@ -74,8 +75,9 @@ const Sidebar = (props) => {
             style={
               li == 2
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -96,8 +98,9 @@ const Sidebar = (props) => {
             style={
               li == 3
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -182,8 +185,9 @@ const Sidebar = (props) => {
             style={
               li == 4
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -241,8 +245,9 @@ const Sidebar = (props) => {
             style={
               li == 5
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -298,8 +303,9 @@ const Sidebar = (props) => {
             style={
               li == 7
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -348,8 +354,9 @@ const Sidebar = (props) => {
             style={
               li == 8
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
@@ -370,8 +377,9 @@ const Sidebar = (props) => {
             style={
               li == 9
                 ? {
-                    backgroundColor: "rgb(206 206 207 / 20%)",
-                    borderLeft: "2px solid black",
+                    backgroundColor: "rgb(250, 250, 251)",
+                    borderLeft:i18n.resolvedLanguage =="en" ? "2px solid #a7a7a7" : "",
+                    borderRight:i18n.resolvedLanguage =="ar" ? "2px solid #a7a7a7" : "",
                     width: "100%",
                   }
                 : {}
