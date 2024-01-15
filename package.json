@@ -16,7 +16,7 @@
         "@mui/material": "^5.15.4",
         "@tinymce/tinymce-react": "^4.3.2",
         "axios": "^1.5.1",
-        "chart.js": "^4.4.0",
+        "chart.js": "^4.4.1",
         "dayjs": "^1.11.10",
         "file": "^0.2.2",
         "html-react-parser": "^4.2.10",

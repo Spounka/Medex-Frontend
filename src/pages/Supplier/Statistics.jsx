@@ -5,7 +5,9 @@ import useAxios from "../../utils/useAxios";
 
 import { IoStatsChart } from "react-icons/io5";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
-import ProductsPerCategory from "../../components/Supplier/Charts/ProductsPerCategory";
+import ProductsPerCategoryChart from "../../components/Supplier/Charts/ProductsPerCategoryChart";
+import QuoteStatisticsChart from "../../components/Supplier/Charts/QuoteStatisticsChart";
+import UserSpendingsChart from "../../components/Supplier/Charts/UserSpendingsChart";
 
 const Statistics = () => {
     const { t } = useTranslation();
@@ -25,6 +27,8 @@ const Statistics = () => {
 
     const [quoteStatistics, setQuoteStatistics] = useState({});
 
+    const [topBuyersStatistics, setTopBuyersStatistics] = useState({});
+
     const [salesCount, setSalesCount] = useState({});
     const [salesCountPercentage, setSalesCountPercentage] = useState({});
 
@@ -34,7 +38,6 @@ const Statistics = () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + `/api/stats/supplier/`)
             .then((res) => {
-                console.log(res.data);
                 setTotalProducts(res?.data?.total_products_count);
 
                 setCategories(res?.data?.categories);
@@ -56,6 +59,8 @@ const Statistics = () => {
                 setSalesCountPercentage(
                     res?.data?.monthly_sales_count_percentage
                 );
+
+                setTopBuyersStatistics(res?.data?.top_buyers_statistics);
             });
     };
 
@@ -220,7 +225,7 @@ const Statistics = () => {
                     </h4>
                     <div className="row">
                         <div className="col-12">
-                            <ProductsPerCategory
+                            <ProductsPerCategoryChart
                                 categories={categories}
                                 productCounts={productCounts}
                             />
@@ -337,6 +342,32 @@ const Statistics = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-5">
+                    <h4 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
+                        {t("supplier_pages.statistics.quotes_statistics")}
+                    </h4>
+                    <div className="row">
+                        <div className="col-12">
+                            <QuoteStatisticsChart
+                                quoteStatistics={quoteStatistics}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-5">
+                    <h4 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
+                        {t("supplier_pages.statistics.best_buyers_statistics")}
+                    </h4>
+                    <div className="row my-5">
+                        <div className="col-12" style={{ height: "350px" }}>
+                            <UserSpendingsChart
+                                topBuyersStatistics={topBuyersStatistics}
+                            />
                         </div>
                     </div>
                 </div>
