@@ -117,7 +117,8 @@
         "return_requests": "Return Requests",
         "store": "Store",
         "edit_store": "Edit Store",
-        "view_store": "View Store"
+        "view_store": "View Store",
+        "password_update": "Update Password"
     },
     "auth_context": {
         "login_successful": "You have logged in successfully",
@@ -389,6 +390,15 @@
             "due_date": "Due Date and Time",
             "supplier": "Target Supplier",
             "supplier_hint": "Select a specific supplier if you want to get a quote for your request by them only"
+        },
+        "password_update": {
+            "old": "Old Password",
+            "new1": "New Password",
+            "new2": "Confirm New Password",
+            "submit": "Change Your Password",
+            "success": "You have successfully changed your password",
+            "all_fail": "There was an error changing your password, please try again later",
+            "current_fail": "There was an error changing your password because the old password you provided is incorrect"
         }
     },
     "supplier_pages": {
@@ -444,8 +454,8 @@
             "title": "Recent Sales List"
         },
         "dashboard": {
-            "week":"Week",
-            "month":"Month",
+            "week": "Week",
+            "month": "Month",
             "title": "Dashboard",
             "new_orders": "New Orders",
             "new_buyers": "New Buyers",

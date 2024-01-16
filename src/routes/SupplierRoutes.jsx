@@ -40,6 +40,7 @@ import ReturnDetails from "../pages/Supplier/ReturnDetails";
 import Statistics from "../pages/Supplier/Statistics";
 import ViewStore from "../pages/Supplier/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
+import UpdatePassword from "../pages/shared/UpdatePassword";
 
 const SupplierRoutes = () => {
     return (
@@ -121,6 +122,11 @@ const SupplierRoutes = () => {
                     <Route path="statistics" element={<Statistics />} />
                     <Route path="store/view" element={<ViewStore />} />
                     <Route path="store/edit" element={<EditStore />} />
+
+                    <Route
+                        path="account/password/update"
+                        element={<UpdatePassword />}
+                    />
                 </Route>
             </Route>
 
