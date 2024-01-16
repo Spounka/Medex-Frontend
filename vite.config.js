@@ -8,11 +8,10 @@ export default defineConfig({
             output: {
                 manualChunks(id) {
                     if (id.includes("node_modules")) {
-                        return id
-                            .toString()
-                            .split("node_modules/")[1]
-                            .split("/")[0]
-                            .toString();
+                        const [, packageName] = id.match(
+                            /node_modules\/([^/]+)/
+                        );
+                        return packageName.replace("@", "");
                     }
                 },
             },
