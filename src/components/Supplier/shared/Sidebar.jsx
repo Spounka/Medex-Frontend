@@ -64,7 +64,7 @@ const Sidebar = (props) => {
           >
             <Link
               to="/supplier/dashboard"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 1 ? "text-black" : ""}`}
             >
               <MdSpaceDashboard size="1.5rem" />
               <span className="ms-1">{t("dashboard")}</span>
@@ -87,7 +87,7 @@ const Sidebar = (props) => {
           >
             <Link
               to="/supplier/statistics"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 2 ? "text-black" : ""}`}
             >
               <IoStatsChart size="1.5rem" />
               <span className="ms-1">{t("buyer_sidebar.stats")}</span>
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
             <Link
               to="#products"
               data-bs-toggle="collapse"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 3 ? "text-black" : ""}`}
             >
               <MdShop2 size="1.5rem" />
               <span className="ms-1">{t("supplier_sidebar.products")}</span>
@@ -198,7 +198,7 @@ const Sidebar = (props) => {
             <Link
               to="#sales"
               data-bs-toggle="collapse"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 4 ? "text-black" : ""}`}
             >
               <MdListAlt size="1.5rem" />
               <span className="ms-1">{t("supplier_sidebar.sales")}</span>
@@ -258,7 +258,7 @@ const Sidebar = (props) => {
             <Link
               to="#quotes"
               data-bs-toggle="collapse"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 5 ? "text-black" : ""}`}
             >
               <LuTextQuote size="1.5rem" />
               <span className="ms-1">{t("supplier_sidebar.quotes")}</span>
@@ -316,7 +316,7 @@ const Sidebar = (props) => {
             <Link
               to="#store"
               data-bs-toggle="collapse"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 7 ? "text-black" : ""}`}
             >
               <IoStorefrontOutline size="1.5rem" />
               <span className="ms-1">{t("supplier_sidebar.store")}</span>
@@ -366,7 +366,7 @@ const Sidebar = (props) => {
           >
             <Link
               to="/supplier/chat"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 8 ? "text-black" : ""}`}
             >
               <BiSolidMessageAltDetail size="1.5rem" />
               <span className="ms-1">{t("buyer_sidebar.messages")}</span>
@@ -390,7 +390,7 @@ const Sidebar = (props) => {
             <Link
               to="#settings"
               data-bs-toggle="collapse"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+              className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${li == 9 ? "text-black" : ""}`}
             >
               <BsGearFill size="1.5rem" />
               <span className="ms-1">{t("buyer_sidebar.settings")}</span>
