@@ -301,7 +301,7 @@ const Home = (props) => {
             </div>
             <div className="row pt-4">
               <div className="col-12">
-                <div className="d-flex gap-3 justify-content-around flex-wrap">
+                <div className="gs d-flex flex-wrap">
                   <Link
                     to="/products?category=X-Ray"
                     className="cat d-flex flex-column p-2"
