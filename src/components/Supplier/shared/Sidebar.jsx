@@ -64,7 +64,7 @@ const Sidebar = (props) => {
           >
             <Link
               to="/supplier/dashboard"
-              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link text-black"
+              className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
             >
               <MdSpaceDashboard size="1.5rem" />
               <span className="ms-1">{t("dashboard")}</span>
