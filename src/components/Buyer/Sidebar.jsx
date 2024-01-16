@@ -11,7 +11,7 @@ import { BsGearFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { IoStatsChart } from "react-icons/io5";
 import { FaHistory } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
+import { TbTruckDelivery, TbPasswordFingerprint } from "react-icons/tb";
 import { GiReturnArrow } from "react-icons/gi";
 
 const Sidebar = (props) => {
@@ -157,6 +157,7 @@ const Sidebar = (props) => {
                             </span>
                             <BiSolidDownArrow size=".5rem" />
                         </Link>
+
                         <ul
                             className="collapse nav flex-column mx-3"
                             id="settings"
@@ -170,6 +171,17 @@ const Sidebar = (props) => {
                                     <BiUserCircle size="1.5rem" />
                                     <span className="ms-1">
                                         {t("buyer_sidebar.my_profile")}
+                                    </span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/account/dashboard/password/update"
+                                    className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link`}
+                                >
+                                    <TbPasswordFingerprint size="1.5rem" />
+                                    <span className="ms-1">
+                                        {t("supplier_sidebar.password_update")}
                                     </span>
                                 </Link>
                             </li>

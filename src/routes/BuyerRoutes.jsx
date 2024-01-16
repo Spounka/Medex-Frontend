@@ -39,6 +39,7 @@ import RequestRefund from "../pages/Buyer/RequestRefund";
 import Statistics from "../pages/Buyer/Statistics";
 import TrackingList from "../pages/Buyer/TrackingList";
 import ReturnRequests from "../pages/Buyer/ReturnRequests";
+import UpdatePassword from "../pages/shared/UpdatePassword";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -159,6 +160,11 @@ const BuyerRoutes = () => {
                             element={<RequestForQuotes />}
                         />
                         <Route path="chat" element={<Chat />} />
+
+                        <Route
+                            path="password/update"
+                            element={<UpdatePassword />}
+                        />
                     </Route>
                 </Route>
             </Route>
