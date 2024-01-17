@@ -234,7 +234,10 @@ const ProductDetailsForm = ({
                                 });
                             }}
                         />
-                        <label class="form-check-label" for="isReturnable">
+                        <label
+                            className="form-check-label"
+                            htmlFor="isReturnable"
+                        >
                             {t("product_form.returnable_question")}
                         </label>
                     </div>

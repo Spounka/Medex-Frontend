@@ -1,7 +1,15 @@
+import { useRef } from "react";
+
 import { BsImage, BsImages } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
+
+import { validateFileExtensions } from "../../../utils/ValidateFiles";
+
+import { toast } from "react-toastify";
+
+const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "svg"];
 
 const ProductImagesForm = ({
     updateFieldsState,
@@ -12,6 +20,71 @@ const ProductImagesForm = ({
     multiFileRef,
 }) => {
     const { t } = useTranslation();
+
+    if (!fileRef) {
+        fileRef = useRef();
+    }
+
+    const img1Ref = useRef();
+    const img2Ref = useRef();
+    const img3Ref = useRef();
+    const img4Ref = useRef();
+
+    const handleFileChange = (e) => {
+        const selectedFile = Array.from(e.target.files);
+        const { isValid } = validateFileExtensions(
+            selectedFile,
+            ALLOWED_EXTENSIONS
+        );
+        if (!isValid) {
+            toast.error(t("buyer_pages.profile.file_type_err"));
+            if (window.location.href.indexOf("update") === -1) {
+                if (e.target.id === "thumbnail") {
+                    fileRef.current.value = null;
+                } else {
+                    multiFileRef.current.value = null;
+                }
+            } else {
+                if (e.target.id === "img1") {
+                    img1Ref.current.value = null;
+                } else if (e.target.id === "img2") {
+                    img2Ref.current.value = null;
+                } else if (e.target.id === "img3") {
+                    img3Ref.current.value = null;
+                } else if (e.target.id === "img4") {
+                    img4Ref.current.value = null;
+                }
+            }
+        } else {
+            if (window.location.href.indexOf("update") === -1) {
+                if (e.target.id === "thumbnail") {
+                    updateFieldsState({ newThumbnail: e.target.files[0] });
+                } else {
+                    updateFieldsState({
+                        otherImages: e.target.files,
+                    });
+                }
+            } else {
+                if (e.target.id === "img1") {
+                    updateFieldsState({
+                        newImage1: e.target.files[0],
+                    });
+                } else if (e.target.id === "img2") {
+                    updateFieldsState({
+                        newImage2: e.target.files[0],
+                    });
+                } else if (e.target.id === "img3") {
+                    updateFieldsState({
+                        newImage3: e.target.files[0],
+                    });
+                } else if (e.target.id === "img4") {
+                    updateFieldsState({
+                        newImage4: e.target.files[0],
+                    });
+                }
+            }
+        }
+    };
 
     return (
         <>
@@ -29,9 +102,8 @@ const ProductImagesForm = ({
                 </label>
                 <input
                     type="file"
-                    onChange={(e) => {
-                        updateFieldsState({ newThumbnail: e.target.files[0] });
-                    }}
+                    id="thumbnail"
+                    onChange={handleFileChange}
                     className="form-control mt-3"
                     required={!update}
                     ref={fileRef}
@@ -57,12 +129,9 @@ const ProductImagesForm = ({
                         </label>
                         <input
                             type="file"
-                            multiple
-                            onChange={(e) => {
-                                updateFieldsState({
-                                    newImage1: e.target.files[0],
-                                });
-                            }}
+                            ref={img1Ref}
+                            id="img1"
+                            onChange={handleFileChange}
                             className="form-control my-3"
                         />
                         {otherImages[0] != "" && (
@@ -84,12 +153,9 @@ const ProductImagesForm = ({
                         </label>
                         <input
                             type="file"
-                            multiple
-                            onChange={(e) => {
-                                updateFieldsState({
-                                    newImage2: e.target.files[0],
-                                });
-                            }}
+                            ref={img2Ref}
+                            id="img2"
+                            onChange={handleFileChange}
                             className="form-control my-3"
                         />
                         {otherImages[1] != "" && (
@@ -111,12 +177,9 @@ const ProductImagesForm = ({
                         </label>
                         <input
                             type="file"
-                            multiple
-                            onChange={(e) => {
-                                updateFieldsState({
-                                    newImage3: e.target.files[0],
-                                });
-                            }}
+                            id="img3"
+                            ref={img3Ref}
+                            onChange={handleFileChange}
                             className="form-control my-3"
                         />
                         {otherImages[2] != "" && (
@@ -138,12 +201,9 @@ const ProductImagesForm = ({
                         </label>
                         <input
                             type="file"
-                            multiple
-                            onChange={(e) => {
-                                updateFieldsState({
-                                    newImage4: e.target.files[0],
-                                });
-                            }}
+                            id="img4"
+                            ref={img4Ref}
+                            onChange={handleFileChange}
                             className="form-control my-3"
                         />
                         {otherImages[3] != "" && (
@@ -171,11 +231,7 @@ const ProductImagesForm = ({
                     <input
                         type="file"
                         multiple={!update}
-                        onChange={(e) => {
-                            updateFieldsState({
-                                otherImages: e.target.files,
-                            });
-                        }}
+                        onChange={handleFileChange}
                         className="form-control my-3"
                         ref={multiFileRef}
                     />

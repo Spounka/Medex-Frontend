@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -43,12 +43,15 @@ import useAxios from "../../utils/useAxios";
 import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { validateFileExtensions } from "../../utils/ValidateFiles";
 
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const PHONE_REGEX =
     /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
+
+const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "svg"];
 
 const Profile = () => {
     const { t } = useTranslation();
@@ -70,6 +73,24 @@ const Profile = () => {
     const [postal, setPostal] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
+
+    const fileRef = useRef();
+
+    const handleFileChange = (e) => {
+        const selectedFile = Array.from(e.target.files);
+        const { isValid } = validateFileExtensions(
+            selectedFile,
+            ALLOWED_EXTENSIONS
+        );
+        if (!isValid) {
+            toast.error(t("buyer_pages.profile.file_type_err"));
+            fileRef.current.value = null;
+        } else {
+            setProfilePicture(selectedFile[0]);
+
+            reRenderPicture(e.target.files[0]);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -346,12 +367,10 @@ const Profile = () => {
                                                             name="profilePicture"
                                                             type="file"
                                                             className="d-none"
-                                                            onChange={(e) => {
-                                                                reRenderPicture(
-                                                                    e.target
-                                                                        .files[0]
-                                                                );
-                                                            }}
+                                                            ref={fileRef}
+                                                            onChange={
+                                                                handleFileChange
+                                                            }
                                                         />
                                                         <button
                                                             type="button"
