@@ -176,7 +176,7 @@ const Sidebar = (props) => {
                                 <ul
                                     className="collapse nav flex-column mx-3"
                                     id="createProduct"
-                                    data-bs-parent="#product"
+                                    data-bs-parent="#products"
                                 >
                                     <li>
                                         <Link
