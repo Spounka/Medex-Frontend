@@ -161,6 +161,16 @@ const Sidebar = (props) => {
                                 </Link>
                             </li>
 
+
+                            <li>
+                                <Link
+                                    to="/supplier/products/update"
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                                >
+                                    <TbDatabaseEdit size="1.5rem" />
+                                    {t("supplier_sidebar.update_product")}
+                                </Link>
+                            </li>
                             <li>
                                 <Link
                                     to="#createProduct"
@@ -200,16 +210,6 @@ const Sidebar = (props) => {
                                         </Link>
                                     </li>
                                 </ul>
-                            </li>
-
-                            <li>
-                                <Link
-                                    to="/supplier/products/update"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbDatabaseEdit size="1.5rem" />
-                                    {t("supplier_sidebar.update_product")}
-                                </Link>
                             </li>
                         </ul>
                     </li>
