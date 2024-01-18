@@ -973,8 +973,31 @@ const Profile = () => {
                                         >
                                             <form
                                                 className="mt-3"
-                                                onSubmit={handleSubmit((data) =>
-                                                    console.log(data)
+                                                onSubmit={handleSubmit(
+                                                    async (data) => {
+                                                        await api
+                                                            .post(
+                                                                import.meta.env
+                                                                    .VITE_BACKEND_URL +
+                                                                    "/api/product/private-categories/",
+                                                                data
+                                                            )
+                                                            .then(() => {
+                                                                toast.success(
+                                                                    t(
+                                                                        "supplier_pages.edit_company.category_success"
+                                                                    )
+                                                                );
+                                                            })
+                                                            .catch((err) => {
+                                                                toast.error(
+                                                                    err
+                                                                        ?.response
+                                                                        ?.data
+                                                                        ?.error
+                                                                );
+                                                            });
+                                                    }
                                                 )}
                                             >
                                                 <label
