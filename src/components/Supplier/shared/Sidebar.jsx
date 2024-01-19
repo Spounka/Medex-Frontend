@@ -56,11 +56,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -71,9 +71,7 @@ const Sidebar = (props) => {
                     >
                         <Link
                             to="/supplier/dashboard"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 1 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdSpaceDashboard size="1.5rem" />
                             <span className="ms-1">{t("dashboard")}</span>
@@ -87,11 +85,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -102,9 +100,7 @@ const Sidebar = (props) => {
                     >
                         <Link
                             to="/supplier/statistics"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 2 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <IoStatsChart size="1.5rem" />
                             <span className="ms-1">
@@ -120,11 +116,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -136,9 +132,7 @@ const Sidebar = (props) => {
                         <Link
                             to="#products"
                             data-bs-toggle="collapse"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 3 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdShop2 size="1.5rem" />
                             <span className="ms-1">
@@ -221,11 +215,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -237,9 +231,7 @@ const Sidebar = (props) => {
                         <Link
                             to="#sales"
                             data-bs-toggle="collapse"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 4 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdListAlt size="1.5rem" />
                             <span className="ms-1">
@@ -293,11 +285,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -309,9 +301,7 @@ const Sidebar = (props) => {
                         <Link
                             to="#quotes"
                             data-bs-toggle="collapse"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 5 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <LuTextQuote size="1.5rem" />
                             <span className="ms-1">
@@ -361,11 +351,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -377,9 +367,7 @@ const Sidebar = (props) => {
                         <Link
                             to="#store"
                             data-bs-toggle="collapse"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 7 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <IoStorefrontOutline size="1.5rem" />
                             <span className="ms-1">
@@ -422,11 +410,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -437,9 +425,7 @@ const Sidebar = (props) => {
                     >
                         <Link
                             to="/supplier/chat"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 8 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BiSolidMessageAltDetail size="1.5rem" />
                             <span className="ms-1">
@@ -455,11 +441,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #a7a7a7"
+                                              ? "2px solid #8e65c1"
                                               : "",
                                       width: "100%",
                                   }
@@ -471,9 +457,7 @@ const Sidebar = (props) => {
                         <Link
                             to="#settings"
                             data-bs-toggle="collapse"
-                            className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                li == 9 ? "text-black" : ""
-                            }`}
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BsGearFill size="1.5rem" />
                             <span className="ms-1">
@@ -489,9 +473,7 @@ const Sidebar = (props) => {
                             <li>
                                 <Link
                                     to="/supplier/account/password/update"
-                                    className={`nav-link px-0 d-flex gap-2 align-items-center dashboard__link ${
-                                        li == 8 ? "text-black" : ""
-                                    }`}
+                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
                                     <TbPasswordFingerprint size="1.5rem" />
                                     <span className="ms-1">
