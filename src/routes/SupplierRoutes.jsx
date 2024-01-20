@@ -41,6 +41,9 @@ import Statistics from "../pages/Supplier/Statistics";
 import ViewStore from "../pages/Supplier/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
+import Settings from "../pages/Supplier/Settings"
+import PersonalSettings from "../pages/Supplier/PersonalSettings";
+import CompanySettings from "../pages/Supplier/CompanySettings";
 
 const SupplierRoutes = () => {
     return (
@@ -64,7 +67,8 @@ const SupplierRoutes = () => {
                     />
                     <Route path="/quotes/offers" element={<OfferList />} />
 
-                    <Route path="account/profile" element={<Profile />} />
+                    <Route path="account/profile" element={<PersonalSettings />} />
+                    <Route path="settings/companySettings" element={<CompanySettings/>}/>
 
                     <Route path="chat" element={<Chat />} />
                     <Route path="chat/:id" element={<ChatMessagesList />} />
@@ -122,7 +126,7 @@ const SupplierRoutes = () => {
                     <Route path="statistics" element={<Statistics />} />
                     <Route path="store/view" element={<ViewStore />} />
                     <Route path="store/edit" element={<EditStore />} />
-
+                    <Route path="settings" element={<Settings />}/>
                     <Route
                         path="account/password/update"
                         element={<UpdatePassword />}

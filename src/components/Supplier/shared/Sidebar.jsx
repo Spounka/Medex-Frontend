@@ -455,17 +455,17 @@ const Sidebar = (props) => {
                         onClick={() => setLi(9)}
                     >
                         <Link
-                            to="#settings"
-                            data-bs-toggle="collapse"
+                            to="/supplier/settings"
+                            // data-bs-toggle="collapse"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BsGearFill size="1.5rem" />
                             <span className="ms-1">
                                 {t("buyer_sidebar.settings")}
                             </span>
-                            <IoIosArrowDown size="0.8rem" />
+                            {/* <IoIosArrowDown size="0.8rem" /> */}
                         </Link>
-                        <ul
+                        {/* <ul
                             className="collapse nav flex-column mx-3"
                             id="settings"
                             data-bs-parent="#menu"
@@ -536,7 +536,7 @@ const Sidebar = (props) => {
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul> */}
                     </li>
                 </ul>
             </div>

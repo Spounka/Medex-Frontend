@@ -69,15 +69,6 @@ const Header = (props) => {
           <ul className="dropdown-menu text-small shadow">
             <li>
               <Link
-                className="dropdown-item d-flex align-items-center gap-1"
-                to="/supplier/account/profile"
-              >
-                <BiUserCircle size="1.5rem" />
-                {t("header.your_profile")}
-              </Link>
-            </li>
-            <li>
-              <Link
                 role="button"
                 onClick={logoutUser}
                 className="dropdown-item d-flex align-items-center gap-1"

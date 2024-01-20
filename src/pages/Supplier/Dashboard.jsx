@@ -98,7 +98,7 @@ const Dashboard = () => {
           <h2 className="d-flex align-items-center gap-2 dashboard__title mt-2">
             {t("supplier_pages.dashboard.title")}
           </h2>
-          <div className={`d-flex flex-wrap as`}>
+          <div className="d-flex flex-wrap as">
             <div className="mt-3">
               <div className="p-4 dashboard__stats-card">
                 <div className="row">
