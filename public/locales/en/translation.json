@@ -526,6 +526,22 @@
             "product_count": "Total Products Count",
             "quotes_statistics": "Quotes Statistics",
             "best_buyers_statistics": "Top 3 Buyers' Spendings"
+        },
+        "edit_store": {
+            "title": "Manage Your Store Categories",
+            "manage_products": "Manage products in categories",
+            "add_cat": "Create New Category",
+            "del_cat": "Delete Category",
+            "select_cat": "Select Category",
+            "add_pro": "Add",
+            "rem_pro": "Remove",
+            "rem_cat": "Delete",
+            "cat_placeholder": "New Category Name",
+            "loading": "Loading",
+            "category_create_success": "You have successfully created a new category for your shop",
+            "category_delete_success": "You have successfully deleted this category from your shop",
+            "product_create_success": "You have successfully added this product to the selected category",
+            "product_delete_success": "You have successfully removed this product from the selected category"
         }
     }
 }

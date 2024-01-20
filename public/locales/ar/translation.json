@@ -527,5 +527,21 @@
         "product_count": "إجمالي عدد المنتجات",
         "quotes_statistics": "إحصاءات العروض",
         "best_buyers_statistics": "أعلى 3 مشترين - إجمالي المصروفات"
+    },
+    "edit_store": {
+        "title": "إدارة فئات متجرك",
+        "manage_products": "إدارة المنتجات في الفئات",
+        "add_cat": "إنشاء فئة جديدة",
+        "del_cat": "حذف الفئة",
+        "select_cat": "اختيار الفئة",
+        "add_pro": "إضافة",
+        "rem_pro": "إزالة",
+        "rem_cat": "حذف",
+        "cat_placeholder": "اسم الفئة الجديدة",
+        "loading": "جارٍ التحميل",
+        "category_create_success": "لقد قمت بإنشاء فئة جديدة بنجاح لمتجرك",
+        "category_delete_success": "لقد قمت بحذف هذه الفئة بنجاح من متجرك",
+        "product_create_success": "لقد قمت بإضافة هذا المنتج بنجاح إلى الفئة المحددة",
+        "product_delete_success": "لقد قمت بإزالة هذا المنتج بنجاح من الفئة المحددة"
     }
 }
