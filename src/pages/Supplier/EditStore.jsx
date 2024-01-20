@@ -48,7 +48,7 @@ const EditStore = () => {
             <section>
                 <div className="container-xxl">
                     <div className="main-body">
-                        <div className="row">
+                        <div className="row pb-5">
                             <h2 className="d-flex align-items-center gap-2 dashboard__title mt-2">
                                 {t("supplier_pages.edit_store.title")}
                             </h2>
