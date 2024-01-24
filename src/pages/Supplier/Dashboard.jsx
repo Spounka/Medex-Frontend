@@ -110,7 +110,7 @@ const Dashboard = () => {
             className="px-0 px-md-3"
             style={{ backgroundColor: "rgb(250, 250, 251)" }}
         >
-            {/* <section>
+            <section>
                 <div className="container-fluid">
                     <h2 className="d-flex align-items-center gap-2 dashboard__title mt-2">
                         {t("supplier_pages.dashboard.title")}
@@ -283,7 +283,8 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-            </section> */}
+            </section>
+
             <section className="py-4">
                 <div className="container-fluid">
                     <div className="d-flex ad">
