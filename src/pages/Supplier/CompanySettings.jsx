@@ -19,12 +19,7 @@ import {
     MdOutlineLocationOn,
     MdOutlineFolderDelete,
 } from "react-icons/md";
-<<<<<<< HEAD
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { PiUserCircle } from "react-icons/pi";
-=======
 import { AiOutlineArrowLeft } from "react-icons/ai";
->>>>>>> 27b7aa8 (Finished edit company)
 import { TfiEmail, TfiLocationArrow, TfiSave } from "react-icons/tfi";
 import {
     BsPhoneVibrate,
@@ -62,7 +57,7 @@ const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "svg"];
 const CompanySettings = () => {
     const { t } = useTranslation();
 
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const api = useAxios();
 
@@ -158,40 +153,6 @@ const CompanySettings = () => {
             });
     };
 
-<<<<<<< HEAD
-  return (
-    <main className="px-0 px-md-3">
-      <section>
-        <div className="container-xxl">
-          <Link
-            to="../../settings"
-            className="d-flex align-items-center"
-            style={{ color: "#8e65c1" }}
-          >
-            {i18n.resolvedLanguage == "en" ? <AiOutlineArrowLeft className="mb-2" /> : <AiOutlineArrowRight className="mb-2" /> }{" "}
-            <h5 className="fw-normal">{t("supplier_pages.setting.back")}</h5>{" "}
-          </Link>
-          <div className="main-body">
-            <div className="row">
-              <div className="col-lg-5">
-                <div className="card mb-4" style={{ border: "none" }}>
-                  <div className="card-body">
-                    <div className="d-flex flex-column align-items-center text-center">
-                      <img
-                        src={
-                          profilePicture
-                            ? import.meta.env.VITE_BACKEND_URL + profilePicture
-                            : userImage
-                        }
-                        alt="Picture"
-                        id="userProfilePicture"
-                        className="rounded-circle shadow border-2 object-fit-cover"
-                        width={150}
-                        height={150}
-                      />
-                      <div className="mt-3">
-                        <h4>{fullName}</h4>
-=======
     const getUserData = async () => {
         await api
             .get(
@@ -200,7 +161,6 @@ const CompanySettings = () => {
             )
             .then((res) => {
                 const data = res.data;
->>>>>>> 27b7aa8 (Finished edit company)
 
                 console.log(data);
 
@@ -848,213 +808,9 @@ const CompanySettings = () => {
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-              </div>
-              <div className="col-lg-7">
-                <div className="card" style={{ border: "none" }}>
-                  <div className="card-title p-4 pb-0 profile__title">
-                    <h3>{t("buyer_pages.profile.company")}</h3>
-                  </div>
-                  <div className="card-body">
-                    {userId == user.user_id && (
-                      <form method="post" onSubmit={handlesubmit}>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <PiUserCircle size="1.5rem" />
-                              {t("full_name")}
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={fullName}
-                              onChange={(e) => setFullName(e.target.value)}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <TfiEmail size="1.4rem" />
-                              {t("email")}
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div
-                          className="row mb-3 d-flex align-items-center"
-                          id="country"
-                        >
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <BsGlobeEuropeAfrica size="1.4rem" />
-                              {t("country")} *
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <CountrySelect
-                              defaultValue={country}
-                              onChange={(e) => {
-                                setCountry(e);
-                                handleCountryChange(e);
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <TfiLocationArrow size="1.4rem" />
-                              {t("state")} *
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary" id="state">
-                            <StateSelect
-                              defaultValue={state}
-                              countryid={country.id}
-                              onChange={(e) => {
-                                setState(e);
-                                handleStateChange(country.id, e);
-                              }}
-                              placeHolder={`${t("select_state")}`}
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <MdLocationCity size="1.4rem" />
-                              {t("city")} *
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary" id="city">
-                            <CitySelect
-                              countryid={country.id}
-                              stateid={state.id}
-                              defaultValue={city}
-                              onChange={(e) => {
-                                setCity(e);
-                              }}
-                              placeHolder={`${t("select_city")}`}
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <BsSignpost2 size="1.4rem" />
-                              {t("postal")} *
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={postal}
-                              onChange={(e) => setPostal(e.target.value)}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <MdOutlineLocationOn size="1.4rem" />
-                              {t("address1")} *
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={address1}
-                              onChange={(e) => setAddress1(e.target.value)}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <MdOutlineLocationOn size="1.4rem" />
-                              {t("address2")}
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={address2}
-                              onChange={(e) => setAddress2(e.target.value)}
-                              placeholder={`${t("address2")}...`}
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-3 d-flex align-items-center">
-                          <div className="col-sm-3">
-                            <h6 className="mb-0 d-flex align-items-center gap-2">
-                              <BsPhoneVibrate size="1.4rem" />
-                              {t("phone")}
-                            </h6>
-                          </div>
-                          <div className="col-sm-9 text-secondary">
-                            <PhoneInput
-                              // localization={ar}
-                              countryCodeEditable={false}
-                              name="phone"
-                              specialLabel=""
-                              required={true}
-                              inputClass="w-100"
-                              value={phone}
-                              id="phone"
-                              onChange={(e) => setPhone(e)}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="row mt-5">
-                          <div className="col-sm-3"></div>
-                          <div className="col-sm-9 text-secondary">
-                            <button
-                              type="submit"
-                              className="p-2 gradient-bg-color text-white border-0 px-5 d-flex gap-2 align-items-center"
-                              style={{
-                                borderRadius: "5px",
-                              }}
-                            >
-                              {t("buyer_pages.profile.edit")}
-
-                              <BiEditAlt size="1.4rem" />
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
-=======
             </section>
         </main>
     );
->>>>>>> 27b7aa8 (Finished edit company)
 };
 
 const handleCountryChange = (e) => {
