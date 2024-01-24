@@ -23,7 +23,7 @@ import {
   MdOutlineFolderDelete,
   MdOutlineCancel,
 } from "react-icons/md";
-import { AiOutlineArrowLeft } from "react-icons/ai"
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { PiUserCircle } from "react-icons/pi";
 import { TfiEmail, TfiLocationArrow, TfiSave } from "react-icons/tfi";
 import {
@@ -307,11 +307,18 @@ const PersonalSettings = () => {
     <main className="px-0 px-md-3">
       <section>
         <div className="container-xxl">
-          <Link to="../../settings" className="d-flex align-items-center" style={{color:"#8e65c1"}}><AiOutlineArrowLeft className="mb-2" /> <h5 className="fw-normal">Back</h5> </Link>
+          <Link
+            to="../../settings"
+            className="d-flex align-items-center"
+            style={{ color: "#8e65c1" }}
+          >
+            {i18n.resolvedLanguage == "en" ? <AiOutlineArrowLeft className="mb-2" /> : <AiOutlineArrowRight className="mb-2" /> }{" "}
+            <h5 className="fw-normal">{t("supplier_pages.setting.back")}</h5>{" "}
+          </Link>
           <div className="main-body">
             <div className="row">
               <div className="col-lg-5">
-                <div className="card" style={{border:"none"}}>
+                <div className="card" style={{ border: "none" }}>
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
@@ -381,7 +388,7 @@ const PersonalSettings = () => {
                 </div>
 
                 {userId == user.user_id && (
-                  <div className="card mt-4" style={{border:"none"}}>
+                  <div className="card mt-4" style={{ border: "none" }}>
                     <div className="card-body">
                       <div className="d-flex flex-column align-items-center text-center">
                         <h3>{t("buyer_pages.profile.opt")}</h3>
@@ -432,20 +439,31 @@ const PersonalSettings = () => {
                     </div>
                   </div>
                 )}
-              <din className="card my-4" style={{border:"none"}}>
-                <div className="card-body">
-                  <div className="d-flex flex-column align-items-center text-center">
-                 <h4>Change language</h4>
-                 <select onChange={(data)=> i18n.changeLanguage(data.target.value)} defaultValue={i18n.resolvedLanguage} type="text" className="form-select mt-2">
-                  <option value="en">{t("buyer_pages.profile.en")}</option>
-                  <option value="ar">{t("buyer_pages.profile.ar")}</option>
-                 </select>
-                 </div>
-                </div>
-              </din>
+                <din className="card my-4" style={{ border: "none" }}>
+                  <div className="card-body">
+                    <div className="d-flex flex-column align-items-center text-center">
+                      <h4>{t("supplier_pages.setting.change")}</h4>
+                      <select
+                        onChange={(data) =>
+                          i18n.changeLanguage(data.target.value)
+                        }
+                        defaultValue={i18n.resolvedLanguage}
+                        type="text"
+                        className="form-select mt-2"
+                      >
+                        <option value="en">
+                          {t("buyer_pages.profile.en")}
+                        </option>
+                        <option value="ar">
+                          {t("buyer_pages.profile.ar")}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </din>
               </div>
               <div className="col-lg-7">
-                <div className="card" style={{border:"none"}}>
+                <div className="card" style={{ border: "none" }}>
                   <div className="card-title p-4 pb-0 profile__title">
                     <h3>{t("buyer_pages.profile.det")}</h3>
                   </div>

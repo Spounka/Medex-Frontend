@@ -545,6 +545,20 @@
             "category_delete_success": "You have successfully deleted this category from your shop",
             "product_create_success": "You have successfully added this product to the selected category",
             "product_delete_success": "You have successfully removed this product from the selected category"
+        },
+        "setting":{
+            "soon":"Coming soon ..",
+            "back": "Back",
+            "personal": "Personal settings",
+            "personalD":"Personal details & Language",
+            "user&per": "User and Persmissions",
+            "company": "Company settings",
+            "companyD":"Company informatin & details",
+            "store": "Store",
+            "shipping": "Shipping and delivery",
+            "branch": "Branches",
+            "billing": "Billing",
+            "change": "Change language"
         }
     }
 }

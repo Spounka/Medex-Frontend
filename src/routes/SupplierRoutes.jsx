@@ -44,6 +44,7 @@ import UpdatePassword from "../pages/shared/UpdatePassword";
 import Settings from "../pages/Supplier/Settings"
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import CompanySettings from "../pages/Supplier/CompanySettings";
+import ComingSoon from "../pages/Supplier/ComingSoon";
 
 const SupplierRoutes = () => {
     return (
@@ -69,6 +70,7 @@ const SupplierRoutes = () => {
 
                     <Route path="account/profile" element={<PersonalSettings />} />
                     <Route path="settings/companySettings" element={<CompanySettings/>}/>
+                    <Route path="settings/soon" element={<ComingSoon/>}/>
 
                     <Route path="chat" element={<Chat />} />
                     <Route path="chat/:id" element={<ChatMessagesList />} />
