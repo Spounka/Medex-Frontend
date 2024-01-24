@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 import {
     CitySelect,
@@ -33,8 +33,6 @@ import { FaRegBuilding } from "react-icons/fa";
 
 import userImage from "../../assets/images/user.png";
 import coverImage from "../../assets/images/cover.jpg";
-
-import { useState } from "react";
 
 import useAxios from "../../utils/useAxios";
 
@@ -161,8 +159,6 @@ const CompanySettings = () => {
             )
             .then((res) => {
                 const data = res.data;
-
-                console.log(data);
 
                 if (user.user_id == data.supplier) {
                     GetCountries()
