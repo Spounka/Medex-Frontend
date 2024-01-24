@@ -546,21 +546,20 @@
             "product_create_success": "You have successfully added this product to the selected category",
             "product_delete_success": "You have successfully removed this product from the selected category"
         },
-<<<<<<< HEAD
-        "setting":{
-            "soon":"Coming soon ..",
+        "setting": {
+            "soon": "Coming soon ..",
             "back": "Back",
             "personal": "Personal settings",
-            "personalD":"Personal details & Language",
-            "user&per": "User and Persmissions",
+            "personalD": "Personal details & Language",
+            "user&per": "User and Permissions",
             "company": "Company settings",
-            "companyD":"Company informatin & details",
+            "companyD": "Company information & details",
             "store": "Store",
             "shipping": "Shipping and delivery",
             "branch": "Branches",
             "billing": "Billing",
             "change": "Change language"
-=======
+        },
         "edit_company": {
             "name": "Company Name",
             "email": "Company Email Address",
@@ -573,7 +572,6 @@
             "rem_cov_pic": "Remove Cover Picture",
             "update_cov_pic": "Update Cover Picture",
             "edit": "Edit Company Profile"
->>>>>>> 27b7aa8 (Finished edit company)
         }
     }
 }

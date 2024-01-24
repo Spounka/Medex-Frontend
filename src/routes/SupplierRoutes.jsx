@@ -68,11 +68,6 @@ const SupplierRoutes = () => {
                     />
                     <Route path="/quotes/offers" element={<OfferList />} />
 
-<<<<<<< HEAD
-                    <Route path="account/profile" element={<PersonalSettings />} />
-                    <Route path="settings/companySettings" element={<CompanySettings/>}/>
-                    <Route path="settings/soon" element={<ComingSoon/>}/>
-=======
                     <Route
                         path="account/profile"
                         element={<PersonalSettings />}
@@ -81,7 +76,7 @@ const SupplierRoutes = () => {
                         path="settings/company"
                         element={<CompanySettings />}
                     />
->>>>>>> 27b7aa8 (Finished edit company)
+                    <Route path="settings/soon" element={<ComingSoon />} />
 
                     <Route path="chat" element={<Chat />} />
                     <Route path="chat/:id" element={<ChatMessagesList />} />
