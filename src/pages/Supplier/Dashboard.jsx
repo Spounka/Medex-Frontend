@@ -24,6 +24,7 @@ const Dashboard = () => {
     const [monthlySales, setMonthlySales] = useState([]);
     const [days, setDays] = useState([]);
     const [dailySales, setDailySales] = useState([]);
+    const [dailySalesCounts, setDailySalesCounts] = useState([]);
 
     const [currentMonthlySales, setCurrentMonthlySales] = useState([]);
 
@@ -69,7 +70,7 @@ const Dashboard = () => {
                 setDays(res.data.results.stats.daily_sales[0]);
                 setDailySales(res.data.results.stats.daily_sales[1]);
 
-                console.log(res.data.results.stats.daily_sales);
+                setDailySalesCounts(res.data.results.stats.daily_sales_counts);
 
                 setPercentagePreviousMonthlySales(
                     Math.round(
@@ -109,7 +110,7 @@ const Dashboard = () => {
             className="px-0 px-md-3"
             style={{ backgroundColor: "rgb(250, 250, 251)" }}
         >
-            <section>
+            {/* <section>
                 <div className="container-fluid">
                     <h2 className="d-flex align-items-center gap-2 dashboard__title mt-2">
                         {t("supplier_pages.dashboard.title")}
@@ -282,7 +283,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             <section className="py-4">
                 <div className="container-fluid">
                     <div className="d-flex ad">
@@ -359,7 +360,7 @@ const Dashboard = () => {
                             <div className="col-12 mt-3">
                                 <IncomeBarChart
                                     days={days}
-                                    dailySales={dailySales}
+                                    dailySales={dailySalesCounts}
                                 />
                             </div>
                         </div>
