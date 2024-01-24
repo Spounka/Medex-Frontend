@@ -5,7 +5,7 @@ const MonthlyBarChart = ({dailySales, days }) => {
     labels: [...days],
     datasets: [
       {
-        data: [100, 100, 200, 30, 16],
+        data: [...dailySales],
         backgroundColor: "#faad14",
         fill: true,
         lineTension: 0.5,

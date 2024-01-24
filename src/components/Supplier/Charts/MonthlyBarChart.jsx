@@ -2,10 +2,10 @@ import { Bar } from "react-chartjs-2";
 
 const MonthlyBarChart = ({ slot, monthlySales, dailySales, months, days }) => {
   const data = {
-    labels: slot === "month" ? ["jan", "Fab", "Mar", "Apr", "Jun", "Jul"] : [...days],
+    labels: slot === "month" ? [...months] : [...days],
     datasets: [
       {
-        data: slot === "month" ? [423, 535, 726, 188, 100, 745] : [...dailySales],
+        data: slot === "month" ? [...monthlySales] : [...dailySales],
         backgroundColor: "#00cab6",
         fill: true,
         lineTension: 0.5,
