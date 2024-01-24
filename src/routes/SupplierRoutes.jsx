@@ -41,7 +41,7 @@ import Statistics from "../pages/Supplier/Statistics";
 import ViewStore from "../pages/Supplier/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
-import Settings from "../pages/Supplier/Settings"
+import Settings from "../pages/Supplier/Settings";
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import CompanySettings from "../pages/Supplier/CompanySettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
@@ -68,9 +68,20 @@ const SupplierRoutes = () => {
                     />
                     <Route path="/quotes/offers" element={<OfferList />} />
 
+<<<<<<< HEAD
                     <Route path="account/profile" element={<PersonalSettings />} />
                     <Route path="settings/companySettings" element={<CompanySettings/>}/>
                     <Route path="settings/soon" element={<ComingSoon/>}/>
+=======
+                    <Route
+                        path="account/profile"
+                        element={<PersonalSettings />}
+                    />
+                    <Route
+                        path="settings/company"
+                        element={<CompanySettings />}
+                    />
+>>>>>>> 27b7aa8 (Finished edit company)
 
                     <Route path="chat" element={<Chat />} />
                     <Route path="chat/:id" element={<ChatMessagesList />} />
@@ -128,7 +139,7 @@ const SupplierRoutes = () => {
                     <Route path="statistics" element={<Statistics />} />
                     <Route path="store/view" element={<ViewStore />} />
                     <Route path="store/edit" element={<EditStore />} />
-                    <Route path="settings" element={<Settings />}/>
+                    <Route path="settings" element={<Settings />} />
                     <Route
                         path="account/password/update"
                         element={<UpdatePassword />}

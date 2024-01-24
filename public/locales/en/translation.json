@@ -254,7 +254,7 @@
             "added": "Added"
         },
         "profile": {
-            "company":"Company details",
+            "company": "Company details",
             "en": "English",
             "ar": "Arabic",
             "email_err": "The email you provided is invalid",
@@ -546,6 +546,7 @@
             "product_create_success": "You have successfully added this product to the selected category",
             "product_delete_success": "You have successfully removed this product from the selected category"
         },
+<<<<<<< HEAD
         "setting":{
             "soon":"Coming soon ..",
             "back": "Back",
@@ -559,6 +560,20 @@
             "branch": "Branches",
             "billing": "Billing",
             "change": "Change language"
+=======
+        "edit_company": {
+            "name": "Company Name",
+            "email": "Company Email Address",
+            "phone": "Company Phone Number",
+            "website": "Company Website",
+            "pic_updated": "Your company profile picture has been successfully updated",
+            "cov_pic_updated": "Your company cover picture has been successfully updated",
+            "pic_removed": "Your company profile picture has been successfully removed",
+            "cov_pic_removed": "Your company cover picture has been successfully removed",
+            "rem_cov_pic": "Remove Cover Picture",
+            "update_cov_pic": "Update Cover Picture",
+            "edit": "Edit Company Profile"
+>>>>>>> 27b7aa8 (Finished edit company)
         }
     }
 }
