@@ -1320,12 +1320,12 @@ footer {
   z-index: 100;
   overflow-y: auto !important;
 }
-.ar {
-  left: unset;
-}
 .ar:nth-child(3) {
   margin-right: 250px;
   margin-left: 0;
+}
+.ar {
+  left: unset;
 }
 
 .buyer__dashboard-sidebar-container {
@@ -1425,7 +1425,10 @@ footer {
   }
 
   .dashboard__main-container main {
-    margin-left: auto;
+    margin: auto;
+  }
+  .ar:nth-child(3) {
+    margin-right: unset;
   }
 
   .buyer__dashboard-sidebar-toggle {
