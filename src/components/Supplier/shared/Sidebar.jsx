@@ -1,42 +1,38 @@
 import { Link } from "react-router-dom";
 
-import {
-    MdSpaceDashboard,
-    MdShop2,
-    MdRequestQuote,
-    MdListAlt,
-    MdList,
-    MdOutlinePointOfSale,
-    MdAddToQueue,
-    MdOutlinePreview,
-} from "react-icons/md";
-import { BiSolidOffer, BiSolidMessageAltDetail } from "react-icons/bi";
-import { IoIosArrowDown } from "react-icons/io";
-import {
-    TbDatabasePlus,
-    TbDatabaseEdit,
-    TbDatabaseSearch,
-    TbLanguage,
-    TbTruckReturn,
-    TbPasswordFingerprint,
-} from "react-icons/tb";
+import { BiSolidMessageAltDetail, BiSolidOffer } from "react-icons/bi";
 import { BsGearFill, BsTruck } from "react-icons/bs";
-import { LuTextQuote } from "react-icons/lu";
 import { FaRegFileExcel } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 import { IoStatsChart, IoStorefrontOutline } from "react-icons/io5";
-import { TbHomeEdit } from "react-icons/tb";
+import { LuTextQuote } from "react-icons/lu";
+import {
+    MdAddToQueue,
+    MdList,
+    MdListAlt,
+    MdOutlinePointOfSale,
+    MdOutlinePreview,
+    MdRequestQuote,
+    MdShop2,
+    MdSpaceDashboard,
+} from "react-icons/md";
+import {
+    TbDatabaseEdit,
+    TbDatabasePlus,
+    TbDatabaseSearch,
+    TbHomeEdit,
+    TbTruckReturn
+} from "react-icons/tb";
 
 import { useTranslation } from "react-i18next";
 
-import arFlag from "../../../assets/images/sa-flag.png";
-import enFlag from "../../../assets/images/us-flag.png";
 import { useState } from "react";
 
 const Sidebar = (props) => {
     const { t, i18n } = useTranslation();
 
     const { menuOpen } = props;
-    const [li, setLi] = useState(1);
+    const [li, setLi] = useState(0);
 
     return (
         <aside

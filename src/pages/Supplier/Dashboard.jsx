@@ -107,7 +107,7 @@ const Dashboard = () => {
 
     return (
         <main
-            className="px-0 px-md-3"
+            className="x-0 px-md-3 "
             style={{ backgroundColor: "rgb(250, 250, 251)" }}
         >
             <section>

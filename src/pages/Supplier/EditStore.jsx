@@ -27,7 +27,6 @@ const EditStore = () => {
                     "/api/product/private-categories/"
             )
             .then((res) => {
-                console.log(res.data);
                 if (res?.data?.private_categories) {
                     setCategories(res?.data?.private_categories);
                 }
