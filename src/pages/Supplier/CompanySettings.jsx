@@ -154,7 +154,7 @@ const CompanySettings = () => {
     await api
       .get(import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`)
       .then((res) => {
-        const data = res.data;
+        const data = res.data.company;
 
         if (user.user_id == data.supplier) {
           GetCountries()
@@ -340,6 +340,7 @@ const CompanySettings = () => {
               <div className="col-lg-12">
                 <div className="card mb-4" style={{ border: "none" }}>
                   <div className="card-body">
+                  <h3>Cover photo</h3>
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
                         src={
@@ -392,6 +393,7 @@ const CompanySettings = () => {
               <div className="col-lg-12 mt-3">
                 <div className="card mb-4" style={{ border: "none" }}>
                   <div className="card-body">
+                  <h3>Cover photo</h3>
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
                         src={

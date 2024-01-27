@@ -219,7 +219,7 @@ const ViewStore = (props) => {
     Background: {
       width: "100%",
       height: "35vw",
-      backgroundImage: `url(${coverImage})`,
+      backgroundImage: `url(${companyCoverPicture})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "50% 50%",
@@ -229,7 +229,7 @@ const ViewStore = (props) => {
     Background: {
       width: "25vw",
       height: "25vw",
-      backgroundImage: `url(${userImage})`,
+      backgroundImage: `url(${companyProfilePicture})`,
       backgroundColor: "white",
       borderRadius: "50%",
       border: "5px solid white",
@@ -320,11 +320,11 @@ const ViewStore = (props) => {
           </div>
           {privateCategories.map((category) => (
             category.products.length > 0 &&
-            <div className="row container-fluid">
+            <div className="container-fluid">
               <h2>{category.name}</h2>
               {privateCategories.length > 0 ? (
                 <Slider
-                  className={category.products.length < 5 ? "ds" : ""}
+                  className={category.products.length < 4 ? "ds" : ""}
                   {...settings}
                 >
                   {category.products.map((product) => (
