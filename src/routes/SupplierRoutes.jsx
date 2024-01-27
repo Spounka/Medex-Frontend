@@ -49,7 +49,7 @@ const SupplierRoutes = () => {
     return (
         <Routes>
             <Route path="account/register" element={<Register />} />
-            <Route path="profile/:id" element={<SupplierProfile />} />
+            <Route path="profile/:id" element={<ViewStore />} />
 
             <Route path="/" element={<Layout />}>
                 <Route path="/" element={<SupplierProtectedRoutes />}>

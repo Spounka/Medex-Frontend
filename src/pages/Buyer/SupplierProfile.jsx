@@ -70,7 +70,7 @@ const SupplierProfile = () => {
             }
         }
     };
-
+    
     const getSupplierProducts = async () => {
         await axios
             .get(
@@ -90,7 +90,6 @@ const SupplierProfile = () => {
         getSupplier();
         getSupplierProducts();
     }, []);
-
     return (
         <>
             <Header />

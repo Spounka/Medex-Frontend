@@ -1,28 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
-
-import { GetState, GetCity, GetCountries } from "react-country-state-city";
-
-import userImage from "../../assets/images/user.png";
-import coverImage from "../../assets/images/cover.jpg";
-
+import React, { useContext, useEffect, useState } from "react";
+import { GetCity, GetCountries, GetState } from "react-country-state-city";
 import useAxios from "../../utils/useAxios";
-
 import AuthContext from "../../context/AuthContext";
-
-import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 import { FaRegEnvelope } from "react-icons/fa";
-import { MdFavorite, MdFavoriteBorder, MdPhoneIphone } from "react-icons/md";
 import { IoEarthSharp, IoLocationOutline } from "react-icons/io5";
-import ProductCard from "../../components/Buyer/shared/ProductCard";
-import { Link } from "react-router-dom";
-import jwtDecode from "jwt-decode";
-import useWishlistHandler from "../../utils/useWishlistHandler";
+import { MdPhoneIphone } from "react-icons/md";
 import Slider from "react-slick";
+import ProductCard from "../../components/Buyer/shared/ProductCard";
+import Header from "../../components/Buyer/shared/Header";
+import MobileNavigation from "../../components/Buyer/shared/MobileNavigation";
+import { ToastContainer } from "react-toastify";
+import { CartContext } from "../../context/CartContext";
+import profilePic from "../../assets/images/user.png";
+import coverPic from "../../assets/images/cover.jpg";
 
-const ViewStore = (props) => {
+const ViewStore = () => {
   const { t } = useTranslation();
-  const { addToCart } = props;
+  const { addToCart } = useContext(CartContext);
 
   const api = useAxios();
 
@@ -30,8 +26,9 @@ const ViewStore = (props) => {
 
   const [privateCategories, setPrivateCategories] = useState([]);
 
-  const [companyProfilePicture, setCompanyProfilePicture] = useState(null);
-  const [companyCoverPicture, setCompanyCoverPicture] = useState(null);
+  const [companyProfilePicture, setCompanyProfilePicture] =
+    useState(profilePic);
+  const [companyCoverPicture, setCompanyCoverPicture] = useState(coverPic);
 
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
@@ -136,8 +133,10 @@ const ViewStore = (props) => {
       });
   };
   useEffect(() => {
-    if (user.role === "supplier") {
-      getUserData(user.user_id);
+    if (user) {
+      if (user.role === "supplier") {
+        getUserData(user.user_id);
+      }
     }
   }, []);
 
@@ -245,104 +244,285 @@ const ViewStore = (props) => {
   const classes = useStyles();
   const classes2 = useStyles2();
 
-  // const handleWishlist = useWishlistHandler();
-  // const [p, setP] = useState([]);
+  return user ? (
+    user.role == "buyer" ? (
+      <>
+        <Header />
+        <MobileNavigation />
+        <ToastContainer newestOnTop={true} />
+        <main className="py-2 px-0 px-md-3">
+          <section>
+            <div className="container-xxl">
+              <h1>Store</h1>
+              <div style={{ backgroundColor: "white" }}>
+                <div className={classes.Background} />
 
-  // const [isInWishlist, setIsInWishlist] = useState(false);
-  // const handleWishButtonClick = () => {
-  //   if (user) {
-  //     try {
-  //       handleWishlist(p.sku, wish);
-  //     } catch {
-  //       return;
-  //     }
-  //     setIsInWishlist(!isInWishlist);
-  //   }
-  // };
-  return (
-    <main className="px-0 px-md-3">
-      <section>
-        <div className="container-xxl">
-          <h1>Store</h1>
-          <div style={{ backgroundColor: "white" }}>
-            <div className={classes.Background} />
-
-            <div className="p-2">
-              <div className="d-flex justify-content-start">
-                <div className="d-flex flex-column align-items-center gap-0 gap-md-3">
-                  <div className={classes2.Background} />
-                  <h2>{companyName}</h2>
+                <div className="p-2">
+                  <div className="d-flex justify-content-start">
+                    <div className="d-flex flex-column align-items-center gap-0 gap-md-3">
+                      <div className={classes2.Background} />
+                      <h2>{companyName}</h2>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div
-            className="container-fluid my-4 p-3"
-            style={{ backgroundColor: "white" }}
-          >
-            <h2>Company Details</h2>
-            <div className="p-3 d-flex align-items-center gap-3">
-              <FaRegEnvelope size="1.2rem" />{" "}
-              <div className="d-flex flex-column">
-                <h5 style={{ margin: "0" }}>Email</h5>
-                {email}
-              </div>
-            </div>
-            {phone && (
-              <div className="p-3 d-flex align-items-center gap-3">
-                <MdPhoneIphone size="1.2rem" />{" "}
-                <div className="d-flex flex-column">
-                  <h5 style={{ margin: "0" }}>Phone</h5>
-                  {phone}
+              <div
+                className="container-fluid my-4 p-3"
+                style={{ backgroundColor: "white" }}
+              >
+                <h2>Company Details</h2>
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <FaRegEnvelope size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Email</h5>
+                    {email}
+                  </div>
+                </div>
+                {phone && (
+                  <div className="p-3 d-flex align-items-center gap-3">
+                    <MdPhoneIphone size="1.2rem" />{" "}
+                    <div className="d-flex flex-column">
+                      <h5 style={{ margin: "0" }}>Phone</h5>
+                      {phone}
+                    </div>
+                  </div>
+                )}
+                {website && (
+                  <div className="p-3 d-flex align-items-center gap-3">
+                    <IoEarthSharp size="1.2rem" />{" "}
+                    <div className="d-flex flex-column">
+                      <h5 style={{ margin: "0" }}>Website</h5>
+                      {website}
+                    </div>
+                  </div>
+                )}
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <IoLocationOutline size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Location</h5>
+                    {country.name && country.name + ", "}
+                    {city && city + ", "}
+                    {state && state + ", "}
+                    {address1 && address1 + ", "}
+                    {address2 && address2 + ", "}
+                  </div>
                 </div>
               </div>
-            )}
-            {website && (
-              <div className="p-3 d-flex align-items-center gap-3">
-                <IoEarthSharp size="1.2rem" />{" "}
-                <div className="d-flex flex-column">
-                  <h5 style={{ margin: "0" }}>Website</h5>
-                  {website}
-                </div>
-              </div>
-            )}
-            <div className="p-3 d-flex align-items-center gap-3">
-              <IoLocationOutline size="1.2rem" />{" "}
-              <div className="d-flex flex-column">
-                <h5 style={{ margin: "0" }}>Location</h5>
-                {country.name && country.name + ", "}
-                {city && city + ", "}
-                {state && state + ", "}
-                {address1 && address1 + ", "}
-                {address2 && address2 + ", "}
-              </div>
-            </div>
-          </div>
-          {privateCategories.map((category) => (
-            category.products.length > 0 &&
-            <div className="container-fluid">
-              <h2>{category.name}</h2>
-              {privateCategories.length > 0 ? (
-                <Slider
-                  className={category.products.length < 4 ? "ds" : ""}
-                  {...settings}
-                >
-                  {category.products.map((product) => (
-                    <ProductCard
-                      product={product}
-                      cart={true}
-                      key={product.sku}
-                    />
-                  ))}
-                </Slider>
-              ) : (
-                <p className="text-center">{t("buyer_pages.home.none")}!</p>
+              {privateCategories.map(
+                (category) =>
+                  category.products.length > 0 && (
+                    <div className="container-fluid">
+                      <h2>{category.name}</h2>
+                      {privateCategories.length > 0 ? (
+                        <Slider
+                          className={category.products.length < 4 ? "ds" : ""}
+                          {...settings}
+                        >
+                          {category.products.map((product) => (
+                            <ProductCard
+                              addToCart={addToCart}
+                              product={product}
+                              cart={true}
+                              key={product.sku}
+                            />
+                          ))}
+                        </Slider>
+                      ) : (
+                        <p className="text-center">
+                          {t("buyer_pages.home.none")}!
+                        </p>
+                      )}
+                    </div>
+                  )
               )}
             </div>
-          ))}
-        </div>
-      </section>
-    </main>
+          </section>
+        </main>
+      </>
+    ) : (
+      <main className="px-0 px-md-3">
+        <section>
+          <div className="container-xxl">
+            <h1>Store</h1>
+            <div style={{ backgroundColor: "white" }}>
+              <div className={classes.Background} />
+
+              <div className="p-2">
+                <div className="d-flex justify-content-start">
+                  <div className="d-flex flex-column align-items-center gap-0 gap-md-3">
+                    <div className={classes2.Background} />
+                    <h2>{companyName}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="container-fluid my-4 p-3"
+              style={{ backgroundColor: "white" }}
+            >
+              <h2>Company Details</h2>
+              <div className="p-3 d-flex align-items-center gap-3">
+                <FaRegEnvelope size="1.2rem" />{" "}
+                <div className="d-flex flex-column">
+                  <h5 style={{ margin: "0" }}>Email</h5>
+                  {email}
+                </div>
+              </div>
+              {phone && (
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <MdPhoneIphone size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Phone</h5>
+                    {phone}
+                  </div>
+                </div>
+              )}
+              {website && (
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <IoEarthSharp size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Website</h5>
+                    {website}
+                  </div>
+                </div>
+              )}
+              <div className="p-3 d-flex align-items-center gap-3">
+                <IoLocationOutline size="1.2rem" />{" "}
+                <div className="d-flex flex-column">
+                  <h5 style={{ margin: "0" }}>Location</h5>
+                  {country.name && country.name + ", "}
+                  {city && city + ", "}
+                  {state && state + ", "}
+                  {address1 && address1 + ", "}
+                  {address2 && address2 + ", "}
+                </div>
+              </div>
+            </div>
+            {privateCategories.map(
+              (category) =>
+                category.products.length > 0 && (
+                  <div className="container-fluid">
+                    <h2>{category.name}</h2>
+                    {privateCategories.length > 0 ? (
+                      <Slider
+                        className={category.products.length < 4 ? "ds" : ""}
+                        {...settings}
+                      >
+                        {category.products.map((product) => (
+                          <ProductCard
+                            addToCart={addToCart}
+                            product={product}
+                            cart={true}
+                            key={product.sku}
+                          />
+                        ))}
+                      </Slider>
+                    ) : (
+                      <p className="text-center">
+                        {t("buyer_pages.home.none")}!
+                      </p>
+                    )}
+                  </div>
+                )
+            )}
+          </div>
+        </section>
+      </main>
+    )
+  ) : (
+    <>
+      <Header />
+      <MobileNavigation />
+      <ToastContainer newestOnTop={true} />
+      <main className="py-2 px-0 px-md-3">
+        <section>
+          <div className="container-xxl">
+            <h1>Store</h1>
+            <div style={{ backgroundColor: "white" }}>
+              <div className={classes.Background} />
+
+              <div className="p-2">
+                <div className="d-flex justify-content-start">
+                  <div className="d-flex flex-column align-items-center gap-0 gap-md-3">
+                    <div className={classes2.Background} />
+                    <h2>{companyName}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="container-fluid my-4 p-3"
+              style={{ backgroundColor: "white" }}
+            >
+              <h2>Company Details</h2>
+              <div className="p-3 d-flex align-items-center gap-3">
+                <FaRegEnvelope size="1.2rem" />{" "}
+                <div className="d-flex flex-column">
+                  <h5 style={{ margin: "0" }}>Email</h5>
+                  {email}
+                </div>
+              </div>
+              {phone && (
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <MdPhoneIphone size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Phone</h5>
+                    {phone}
+                  </div>
+                </div>
+              )}
+              {website && (
+                <div className="p-3 d-flex align-items-center gap-3">
+                  <IoEarthSharp size="1.2rem" />{" "}
+                  <div className="d-flex flex-column">
+                    <h5 style={{ margin: "0" }}>Website</h5>
+                    {website}
+                  </div>
+                </div>
+              )}
+              <div className="p-3 d-flex align-items-center gap-3">
+                <IoLocationOutline size="1.2rem" />{" "}
+                <div className="d-flex flex-column">
+                  <h5 style={{ margin: "0" }}>Location</h5>
+                  {country.name && country.name + ", "}
+                  {city && city + ", "}
+                  {state && state + ", "}
+                  {address1 && address1 + ", "}
+                  {address2 && address2 + ", "}
+                </div>
+              </div>
+            </div>
+            {privateCategories.map(
+              (category) =>
+                category.products.length > 0 && (
+                  <div className="container-fluid">
+                    <h2>{category.name}</h2>
+                    {privateCategories.length > 0 ? (
+                      <Slider
+                        className={category.products.length < 4 ? "ds" : ""}
+                        {...settings}
+                      >
+                        {category.products.map((product) => (
+                          <ProductCard
+                            addToCart={addToCart}
+                            product={product}
+                            cart={true}
+                            key={product.sku}
+                          />
+                        ))}
+                      </Slider>
+                    ) : (
+                      <p className="text-center">
+                        {t("buyer_pages.home.none")}!
+                      </p>
+                    )}
+                  </div>
+                )
+            )}
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
 
