@@ -415,6 +415,9 @@ footer {
 .slick-slide > div {
   padding: 10px;
 }
+.ds .slick-list .slick-track{
+  width: unset !important;
+}
 .slick-next,
 .slick-prev {
   background-color: #8e65c1 !important;

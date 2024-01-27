@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import {
-    CitySelect,
-    CountrySelect,
-    GetCity,
-    GetCountries,
-    GetState,
-    StateSelect,
+  CitySelect,
+  CountrySelect,
+  GetCity,
+  GetCountries,
+  GetState,
+  StateSelect,
 } from "react-country-state-city";
 
 import "react-country-state-city/dist/react-country-state-city.css";
@@ -17,16 +17,16 @@ import "react-phone-input-2/lib/material.css";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import {
-    BsGlobeEuropeAfrica,
-    BsPhoneVibrate,
-    BsSignpost2,
+  BsGlobeEuropeAfrica,
+  BsPhoneVibrate,
+  BsSignpost2,
 } from "react-icons/bs";
 import { CiLink } from "react-icons/ci";
 import { FaRegBuilding } from "react-icons/fa";
 import {
-    MdLocationCity,
-    MdOutlineFolderDelete,
-    MdOutlineLocationOn,
+  MdLocationCity,
+  MdOutlineFolderDelete,
+  MdOutlineLocationOn,
 } from "react-icons/md";
 import { TbPhotoEdit } from "react-icons/tb";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";

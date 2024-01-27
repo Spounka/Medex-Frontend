@@ -8,7 +8,6 @@ import NotFound from "../pages/shared/NotFound";
 import Dashboard from "../pages/Supplier/Dashboard";
 
 import Register from "../pages/Supplier/Register";
-import Profile from "../pages/Supplier/Profile";
 
 import RequestForQuotes from "../pages/shared/RequestForQuotes";
 import QuoteList from "../pages/Supplier/QuoteList";

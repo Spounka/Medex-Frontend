@@ -61,7 +61,6 @@ const ProductCard = (props) => {
       }
     });
   }, []);
-
   return (
     <div className="cardd card home__card" style={{ borderRadius: "5px" }}>
       <Link
@@ -70,7 +69,7 @@ const ProductCard = (props) => {
         className="card-link"
       >
         <img
-          src={product.thumbnail}
+          src={user ? user.role == "buyer" ? product.thumbnail : import.meta.env.VITE_BACKEND_URL + product.thumbnail : product.thumbnail }
           className="card-img-top home__card-img"
           width="100%"
           alt="product"

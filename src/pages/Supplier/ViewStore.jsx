@@ -20,33 +20,6 @@ import jwtDecode from "jwt-decode";
 import useWishlistHandler from "../../utils/useWishlistHandler";
 import Slider from "react-slick";
 
-const useStyles = makeStyles({
-  Background: {
-    width: "100%",
-    height: "35vw",
-    backgroundImage: `url(${coverImage})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "50% 50%",
-  },
-});
-const useStyles2 = makeStyles({
-  Background: {
-    width: "25vw",
-    height: "25vw",
-    backgroundImage: `url(${userImage})`,
-    backgroundColor: "white",
-    borderRadius: "50%",
-    border: "5px solid white",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "50% 50%",
-    marginLeft: "20px",
-    marginTop: "-5vw",
-    marginRight: "20px",
-  },
-});
-
 const ViewStore = (props) => {
   const { t } = useTranslation();
   const { addToCart } = props;
@@ -171,12 +144,11 @@ const ViewStore = (props) => {
   const settings = {
     infinite: true,
     speed: 350,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     lazyLoad: true,
     arrows: false,
-    className: "center",
     autoplaySpeed: 2500,
     responsive: [
       {
@@ -242,27 +214,37 @@ const ViewStore = (props) => {
       },
     ],
   };
+
+  const useStyles = makeStyles({
+    Background: {
+      width: "100%",
+      height: "35vw",
+      backgroundImage: `url(${coverImage})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "50% 50%",
+    },
+  });
+  const useStyles2 = makeStyles({
+    Background: {
+      width: "25vw",
+      height: "25vw",
+      backgroundImage: `url(${userImage})`,
+      backgroundColor: "white",
+      borderRadius: "50%",
+      border: "5px solid white",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "50% 50%",
+      marginLeft: "20px",
+      marginTop: "-5vw",
+      marginRight: "20px",
+    },
+  });
+
   const classes = useStyles();
   const classes2 = useStyles2();
-  // privateCategories.map((cat) => {
-  //   console.log(cat.products[0]);
-  // });
-  const [products, setProducts] = useState({});
 
-  const getProducts = async () => {
-    await api
-      .get(
-        import.meta.env.VITE_BACKEND_URL +
-          `/api/product/product?supplier=${user.user_id}`
-      )
-      .then((res) => {
-        setProducts(res.data);
-      });
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
   // const handleWishlist = useWishlistHandler();
   // const [p, setP] = useState([]);
 
@@ -336,22 +318,28 @@ const ViewStore = (props) => {
               </div>
             </div>
           </div>
-          <div className="d-flex flex-wrap gg row">
-            {products.length > 0 ? (
-                <Slider {...settings}>
-                  {products.map((product) => (
+          {privateCategories.map((category) => (
+            category.products.length > 0 &&
+            <div className="row container-fluid">
+              <h2>{category.name}</h2>
+              {privateCategories.length > 0 ? (
+                <Slider
+                  className={category.products.length < 5 ? "ds" : ""}
+                  {...settings}
+                >
+                  {category.products.map((product) => (
                     <ProductCard
                       product={product}
                       cart={true}
                       key={product.sku}
-                      addToCart={addToCart}
                     />
                   ))}
                 </Slider>
-            ) : (
-              <p className="text-center">{t("buyer_pages.home.none")}!</p>
-            )}
-          </div>
+              ) : (
+                <p className="text-center">{t("buyer_pages.home.none")}!</p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
     </main>
