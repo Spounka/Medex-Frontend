@@ -28,6 +28,7 @@ import ChatMessagesList from "../pages/shared/ChatMessagesList";
 import ForgotPassword from "../pages/shared/ForgotPassword";
 import RequestForQuotes from "../pages/shared/RequestForQuotes";
 import ResetPassword from "../pages/shared/ResetPassword";
+import ViewStore from "../pages/shared/ViewStore";
 
 import { CartContext } from "../context/CartContext";
 
@@ -90,6 +91,11 @@ const BuyerRoutes = () => {
                 <Route
                     path="account/buyer/activate"
                     element={<ActivateBuyer />}
+                />
+
+                <Route
+                    path="company/:id"
+                    element={<ViewStore addToCart={addToCart} />}
                 />
 
                 <Route path="/" element={<BuyerProtectedRoutes />}>

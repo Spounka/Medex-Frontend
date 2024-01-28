@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
-const ProductCard = (props) => {
+const SupplierProductCard = (props) => {
     const { t } = useTranslation();
 
     const { product, buttonLink, buttonIcon, buttonText } = props;
@@ -65,4 +65,4 @@ const ProductCard = (props) => {
     );
 };
 
-export default ProductCard;
+export default SupplierProductCard;

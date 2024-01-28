@@ -120,13 +120,7 @@ const ProductDetails = () => {
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <div className="details__image-container shadow">
-                                <img
-                                    src={
-                                        import.meta.env.VITE_BACKEND_URL +
-                                        product.thumbnail
-                                    }
-                                    alt="Product"
-                                />
+                                <img src={product.thumbnail} alt="Product" />
                             </div>
 
                             <div className="detail__other-images">

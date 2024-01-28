@@ -333,7 +333,7 @@ const ProductDetails = (props) => {
                                                     <MdFavoriteBorder
                                                         size="1.5rem"
                                                         className="home__card-button-fav-icon"
-                                                        style={{color:"red"}}
+                                                        style={{ color: "red" }}
                                                     />
                                                     {t(
                                                         "buyer_pages.product_details.wish"
@@ -379,9 +379,8 @@ const ProductDetails = (props) => {
                             </h3>
                             <div className="row mt-4">
                                 <Link
-                                    to={`/supplier/profile/${product?.supplier?.id}`}
+                                    to={`/company/${product?.supplier?.id}`}
                                     className="card shadow border col-12 col-md-3"
-                                    state={{ supplier: product?.supplier }}
                                 >
                                     <div className="card-body py-2 px-1 d-flex align-items-center justify-content-between gap-3">
                                         <div className="d-flex align-items-center gap-2">
@@ -389,14 +388,17 @@ const ProductDetails = (props) => {
                                                 src={
                                                     product?.supplier?.profile
                                                         ?.profile_picture
-                                                        ? product?.supplier
+                                                        ? import.meta.env
+                                                              .VITE_BACKEND_URL +
+                                                          product?.supplier
                                                               ?.profile
                                                               ?.profile_picture
                                                         : userImage
                                                 }
                                                 alt="Supplier"
-                                                className="img-fluid rounded-circle"
+                                                className="rounded-circle object-fit-cover"
                                                 width={50}
+                                                height={50}
                                             />
                                             {product?.supplier?.full_name}
                                         </div>

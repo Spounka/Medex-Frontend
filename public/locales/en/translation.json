@@ -452,7 +452,8 @@
             "del_err": "There was an issue deleting your product! Please try again later",
             "update": "Update Product",
             "del": "Delete Product",
-            "del_msg": "Are you sure that you want to delete this product"
+            "del_msg": "Are you sure that you want to delete this product",
+            "view": "View Details"
         },
         "sales_list": {
             "title": "Recent Sales List"

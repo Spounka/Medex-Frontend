@@ -6,7 +6,7 @@ import useAxios from "../../utils/useAxios";
 
 import { TbDatabaseSearch } from "react-icons/tb";
 
-import ProductCard from "../../components/Supplier/shared/ProductCard";
+import SupplierProductCard from "../../components/Supplier/shared/SupplierProductCard";
 import { useTranslation } from "react-i18next";
 
 const ProductList = (props) => {
@@ -42,15 +42,22 @@ const ProductList = (props) => {
                         <TbDatabaseSearch size="2.5rem" />
                         {t("supplier_pages.product_list.title")}
                     </h2>
-                    <div className="row" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+                    <div
+                        className="row"
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-around",
+                        }}
+                    >
                         {products.length > 0 ? (
                             products.map((product) => (
                                 <div
                                     className="mt-4"
-                                    style={{width: '270px'}}
+                                    style={{ width: "270px" }}
                                     key={product.sku}
                                 >
-                                    <ProductCard
+                                    <SupplierProductCard
                                         product={product}
                                         buttonLink={buttonLink + product.sku}
                                         buttonText={buttonText}

@@ -37,15 +37,18 @@ import TrackingDetails from "../pages/Supplier/TrackingDetails";
 import ReturnRequests from "../pages/Supplier/ReturnRequests";
 import ReturnDetails from "../pages/Supplier/ReturnDetails";
 import Statistics from "../pages/Supplier/Statistics";
-import ViewStore from "../pages/Supplier/ViewStore";
+import ViewStore from "../pages/shared/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
 import Settings from "../pages/Supplier/Settings";
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import CompanySettings from "../pages/Supplier/CompanySettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
+import { useTranslation } from "react-i18next";
 
 const SupplierRoutes = () => {
+    const { t } = useTranslation();
+
     return (
         <Routes>
             <Route path="account/register" element={<Register />} />
@@ -91,7 +94,9 @@ const SupplierRoutes = () => {
                         element={
                             <ProductList
                                 buttonLink={`/supplier/products/`}
-                                buttonText={"View Details"}
+                                buttonText={t(
+                                    "supplier_pages.product_details.view"
+                                )}
                                 buttonIcon={<TbListDetails />}
                             />
                         }
@@ -101,7 +106,9 @@ const SupplierRoutes = () => {
                         element={
                             <ProductList
                                 buttonLink={`/supplier/products/update/`}
-                                buttonText={"Update Product"}
+                                buttonText={t(
+                                    "supplier_pages.product_details.update"
+                                )}
                                 buttonIcon={<TbEdit />}
                             />
                         }
