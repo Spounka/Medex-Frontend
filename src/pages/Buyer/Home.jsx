@@ -266,7 +266,7 @@ const Home = (props) => {
                 <img
                   className="imgg"
                   key={ad.id}
-                  src={import.meta.env.VITE_BACKEND_URL + ad.thumbnail}
+                  src={ad.thumbnail}
                 />
               ))}
             </Slider>

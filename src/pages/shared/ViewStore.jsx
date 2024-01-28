@@ -258,7 +258,7 @@ const ViewStore = () => {
     >
       <section>
         <div className="container-xxl">
-          <h1>Store</h1>
+          <h1>{t("supplier_pages.setting.store")}</h1>
           <div style={{ backgroundColor: "white" }}>
             <div className={classes.Background} />
             <div className="p-2">
@@ -274,11 +274,11 @@ const ViewStore = () => {
             className="container-fluid my-4 p-3"
             style={{ backgroundColor: "white" }}
           >
-            <h2>Company Details</h2>
+            <h2>{t("buyer_pages.profile.company")}</h2>
             <div className="p-3 d-flex align-items-center gap-3">
               <FaRegEnvelope size="1.2rem" />
               <div className="d-flex flex-column">
-                <h5 style={{ margin: "0" }}>Email</h5>
+                <h5 style={{ margin: "0" }}>{t("email")}</h5>
                 {email}
               </div>
             </div>
@@ -286,7 +286,7 @@ const ViewStore = () => {
               <div className="p-3 d-flex align-items-center gap-3">
                 <MdPhoneIphone size="1.2rem" />
                 <div className="d-flex flex-column">
-                  <h5 style={{ margin: "0" }}>Phone</h5>
+                  <h5 style={{ margin: "0" }}>{t("phone")}</h5>
                   {phone}
                 </div>
               </div>
@@ -303,7 +303,7 @@ const ViewStore = () => {
             <div className="p-3 d-flex align-items-center gap-3">
               <IoLocationOutline size="1.2rem" />
               <div className="d-flex flex-column">
-                <h5 style={{ margin: "0" }}>Location</h5>
+                <h5 style={{ margin: "0" }}>{t("location")}</h5>
                 {country.name && country.name}
                 {state && `, ${state.name}`}
                 {city && `, ${city.name}`}

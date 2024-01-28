@@ -1,5 +1,6 @@
 {
     "home": "الرئيسية",
+    "location": "العنوان",
     "all_categories": "جميع الفئات",
     "all_brands": "جميع العلامات التجارية",
     "all_products": "جميع المنتجات",
@@ -406,6 +407,18 @@
         }
     },
     "supplier_pages": {
+        "statistics": {
+            "monthly_orders_statistics": "مبيعات الشهر الحالي",
+            "orders_max": "أقصى قيمة مبيعات",
+            "orders_min": "أدنى قيمة مبيعات",
+            "orders_avg": "متوسط قيمة المبيعات",
+            "categories_statistics": "عدد المنتجات في كل فئة",
+            "sales_statistics": "إحصاءات المبيعات",
+            "monthly_sales": "عدد المبيعات الشهرية",
+            "product_count": "إجمالي عدد المنتجات",
+            "quotes_statistics": "إحصاءات العروض",
+            "best_buyers_statistics": "أعلى 3 مشترين - إجمالي المصروفات"
+        },
         "update_product": {
             "det": "تفاصيل المنتج",
             "cat": "فئة المنتج والعلامة التجارية",
