@@ -48,7 +48,7 @@ const Settings = () => {
                             </p>
                         </div>
                     </Link>
-                    <Link to="company" className="d-flex gap-2">
+                    <Link to="soon" className="d-flex gap-2">
                         <div className="settings-icon">
                             <LuSettings2 size={25} />
                         </div>
@@ -57,11 +57,11 @@ const Settings = () => {
                                 {t("supplier_pages.setting.company")}
                             </h5>
                             <p className="text-wrap desc">
-                                {t("supplier_pages.setting.companyD")}
+                                {t("supplier_pages.setting.soon")}
                             </p>
                         </div>
                     </Link>
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link to="store" className="d-flex gap-2">
                         <div className="settings-icon">
                             <FaStore size={25} />
                         </div>
@@ -70,7 +70,7 @@ const Settings = () => {
                                 {t("supplier_pages.setting.store")}
                             </h5>
                             <p className="text-wrap desc">
-                                {t("supplier_pages.setting.soon")}
+                                {t("supplier_pages.setting.storeD")}
                             </p>
                         </div>
                     </Link>

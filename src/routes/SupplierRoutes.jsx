@@ -45,6 +45,7 @@ import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import CompanySettings from "../pages/Supplier/CompanySettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
 import { useTranslation } from "react-i18next";
+import Store from "../pages/Supplier/Store";
 
 const SupplierRoutes = () => {
     const { t } = useTranslation();
@@ -75,8 +76,8 @@ const SupplierRoutes = () => {
                         element={<PersonalSettings />}
                     />
                     <Route
-                        path="settings/company"
-                        element={<CompanySettings />}
+                        path="settings/store"
+                        element={<Store />}
                     />
                     <Route path="settings/soon" element={<ComingSoon />} />
 
