@@ -25,14 +25,10 @@ import { CiLink } from "react-icons/ci";
 import { FaRegBuilding } from "react-icons/fa";
 import {
   MdLocationCity,
-  MdOutlineFolderDelete,
-  MdOutlineLocationOn,
+  MdOutlineLocationOn
 } from "react-icons/md";
-import { TbPhotoEdit } from "react-icons/tb";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
 
-import coverImage from "../../assets/images/cover.jpg";
-import userImage from "../../assets/images/user.png";
 
 import useAxios from "../../utils/useAxios";
 
@@ -42,15 +38,12 @@ import AuthContext from "../../context/AuthContext";
 
 import { Link } from "react-router-dom";
 
-import { validateFileExtensions } from "../../utils/ValidateFiles";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const PHONE_REGEX =
   /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
-
-const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "svg"];
 
 const CompanySettings = () => {
   const { t, i18n } = useTranslation();
@@ -60,9 +53,6 @@ const CompanySettings = () => {
   const api = useAxios();
 
   const [userId, setUserId] = useState("");
-
-  const [companyProfilePicture, setCompanyProfilePicture] = useState(null);
-  const [companyCoverPicture, setCompanyCoverPicture] = useState(null);
 
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
@@ -77,32 +67,6 @@ const CompanySettings = () => {
   const [address2, setAddress2] = useState("");
 
   const fileRef = useRef();
-
-  const handleFileChange = (e, type) => {
-    const selectedFile = Array.from(e.target.files);
-    const { isValid } = validateFileExtensions(
-      selectedFile,
-      ALLOWED_EXTENSIONS
-    );
-    if (!isValid) {
-      toast.error(t("buyer_pages.profile.file_type_err"));
-      fileRef.current.value = null;
-    } else {
-      if (type === "pp") {
-        setCompanyProfilePicture(selectedFile[0]);
-
-        reRenderPicture(e.target.files[0]);
-
-        changeProfilePicture(e);
-      } else {
-        setCompanyCoverPicture(selectedFile[0]);
-
-        reRenderCoverPicture(e.target.files[0]);
-
-        changeCoverPicture(e);
-      }
-    }
-  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -217,8 +181,6 @@ const CompanySettings = () => {
         setCompanyName(data?.name);
         setEmail(data?.email);
         setPhone(data?.phone);
-        setCompanyProfilePicture(data?.company_profile_picture || "");
-        setCompanyCoverPicture(data?.company_cover_picture || "");
         setWebsite(data?.website || "");
       });
   };
@@ -234,90 +196,6 @@ const CompanySettings = () => {
       countryInput.setAttribute("required", true);
     }
   }, []);
-
-  const changeProfilePicture = async (e) => {
-    e.preventDefault();
-
-    if (!e.target.files[0]) {
-      return;
-    }
-
-    let formData = new FormData();
-    formData.append("profile_picture", e.target.files[0]);
-
-    await api
-      .post(
-        import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
-        formData,
-        {
-          "Content-Type": "multipart/form-data",
-        }
-      )
-      .then(() => {
-        toast.success(`${t("supplier_pages.edit_company.pic_updated")}!`);
-      })
-      .catch((err) => {
-        toast.error(err.data);
-      });
-  };
-
-  const changeCoverPicture = async (e) => {
-    e.preventDefault();
-
-    if (!e.target.files[0]) {
-      return;
-    }
-
-    let formData = new FormData();
-    formData.append("cover_picture", e.target.files[0]);
-
-    await api
-      .post(
-        import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
-        formData,
-        {
-          "Content-Type": "multipart/form-data",
-        }
-      )
-      .then(() => {
-        toast.success(`${t("supplier_pages.edit_company.cov_pic_updated")}!`);
-      })
-      .catch((err) => {
-        toast.error(err.data);
-      });
-  };
-
-  const removeProfilePicture = async () => {
-    document
-      .getElementById("userProfilePicture")
-      .setAttribute("src", userImage);
-
-    await api
-      .post(
-        import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
-        {
-          delete_profile_picture: true,
-        }
-      )
-      .then(() => {
-        toast.success(`${t("supplier_pages.edit_company.pic_removed")}!`);
-      });
-  };
-
-  const removeCoverPicture = async () => {
-    document.getElementById("userCoverPicture").setAttribute("src", coverImage);
-
-    await api
-      .post(
-        import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
-        {
-          delete_cover_picture: true,
-        }
-      )
-      .then(() => {
-        toast.success(`${t("supplier_pages.edit_company.cov_pic_removed")}!`);
-      });
-  };
 
   return (
     <main className="px-0 px-md-3">
@@ -337,113 +215,6 @@ const CompanySettings = () => {
           </Link>
           <div className="main-body">
             <div className="row">
-              <div className="col-lg-12">
-                <div className="card mb-4" style={{ border: "none" }}>
-                  <div className="card-body">
-                  <h3>Cover photo</h3>
-                    <div className="d-flex flex-column align-items-center text-center">
-                      <img
-                        src={
-                          companyCoverPicture ? companyCoverPicture : coverImage
-                        }
-                        alt="Cover Picture"
-                        id="userCoverPicture"
-                        className="shadow border-2 object-fit-contain w-100"
-                        height={350}
-                      />
-                      <div>
-                        {userId == user.user_id && (
-                          <form encType="multipart/form-data">
-                            <div className="mt-5 d-flex justify-content-between gap-5 align-items-center">
-                              <button
-                                type="button"
-                                onClick={removeCoverPicture}
-                                className="btn btn-outline-danger d-flex gap-2 align-items-center"
-                              >
-                                {t("supplier_pages.edit_company.rem_cov_pic")}
-                                <MdOutlineFolderDelete size="1.4rem" />
-                              </button>
-                              <input
-                                id="companyCoverPicture"
-                                name="companyCoverPicture"
-                                type="file"
-                                className="d-none"
-                                ref={fileRef}
-                                onChange={(e) => handleFileChange(e, "cp")}
-                              />
-                              <button
-                                type="button"
-                                onClick={handleCoverFileUpload}
-                                className="btn btn-outline-primary d-flex gap-2 align-items-center"
-                              >
-                                {t(
-                                  "supplier_pages.edit_company.update_cov_pic"
-                                )}
-                                <TbPhotoEdit size="1.4rem" />
-                              </button>
-                            </div>
-                          </form>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-12 mt-3">
-                <div className="card mb-4" style={{ border: "none" }}>
-                  <div className="card-body">
-                  <h3>Cover photo</h3>
-                    <div className="d-flex flex-column align-items-center text-center">
-                      <img
-                        src={
-                          companyProfilePicture
-                            ? companyProfilePicture
-                            : userImage
-                        }
-                        alt="Picture"
-                        id="userProfilePicture"
-                        className="rounded-circle shadow border-2 object-fit-cover"
-                        width={150}
-                        height={150}
-                      />
-                      <div>
-                        {userId == user.user_id && (
-                          <form encType="multipart/form-data">
-                            <div className="mt-5 d-flex justify-content-between gap-5 align-items-center">
-                              <button
-                                type="button"
-                                onClick={removeProfilePicture}
-                                className="btn btn-outline-danger d-flex gap-2 align-items-center"
-                              >
-                                {t("buyer_pages.profile.rem_pic")}
-                                <MdOutlineFolderDelete size="1.4rem" />
-                              </button>
-                              <input
-                                id="companyProfilePicture"
-                                name="companyProfilePicture"
-                                type="file"
-                                className="d-none"
-                                ref={fileRef}
-                                onChange={(e) => handleFileChange(e, "pp")}
-                              />
-                              <button
-                                type="button"
-                                onClick={handleFileUpload}
-                                className="btn btn-outline-primary d-flex gap-2 align-items-center"
-                              >
-                                {t("buyer_pages.profile.update_pic")}
-                                <TbPhotoEdit size="1.4rem" />
-                              </button>
-                            </div>
-                          </form>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <div className="col-lg-12 mt-3">
                 <div className="card" style={{ border: "none" }}>
                   <div className="card-title p-4 pb-0 profile__title">
@@ -691,42 +462,6 @@ const handleStateChange = (countryId, e) => {
       citySelect.setAttribute("disabled", true);
     }
   });
-};
-
-const handleFileUpload = () => {
-  let input = document.getElementById("companyProfilePicture");
-  input.click();
-};
-
-const handleCoverFileUpload = () => {
-  let input = document.getElementById("companyCoverPicture");
-  input.click();
-};
-
-const reRenderPicture = (picture) => {
-  let reader = new FileReader();
-
-  reader.onload = (event) => {
-    document
-      .getElementById("userProfilePicture")
-      .setAttribute("src", event.target.result);
-    userImage;
-  };
-
-  reader.readAsDataURL(picture);
-};
-
-const reRenderCoverPicture = (picture) => {
-  let reader = new FileReader();
-
-  reader.onload = (event) => {
-    document
-      .getElementById("userCoverPicture")
-      .setAttribute("src", event.target.result);
-    coverImage;
-  };
-
-  reader.readAsDataURL(picture);
 };
 
 export default CompanySettings;
