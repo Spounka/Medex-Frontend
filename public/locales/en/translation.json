@@ -2,7 +2,7 @@
     "home": "Home",
     "all_categories": "All Categories",
     "all_brands": "All Brands",
-    "location":"Location",
+    "location": "Location",
     "all_products": "All Products",
     "account": "Account",
     "supplier": "Supplier",
@@ -557,7 +557,7 @@
             "company": "Company settings",
             "companyD": "Company information & details",
             "store": "Store",
-            "storeD":"Managing store",
+            "storeD": "Managing store",
             "storeDetails": "Store details",
             "storeName": "Store name",
             "storeWebsite": "Store website",
@@ -567,7 +567,9 @@
             "shipping": "Shipping and delivery",
             "branch": "Branches",
             "billing": "Billing",
-            "change": "Change language"
+            "change": "Change language",
+            "bio": "Store Bio",
+            "created": "Store Opening Date"
         },
         "edit_company": {
             "name": "Company Name",
