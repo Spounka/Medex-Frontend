@@ -45,16 +45,15 @@ const Statistics = () => {
         getStatistics();
     }, []);
     return (
-        <main className="container">
-            <section className="py-3">
+        <main className="container" style={{backgroundColor:"rgb(250, 250, 251)"}}>
+            <section className="px-3 py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
                     <IoStatsChart size="2rem" />
                     {t("buyer_pages.statistics.title")}
                 </h2>
-                <hr />
-                <div className="row mt-3">
-                    <div className="col-sm-12 col-lg-6 mt-3">
-                        <div className="card p-4 shadow dashboard__stats-card-1">
+                <div className="d-flex as flex-wrap">
+                    <div className="mt-3">
+                        <div className="p-4 dashboard__stats-card">
                             <div className="row">
                                 <div className="col-9">
                                     <div className="mb-4">
@@ -64,42 +63,28 @@ const Statistics = () => {
                                             )}
                                         </h5>
                                     </div>
-                                    <div className="d-flex align-items-center gap-5">
                                         <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
                                             {monthlyReturnRequests > 0
                                                 ? monthlyReturnRequests
                                                 : 0}
                                         </h2>
-                                    </div>
-                                </div>
-                                <div className="col-3 d-flex justify-content-center align-items-center">
-                                    <div className="dashboard__stats-card-icon">
-                                        <GiReturnArrow />
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm-12 col-lg-6 mt-3">
-                        <div className="card p-4 shadow dashboard__stats-card-3">
+                    <div className="mt-3">
+                        <div className="p-4 dashboard__stats-card">
                             <div className="row">
                                 <div className="col-9">
                                     <div className="mb-4">
-                                        <h5 className="card-title mb-0 dashboard__stats-card-title">
+                                        <h5 className="card-title mb-0 dashboard__stats-card-title text-wrap">
                                             {t("buyer_pages.statistics.rfq")}
                                         </h5>
                                     </div>
-                                    <div className="d-flex align-items-center gap-5">
                                         <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
                                             {monthlyRFQ > 0 ? monthlyRFQ : 0}
                                         </h2>
-                                    </div>
-                                </div>
-                                <div className="col-3 d-flex justify-content-center align-items-center">
-                                    <div className="dashboard__stats-card-icon">
-                                        <MdRequestQuote />
-                                    </div>
-                                </div>
+                                        </div>
                             </div>
                         </div>
                     </div>

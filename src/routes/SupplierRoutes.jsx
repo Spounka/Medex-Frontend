@@ -40,7 +40,7 @@ import Statistics from "../pages/Supplier/Statistics";
 import ViewStore from "../pages/shared/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
-import Settings from "../pages/Supplier/Settings";
+import Settings from "../pages/shared/Settings";
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import CompanySettings from "../pages/Supplier/CompanySettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";

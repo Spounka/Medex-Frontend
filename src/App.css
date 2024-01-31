@@ -1331,10 +1331,9 @@ footer {
 }
 
 .buyer__dashboard-sidebar-container {
-  width: 320px;
+  top: 8%;
+  width: 300px;
   transition: all 0.5s ease-in-out;
-  z-index: 1;
-  overflow-y: auto !important;
 }
 
 .dashboard__sidebar-toggle {
@@ -1483,8 +1482,7 @@ footer {
 
   .buyer__dashboard-sidebar-container {
     position: fixed;
-    top: 0;
-    left: -450px;
+    left: -850px;
     z-index: 1000 !important;
     height: 100dvh;
     background-color: white;
@@ -1493,7 +1491,6 @@ footer {
 
   .buyer__dashboard-sidebar-container-visible {
     left: 0;
-    top: 0;
     overflow-y: auto;
     z-index: 10 !important;
     background-color: white;

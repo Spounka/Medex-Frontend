@@ -1,16 +1,20 @@
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
 
 const ComingSoon = () => {
   const { t, i18n } = useTranslation();
-
+  const { user } = useContext(AuthContext);
   return (
-    <main className="px-0 px-md-3">
+    <main
+      className={`px-0 px-md-3 ${user.role == "buyer" && "pt-3"}`}
+    >
       <section>
         <div className="container-xxl">
           <Link
-            to="../../settings"
+            to="../settings"
             className="d-flex align-items-center"
             style={{ color: "#8e65c1" }}
           >

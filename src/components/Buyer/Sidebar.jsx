@@ -4,14 +4,13 @@ import { MdRequestQuote, MdListAlt, MdList } from "react-icons/md";
 import {
     BiSolidDownArrow,
     BiSolidMessageAltDetail,
-    BiUserCircle,
 } from "react-icons/bi";
 import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { IoStatsChart } from "react-icons/io5";
 import { FaHistory } from "react-icons/fa";
-import { TbTruckDelivery, TbPasswordFingerprint } from "react-icons/tb";
+import { TbTruckDelivery} from "react-icons/tb";
 import { GiReturnArrow } from "react-icons/gi";
 
 const Sidebar = (props) => {
@@ -21,7 +20,7 @@ const Sidebar = (props) => {
 
     return (
         <aside
-            className={`buyer__dashboard-sidebar-container pt-3 pt-md-0 mb-md-5 ${
+            className={`pl-3 pr-4 buyer__dashboard-sidebar-container pt-3 pt-md-0 mb-md-5 ${
                 menuOpen && "buyer__dashboard-sidebar-container-visible"
             }`}
         >
@@ -147,25 +146,23 @@ const Sidebar = (props) => {
 
                     <li>
                         <Link
-                            to="#settings"
-                            data-bs-toggle="collapse"
+                            to="settings"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BsGearFill size="1.5rem" />
                             <span className="ms-1">
                                 {t("buyer_sidebar.settings")}
                             </span>
-                            <BiSolidDownArrow size=".5rem" />
                         </Link>
 
-                        <ul
+                        {/* <ul
                             className="collapse nav flex-column mx-3"
                             id="settings"
                             data-bs-parent="#menu"
                         >
                             <li className="w-100">
                                 <Link
-                                    to="/account/profile"
+                                    to="/account/dashboard/profile"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
                                     <BiUserCircle size="1.5rem" />
@@ -185,7 +182,7 @@ const Sidebar = (props) => {
                                     </span>
                                 </Link>
                             </li>
-                        </ul>
+                        </ul> */}
                     </li>
                 </ul>
             </div>

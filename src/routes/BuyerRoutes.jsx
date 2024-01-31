@@ -41,6 +41,8 @@ import Statistics from "../pages/Buyer/Statistics";
 import TrackingList from "../pages/Buyer/TrackingList";
 import ReturnRequests from "../pages/Buyer/ReturnRequests";
 import UpdatePassword from "../pages/shared/UpdatePassword";
+import Settings from "../pages/shared/Settings";
+import ComingSoon from "../pages/Supplier/ComingSoon";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -157,6 +159,8 @@ const BuyerRoutes = () => {
                             path="return-requests"
                             element={<ReturnRequests />}
                         />
+                        <Route path="settings" element={<Settings />} />
+                        <Route path="settings/soon" element={<ComingSoon/>} />
 
                         <Route path="return/:id" element={<RequestRefund />} />
 

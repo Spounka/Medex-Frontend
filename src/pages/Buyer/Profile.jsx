@@ -44,6 +44,7 @@ import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { validateFileExtensions } from "../../utils/ValidateFiles";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -54,7 +55,7 @@ const PHONE_REGEX =
 const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "svg"];
 
 const Profile = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const { user, authTokens, logoutUser } = useContext(AuthContext);
 
@@ -317,8 +318,20 @@ const Profile = () => {
     };
 
     return (
-        <section className="py-5">
-            <div className="container-xxl">
+        <section className="pt-3 pb-5">
+            <div className="container">
+            <Link
+            to="../../account/dashboard/settings"
+            className="d-flex align-items-center"
+            style={{ color: "#8e65c1" }}
+          >
+            {i18n.resolvedLanguage == "en" ? (
+              <AiOutlineArrowLeft className="mb-2" />
+            ) : (
+              <AiOutlineArrowRight className="mb-2" />
+            )}{" "}
+            <h5 className="fw-normal">{t("supplier_pages.setting.back")}</h5>{" "}
+          </Link>
                 <div className="main-body">
                     <div className="row">
                         <div className="col-lg-5">
