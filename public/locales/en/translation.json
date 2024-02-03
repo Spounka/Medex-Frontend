@@ -548,7 +548,7 @@
             "product_create_success": "You have successfully added this product to the selected category",
             "product_delete_success": "You have successfully removed this product from the selected category"
         },
-        "setting": {
+        "settings": {
             "soon": "Coming soon ..",
             "back": "Back",
             "personal": "Personal settings",

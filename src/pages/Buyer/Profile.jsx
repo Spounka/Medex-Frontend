@@ -320,18 +320,20 @@ const Profile = () => {
     return (
         <section className="pt-3 pb-5">
             <div className="container">
-            <Link
-            to="../../account/dashboard/settings"
-            className="d-flex align-items-center"
-            style={{ color: "#8e65c1" }}
-          >
-            {i18n.resolvedLanguage == "en" ? (
-              <AiOutlineArrowLeft className="mb-2" />
-            ) : (
-              <AiOutlineArrowRight className="mb-2" />
-            )}{" "}
-            <h5 className="fw-normal">{t("supplier_pages.setting.back")}</h5>{" "}
-          </Link>
+                <Link
+                    to="../../account/dashboard/settings"
+                    className="d-flex align-items-center"
+                    style={{ color: "#8e65c1" }}
+                >
+                    {i18n.resolvedLanguage == "en" ? (
+                        <AiOutlineArrowLeft className="mb-2" />
+                    ) : (
+                        <AiOutlineArrowRight className="mb-2" />
+                    )}{" "}
+                    <h5 className="fw-normal">
+                        {t("supplier_pages.settings.back")}
+                    </h5>{" "}
+                </Link>
                 <div className="main-body">
                     <div className="row">
                         <div className="col-lg-5">

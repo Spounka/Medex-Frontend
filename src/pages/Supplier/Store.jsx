@@ -239,7 +239,7 @@ const Store = () => {
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
                         <h5 className="fw-normal">
-                            {t("supplier_pages.setting.back")}
+                            {t("supplier_pages.settings.back")}
                         </h5>{" "}
                     </Link>
                     <div className="main-body">
@@ -252,7 +252,7 @@ const Store = () => {
                                     <div className="card-title p-4 pb-0 profile__title">
                                         <h3>
                                             {t(
-                                                "supplier_pages.setting.storeDetails"
+                                                "supplier_pages.settings.storeDetails"
                                             )}
                                         </h3>
                                     </div>
@@ -267,7 +267,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <FaRegBuilding size="1.5rem" />
                                                             {t(
-                                                                "supplier_pages.setting.storeName"
+                                                                "supplier_pages.settings.storeName"
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -292,7 +292,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <CiLink size="1.8rem" />
                                                             {t(
-                                                                "supplier_pages.setting.storeWebsite"
+                                                                "supplier_pages.settings.storeWebsite"
                                                             )}
                                                         </h6>
                                                     </div>
@@ -303,7 +303,7 @@ const Store = () => {
                                                             value={website}
                                                             placeholder={
                                                                 t(
-                                                                    "supplier_pages.setting.storeWebsite"
+                                                                    "supplier_pages.settings.storeWebsite"
                                                                 ) + "..."
                                                             }
                                                             onChange={(e) =>
@@ -320,7 +320,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <TfiEmail size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.setting.storeEmail"
+                                                                "supplier_pages.settings.storeEmail"
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -345,7 +345,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <MdOutlineDescription size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.setting.bio"
+                                                                "supplier_pages.settings.bio"
                                                             )}
                                                         </h6>
                                                     </div>
@@ -371,7 +371,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <CiCalendarDate size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.setting.created"
+                                                                "supplier_pages.settings.created"
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -544,7 +544,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <BsPhoneVibrate size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.setting.storePhone"
+                                                                "supplier_pages.settings.storePhone"
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -578,7 +578,7 @@ const Store = () => {
                                                             }}
                                                         >
                                                             {t(
-                                                                "supplier_pages.setting.editStore"
+                                                                "supplier_pages.settings.editStore"
                                                             )}
 
                                                             <BiEditAlt size="1.4rem" />

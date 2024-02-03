@@ -283,7 +283,7 @@ const ViewStore = () => {
         >
             <section>
                 <div className="container-xxl">
-                    <h1>{t("supplier_pages.setting.store")}</h1>
+                    <h1>{t("supplier_pages.settings.store")}</h1>
                     <div style={{ backgroundColor: "white" }}>
                         <div className={classes.Background} />
                         <div className="p-2">
@@ -349,7 +349,7 @@ const ViewStore = () => {
                                 <CiCalendarDate size="1.2rem" />
                                 <div className="d-flex flex-column">
                                     <h5 style={{ margin: "0" }}>
-                                        {t("supplier_pages.settings.bio")}
+                                        {t("supplier_pages.settings.created")}
                                     </h5>
                                     {created}
                                 </div>
