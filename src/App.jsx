@@ -14,6 +14,7 @@ import BuyerRoutes from "./routes/BuyerRoutes";
 import SupplierRoutes from "./routes/SupplierRoutes";
 
 import { useTranslation } from "react-i18next";
+import PermissionDenied from "./pages/shared/PermissionDenied";
 
 function App() {
     const { i18n } = useTranslation();
@@ -31,6 +32,10 @@ function App() {
                             <Route
                                 path="/supplier/*"
                                 element={<SupplierRoutes />}
+                            />
+                            <Route
+                                path="/permission-denied"
+                                element={<PermissionDenied />}
                             />
                             <Route path="/not-found" element={<NotFound />} />
                         </Routes>

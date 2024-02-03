@@ -334,6 +334,9 @@
             "return_request": "الطلبات المُرجَعة",
             "rfq": "عروض الأسعار المقبولة",
             "categories": "الفئات المُطلَبة"
+        },
+        "settings": {
+            "update_password_text": "تعديل كلمة المرور"
         }
     },
     "shared": {

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-
 import { Navigate, Outlet } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import PermissionDenied from "../pages/shared/PermissionDenied";
 
 const useAuth = () => {
     const { user } = useContext(AuthContext);
@@ -11,13 +11,33 @@ const useAuth = () => {
             return true;
         }
     }
+
     return false;
 };
 
-const SupplierProtectedRoutes = () => {
-    const auth = useAuth();
+const hasPermission = (requiredGroups = []) => {
+    const { user } = useContext(AuthContext);
 
-    return auth ? <Outlet /> : <Navigate to="/account/login" />;
+    const isUserInRequiredGroup = requiredGroups?.some((group) =>
+        user?.group_names?.includes(group)
+    );
+
+    return isUserInRequiredGroup;
+};
+
+const SupplierProtectedRoutes = ({ requiredGroups }) => {
+    const auth = useAuth();
+    const permissionsGranted = hasPermission(requiredGroups);
+
+    if (!auth) {
+        return <Navigate to="/account/login" />;
+    }
+
+    if (!permissionsGranted) {
+        return <PermissionDenied />;
+    }
+
+    return <Outlet />;
 };
 
 export default SupplierProtectedRoutes;

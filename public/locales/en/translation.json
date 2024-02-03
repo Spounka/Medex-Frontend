@@ -334,6 +334,9 @@
             "return_request": "Returned Orders",
             "rfq": "Accepted Quote Offers",
             "categories": "Ordered Categories"
+        },
+        "settings": {
+            "update_password_text": "Update your password"
         }
     },
     "shared": {

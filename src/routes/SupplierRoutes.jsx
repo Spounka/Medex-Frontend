@@ -23,8 +23,6 @@ import ChatMessagesList from "../pages/shared/ChatMessagesList";
 
 import SalesList from "../pages/Supplier/SalesList";
 
-import SupplierProfile from "../pages/Buyer/SupplierProfile";
-
 import SupplierProtectedRoutes from "../utils/SupplierProtectedRoutes";
 
 import { TbListDetails, TbEdit } from "react-icons/tb";
@@ -40,9 +38,8 @@ import Statistics from "../pages/Supplier/Statistics";
 import ViewStore from "../pages/shared/ViewStore";
 import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
-import Settings from "../pages/shared/Settings";
+import SupplierSettings from "../pages/Supplier/SupplierSettings";
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
-import CompanySettings from "../pages/Supplier/CompanySettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
 import { useTranslation } from "react-i18next";
 import Store from "../pages/Supplier/Store";
@@ -53,43 +50,27 @@ const SupplierRoutes = () => {
     return (
         <Routes>
             <Route path="account/register" element={<Register />} />
-            <Route path="profile/:id" element={<ViewStore />} />
 
             <Route path="/" element={<Layout />}>
-                <Route path="/" element={<SupplierProtectedRoutes />}>
-                    <Route path="dashboard" element={<Dashboard />} />
+                <Route path="store/view" element={<ViewStore />} />
 
-                    <Route
-                        path="/request-for-quote"
-                        element={<RequestForQuotes />}
-                    />
-                    <Route path="/quotes" element={<QuoteList />} />
-                    <Route path="/quotes/:id" element={<QuoteDetails />} />
-                    <Route
-                        path="/offer/invoice/:id"
-                        element={<OfferInvoice />}
-                    />
-                    <Route path="/quotes/offers" element={<OfferList />} />
-
-                    <Route
-                        path="account/profile"
-                        element={<PersonalSettings />}
-                    />
-                    <Route
-                        path="settings/store"
-                        element={<Store />}
-                    />
-                    <Route path="settings/soon" element={<ComingSoon />} />
-
-                    <Route path="chat" element={<Chat />} />
-                    <Route path="chat/:id" element={<ChatMessagesList />} />
-
+                {/* Product Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <SupplierProtectedRoutes
+                            requiredGroups={[
+                                "Supplier Product Manager",
+                                "Supplier Admin",
+                            ]}
+                        />
+                    }
+                >
                     <Route path="products/create" element={<CreateProduct />} />
                     <Route
                         path="products/excel-create"
                         element={<CreateProductExcel />}
                     />
-
                     <Route
                         path="products/list"
                         element={
@@ -101,6 +82,7 @@ const SupplierRoutes = () => {
                                 buttonIcon={<TbListDetails />}
                             />
                         }
+                        requiredGroups={["Supplier Product Manager"]}
                     />
                     <Route
                         path="products/update"
@@ -122,7 +104,45 @@ const SupplierRoutes = () => {
                         path="products/:product_sku"
                         element={<ProductDetails />}
                     />
+                </Route>
 
+                {/* Quote Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <SupplierProtectedRoutes
+                            requiredGroups={[
+                                "Supplier Quote Manager",
+                                "Supplier Admin",
+                            ]}
+                        />
+                    }
+                >
+                    <Route
+                        path="/request-for-quote"
+                        element={<RequestForQuotes />}
+                    />
+                    <Route path="/quotes" element={<QuoteList />} />
+                    <Route path="/quotes/:id" element={<QuoteDetails />} />
+                    <Route
+                        path="/offer/invoice/:id"
+                        element={<OfferInvoice />}
+                    />
+                    <Route path="/quotes/offers" element={<OfferList />} />
+                </Route>
+
+                {/* Sale Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <SupplierProtectedRoutes
+                            requiredGroups={[
+                                "Supplier Sale Manager",
+                                "Supplier Admin",
+                            ]}
+                        />
+                    }
+                >
                     <Route path="sales" element={<SalesList />} />
                     <Route path="sales/:id" element={<SalesDetails />} />
 
@@ -137,15 +157,50 @@ const SupplierRoutes = () => {
                         path="return-requests/:id"
                         element={<ReturnDetails />}
                     />
+                </Route>
+
+                {/* Customer Support */}
+                <Route
+                    path="/"
+                    element={
+                        <SupplierProtectedRoutes
+                            requiredGroups={[
+                                "Supplier Customer Support",
+                                "Supplier Admin",
+                            ]}
+                        />
+                    }
+                >
+                    <Route path="chat" element={<Chat />} />
+                    <Route path="chat/:id" element={<ChatMessagesList />} />
+                </Route>
+
+                {/* Supplier Admin */}
+                <Route
+                    path="/"
+                    element={
+                        <SupplierProtectedRoutes
+                            requiredGroups={["Supplier Admin"]}
+                        />
+                    }
+                >
+                    <Route path="dashboard" element={<Dashboard />} />
 
                     <Route path="statistics" element={<Statistics />} />
-                    <Route path="store/view" element={<ViewStore />} />
+
                     <Route path="store/edit" element={<EditStore />} />
-                    <Route path="settings" element={<Settings />} />
-                    <Route
-                        path="account/password/update"
-                        element={<UpdatePassword />}
-                    />
+
+                    <Route path="settings">
+                        <Route index element={<SupplierSettings />} />
+                        <Route path="profile" element={<PersonalSettings />} />
+
+                        <Route
+                            path="password/update"
+                            element={<UpdatePassword />}
+                        />
+                        <Route path="store" element={<Store />} />
+                        <Route path="soon" element={<ComingSoon />} />
+                    </Route>
                 </Route>
             </Route>
 

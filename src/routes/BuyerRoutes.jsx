@@ -41,7 +41,7 @@ import Statistics from "../pages/Buyer/Statistics";
 import TrackingList from "../pages/Buyer/TrackingList";
 import ReturnRequests from "../pages/Buyer/ReturnRequests";
 import UpdatePassword from "../pages/shared/UpdatePassword";
-import Settings from "../pages/shared/Settings";
+import BuyerSettings from "../pages/Buyer/BuyerSettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
 
 const BuyerRoutes = () => {
@@ -159,8 +159,8 @@ const BuyerRoutes = () => {
                             path="return-requests"
                             element={<ReturnRequests />}
                         />
-                        <Route path="settings" element={<Settings />} />
-                        <Route path="settings/soon" element={<ComingSoon/>} />
+                        <Route path="settings" element={<BuyerSettings />} />
+                        <Route path="settings/soon" element={<ComingSoon />} />
 
                         <Route path="return/:id" element={<RequestRefund />} />
 
@@ -172,7 +172,7 @@ const BuyerRoutes = () => {
                         <Route path="chat" element={<Chat />} />
 
                         <Route
-                            path="password/update"
+                            path="settings/password/update"
                             element={<UpdatePassword />}
                         />
                     </Route>

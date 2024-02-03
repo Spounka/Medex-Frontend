@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { MdOutlineLockReset } from "react-icons/md";
-import { AiOutlineUnlock, AiOutlineLock } from "react-icons/ai";
+import {
+    AiOutlineUnlock,
+    AiOutlineLock,
+    AiOutlineArrowLeft,
+    AiOutlineArrowRight,
+} from "react-icons/ai";
 import { TbLockCog } from "react-icons/tb";
 import { useTranslation } from "react-i18next";
 import useAxios from "../../utils/useAxios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const PASSWORD_REGEX =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const UpdatePassword = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword1, setNewPassword1] = useState("");
@@ -68,6 +74,25 @@ const UpdatePassword = () => {
                 }`}
             >
                 <div className="container">
+                    <Link
+                        to={
+                            window.location.href.indexOf("supplier") !== 0
+                                ? "../../settings"
+                                : "../../account/dashboard/settings"
+                        }
+                        className="d-flex align-items-center"
+                        style={{ color: "#8e65c1" }}
+                    >
+                        {i18n.resolvedLanguage == "en" ? (
+                            <AiOutlineArrowLeft className="mb-2" />
+                        ) : (
+                            <AiOutlineArrowRight className="mb-2" />
+                        )}{" "}
+                        <h5 className="fw-normal">
+                            {t("supplier_pages.settings.back")}
+                        </h5>{" "}
+                    </Link>
+
                     {window.location.href.indexOf("supplier") > -1 ||
                     window.location.href.indexOf("dashboard") > -1 ? (
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
