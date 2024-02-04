@@ -159,15 +159,12 @@ const SupplierRoutes = () => {
                     />
                 </Route>
 
-                {/* Customer Support */}
+                {/* Chat */}
                 <Route
                     path="/"
                     element={
                         <SupplierProtectedRoutes
-                            requiredGroups={[
-                                "Supplier Customer Support",
-                                "Supplier Admin",
-                            ]}
+                            requiredGroups={["Supplier Chat", "Supplier Admin"]}
                         />
                     }
                 >
