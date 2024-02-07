@@ -97,14 +97,14 @@ const QuoteList = () => {
                                                                 src={
                                                                     quote.user
                                                                         .profile
-                                                                        .profilePicture
+                                                                        .profile_picture
                                                                         ? import.meta
                                                                               .env
                                                                               .VITE_BACKEND_URL +
                                                                           quote
                                                                               .user
                                                                               .profile
-                                                                              .profilePicture
+                                                                              .profile_picture
                                                                         : userImage
                                                                 }
                                                                 alt="User"
@@ -173,18 +173,18 @@ const QuoteList = () => {
                                                                 src={
                                                                     quote.user
                                                                         .profile
-                                                                        .profilePicture
+                                                                        .profile_picture
                                                                         ? import.meta
                                                                               .env
                                                                               .VITE_BACKEND_URL +
                                                                           quote
                                                                               .user
                                                                               .profile
-                                                                              .profilePicture
+                                                                              .profile_picture
                                                                         : userImage
                                                                 }
                                                                 alt="User"
-                                                                className=" rounded-circle border"
+                                                                className="object-fit-contain rounded-circle border"
                                                                 width={80}
                                                                 height={80}
                                                             />
@@ -298,7 +298,7 @@ const QuoteList = () => {
                                                             )}
                                                         </h5>
                                                         <Link
-                                                            to={`/account/quotes/${selectedQuote.id}`}
+                                                            to={`/account/dashboard/quotes/${selectedQuote.id}`}
                                                             className="btn btn-primary d-flex align-items-center gap-2 justify-content-center"
                                                         >
                                                             <LuView size="1.4rem" />

@@ -75,11 +75,7 @@ const UpdatePassword = () => {
             >
                 <div className="container">
                     <Link
-                        to={
-                            window.location.href.indexOf("supplier") !== 0
-                                ? "../../settings"
-                                : "../../account/dashboard/settings"
-                        }
+                        to="../../account/dashboard/settings"
                         className="d-flex align-items-center"
                         style={{ color: "#8e65c1" }}
                     >

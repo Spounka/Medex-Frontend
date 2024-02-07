@@ -58,8 +58,8 @@ const QuoteList = () => {
     const [selectedQuote, setSelectedQuote] = useState("");
 
     const [brand, setBrand] = useState([]);
-    const [notes, setNotes] = useState([]);
-    const [quantity, setQuantity] = useState([]);
+    const [notes, setNotes] = useState("");
+    const [quantity, setQuantity] = useState(0);
     const [productPrice, setProductPrice] = useState(0.0);
     const [totalPrice, setTotalPrice] = useState(0.0);
     const [country, setCountry] = useState({});
@@ -74,6 +74,23 @@ const QuoteList = () => {
 
     const [showDownloadBtn, setShowDownloadBtn] = useState(false);
     const [offerInvoice, setOfferInvoice] = useState({});
+
+    const handleReset = () => {
+        setBrand([]);
+        setNotes("");
+        setQuantity(0);
+        setProductPrice(0.0);
+        setTax(0.0);
+        setTotalPrice(0.0);
+        setCountry({});
+        setState({});
+        setCity({});
+        setPostalCode("");
+        setAddress1("");
+        setAddress2("");
+        setDeliveryDate([]);
+        setPaymentType("");
+    };
 
     const fetchBrands = async () => {
         const response = await api.get(
@@ -132,6 +149,8 @@ const QuoteList = () => {
                 setShowDownloadBtn(() => !showDownloadBtn);
 
                 setOfferInvoice(res.data);
+
+                handleReset();
 
                 toast.success(`${t("supplier_pages.quote_list.success")}!`);
             })
@@ -222,18 +241,18 @@ const QuoteList = () => {
                                                                 src={
                                                                     quote.user
                                                                         .profile
-                                                                        .profilePicture
+                                                                        .profile_picture
                                                                         ? import.meta
                                                                               .env
                                                                               .VITE_BACKEND_URL +
                                                                           quote
                                                                               .user
                                                                               .profile
-                                                                              .profilePicture
+                                                                              .profile_picture
                                                                         : userImage
                                                                 }
                                                                 alt="User"
-                                                                className=" rounded-circle border"
+                                                                className="object-fit-contain rounded-circle border"
                                                                 width={50}
                                                                 height={50}
                                                             />
@@ -298,18 +317,18 @@ const QuoteList = () => {
                                                                 src={
                                                                     quote.user
                                                                         .profile
-                                                                        .profilePicture
+                                                                        .profile_picture
                                                                         ? import.meta
                                                                               .env
                                                                               .VITE_BACKEND_URL +
                                                                           quote
                                                                               .user
                                                                               .profile
-                                                                              .profilePicture
+                                                                              .profile_picture
                                                                         : userImage
                                                                 }
                                                                 alt="User"
-                                                                className=" rounded-circle border"
+                                                                className="object-fit-contain rounded-circle border"
                                                                 width={80}
                                                                 height={80}
                                                             />

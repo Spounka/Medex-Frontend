@@ -101,6 +101,21 @@ const BuyerRoutes = () => {
                 />
 
                 <Route path="/" element={<BuyerProtectedRoutes />}>
+                    <Route path="wishlist" element={<Wishlist />} />
+                </Route>
+
+                {/* Buyer Product Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <BuyerProtectedRoutes
+                            requiredGroups={[
+                                "Buyer Product Manager",
+                                "Buyer Admin",
+                            ]}
+                        />
+                    }
+                >
                     <Route
                         path="cart"
                         element={
@@ -113,9 +128,6 @@ const BuyerRoutes = () => {
                         }
                     />
 
-                    <Route path="chat" element={<Chat />} />
-                    <Route path="chat/:id" element={<ChatMessagesList />} />
-
                     <Route
                         path="checkout"
                         element={
@@ -125,21 +137,40 @@ const BuyerRoutes = () => {
                             />
                         }
                     />
+                </Route>
 
-                    <Route path="wishlist" element={<Wishlist />} />
+                {/* Buyer Chat */}
+                <Route
+                    path="/"
+                    element={
+                        <BuyerProtectedRoutes
+                            requiredGroups={["Buyer Chat", "Buyer Admin"]}
+                        />
+                    }
+                >
+                    <Route path="chat" element={<Chat />} />
+                    <Route path="chat/:id" element={<ChatMessagesList />} />
 
-                    <Route path="account/profile" element={<Profile />} />
                     <Route
-                        path="account/request-for-quote"
-                        element={<RequestForQuotes />}
-                    />
-                    <Route path="account/quotes" element={<QuoteList />} />
-                    <Route path="account/quotes/:id" element={<OfferList />} />
-                    <Route
-                        path="account/quotes/offers/:id/invoice"
-                        element={<OfferInvoice />}
-                    />
+                        path="account/dashboard"
+                        element={<DashboardLayout />}
+                    >
+                        <Route path="chat" element={<Chat />} />
+                    </Route>
+                </Route>
 
+                {/* Buyer Order Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <BuyerProtectedRoutes
+                            requiredGroups={[
+                                "Buyer Order Manager",
+                                "Buyer Admin",
+                            ]}
+                        />
+                    }
+                >
                     <Route
                         path="account/dashboard"
                         element={<DashboardLayout />}
@@ -152,29 +183,65 @@ const BuyerRoutes = () => {
                             path="order-tracking"
                             element={<TrackingList />}
                         />
-
-                        <Route path="statistics" element={<Statistics />} />
-
                         <Route
                             path="return-requests"
                             element={<ReturnRequests />}
                         />
-                        <Route path="settings" element={<BuyerSettings />} />
-                        <Route path="settings/soon" element={<ComingSoon />} />
 
                         <Route path="return/:id" element={<RequestRefund />} />
+                    </Route>
+                </Route>
 
+                {/* Buyer Quote Manager */}
+                <Route
+                    path="/"
+                    element={
+                        <BuyerProtectedRoutes
+                            requiredGroups={["Buyer Admin"]}
+                        />
+                    }
+                >
+                    <Route
+                        path="account/dashboard"
+                        element={<DashboardLayout />}
+                    >
                         <Route path="quotes" element={<QuoteList />} />
                         <Route
                             path="request-for-quote"
                             element={<RequestForQuotes />}
                         />
-                        <Route path="chat" element={<Chat />} />
+                    </Route>
+                </Route>
+
+                {/* Buyer Admin */}
+                <Route
+                    path="/"
+                    element={
+                        <BuyerProtectedRoutes
+                            requiredGroups={["Buyer Admin"]}
+                        />
+                    }
+                >
+                    <Route
+                        path="account/dashboard"
+                        element={<DashboardLayout />}
+                    >
+                        <Route path="statistics" element={<Statistics />} />
+
+                        <Route path="quotes/:id" element={<OfferList />} />
+                        <Route
+                            path="quotes/offers/:id/invoice"
+                            element={<OfferInvoice />}
+                        />
+
+                        <Route path="settings" element={<BuyerSettings />} />
+                        <Route path="settings/profile" element={<Profile />} />
 
                         <Route
                             path="settings/password/update"
                             element={<UpdatePassword />}
                         />
+                        <Route path="settings/soon" element={<ComingSoon />} />
                     </Route>
                 </Route>
             </Route>

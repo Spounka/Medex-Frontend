@@ -33,7 +33,7 @@ const OfferList = () => {
     }, []);
 
     return (
-        <main className="py-5">
+        <main className="py-5 w-100">
             <section className="container">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
                     <BiSolidOffer size="2.5rem" />
@@ -45,7 +45,7 @@ const OfferList = () => {
                             return (
                                 <div className="col-12 mt-4" key={offer.id}>
                                     <Link
-                                        to={`/account/quotes/offers/${offer.id}/invoice`}
+                                        to={`/account/dashboard/quotes/offers/${offer.id}/invoice`}
                                         className="w-100"
                                         state={{ offer: offer }}
                                     >
@@ -54,21 +54,18 @@ const OfferList = () => {
                                                 <div className="d-flex align-items-center gap-4">
                                                     <img
                                                         src={
-                                                            offer.quote_obj.user
-                                                                .profile
-                                                                .profilePicture
+                                                            offer.user.profile
+                                                                .profile_picture
                                                                 ? import.meta
                                                                       .env
                                                                       .VITE_BACKEND_URL +
-                                                                  offer
-                                                                      .quote_obj
-                                                                      .user
+                                                                  offer.user
                                                                       .profile
-                                                                      .profilePicture
+                                                                      .profile_picture
                                                                 : userImage
                                                         }
                                                         alt="User"
-                                                        className=" rounded-circle border"
+                                                        className="object-fit-contain rounded-circle border"
                                                         width={60}
                                                         height={60}
                                                     />
@@ -76,8 +73,7 @@ const OfferList = () => {
                                                     <div className="d-flex flex-column gap-2">
                                                         <h4 className="m-0">
                                                             {
-                                                                offer.quote_obj
-                                                                    .user
+                                                                offer.user
                                                                     .full_name
                                                             }
                                                         </h4>

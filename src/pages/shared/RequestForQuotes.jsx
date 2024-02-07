@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
 import Select from "react-select";
@@ -10,6 +10,7 @@ import { MdOutlineClear, MdOutlineRequestQuote } from "react-icons/md";
 import useAxios from "../../utils/useAxios";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import AuthContext from "../../context/AuthContext";
 
 const TEXT_MAX = 8000;
 
@@ -17,6 +18,8 @@ const RequestForQuotes = () => {
     const { t } = useTranslation();
 
     const api = useAxios();
+
+    const { authTokens } = useContext(AuthContext);
 
     const [productNameOptions, setProductNameOptions] = useState([]);
     const [supplierNameOptions, setSupplierNameOptions] = useState([]);
@@ -92,9 +95,8 @@ const RequestForQuotes = () => {
         }
 
         await api
-            .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/", formData, {
-                "Content-Type": "multipart/from-data",
-            })
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/", formData)
+
             .then(() => {
                 toast.success(`${t("shared.rfq.success")}!`);
 
