@@ -159,53 +159,6 @@ const Home = (props) => {
             },
         ],
     };
-    const settings2 = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: true,
-        dots: true,
-        centerMode: true,
-        arrows: false,
-        responsive: [
-            {
-                breakpoint: 1300,
-                settings: {
-                    slidesToShow: 5,
-                    centerMode: true,
-                },
-            },
-            {
-                breakpoint: 1000,
-                settings: {
-                    slidesToShow: 4,
-                    centerMode: true,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3,
-                    centerMode: true,
-                },
-            },
-            {
-                breakpoint: 500,
-                settings: {
-                    slidesToShow: 2,
-                    centerMode: true,
-                },
-            },
-            {
-                breakpoint: 350,
-                settings: {
-                    slidesToShow: 1,
-                    centerMode: true,
-                },
-            },
-        ],
-    };
     const settings3 = {
         infinite: true,
         speed: 500,

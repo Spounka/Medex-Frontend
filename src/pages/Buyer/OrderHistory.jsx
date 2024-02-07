@@ -305,58 +305,6 @@ const OrderHistory = () => {
                                                                                         )}
                                                                                     </p>
                                                                                 </div>
-                                                                                {/* <div
-                                                                                    className={`indicator-line ${
-                                                                                        order?.status ===
-                                                                                            "OTW" ||
-                                                                                        order?.status ===
-                                                                                            "CMP"
-                                                                                            ? "active"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                ></div>
-                                                                                <div
-                                                                                    className={`step step3 ${
-                                                                                        order?.status ===
-                                                                                            "OTW" ||
-                                                                                        order?.status ===
-                                                                                            "CMP"
-                                                                                            ? "active"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                >
-                                                                                    <div className="step-icon">
-                                                                                        3
-                                                                                    </div>
-                                                                                    <p>
-                                                                                        {t(
-                                                                                            "supplier_pages.order_details.otw"
-                                                                                        )}
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div
-                                                                                    className={`indicator-line ${
-                                                                                        order?.status ==
-                                                                                            "CMP" &&
-                                                                                        "active"
-                                                                                    }`}
-                                                                                ></div>
-                                                                                <div
-                                                                                    className={`step step4 ${
-                                                                                        order?.status ==
-                                                                                            "CMP" &&
-                                                                                        "active"
-                                                                                    }`}
-                                                                                >
-                                                                                    <div className="step-icon">
-                                                                                        4
-                                                                                    </div>
-                                                                                    <p>
-                                                                                        {t(
-                                                                                            "buyer_pages.order_history.returned"
-                                                                                        )}
-                                                                                    </p>
-                                                                                </div> */}
                                                                             </>
                                                                         ) : (
                                                                             <>

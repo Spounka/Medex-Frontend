@@ -12,18 +12,20 @@ const ChatFixedIcon = () => {
     const api = useAxios();
 
     const getMessagesCount = async () => {
-        try {
-            if (user) {
-                if (!messagesCount) {
-                    const response = await api.get(
+        if (user) {
+            if (!messagesCount) {
+                await api
+                    .get(
                         import.meta.env.VITE_BACKEND_URL +
                             `/api/chat/${user.user_id}/count/`
-                    );
-                    setMessagesCount(response.data);
-                }
+                    )
+                    .then((response) => {
+                        setMessagesCount(response.data);
+                    })
+                    .catch(() => {
+                        setMessagesCount(0);
+                    });
             }
-        } catch (error) {
-            setMessagesCount(0);
         }
     };
 
