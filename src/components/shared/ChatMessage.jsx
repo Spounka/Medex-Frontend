@@ -10,7 +10,7 @@ const ChatMessage = ({ text, sent, img, created }) => {
                 }`}
             >
                 <img
-                    className="img-fluid shadow p-1 rounded-circle border border-primary"
+                    className="object-fit-contain shadow p-1 rounded-circle border border-primary"
                     src={img}
                     alt="User Logo"
                     width={55}

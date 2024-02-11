@@ -54,6 +54,8 @@ const ViewStore = () => {
             .then((res) => {
                 const data = res.data;
 
+                console.log(data);
+
                 if (user_id == data.company.supplier) {
                     GetCountries()
                         .then((res) => {
@@ -160,7 +162,11 @@ const ViewStore = () => {
     useEffect(() => {
         if (user) {
             if (user.role === "supplier") {
-                getUserData(user.user_id);
+                if (user.parent !== null) {
+                    getUserData(user.parent);
+                } else {
+                    getUserData(user.user_id);
+                }
             } else {
                 getUserData(id);
             }

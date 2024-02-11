@@ -260,7 +260,7 @@ const Header = () => {
                                     <div className="d-flex w-100 navbar__top-links">
                                         <li className="nav-item">
                                             <Link
-                                                to="wishlist"
+                                                to="/wishlist"
                                                 className="nav-link d-flex justify-content-center align-items-center gap-2"
                                             >
                                                 <svg

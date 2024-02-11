@@ -43,6 +43,7 @@ import PersonalSettings from "../pages/Supplier/PersonalSettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
 import { useTranslation } from "react-i18next";
 import Store from "../pages/Supplier/Store";
+import Permissions from "../pages/Supplier/Permissions";
 
 const SupplierRoutes = () => {
     const { t } = useTranslation();
@@ -190,6 +191,7 @@ const SupplierRoutes = () => {
                     <Route path="settings">
                         <Route index element={<SupplierSettings />} />
                         <Route path="profile" element={<PersonalSettings />} />
+                        <Route path="permissions" element={<Permissions />} />
 
                         <Route
                             path="password/update"

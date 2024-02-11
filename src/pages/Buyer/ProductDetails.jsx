@@ -308,7 +308,7 @@ const ProductDetails = (props) => {
                                                 </button>
                                             ) : (
                                                 <Link
-                                                    to={`/chat/${product?.supplier}`}
+                                                    to={`/chat/${product?.supplier?.id}`}
                                                     className="gradient-bg-color w-100 py-2 text-white rounded border-0 d-flex align-items-center gap-2 justify-content-center"
                                                 >
                                                     {t(

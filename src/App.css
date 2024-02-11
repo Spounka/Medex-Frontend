@@ -79,18 +79,15 @@ a {
     transition: 0.2s;
 }
 .form-control {
-    border-right: none;
     border-color: #bbbbbb;
 }
 .form-control:focus {
-    border-right: none;
     box-shadow: none !important;
     border-color: #bbbbbb;
 }
 
 .form-control:hover {
     border-color: #bbbbbb !important;
-    border-right: none;
 }
 
 .text-hover:hover,

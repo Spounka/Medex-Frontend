@@ -100,7 +100,10 @@ const BuyerRoutes = () => {
                     element={<ViewStore addToCart={addToCart} />}
                 />
 
-                <Route path="/" element={<BuyerProtectedRoutes />}>
+                <Route
+                    path="/"
+                    element={<BuyerProtectedRoutes checkPermission={false} />}
+                >
                     <Route path="wishlist" element={<Wishlist />} />
                 </Route>
 

@@ -49,10 +49,25 @@ const ChatMessagesList = () => {
 
     useEffect(() => {
         if (id) {
-            const newClient = new W3CWebSocket(
-                import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                    `/ws/chat/${id}/${user.user_id}/`
-            );
+            let newClient;
+            if (user.role === "supplier") {
+                if (user.parent !== null) {
+                    newClient = new W3CWebSocket(
+                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                            `/ws/chat/${id}/${user.parent}/`
+                    );
+                } else {
+                    newClient = new W3CWebSocket(
+                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                            `/ws/chat/${id}/${user.user_id}/`
+                    );
+                }
+            } else {
+                newClient = new W3CWebSocket(
+                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                        `/ws/chat/${id}/${user.user_id}/`
+                );
+            }
             newClient.onmessage = handleWebSocketMessage;
             setClient(newClient);
         }
@@ -106,7 +121,7 @@ const ChatMessagesList = () => {
                     <div className="row">
                         <div className="col-2 col-md-1 d-flex align-items-center justify-content-end">
                             <img
-                                className="img-fluid rounded-circle border p-1 shadow border-primary"
+                                className="rounded-circle border p-1 shadow border-primary object-fit-contain"
                                 src={
                                     otherUser.profile?.profile_picture
                                         ? import.meta.env.VITE_BACKEND_URL +
@@ -132,7 +147,11 @@ const ChatMessagesList = () => {
                                     <ChatMessage
                                         key={msg.id}
                                         text={msg.message}
-                                        sent={msg.user.id === user.user_id}
+                                        sent={
+                                            user.parent
+                                                ? msg.user.id === user.parent
+                                                : msg.user.id === user.user_id
+                                        }
                                         img={
                                             msg.user.profile?.profile_picture
                                                 ? import.meta.env

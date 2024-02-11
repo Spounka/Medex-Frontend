@@ -56,7 +56,7 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link to="permissions" className="d-flex gap-2">
                         <div className="settings-icon">
                             <IoPersonCircleSharp size={25} />
                         </div>
@@ -65,7 +65,7 @@ const Settings = () => {
                                 {t("supplier_pages.settings.user&per")}
                             </h5>
                             <p className="text-wrap desc">
-                                {t("supplier_pages.settings.soon")}
+                                {t("supplier_pages.settings.user&per")}
                             </p>
                         </div>
                     </Link>

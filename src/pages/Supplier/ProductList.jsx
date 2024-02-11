@@ -23,7 +23,9 @@ const ProductList = (props) => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/product?supplier=${user.user_id}`
+                    `/api/product/product/?supplier=${
+                        user?.parent ? user?.parent : user.user_id
+                    }`
             )
             .then((res) => {
                 setProducts(res.data);

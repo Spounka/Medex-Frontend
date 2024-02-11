@@ -25,9 +25,16 @@ const hasPermission = (requiredGroups = []) => {
     return isUserInRequiredGroup;
 };
 
-const BuyerProtectedRoutes = ({ requiredGroups }) => {
+const BuyerProtectedRoutes = ({ requiredGroups, checkPermission = true }) => {
     const auth = useAuth();
-    const permissionsGranted = hasPermission(requiredGroups);
+
+    let permissionsGranted;
+
+    if (checkPermission !== false) {
+        permissionsGranted = hasPermission(requiredGroups);
+    } else {
+        permissionsGranted = true;
+    }
 
     if (!auth) {
         return <Navigate to="/account/login" />;

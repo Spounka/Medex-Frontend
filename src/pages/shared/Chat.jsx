@@ -107,35 +107,39 @@ const Chat = () => {
                                                     <div className="row p-2 g-0">
                                                         <div className="col-1 my-auto">
                                                             <img
-                                                                className="img-fluid shadow rounded-circle border p-1 border-primary"
+                                                                className="object-fit-contain shadow rounded-circle border p-1 border-primary"
                                                                 src={
                                                                     user.user_id ==
                                                                     thread.first
                                                                         .id
                                                                         ? thread
-                                                                              .second
-                                                                              .profile_picture
+                                                                              ?.second
+                                                                              ?.profile
+                                                                              ?.profile_picture
                                                                             ? import.meta
                                                                                   .env
                                                                                   .VITE_BACKEND_URL +
                                                                               thread
-                                                                                  .second
-                                                                                  .profile_picture
+                                                                                  ?.second
+                                                                                  ?.profile
+                                                                                  ?.profile_picture
                                                                             : userImage
                                                                         : thread
-                                                                              .first
-                                                                              .profile_picture
+                                                                              ?.first
+                                                                              ?.profile
+                                                                              ?.profile_picture
                                                                         ? import.meta
                                                                               .env
                                                                               .VITE_BACKEND_URL +
                                                                           thread
-                                                                              .first
-                                                                              .profile_picture
+                                                                              ?.first
+                                                                              ?.profile
+                                                                              ?.profile_picture
                                                                         : userImage
                                                                 }
                                                                 alt="User Logo"
-                                                                width={50}
-                                                                height={50}
+                                                                width={55}
+                                                                height={55}
                                                             />
                                                         </div>
                                                         <div className="col-6 col-md-8 px-2 px-md-0">

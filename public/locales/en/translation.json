@@ -587,6 +587,15 @@
             "rem_cov_pic": "Remove Cover Picture",
             "update_cov_pic": "Update Cover Picture",
             "edit": "Edit Company Profile"
+        },
+        "permissions": {
+            "title": "Create User Permissions",
+            "position": "Select User Role",
+            "p_man": "Product Manager",
+            "s_man": "Sales Manager",
+            "q_man": "Quote Manager",
+            "c_man": "Customer Support",
+            "submit": "Add User"
         }
     }
 }
