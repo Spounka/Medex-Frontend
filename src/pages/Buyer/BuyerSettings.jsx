@@ -11,7 +11,7 @@ const Settings = () => {
 
     return (
         <main
-            className="pt-3 pb-5"
+            className="pt-3 pb-5 w-100"
             style={{ backgroundColor: "rgb(250, 250, 251)" }}
         >
             <section className="container-fluid">
@@ -19,7 +19,7 @@ const Settings = () => {
                     {t("buyer_sidebar.settings")}
                 </h2>
                 <div
-                    className="col-12 p-4 gap-4 d-flex flex-wrap"
+                    className="col-12 p-4 gap-4 d-flex justify-content-between flex-wrap"
                     style={{ backgroundColor: "#fff" }}
                 >
                     <Link to="profile" className="d-flex gap-2">
@@ -53,7 +53,7 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link to="permissions" className="d-flex gap-2">
                         <div className="settings-icon">
                             <IoPersonCircleSharp size={25} />
                         </div>

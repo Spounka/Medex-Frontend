@@ -337,6 +337,12 @@
         },
         "settings": {
             "update_password_text": "Update your password"
+        },
+        "permissions": {
+            "p_man": "Product Manager",
+            "o_man": "Order Manager",
+            "q_man": "Quote Manager",
+            "c_man": "Supplier Contact Person"
         }
     },
     "shared": {
@@ -591,11 +597,17 @@
         "permissions": {
             "title": "Create User Permissions",
             "position": "Select User Role",
+            "create_success": "You have successfully created a new employee for your company",
+            "create_fail_email": "A user with this email already exists",
+            "create_fail_general": "There was an error with creating a new employee, please try again later",
             "p_man": "Product Manager",
             "s_man": "Sales Manager",
             "q_man": "Quote Manager",
             "c_man": "Customer Support",
-            "submit": "Add User"
+            "submit": "Add User",
+            "employees": "Your Employees",
+            "none": "There are currently no employees added yet",
+            "success": "You have successfully deleted this employee"
         }
     }
 }

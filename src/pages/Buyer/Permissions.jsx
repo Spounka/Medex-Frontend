@@ -47,19 +47,19 @@ const Permissions = () => {
     const positionOptions = [
         {
             value: "p_man",
-            label: t("supplier_pages.permissions.p_man"),
+            label: t("buyer_pages.permissions.p_man"),
         },
         {
             value: "q_man",
-            label: t("supplier_pages.permissions.q_man"),
+            label: t("buyer_pages.permissions.q_man"),
         },
         {
-            value: "s_man",
-            label: t("supplier_pages.permissions.s_man"),
+            value: "o_man",
+            label: t("buyer_pages.permissions.o_man"),
         },
         {
             value: "c_man",
-            label: t("supplier_pages.permissions.c_man"),
+            label: t("buyer_pages.permissions.c_man"),
         },
     ];
 
@@ -97,7 +97,7 @@ const Permissions = () => {
         await api
             .post(
                 import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/",
+                    "/api/account/buyer/employee/",
                 {
                     full_name: name,
                     email,
@@ -115,6 +115,8 @@ const Permissions = () => {
                 setConfirmPassword("");
 
                 toast.success(t("supplier_pages.permissions.create_success"));
+
+                getEmployees();
             })
             .catch((err) => {
                 let errors = err.response.data;
@@ -134,7 +136,7 @@ const Permissions = () => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/"
+                    "/api/account/buyer/employee/"
             )
             .then((res) => {
                 setEmployees(res.data);
@@ -145,7 +147,7 @@ const Permissions = () => {
         await api
             .delete(
                 import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/",
+                    "/api/account/buyer/employee/",
                 {
                     data: { employee_id },
                 }
@@ -166,9 +168,9 @@ const Permissions = () => {
     }, []);
 
     return (
-        <main className="px-0 px-md-3">
+        <main className="pt-3 pb-5 w-100">
             <section>
-                <div className="container-xxl">
+                <div className="container">
                     <Link
                         to="../../settings"
                         className="d-flex align-items-center"
@@ -394,7 +396,7 @@ const Permissions = () => {
                                                                             group,
                                                                             i
                                                                         ) => {
-                                                                            const translationKey = `supplier_pages.permissions.${group}`;
+                                                                            const translationKey = `buyer_pages.permissions.${group}`;
                                                                             const translatedGroup =
                                                                                 t(
                                                                                     translationKey

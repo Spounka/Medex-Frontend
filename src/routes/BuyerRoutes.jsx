@@ -43,6 +43,7 @@ import ReturnRequests from "../pages/Buyer/ReturnRequests";
 import UpdatePassword from "../pages/shared/UpdatePassword";
 import BuyerSettings from "../pages/Buyer/BuyerSettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
+import Permissions from "../pages/Buyer/Permissions";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -200,7 +201,10 @@ const BuyerRoutes = () => {
                     path="/"
                     element={
                         <BuyerProtectedRoutes
-                            requiredGroups={["Buyer Admin"]}
+                            requiredGroups={[
+                                "Buyer Admin",
+                                "Buyer Quote Manager",
+                            ]}
                         />
                     }
                 >
@@ -212,6 +216,12 @@ const BuyerRoutes = () => {
                         <Route
                             path="request-for-quote"
                             element={<RequestForQuotes />}
+                        />
+
+                        <Route path="quotes/:id" element={<OfferList />} />
+                        <Route
+                            path="quotes/offers/:id/invoice"
+                            element={<OfferInvoice />}
                         />
                     </Route>
                 </Route>
@@ -231,13 +241,11 @@ const BuyerRoutes = () => {
                     >
                         <Route path="statistics" element={<Statistics />} />
 
-                        <Route path="quotes/:id" element={<OfferList />} />
-                        <Route
-                            path="quotes/offers/:id/invoice"
-                            element={<OfferInvoice />}
-                        />
-
                         <Route path="settings" element={<BuyerSettings />} />
+                        <Route
+                            path="settings/permissions"
+                            element={<Permissions />}
+                        />
                         <Route path="settings/profile" element={<Profile />} />
 
                         <Route

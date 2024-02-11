@@ -31,10 +31,19 @@ const Chat = () => {
 
     const filterThreads = () => {
         const filtered = threadsList.filter((thread) => {
-            const displayName =
-                user.user_id === thread.first.id
-                    ? thread.second.full_name
-                    : thread.first.full_name;
+            let displayName;
+
+            if (user.parent !== null) {
+                displayName =
+                    user.parent === thread.first.id
+                        ? thread.second.full_name
+                        : thread.first.full_name;
+            } else {
+                displayName =
+                    user.user_id === thread.first.id
+                        ? thread.second.full_name
+                        : thread.first.full_name;
+            }
             return displayName
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
@@ -92,11 +101,21 @@ const Chat = () => {
                                                     window.location.href.indexOf(
                                                         "supplier"
                                                     ) === -1
-                                                        ? user.user_id ==
-                                                          thread.first.id
+                                                        ? user.parent !== null
+                                                            ? user.parent ===
+                                                              thread.first.id
+                                                                ? `/chat/${thread.second.id}`
+                                                                : `/chat/${thread.first.id}`
+                                                            : user.user_id ===
+                                                              thread.first.id
                                                             ? `/chat/${thread.second.id}`
                                                             : `/chat/${thread.first.id}`
-                                                        : user.user_id ==
+                                                        : user.parent !== null
+                                                        ? user.parent ===
+                                                          thread.first.id
+                                                            ? `/supplier/chat/${thread.second.id}`
+                                                            : `/supplier/chat/${thread.first.id}`
+                                                        : user.user_id ===
                                                           thread.first.id
                                                         ? `/supplier/chat/${thread.second.id}`
                                                         : `/supplier/chat/${thread.first.id}`
@@ -109,9 +128,40 @@ const Chat = () => {
                                                             <img
                                                                 className="object-fit-contain shadow rounded-circle border p-1 border-primary"
                                                                 src={
-                                                                    user.user_id ==
-                                                                    thread.first
-                                                                        .id
+                                                                    user.parent !==
+                                                                    null
+                                                                        ? user.parent ===
+                                                                          thread
+                                                                              .first
+                                                                              .id
+                                                                            ? thread
+                                                                                  ?.second
+                                                                                  ?.profile
+                                                                                  ?.profile_picture
+                                                                                ? import.meta
+                                                                                      .env
+                                                                                      .VITE_BACKEND_URL +
+                                                                                  thread
+                                                                                      ?.second
+                                                                                      ?.profile
+                                                                                      ?.profile_picture
+                                                                                : userImage
+                                                                            : thread
+                                                                                  ?.first
+                                                                                  ?.profile
+                                                                                  ?.profile_picture
+                                                                            ? import.meta
+                                                                                  .env
+                                                                                  .VITE_BACKEND_URL +
+                                                                              thread
+                                                                                  ?.first
+                                                                                  ?.profile
+                                                                                  ?.profile_picture
+                                                                            : userImage
+                                                                        : user.user_id ===
+                                                                          thread
+                                                                              .first
+                                                                              .id
                                                                         ? thread
                                                                               ?.second
                                                                               ?.profile
@@ -144,8 +194,22 @@ const Chat = () => {
                                                         </div>
                                                         <div className="col-6 col-md-8 px-2 px-md-0">
                                                             <h3 className="text-capitalize fw-bold m-0 chat__user-name">
-                                                                {user.user_id ==
-                                                                thread.first.id
+                                                                {user.parent !==
+                                                                null
+                                                                    ? user.parent ===
+                                                                      thread
+                                                                          .first
+                                                                          .id
+                                                                        ? thread
+                                                                              .second
+                                                                              .full_name
+                                                                        : thread
+                                                                              .first
+                                                                              .full_name
+                                                                    : user.user_id ===
+                                                                      thread
+                                                                          .first
+                                                                          .id
                                                                     ? thread
                                                                           .second
                                                                           .full_name

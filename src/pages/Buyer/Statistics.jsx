@@ -4,8 +4,6 @@ import { useTranslation } from "react-i18next";
 import useAxios from "../../utils/useAxios";
 
 import { IoStatsChart } from "react-icons/io5";
-import { GiReturnArrow } from "react-icons/gi";
-import { MdRequestQuote } from "react-icons/md";
 
 import YearlyPayments from "../../components/Buyer/Charts/YearlyPayments";
 import YearlyPurchases from "../../components/Buyer/Charts/YearlyPurchases";
@@ -45,7 +43,10 @@ const Statistics = () => {
         getStatistics();
     }, []);
     return (
-        <main className="container" style={{backgroundColor:"rgb(250, 250, 251)"}}>
+        <main
+            className="container"
+            style={{ backgroundColor: "rgb(250, 250, 251)" }}
+        >
             <section className="px-3 py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
                     <IoStatsChart size="2rem" />
@@ -63,11 +64,11 @@ const Statistics = () => {
                                             )}
                                         </h5>
                                     </div>
-                                        <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                            {monthlyReturnRequests > 0
-                                                ? monthlyReturnRequests
-                                                : 0}
-                                        </h2>
+                                    <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
+                                        {monthlyReturnRequests > 0
+                                            ? monthlyReturnRequests
+                                            : 0}
+                                    </h2>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +82,10 @@ const Statistics = () => {
                                             {t("buyer_pages.statistics.rfq")}
                                         </h5>
                                     </div>
-                                        <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                            {monthlyRFQ > 0 ? monthlyRFQ : 0}
-                                        </h2>
-                                        </div>
+                                    <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
+                                        {monthlyRFQ > 0 ? monthlyRFQ : 0}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>

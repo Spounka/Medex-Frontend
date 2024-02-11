@@ -63,10 +63,17 @@ const ChatMessagesList = () => {
                     );
                 }
             } else {
-                newClient = new W3CWebSocket(
-                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                        `/ws/chat/${id}/${user.user_id}/`
-                );
+                if (user.parent !== null) {
+                    newClient = new W3CWebSocket(
+                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                            `/ws/chat/${id}/${user.parent}/`
+                    );
+                } else {
+                    newClient = new W3CWebSocket(
+                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                            `/ws/chat/${id}/${user.user_id}/`
+                    );
+                }
             }
             newClient.onmessage = handleWebSocketMessage;
             setClient(newClient);
