@@ -162,7 +162,7 @@ const Home = (props) => {
 
     return (
         <main>
-            {/* <section className="container">
+            <section className="container">
                 <div className="pb-5 pt-2">
                     <div className="p-3 two">
                         <form method="get" action="/products">
@@ -231,7 +231,7 @@ const Home = (props) => {
                         ""
                     )}
                 </div>
-            </section> */}
+            </section>
             <section className="pb-5">
                 <div className="container">
                     <div>
