@@ -10,7 +10,6 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 
 import { useTranslation } from "react-i18next";
-import { CiSearch } from "react-icons/ci";
 import { FaXRay } from "react-icons/fa6";
 import { FaBriefcaseMedical } from "react-icons/fa";
 import { FaPumpMedical } from "react-icons/fa";
@@ -109,6 +108,7 @@ const Home = (props) => {
         fetchRecentlyAddedProducts();
         fetchBestSellingProducts();
     }, []);
+
     const settings = {
         infinite: true,
         speed: 350,
@@ -158,16 +158,6 @@ const Home = (props) => {
                 },
             },
         ],
-    };
-    const settings3 = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        cssEase: "ease-in",
-        dots: true,
-        arrows: false,
     };
 
     return (
