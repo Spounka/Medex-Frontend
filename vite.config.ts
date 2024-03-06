@@ -7,10 +7,10 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks(id) {
+                    // @ts-ignore
                     if (id.includes("node_modules")) {
-                        const [, packageName] = id.match(
-                            /node_modules\/([^/]+)/
-                        );
+                        //@ts-ignore
+                        const [packageName] = id.match(/node_modules\/([^/]+)/);
                         return packageName.replace("@", "");
                     }
                 },
