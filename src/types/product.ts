@@ -1,24 +1,24 @@
 export interface Brand {
-    "id": number,
-    "name": string,
-    "image": string,
-    "slug": string,
+    id: number,
+    name: string,
+    image: string,
+    slug: string,
 }
 
 export interface Category {
-    "id": number,
-    "parent_name": string,
-    "parent_slug": string,
-    "children_count": number,
-    "name": string,
-    "image": string,
-    "slug": string,
-    "is_featured": boolean,
-    "lft": number,
-    "rght": number,
-    "tree_id": number,
-    "level": number,
-    "parent": number
+    id: number,
+    parent_name: string,
+    parent_slug: string,
+    children_count: number,
+    name: string,
+    image: string,
+    slug: string,
+    is_featured: boolean,
+    lft: number,
+    rght: number,
+    tree_id: number,
+    level: number,
+    parent: number
 }
 
 export interface Product {
@@ -29,6 +29,7 @@ export interface Product {
     description: string,
     slug: string,
     price: string,
+    qty: number,
     sale_price: string,
     price_range_min: string,
     price_range_max: string,
