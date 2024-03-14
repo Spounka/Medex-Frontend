@@ -20,16 +20,16 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": false,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "paths": {
+            "@types": [
+                "./src/types/*"
+            ]
+        }
     },
     "include": [
         "src"
     ],
-    "paths": {
-        "@types": [
-            "./src/types/*"
-        ]
-    },
     "references": [
         {
             "path": "./tsconfig.node.json"
