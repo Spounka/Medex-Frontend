@@ -124,12 +124,10 @@ const Register = () => {
             address_2: address2,
         };
 
-        registerBuyer(
+        registerBuyer({
             email,
-            fullName,
             phone,
             shipping_address,
-            profilePicture,
             password,
             setEmail,
             setFullName,
@@ -139,8 +137,10 @@ const Register = () => {
             setAddress2,
             pictureRef,
             setPassword,
-            setConfirmPassword
-        );
+            setConfirmPassword,
+            full_name: fullName,
+            profile_picture: profilePicture,
+        });
     };
 
     return (
@@ -191,13 +191,13 @@ const Register = () => {
                                                         name="full_name"
                                                         className="form-control"
                                                         placeholder={`${t(
-                                                            "full_name"
+                                                            "full_name",
                                                         )}...`}
                                                         required
                                                         value={fullName}
                                                         onChange={(e) =>
                                                             setFullName(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -215,13 +215,13 @@ const Register = () => {
                                                         name="email"
                                                         className="form-control"
                                                         placeholder={`${t(
-                                                            "email"
+                                                            "email",
                                                         )}...`}
                                                         required
                                                         value={email}
                                                         onChange={(e) =>
                                                             setEmail(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -241,11 +241,11 @@ const Register = () => {
                                                         onChange={(e) => {
                                                             setCountry(e);
                                                             handleCountryChange(
-                                                                e
+                                                                e,
                                                             );
                                                         }}
                                                         placeHolder={`${t(
-                                                            "select_country"
+                                                            "select_country",
                                                         )}...`}
                                                     />
                                                 </div>
@@ -266,11 +266,11 @@ const Register = () => {
                                                             setState(e);
                                                             handleStateChange(
                                                                 country?.id,
-                                                                e
+                                                                e,
                                                             );
                                                         }}
                                                         placeHolder={`${t(
-                                                            "select_state"
+                                                            "select_state",
                                                         )}...`}
                                                     />
                                                 </div>
@@ -289,7 +289,7 @@ const Register = () => {
                                                             setCity(e);
                                                         }}
                                                         placeHolder={`${t(
-                                                            "select_city"
+                                                            "select_city",
                                                         )}...`}
                                                     />
                                                 </div>
@@ -306,13 +306,13 @@ const Register = () => {
                                                         name="postalCode"
                                                         className="form-control"
                                                         placeholder={`${t(
-                                                            "postal"
+                                                            "postal",
                                                         )}...`}
                                                         required
                                                         value={postalCode}
                                                         onChange={(e) =>
                                                             setPostalCode(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -330,13 +330,13 @@ const Register = () => {
                                                         name="address1"
                                                         className="form-control"
                                                         placeholder={`${t(
-                                                            "address1"
+                                                            "address1",
                                                         )}...`}
                                                         required
                                                         value={address1}
                                                         onChange={(e) =>
                                                             setAddress1(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -354,12 +354,12 @@ const Register = () => {
                                                         name="address2"
                                                         className="form-control"
                                                         placeholder={`${t(
-                                                            "address2"
+                                                            "address2",
                                                         )}...`}
                                                         value={address2}
                                                         onChange={(e) =>
                                                             setAddress2(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -409,7 +409,7 @@ const Register = () => {
                                                         onChange={(e) =>
                                                             setProfilePicture(
                                                                 e.target
-                                                                    .files[0]
+                                                                    .files[0],
                                                             )
                                                         }
                                                     />
@@ -431,7 +431,7 @@ const Register = () => {
                                                         value={password}
                                                         onChange={(e) =>
                                                             setPassword(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -453,7 +453,7 @@ const Register = () => {
                                                         value={confirmPassword}
                                                         onChange={(e) =>
                                                             setConfirmPassword(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -470,7 +470,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="text-center d-flex align-items-center gap-1">
                                                     {t(
-                                                        "buyer_pages.register.already"
+                                                        "buyer_pages.register.already",
                                                     )}{" "}
                                                     ?{t("login")}
                                                     <Link to="/account/login">
@@ -479,11 +479,11 @@ const Register = () => {
                                                 </div>
                                                 <div className="text-center d-flex align-items-center gap-1">
                                                     {t(
-                                                        "buyer_pages.register.not"
+                                                        "buyer_pages.register.not",
                                                     )}{" "}
                                                     ?{" "}
                                                     {t(
-                                                        "buyer_pages.register.as"
+                                                        "buyer_pages.register.as",
                                                     )}
                                                     <Link to="/supplier/account/register">
                                                         {t("supplier")}
@@ -505,7 +505,7 @@ const Register = () => {
 const handleCountryChange = (e) => {
     GetState(e.id).then((result) => {
         let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input"
+            "#state .stdropdown-input>input",
         );
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
@@ -522,7 +522,7 @@ const handleCountryChange = (e) => {
 const handleStateChange = (countryId, e) => {
     GetCity(countryId, e.id).then((result) => {
         let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
+            "#city .stdropdown-input>input",
         );
         if (result.length > 0) {
             citySelect.setAttribute("required", true);
