@@ -1,6 +1,9 @@
-export const validateFileExtensions = (files, allowedExtensions) => {
+export const validateFileExtensions = (files: File[], allowedExtensions: string[]) => {
     const invalidFiles = files.filter((file) => {
         const fileExtension = getFileExtension(file.name);
+        if (!fileExtension) {
+            return false;
+        }
         return !allowedExtensions.includes(fileExtension);
     });
 
@@ -17,6 +20,6 @@ export const validateFileExtensions = (files, allowedExtensions) => {
     }
 };
 
-const getFileExtension = (filename) => {
-    return filename.split(".").pop().toLowerCase();
+const getFileExtension = (filename: string) => {
+    return filename.split(".").pop()?.toLowerCase();
 };
