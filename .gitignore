@@ -16,3 +16,4 @@ dist/
 # Local Netlify folder
 .netlify
 **/*.backup
+.env
