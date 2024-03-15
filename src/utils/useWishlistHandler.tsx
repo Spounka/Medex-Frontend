@@ -11,7 +11,7 @@ const useWishlistHandler = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
-    const api = user ? useAxios() : null;
+    const api = useAxios();
 
     const addToWishlist = (itemId) => {
         const storedWishlist = localStorage.getItem("wishlist") || "[]";
