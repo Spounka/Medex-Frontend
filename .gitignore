@@ -17,3 +17,5 @@ dist/
 .netlify
 **/*.backup
 .env
+**/sonar*
+**/.scannerwork
