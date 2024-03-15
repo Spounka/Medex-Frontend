@@ -65,45 +65,38 @@ const CreateProduct = () => {
         }
     };
 
-    const {
-        currentStepIndex,
-        step,
-        next,
-        previous,
-        isFirstStep,
-        isLastStep,
-        goTo,
-    } = useMultiStepForm([
-        {
-            form: (
-                <ProductDetailsForm
-                    {...productFormData}
-                    updateFieldsState={updateFieldsState}
-                />
-            ),
-            title: t("supplier_pages.update_product.det"),
-        },
-        {
-            form: (
-                <ProductCategoriesForm
-                    {...productFormData}
-                    updateFieldsState={updateFieldsState}
-                />
-            ),
-            title: t("supplier_pages.update_product.cat"),
-        },
-        {
-            form: (
-                <ProductImagesForm
-                    {...productFormData}
-                    updateFieldsState={updateFieldsState}
-                    fileRef={fileRef}
-                    multiFileRef={multiFileRef}
-                />
-            ),
-            title: t("supplier_pages.update_product.img"),
-        },
-    ]);
+    const { currentStepIndex, step, next, previous, isFirstStep, isLastStep, goTo } =
+        useMultiStepForm([
+            {
+                form: (
+                    <ProductDetailsForm
+                        {...productFormData}
+                        updateFieldsState={updateFieldsState}
+                    />
+                ),
+                title: t("supplier_pages.update_product.det"),
+            },
+            {
+                form: (
+                    <ProductCategoriesForm
+                        {...productFormData}
+                        updateFieldsState={updateFieldsState}
+                    />
+                ),
+                title: t("supplier_pages.update_product.cat"),
+            },
+            {
+                form: (
+                    <ProductImagesForm
+                        {...productFormData}
+                        updateFieldsState={updateFieldsState}
+                        fileRef={fileRef}
+                        multiFileRef={multiFileRef}
+                    />
+                ),
+                title: t("supplier_pages.update_product.img"),
+            },
+        ]);
 
     const handleStepsFormSubmit = async (e) => {
         e.preventDefault();
@@ -114,9 +107,7 @@ const CreateProduct = () => {
                     productFormData.priceRangeMin !== 0 ||
                     productFormData.priceRangeMax !== 0
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.both_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.both_err")}!`);
                     return false;
                 }
             } else if (productFormData.price === 0) {
@@ -124,19 +115,14 @@ const CreateProduct = () => {
                     productFormData.priceRangeMin === 0 &&
                     productFormData.priceRangeMax === 0
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.no_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.no_err")}!`);
                     return false;
                 } else if (
                     productFormData.priceRangeMin <= 0 ||
                     productFormData.priceRangeMax <= 0 ||
-                    productFormData.priceRangeMin >
-                        productFormData.priceRangeMax
+                    productFormData.priceRangeMin > productFormData.priceRangeMax
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.mm_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.mm_err")}!`);
                     return false;
                 }
             }
@@ -147,9 +133,7 @@ const CreateProduct = () => {
             }
         } else if (currentStepIndex == 2) {
             if (productFormData.otherImages.length > 4) {
-                toast.error(
-                    `${t("supplier_pages.create_product.max_images_err")}!`
-                );
+                toast.error(`${t("supplier_pages.create_product.max_images_err")}!`);
             }
         }
 
@@ -158,7 +142,7 @@ const CreateProduct = () => {
         await api
             .post(
                 import.meta.env.VITE_BACKEND_URL + "/api/product/product/",
-                productFormData
+                productFormData,
             )
             .then(() => {
                 toast.success(`${t("supplier_pages.create_product.success")}!`);
@@ -186,8 +170,8 @@ const CreateProduct = () => {
                                         currentStepIndex == 0
                                             ? 0
                                             : currentStepIndex == 1
-                                            ? 50
-                                            : 100
+                                              ? 50
+                                              : 100
                                     }
                                     max={100}
                                 ></progress>
@@ -248,9 +232,7 @@ const CreateProduct = () => {
                                         className="btn btn-primary"
                                     >
                                         {isLastStep
-                                            ? t(
-                                                  "supplier_sidebar.create_product"
-                                              )
+                                            ? t("supplier_sidebar.create_product")
                                             : t("next")}
                                     </button>
                                 </div>

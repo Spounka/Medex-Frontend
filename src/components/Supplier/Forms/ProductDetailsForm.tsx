@@ -45,9 +45,7 @@ const ProductDetailsForm = ({
                     id="name"
                     required
                     value={name}
-                    onChange={(e) =>
-                        updateFieldsState({ name: e.target.value })
-                    }
+                    onChange={(e) => updateFieldsState({ name: e.target.value })}
                 />
             </div>
             <div className="row mb-5">

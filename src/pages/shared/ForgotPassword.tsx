@@ -26,10 +26,9 @@ const ForgotPassword = () => {
         e.preventDefault();
         await axios
             .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/password/reset/",
+                import.meta.env.VITE_BACKEND_URL + "/api/account/password/reset/",
                 { email: e.target.email.value },
-                { "Content-Type": "application/json" }
+                { "Content-Type": "application/json" },
             )
             .then(() => {
                 toast.success(`${t("shared.forgot.success")}!`);
@@ -76,9 +75,7 @@ const ForgotPassword = () => {
                                                         type="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder={`${t(
-                                                            "email"
-                                                        )}...`}
+                                                        placeholder={`${t("email")}...`}
                                                         required
                                                     />
                                                 </div>
@@ -88,9 +85,7 @@ const ForgotPassword = () => {
                                                         type="submit"
                                                         className="gradient-bg-color w-100 py-2 text-white rounded shadow fw-bold login__btn d-flex align-items-center gap-2 justify-content-center"
                                                     >
-                                                        {t(
-                                                            "shared.forgot.send"
-                                                        )}
+                                                        {t("shared.forgot.send")}
                                                         <RiMailSendLine size="1.4rem" />
                                                     </button>
                                                 </div>

@@ -33,9 +33,7 @@ const MobileNavigation = () => {
 
     useEffect(() => {
         const menu = document.querySelector(".navbar__category-menu-mobile");
-        const menuItems = document.querySelectorAll(
-            ".navbar__category-menu-mobile li"
-        );
+        const menuItems = document.querySelectorAll(".navbar__category-menu-mobile li");
         menuItems.forEach((item) => {
             item.addEventListener("click", () => {
                 menu.classList.remove("show");
@@ -71,9 +69,7 @@ const MobileNavigation = () => {
                         style={{ gap: "2px" }}
                     >
                         <BiCategoryAlt style={{ fontSize: "1.3rem" }} />
-                        <span className="text-xs fw">
-                            {t("mobile.categories")}
-                        </span>
+                        <span className="text-xs fw">{t("mobile.categories")}</span>
                     </Link>
 
                     <div
@@ -86,12 +82,10 @@ const MobileNavigation = () => {
                             aria-expanded="false"
                             data-bs-auto-close="outside"
                             className="d-flex flex-column justify-content-center align-items-center text-dark text-hover"
-                            style={{gap: '2px'}}
+                            style={{ gap: "2px" }}
                         >
                             <LiaUsersCogSolid style={{ fontSize: "1.3rem" }} />
-                            <span className="text-xs fw">
-                                {t("account")}
-                            </span>
+                            <span className="text-xs fw">{t("account")}</span>
                         </Link>
                         <ul className="dropdown-menu w-100 navbar__category-menu-mobile">
                             {!user ? (
@@ -268,9 +262,7 @@ const MobileNavigation = () => {
                         style={{ gap: "2px" }}
                     >
                         <BsCart3 style={{ fontSize: "1.3rem" }} />
-                        <span className="text-sm fw">
-                            {t("mobile.cart")}
-                        </span>
+                        <span className="text-sm fw">{t("mobile.cart")}</span>
                     </Link>
                 </div>
             </div>

@@ -32,7 +32,12 @@ const UserSpendingsChart = (props) => {
         maintainAspectRatio: false,
     };
 
-    return <Pie data={data} options={options} />;
+    return (
+        <Pie
+            data={data}
+            options={options}
+        />
+    );
 };
 
 export default UserSpendingsChart;

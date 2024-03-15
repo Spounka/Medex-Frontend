@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 
 import useAxios from "../../utils/useAxios";
 
-import {
-    MdListAlt,
-    MdOutlineCalendarMonth,
-    MdAccessTime,
-} from "react-icons/md";
+import { MdListAlt, MdOutlineCalendarMonth, MdAccessTime } from "react-icons/md";
 import { BsTruck } from "react-icons/bs";
 import { GiReturnArrow } from "react-icons/gi";
 import { FaExclamationTriangle } from "react-icons/fa";
@@ -27,7 +23,7 @@ const OrderHistory = () => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/order/orders/?p=${currentPage}&l=20`
+                    `/api/order/orders/?p=${currentPage}&l=20`,
             )
             .then((res) => {
                 setOrderItems(res.data.results.results);
@@ -51,16 +47,16 @@ const OrderHistory = () => {
                     <>
                         {orderItems.map((order) => {
                             return (
-                                <div className="card mt-4" key={order.id}>
+                                <div
+                                    className="card mt-4"
+                                    key={order.id}
+                                >
                                     <div className="card-body">
                                         <div className="d-flex align-items-center justify-content-between">
                                             <div className="d-flex align-items-center gap-2 gap-md-5">
                                                 <div>
                                                     <img
-                                                        src={
-                                                            order.product
-                                                                .thumbnail
-                                                        }
+                                                        src={order.product.thumbnail}
                                                         className="object-fit-cover img-fluid order__history-img"
                                                         alt="Product Image"
                                                     />
@@ -71,8 +67,7 @@ const OrderHistory = () => {
                                                             className="h5 order__history-product-title"
                                                             to={`/products/${order.product.sku}`}
                                                             state={{
-                                                                product:
-                                                                    order.product,
+                                                                product: order.product,
                                                             }}
                                                         >
                                                             {order.product.name}
@@ -90,7 +85,7 @@ const OrderHistory = () => {
                                                             <MdAccessTime size="1.1rem" />
                                                             {order.created_time.substring(
                                                                 0,
-                                                                5
+                                                                5,
                                                             )}
                                                         </small>
                                                     </div>
@@ -104,7 +99,7 @@ const OrderHistory = () => {
                                                         >
                                                             <BsTruck size="1.2rem" />
                                                             {t(
-                                                                "supplier_pages.order_details.status"
+                                                                "supplier_pages.order_details.status",
                                                             )}
                                                         </button>
 
@@ -117,7 +112,7 @@ const OrderHistory = () => {
                                                             >
                                                                 <GiReturnArrow size="1.2rem" />
                                                                 {t(
-                                                                    "buyer_pages.order_history.return_status"
+                                                                    "buyer_pages.order_history.return_status",
                                                                 )}
                                                             </button>
                                                         ) : (
@@ -128,7 +123,7 @@ const OrderHistory = () => {
                                                                 >
                                                                     <GiReturnArrow size="1.2rem" />
                                                                     {t(
-                                                                        "buyer_pages.order_history.return"
+                                                                        "buyer_pages.order_history.return",
                                                                     )}
                                                                 </Link>
                                                             )
@@ -152,7 +147,7 @@ const OrderHistory = () => {
                                                                             </div>
                                                                             <p>
                                                                                 {t(
-                                                                                    "supplier_pages.order_details.or"
+                                                                                    "supplier_pages.order_details.or",
                                                                                 )}
                                                                             </p>
                                                                         </div>
@@ -185,7 +180,7 @@ const OrderHistory = () => {
                                                                             </div>
                                                                             <p className="stepper__text-2">
                                                                                 {t(
-                                                                                    "supplier_pages.order_details.p"
+                                                                                    "supplier_pages.order_details.p",
                                                                                 )}
                                                                             </p>
                                                                         </div>
@@ -214,7 +209,7 @@ const OrderHistory = () => {
                                                                             </div>
                                                                             <p>
                                                                                 {t(
-                                                                                    "supplier_pages.order_details.otw"
+                                                                                    "supplier_pages.order_details.otw",
                                                                                 )}
                                                                             </p>
                                                                         </div>
@@ -237,7 +232,7 @@ const OrderHistory = () => {
                                                                             </div>
                                                                             <p>
                                                                                 {t(
-                                                                                    "supplier_pages.order_details.de"
+                                                                                    "supplier_pages.order_details.de",
                                                                                 )}
                                                                             </p>
                                                                         </div>
@@ -264,7 +259,7 @@ const OrderHistory = () => {
                                                                             </div>
                                                                             <p>
                                                                                 {t(
-                                                                                    "buyer_pages.order_history.applied"
+                                                                                    "buyer_pages.order_history.applied",
                                                                                 )}
                                                                             </p>
                                                                         </div>
@@ -301,7 +296,7 @@ const OrderHistory = () => {
                                                                                     </div>
                                                                                     <p className="stepper__text-2">
                                                                                         {t(
-                                                                                            "buyer_pages.order_history.approved"
+                                                                                            "buyer_pages.order_history.approved",
                                                                                         )}
                                                                                     </p>
                                                                                 </div>
@@ -329,7 +324,7 @@ const OrderHistory = () => {
                                                                                     </div>
                                                                                     <p className="stepper__text-2 text-danger">
                                                                                         {t(
-                                                                                            "buyer_pages.order_history.declined"
+                                                                                            "buyer_pages.order_history.declined",
                                                                                         )}
                                                                                     </p>
                                                                                 </div>
@@ -343,7 +338,7 @@ const OrderHistory = () => {
                                                                         <h6 className="d-flex gap-2 align-items-center">
                                                                             <FaExclamationTriangle />
                                                                             {t(
-                                                                                "buyer_pages.order_history.decline_reason"
+                                                                                "buyer_pages.order_history.decline_reason",
                                                                             )}
                                                                         </h6>
                                                                         <p>
@@ -360,8 +355,7 @@ const OrderHistory = () => {
                                             </div>
                                             <div>
                                                 <h5 className="order__history-product-price">
-                                                    {order.final_price}{" "}
-                                                    {t("sar")}
+                                                    {order.final_price} {t("sar")}
                                                 </h5>
                                             </div>
                                         </div>
@@ -378,16 +372,17 @@ const OrderHistory = () => {
                                         currentPage === 1 &&
                                         "dashboard__pagination-disabled"
                                     }`}
-                                    onClick={() =>
-                                        setCurrentPage(() => currentPage - 1)
-                                    }
+                                    onClick={() => setCurrentPage(() => currentPage - 1)}
                                 >
                                     {t("previous")}
                                 </button>
                             </li>
 
                             {Array.from(Array(totalPages).keys()).map((num) => (
-                                <li className="page-item" key={num}>
+                                <li
+                                    className="page-item"
+                                    key={num}
+                                >
                                     <button
                                         onClick={() => setCurrentPage(num + 1)}
                                         className="page-link"
@@ -403,9 +398,7 @@ const OrderHistory = () => {
                                         currentPage === totalPages &&
                                         "dashboard__pagination-disabled"
                                     }`}
-                                    onClick={() =>
-                                        setCurrentPage(() => currentPage + 1)
-                                    }
+                                    onClick={() => setCurrentPage(() => currentPage + 1)}
                                 >
                                     {t("next")}
                                 </button>
@@ -413,9 +406,7 @@ const OrderHistory = () => {
                         </ul>
                     </>
                 ) : (
-                    <p className="mt-3">
-                        {t("buyer_pages.order_history.none")}!
-                    </p>
+                    <p className="mt-3">{t("buyer_pages.order_history.none")}!</p>
                 )}
             </section>
         </main>

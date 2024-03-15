@@ -10,12 +10,7 @@ import axios from "axios";
 
 import { useTranslation } from "react-i18next";
 
-const ProductCategoriesForm = ({
-    category,
-    subCategory,
-    brand,
-    updateFieldsState,
-}) => {
+const ProductCategoriesForm = ({ category, subCategory, brand, updateFieldsState }) => {
     const { t } = useTranslation();
 
     const [brands, setBrands] = useState([]);
@@ -28,7 +23,7 @@ const ProductCategoriesForm = ({
 
     const fetchBrands = async () => {
         const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`,
         );
         const brandOptions = response.data.map((brand) => ({
             value: brand.slug,
@@ -39,7 +34,7 @@ const ProductCategoriesForm = ({
 
     const fetchCategories = async () => {
         const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
         );
         const categoryOptions = response.data.map((category) => ({
             value: category.slug,
@@ -53,7 +48,7 @@ const ProductCategoriesForm = ({
             .get(
                 `${
                     import.meta.env.VITE_BACKEND_URL
-                }/api/product/category?level=1&parent=${catName}`
+                }/api/product/category?level=1&parent=${catName}`,
             )
             .then((res) => {
                 const categoryOptions = res.data.map((category) => ({

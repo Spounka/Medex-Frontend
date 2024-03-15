@@ -28,7 +28,10 @@ function App() {
                     <WebsiteLoader />
                     <div className={`${rootClassName}`}>
                         <Routes>
-                            <Route path="/*" element={<BuyerRoutes />} />
+                            <Route
+                                path="/*"
+                                element={<BuyerRoutes />}
+                            />
                             <Route
                                 path="/supplier/*"
                                 element={<SupplierRoutes />}
@@ -37,7 +40,10 @@ function App() {
                                 path="/permission-denied"
                                 element={<PermissionDenied />}
                             />
-                            <Route path="/not-found" element={<NotFound />} />
+                            <Route
+                                path="/not-found"
+                                element={<NotFound />}
+                            />
                         </Routes>
                     </div>
                 </CartProvider>

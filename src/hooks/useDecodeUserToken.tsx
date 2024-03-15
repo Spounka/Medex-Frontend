@@ -12,7 +12,10 @@ function useDecodeUserToken() {
             return jwtDecode<DecodedUser>(JSON.stringify(localStorageToken));
         }
         if (sessionStorageToken) {
-            console.log("session decoded: ", jwtDecode(JSON.stringify(sessionStorageToken)));
+            console.log(
+                "session decoded: ",
+                jwtDecode(JSON.stringify(sessionStorageToken)),
+            );
             return jwtDecode<DecodedUser>(JSON.stringify(sessionStorageToken));
         }
         return null;
@@ -21,4 +24,3 @@ function useDecodeUserToken() {
 }
 
 export default useDecodeUserToken;
-

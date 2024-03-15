@@ -20,9 +20,7 @@ const ActivateBuyer = () => {
             .get(
                 `${
                     import.meta.env.VITE_BACKEND_URL
-                }/api/account/buyer/email-verify/?token=${queryParameters?.get(
-                    "token"
-                )}`
+                }/api/account/buyer/email-verify/?token=${queryParameters?.get("token")}`,
             )
             .then((res) => {
                 toast.success(res.data?.success);
@@ -49,13 +47,11 @@ const ActivateBuyer = () => {
                     import.meta.env.VITE_BACKEND_URL
                 }/api/account/buyer/email-verify-refresh/`,
                 user_id,
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/json" } },
             )
             .then((res) => {
                 if (res.status === 200) {
-                    toast.success(
-                        `${t("buyer_pages.activate_buyer.activate_success")}!`
-                    );
+                    toast.success(`${t("buyer_pages.activate_buyer.activate_success")}!`);
                 }
             });
     };
@@ -73,9 +69,7 @@ const ActivateBuyer = () => {
                                             className="fw-bold"
                                             style={{ color: "#3a0ca3" }}
                                         >
-                                            {t(
-                                                "buyer_pages.activate_buyer.resend"
-                                            )}
+                                            {t("buyer_pages.activate_buyer.resend")}
                                         </h3>
                                         <div className="mt-5">
                                             <button
@@ -83,7 +77,7 @@ const ActivateBuyer = () => {
                                                 className="border-0 gradient-bg-color p-3 px-5 text-white fw-bold rounded shadow"
                                             >
                                                 {t(
-                                                    "buyer_pages.activate_buyer.resend_btn"
+                                                    "buyer_pages.activate_buyer.resend_btn",
                                                 )}
                                             </button>
                                         </div>

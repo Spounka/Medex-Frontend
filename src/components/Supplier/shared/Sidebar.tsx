@@ -21,7 +21,7 @@ import {
     TbDatabasePlus,
     TbDatabaseSearch,
     TbHomeEdit,
-    TbTruckReturn
+    TbTruckReturn,
 } from "react-icons/tb";
 
 import { useTranslation } from "react-i18next";
@@ -99,9 +99,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <IoStatsChart size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.stats")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.stats")}</span>
                         </Link>
                     </li>
 
@@ -131,9 +129,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdShop2 size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.products")}
-                            </span>
+                            <span className="ms-1">{t("supplier_sidebar.products")}</span>
                             <IoIosArrowDown size="0.8rem" />
                         </Link>
                         <ul
@@ -150,7 +146,6 @@ const Sidebar = (props) => {
                                     {t("supplier_sidebar.products_list")}
                                 </Link>
                             </li>
-
 
                             <li>
                                 <Link
@@ -184,9 +179,7 @@ const Sidebar = (props) => {
                                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                         >
                                             <MdAddToQueue size="1.5rem" />
-                                            {t(
-                                                "supplier_sidebar.create_product_form"
-                                            )}
+                                            {t("supplier_sidebar.create_product_form")}
                                         </Link>
 
                                         <Link
@@ -194,9 +187,7 @@ const Sidebar = (props) => {
                                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                         >
                                             <FaRegFileExcel size="1.5rem" />
-                                            {t(
-                                                "supplier_sidebar.create_product_excel"
-                                            )}
+                                            {t("supplier_sidebar.create_product_excel")}
                                         </Link>
                                     </li>
                                 </ul>
@@ -230,9 +221,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdListAlt size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.sales")}
-                            </span>
+                            <span className="ms-1">{t("supplier_sidebar.sales")}</span>
                             <IoIosArrowDown size="0.8rem" />
                         </Link>
                         <ul
@@ -300,9 +289,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <LuTextQuote size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.quotes")}
-                            </span>
+                            <span className="ms-1">{t("supplier_sidebar.quotes")}</span>
                             <IoIosArrowDown size="0.8rem" />
                         </Link>
                         <ul
@@ -366,9 +353,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <IoStorefrontOutline size="1.5rem" />
-                            <span className="ms-1">
-                                {t("supplier_sidebar.store")}
-                            </span>
+                            <span className="ms-1">{t("supplier_sidebar.store")}</span>
                             <IoIosArrowDown size="0.8rem" />
                         </Link>
                         <ul
@@ -424,9 +409,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BiSolidMessageAltDetail size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.messages")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.messages")}</span>
                         </Link>
                     </li>
 
@@ -456,9 +439,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BsGearFill size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.settings")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.settings")}</span>
                             {/* <IoIosArrowDown size="0.8rem" /> */}
                         </Link>
                         {/* <ul

@@ -37,7 +37,10 @@ const OfferList = () => {
                     {offers.length > 0 ? (
                         offers.map((offer) => {
                             return (
-                                <div className="col-12 mt-4" key={offer.id}>
+                                <div
+                                    className="col-12 mt-4"
+                                    key={offer.id}
+                                >
                                     <Link
                                         to={`/supplier/offer/invoice/${offer.id}`}
                                         className="w-100"
@@ -47,15 +50,11 @@ const OfferList = () => {
                                                 <div className="d-flex align-items-center gap-4">
                                                     <img
                                                         src={
-                                                            offer.quote_obj.user
-                                                                .profile
+                                                            offer.quote_obj.user.profile
                                                                 .profilePicture
-                                                                ? import.meta
-                                                                      .env
+                                                                ? import.meta.env
                                                                       .VITE_BACKEND_URL +
-                                                                  offer
-                                                                      .quote_obj
-                                                                      .user
+                                                                  offer.quote_obj.user
                                                                       .profile
                                                                       .profilePicture
                                                                 : userImage
@@ -69,16 +68,12 @@ const OfferList = () => {
                                                     <div className="d-flex flex-column gap-2">
                                                         <h4 className="m-0">
                                                             {
-                                                                offer.quote_obj
-                                                                    .user
+                                                                offer.quote_obj.user
                                                                     .full_name
                                                             }
                                                         </h4>
                                                         <p className="m-0">
-                                                            {
-                                                                offer.quote_obj
-                                                                    .product_name
-                                                            }{" "}
+                                                            {offer.quote_obj.product_name}{" "}
                                                             * {offer.quantity}
                                                         </p>
                                                     </div>
@@ -87,18 +82,14 @@ const OfferList = () => {
                                                     className={`badge p-2 fw-bold d-flex align-items-center gap-1 ${
                                                         offer.status === "P"
                                                             ? "bg-secondary"
-                                                            : offer.status ===
-                                                              "A"
-                                                            ? "bg-success"
-                                                            : "bg-danger"
+                                                            : offer.status === "A"
+                                                              ? "bg-success"
+                                                              : "bg-danger"
                                                     }`}
                                                 >
                                                     <BiSolidInfoCircle size="1rem" />
-                                                    {t(
-                                                        "buyer_pages.offers_list.status"
-                                                    )}
-                                                    : &nbsp;{" "}
-                                                    {offer.status_display}
+                                                    {t("buyer_pages.offers_list.status")}:
+                                                    &nbsp; {offer.status_display}
                                                 </div>
                                             </div>
                                         </div>

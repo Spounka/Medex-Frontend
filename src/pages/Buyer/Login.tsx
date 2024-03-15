@@ -49,7 +49,10 @@ const Login = () => {
                                 loop
                                 playsInline
                             >
-                                <source src={loginVideo} type="video/mp4" />
+                                <source
+                                    src={loginVideo}
+                                    type="video/mp4"
+                                />
                             </video>
                         </div>
                         <div className="col-12 col-md-6">
@@ -76,9 +79,7 @@ const Login = () => {
                                                         type="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder={`${t(
-                                                            "email"
-                                                        )}...`}
+                                                        placeholder={`${t("email")}...`}
                                                         required
                                                     />
                                                 </div>
@@ -103,8 +104,7 @@ const Login = () => {
                                                         <div
                                                             className="form-check"
                                                             style={{
-                                                                maxWidth:
-                                                                    "max-content",
+                                                                maxWidth: "max-content",
                                                             }}
                                                         >
                                                             <input

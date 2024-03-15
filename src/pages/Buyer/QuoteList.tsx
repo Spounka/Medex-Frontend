@@ -23,11 +23,9 @@ const QuoteList = () => {
     const [selectedQuote, setSelectedQuote] = useState("");
 
     const getQuotes = async () => {
-        await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/quote/")
-            .then((res) => {
-                setQuotes(res.data);
-            });
+        await api.get(import.meta.env.VITE_BACKEND_URL + "/api/quote/").then((res) => {
+            setQuotes(res.data);
+        });
     };
 
     useEffect(() => {
@@ -58,9 +56,7 @@ const QuoteList = () => {
                                                 className={`list-group-item list-group-item-action `}
                                                 id={`list-${quote.id}-list`}
                                                 data-bs-toggle={
-                                                    window.innerWidth < 768
-                                                        ? ""
-                                                        : "list"
+                                                    window.innerWidth < 768 ? "" : "list"
                                                 }
                                                 to={
                                                     window.innerWidth < 768
@@ -69,9 +65,7 @@ const QuoteList = () => {
                                                 }
                                                 state={{ quote: quote }}
                                                 role={
-                                                    window.innerWidth < 768
-                                                        ? ""
-                                                        : "tab"
+                                                    window.innerWidth < 768 ? "" : "tab"
                                                 }
                                                 aria-controls={
                                                     window.innerWidth < 768
@@ -79,14 +73,11 @@ const QuoteList = () => {
                                                         : `list-${quote.id}`
                                                 }
                                                 key={quote.id}
-                                                onClick={() =>
-                                                    setSelectedQuote(quote)
-                                                }
+                                                onClick={() => setSelectedQuote(quote)}
                                             >
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
-                                                        selectedQuote.id ==
-                                                        quote.id
+                                                        selectedQuote.id == quote.id
                                                             ? "bg-primary text-white"
                                                             : ""
                                                     }`}
@@ -95,14 +86,11 @@ const QuoteList = () => {
                                                         <div className="col-2 col-md-1 my-auto">
                                                             <img
                                                                 src={
-                                                                    quote.user
-                                                                        .profile
+                                                                    quote.user.profile
                                                                         .profile_picture
-                                                                        ? import.meta
-                                                                              .env
+                                                                        ? import.meta.env
                                                                               .VITE_BACKEND_URL +
-                                                                          quote
-                                                                              .user
+                                                                          quote.user
                                                                               .profile
                                                                               .profile_picture
                                                                         : userImage
@@ -116,14 +104,12 @@ const QuoteList = () => {
                                                         <div className="col-9 col-md-10 mx-2">
                                                             <div className="card-body">
                                                                 <h6 className="card-title dashboard__quote-title">
-                                                                    {
-                                                                        quote.product_name
-                                                                    }
+                                                                    {quote.product_name}
                                                                 </h6>
                                                                 <span className="card-text dashboard__quote-text">
                                                                     {quote.requirements.substring(
                                                                         0,
-                                                                        30
+                                                                        30,
                                                                     )}
                                                                 </span>
                                                             </div>
@@ -137,9 +123,7 @@ const QuoteList = () => {
                                                         </div>
                                                         <div className="d-flex align-items-center gap-2 dashboard__quote-info">
                                                             <CiTimer size=".8rem" />
-                                                            {
-                                                                quote.created_since
-                                                            }{" "}
+                                                            {quote.created_since}{" "}
                                                             {t("ago")}
                                                         </div>
                                                     </div>
@@ -157,8 +141,7 @@ const QuoteList = () => {
                                             return (
                                                 <div
                                                     className={`tab-pane fade ${
-                                                        selectedQuote.id ==
-                                                        quote.id
+                                                        selectedQuote.id == quote.id
                                                             ? "active show"
                                                             : ""
                                                     }`}
@@ -171,14 +154,11 @@ const QuoteList = () => {
                                                         <div className="d-flex align-items-center gap-4 mb-3">
                                                             <img
                                                                 src={
-                                                                    quote.user
-                                                                        .profile
+                                                                    quote.user.profile
                                                                         .profile_picture
-                                                                        ? import.meta
-                                                                              .env
+                                                                        ? import.meta.env
                                                                               .VITE_BACKEND_URL +
-                                                                          quote
-                                                                              .user
+                                                                          quote.user
                                                                               .profile
                                                                               .profile_picture
                                                                         : userImage
@@ -191,18 +171,10 @@ const QuoteList = () => {
 
                                                             <div className="d-flex flex-column gap-2">
                                                                 <h4 className="m-0">
-                                                                    {
-                                                                        quote
-                                                                            .user
-                                                                            .full_name
-                                                                    }
+                                                                    {quote.user.full_name}
                                                                 </h4>
                                                                 <p className="m-0">
-                                                                    {
-                                                                        quote
-                                                                            .user
-                                                                            .email
-                                                                    }
+                                                                    {quote.user.email}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -214,54 +186,43 @@ const QuoteList = () => {
                                                         </p>
                                                         <h5 className="fw-bold mb-3">
                                                             {t(
-                                                                "buyer_pages.quote_requests.det"
+                                                                "buyer_pages.quote_requests.det",
                                                             )}
                                                         </h5>
                                                         <ul className="list-group">
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CgMenuMotion />
                                                                 {t(
-                                                                    "buyer_pages.cart.qty"
+                                                                    "buyer_pages.cart.qty",
                                                                 )}
                                                                 : &nbsp;
-                                                                {
-                                                                    quote.quantity
-                                                                }{" "}
-                                                                {
-                                                                    quote.unit_display
-                                                                }
+                                                                {quote.quantity}{" "}
+                                                                {quote.unit_display}
                                                             </li>
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CiTimer />
                                                                 {t(
-                                                                    "buyer_pages.quote_requests.add"
+                                                                    "buyer_pages.quote_requests.add",
                                                                 )}
                                                                 : &nbsp;
-                                                                {
-                                                                    quote.created_since
-                                                                }{" "}
+                                                                {quote.created_since}{" "}
                                                                 {t("ago")}
                                                             </li>
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <BsCalendar2Date />
-                                                                {t(
-                                                                    "shared.rfq.due_date"
-                                                                )}
+                                                                {t("shared.rfq.due_date")}
                                                                 : &nbsp;
                                                                 {
                                                                     quote.due_date_display
-                                                                }{" "}
-                                                                -{" "}
-                                                                {
-                                                                    quote.due_time_display
-                                                                }
+                                                                } -{" "}
+                                                                {quote.due_time_display}
                                                             </li>
-                                                            {quote?.attachments
-                                                                .length > 0 &&
+                                                            {quote?.attachments.length >
+                                                                0 &&
                                                                 quote.attachments.map(
                                                                     (
                                                                         attachment,
-                                                                        index
+                                                                        index,
                                                                     ) => {
                                                                         return (
                                                                             <li
@@ -281,20 +242,20 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <AiOutlineFileText />
                                                                                     {t(
-                                                                                        "buyer_pages.quote_requests.att"
+                                                                                        "buyer_pages.quote_requests.att",
                                                                                     )}{" "}
                                                                                     {index +
                                                                                         1}
                                                                                 </Link>
                                                                             </li>
                                                                         );
-                                                                    }
+                                                                    },
                                                                 )}
                                                         </ul>
                                                         <hr />
                                                         <h5 className="fw-bold mb-3">
                                                             {t(
-                                                                "buyer_pages.quote_requests.income"
+                                                                "buyer_pages.quote_requests.income",
                                                             )}
                                                         </h5>
                                                         <Link
@@ -303,7 +264,7 @@ const QuoteList = () => {
                                                         >
                                                             <LuView size="1.4rem" />
                                                             {t(
-                                                                "buyer_pages.quote_requests.view_inc"
+                                                                "buyer_pages.quote_requests.view_inc",
                                                             )}
                                                         </Link>
                                                     </div>

@@ -30,9 +30,7 @@ const ChatMessagesList = () => {
             });
 
         await axios
-            .get(
-                import.meta.env.VITE_BACKEND_URL + `/api/account/profile/${id}/`
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + `/api/account/profile/${id}/`)
             .then((res) => {
                 setOtherUser(res.data);
             });
@@ -54,24 +52,24 @@ const ChatMessagesList = () => {
                 if (user.parent !== null) {
                     newClient = new W3CWebSocket(
                         import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.parent}/`
+                            `/ws/chat/${id}/${user.parent}/`,
                     );
                 } else {
                     newClient = new W3CWebSocket(
                         import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.user_id}/`
+                            `/ws/chat/${id}/${user.user_id}/`,
                     );
                 }
             } else {
                 if (user.parent !== null) {
                     newClient = new W3CWebSocket(
                         import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.parent}/`
+                            `/ws/chat/${id}/${user.parent}/`,
                     );
                 } else {
                     newClient = new W3CWebSocket(
                         import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.user_id}/`
+                            `/ws/chat/${id}/${user.user_id}/`,
                     );
                 }
             }
@@ -89,9 +87,7 @@ const ChatMessagesList = () => {
         const previousRows = e.target.rows;
         e.target.rows = minRows;
 
-        const currentRows = Math.floor(
-            e.target.scrollHeight / textareaLineHeight
-        );
+        const currentRows = Math.floor(e.target.scrollHeight / textareaLineHeight);
 
         if (currentRows === previousRows) {
             e.target.rows = currentRows;
@@ -120,9 +116,7 @@ const ChatMessagesList = () => {
     return (
         <main>
             <section
-                className={`${
-                    window.location.href.indexOf("supplier") === -1 && "py-4"
-                }`}
+                className={`${window.location.href.indexOf("supplier") === -1 && "py-4"}`}
             >
                 <div className="container">
                     <div className="row">
@@ -161,10 +155,8 @@ const ChatMessagesList = () => {
                                         }
                                         img={
                                             msg.user.profile?.profile_picture
-                                                ? import.meta.env
-                                                      .VITE_BACKEND_URL +
-                                                  msg.user.profile
-                                                      .profile_picture
+                                                ? import.meta.env.VITE_BACKEND_URL +
+                                                  msg.user.profile.profile_picture
                                                 : userImage
                                         }
                                         created={msg.created}

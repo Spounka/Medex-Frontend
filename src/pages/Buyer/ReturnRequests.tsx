@@ -39,7 +39,10 @@ const ReturnRequests = () => {
                     {returnRequests.length > 0 ? (
                         returnRequests.map((request) => {
                             return (
-                                <div className="col-12 mt-4" key={request.id}>
+                                <div
+                                    className="col-12 mt-4"
+                                    key={request.id}
+                                >
                                     <div
                                         style={{ cursor: "pointer" }}
                                         data-bs-toggle="modal"
@@ -50,8 +53,7 @@ const ReturnRequests = () => {
                                                 <div className="d-flex align-items-center gap-4">
                                                     <img
                                                         src={
-                                                            request?.product
-                                                                ?.product
+                                                            request?.product?.product
                                                                 ?.thumbnail
                                                         }
                                                         alt="Product"
@@ -63,31 +65,28 @@ const ReturnRequests = () => {
                                                     <div className="d-flex flex-column gap-2">
                                                         <h4 className="m-0">
                                                             {
-                                                                request?.product
-                                                                    ?.product
+                                                                request?.product?.product
                                                                     ?.name
                                                             }
                                                         </h4>
                                                         <div className="d-flex align-items-center gap-1 gap-md-5">
                                                             <span>
                                                                 {t(
-                                                                    "buyer_pages.cart.qty"
+                                                                    "buyer_pages.cart.qty",
                                                                 )}
                                                                 :{" "}
                                                                 {
-                                                                    request
-                                                                        ?.product
+                                                                    request?.product
                                                                         ?.quantity
                                                                 }
                                                             </span>
                                                             <span>
                                                                 {t(
-                                                                    "buyer_pages.cart.total"
+                                                                    "buyer_pages.cart.total",
                                                                 )}
                                                                 :{" "}
                                                                 {
-                                                                    request
-                                                                        ?.product
+                                                                    request?.product
                                                                         ?.final_price
                                                                 }{" "}
                                                                 {t("sar")}
@@ -119,13 +118,12 @@ const ReturnRequests = () => {
                                                             </div>
                                                             <p>
                                                                 {t(
-                                                                    "buyer_pages.order_history.applied"
+                                                                    "buyer_pages.order_history.applied",
                                                                 )}
                                                             </p>
                                                         </div>
 
-                                                        {request?.status !==
-                                                        "DEC" ? (
+                                                        {request?.status !== "DEC" ? (
                                                             <>
                                                                 <div
                                                                     className={`indicator-line ${
@@ -156,7 +154,7 @@ const ReturnRequests = () => {
                                                                     </div>
                                                                     <p className="stepper__text-2">
                                                                         {t(
-                                                                            "buyer_pages.order_history.approved"
+                                                                            "buyer_pages.order_history.approved",
                                                                         )}
                                                                     </p>
                                                                 </div>
@@ -184,7 +182,7 @@ const ReturnRequests = () => {
                                                                     </div>
                                                                     <p className="stepper__text-2 text-danger">
                                                                         {t(
-                                                                            "buyer_pages.order_history.declined"
+                                                                            "buyer_pages.order_history.declined",
                                                                         )}
                                                                     </p>
                                                                 </div>
@@ -197,14 +195,10 @@ const ReturnRequests = () => {
                                                         <h6 className="d-flex gap-2 align-items-center">
                                                             <FaExclamationTriangle />
                                                             {t(
-                                                                "buyer_pages.order_history.decline_reason"
+                                                                "buyer_pages.order_history.decline_reason",
                                                             )}
                                                         </h6>
-                                                        <p>
-                                                            {
-                                                                request?.decline_reason
-                                                            }
-                                                        </p>
+                                                        <p>{request?.decline_reason}</p>
                                                     </div>
                                                 )}
                                             </div>

@@ -35,10 +35,7 @@ const EditStore = () => {
 
     const handleFileChange = (e, type) => {
         const selectedFile = Array.from(e.target.files);
-        const { isValid } = validateFileExtensions(
-            selectedFile,
-            ALLOWED_EXTENSIONS
-        );
+        const { isValid } = validateFileExtensions(selectedFile, ALLOWED_EXTENSIONS);
         if (!isValid) {
             toast.error(t("buyer_pages.profile.file_type_err"));
             fileRef.current.value = null;
@@ -60,10 +57,7 @@ const EditStore = () => {
     };
     const getUserData = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`)
             .then((res) => {
                 const data = res.data.company;
                 setCompanyProfilePicture(data?.company_profile_picture || "");
@@ -73,10 +67,7 @@ const EditStore = () => {
     };
     const getUserCategories = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/product/private-categories/"
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/private-categories/")
             .then((res) => {
                 if (res?.data?.private_categories) {
                     setCategories(res?.data?.private_categories);
@@ -106,17 +97,14 @@ const EditStore = () => {
 
         await api
             .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`,
+                import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
                 formData,
                 {
                     "Content-Type": "multipart/form-data",
-                }
+                },
             )
             .then(() => {
-                toast.success(
-                    `${t("supplier_pages.edit_company.pic_updated")}!`
-                );
+                toast.success(`${t("supplier_pages.edit_company.pic_updated")}!`);
             })
             .catch((err) => {
                 toast.error(err.data);
@@ -135,17 +123,14 @@ const EditStore = () => {
 
         await api
             .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`,
+                import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
                 formData,
                 {
                     "Content-Type": "multipart/form-data",
-                }
+                },
             )
             .then(() => {
-                toast.success(
-                    `${t("supplier_pages.edit_company.cov_pic_updated")}!`
-                );
+                toast.success(`${t("supplier_pages.edit_company.cov_pic_updated")}!`);
             })
             .catch((err) => {
                 toast.error(err.data);
@@ -153,42 +138,26 @@ const EditStore = () => {
     };
 
     const removeProfilePicture = async () => {
-        document
-            .getElementById("userProfilePicture")
-            .setAttribute("src", userImage);
+        document.getElementById("userProfilePicture").setAttribute("src", userImage);
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`,
-                {
-                    delete_profile_picture: true,
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`, {
+                delete_profile_picture: true,
+            })
             .then(() => {
-                toast.success(
-                    `${t("supplier_pages.edit_company.pic_removed")}!`
-                );
+                toast.success(`${t("supplier_pages.edit_company.pic_removed")}!`);
             });
     };
 
     const removeCoverPicture = async () => {
-        document
-            .getElementById("userCoverPicture")
-            .setAttribute("src", coverImage);
+        document.getElementById("userCoverPicture").setAttribute("src", coverImage);
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`,
-                {
-                    delete_cover_picture: true,
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`, {
+                delete_cover_picture: true,
+            })
             .then(() => {
-                toast.success(
-                    `${t("supplier_pages.edit_company.cov_pic_removed")}!`
-                );
+                toast.success(`${t("supplier_pages.edit_company.cov_pic_removed")}!`);
             });
     };
 
@@ -215,7 +184,7 @@ const EditStore = () => {
                                                     data-bs-toggle="collapse"
                                                 >
                                                     {t(
-                                                        "supplier_pages.edit_store.add_cat"
+                                                        "supplier_pages.edit_store.add_cat",
                                                     )}
                                                 </Link>
                                             </button>
@@ -226,7 +195,7 @@ const EditStore = () => {
                                                     data-bs-toggle="collapse"
                                                 >
                                                     {t(
-                                                        "supplier_pages.edit_store.manage_products"
+                                                        "supplier_pages.edit_store.manage_products",
                                                     )}
                                                 </Link>
                                             </button>
@@ -237,7 +206,7 @@ const EditStore = () => {
                                                     data-bs-toggle="collapse"
                                                 >
                                                     {t(
-                                                        "supplier_pages.edit_store.del_cat"
+                                                        "supplier_pages.edit_store.del_cat",
                                                     )}
                                                 </Link>
                                             </button>
@@ -254,7 +223,7 @@ const EditStore = () => {
                                                     className="label-form mt-4"
                                                 >
                                                     {t(
-                                                        "supplier_pages.edit_store.select_cat"
+                                                        "supplier_pages.edit_store.select_cat",
                                                     )}
                                                 </label>
                                                 <select
@@ -266,14 +235,13 @@ const EditStore = () => {
                                                     defaultValue={selectedCat}
                                                     onChange={(event) =>
                                                         setSelectedCat(
-                                                            event.currentTarget
-                                                                .value
+                                                            event.currentTarget.value,
                                                         )
                                                     }
                                                 >
                                                     <option value="">
                                                         {t(
-                                                            "supplier_pages.edit_store.select_cat"
+                                                            "supplier_pages.edit_store.select_cat",
                                                         )}
                                                     </option>
                                                     {categories.map((cat) => (
@@ -289,140 +257,128 @@ const EditStore = () => {
                                             {selectedCat !== "" && (
                                                 <table className="table table-bordered mt-3">
                                                     <tbody>
-                                                        {products.map(
-                                                            (prod, index) => {
-                                                                const selectedCategory =
-                                                                    categories.find(
-                                                                        (
-                                                                            category
-                                                                        ) => {
-                                                                            return (
-                                                                                parseInt(
-                                                                                    category.id
-                                                                                ) ===
-                                                                                parseInt(
-                                                                                    selectedCat
-                                                                                )
-                                                                            );
-                                                                        }
-                                                                    );
-
-                                                                const isProductExisting =
-                                                                    selectedCategory &&
-                                                                    selectedCategory.products.some(
-                                                                        (
-                                                                            product
-                                                                        ) =>
-                                                                            product.sku ===
-                                                                            prod.sku
-                                                                    );
-
-                                                                return (
-                                                                    <tr
-                                                                        className="d-flex justify-content-between"
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                    >
-                                                                        <td
-                                                                            style={{
-                                                                                borderLeft:
-                                                                                    "none",
-                                                                                borderRight:
-                                                                                    "none",
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                prod.name
-                                                                            }
-                                                                        </td>
-                                                                        <td
-                                                                            style={{
-                                                                                borderLeft:
-                                                                                    "none",
-                                                                                borderRight:
-                                                                                    "none",
-                                                                            }}
-                                                                        >
-                                                                            <button
-                                                                                className={`btn ${
-                                                                                    isProductExisting
-                                                                                        ? "btn-outline-danger"
-                                                                                        : "btn-outline-primary"
-                                                                                }`}
-                                                                                disabled={
-                                                                                    isLoading
-                                                                                }
-                                                                                id={
-                                                                                    prod.sku
-                                                                                }
-                                                                                onClick={async (
-                                                                                    e
-                                                                                ) => {
-                                                                                    setLoading(
-                                                                                        true
-                                                                                    );
-                                                                                    await api
-                                                                                        .post(
-                                                                                            import.meta
-                                                                                                .env
-                                                                                                .VITE_BACKEND_URL +
-                                                                                                "/api/product/private-categories/",
-                                                                                            {
-                                                                                                category_id:
-                                                                                                    selectedCat,
-                                                                                                product_id:
-                                                                                                    e
-                                                                                                        .target
-                                                                                                        .id,
-                                                                                                add: !isProductExisting,
-                                                                                            }
-                                                                                        )
-                                                                                        .then(
-                                                                                            () => {
-                                                                                                toast.success(
-                                                                                                    t(
-                                                                                                        isProductExisting
-                                                                                                            ? "supplier_pages.edit_store.product_delete_success"
-                                                                                                            : "supplier_pages.edit_store.product_create_success"
-                                                                                                    )
-                                                                                                );
-                                                                                                setLoading(
-                                                                                                    false
-                                                                                                );
-                                                                                                getUserCategories();
-                                                                                            }
-                                                                                        )
-                                                                                        .catch(
-                                                                                            (
-                                                                                                err
-                                                                                            ) => {
-                                                                                                toast.error(
-                                                                                                    err
-                                                                                                        ?.response
-                                                                                                        ?.data
-                                                                                                        ?.error
-                                                                                                );
-                                                                                                setLoading(
-                                                                                                    false
-                                                                                                );
-                                                                                            }
-                                                                                        );
-                                                                                }}
-                                                                            >
-                                                                                {isProductExisting
-                                                                                    ? t(
-                                                                                          "supplier_pages.edit_store.rem_pro"
-                                                                                      )
-                                                                                    : t(
-                                                                                          "supplier_pages.edit_store.add_pro"
-                                                                                      )}
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
+                                                        {products.map((prod, index) => {
+                                                            const selectedCategory =
+                                                                categories.find(
+                                                                    (category) => {
+                                                                        return (
+                                                                            parseInt(
+                                                                                category.id,
+                                                                            ) ===
+                                                                            parseInt(
+                                                                                selectedCat,
+                                                                            )
+                                                                        );
+                                                                    },
                                                                 );
-                                                            }
-                                                        )}
+
+                                                            const isProductExisting =
+                                                                selectedCategory &&
+                                                                selectedCategory.products.some(
+                                                                    (product) =>
+                                                                        product.sku ===
+                                                                        prod.sku,
+                                                                );
+
+                                                            return (
+                                                                <tr
+                                                                    className="d-flex justify-content-between"
+                                                                    key={index}
+                                                                >
+                                                                    <td
+                                                                        style={{
+                                                                            borderLeft:
+                                                                                "none",
+                                                                            borderRight:
+                                                                                "none",
+                                                                        }}
+                                                                    >
+                                                                        {prod.name}
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            borderLeft:
+                                                                                "none",
+                                                                            borderRight:
+                                                                                "none",
+                                                                        }}
+                                                                    >
+                                                                        <button
+                                                                            className={`btn ${
+                                                                                isProductExisting
+                                                                                    ? "btn-outline-danger"
+                                                                                    : "btn-outline-primary"
+                                                                            }`}
+                                                                            disabled={
+                                                                                isLoading
+                                                                            }
+                                                                            id={prod.sku}
+                                                                            onClick={async (
+                                                                                e,
+                                                                            ) => {
+                                                                                setLoading(
+                                                                                    true,
+                                                                                );
+                                                                                await api
+                                                                                    .post(
+                                                                                        import.meta
+                                                                                            .env
+                                                                                            .VITE_BACKEND_URL +
+                                                                                            "/api/product/private-categories/",
+                                                                                        {
+                                                                                            category_id:
+                                                                                                selectedCat,
+                                                                                            product_id:
+                                                                                                e
+                                                                                                    .target
+                                                                                                    .id,
+                                                                                            add: !isProductExisting,
+                                                                                        },
+                                                                                    )
+                                                                                    .then(
+                                                                                        () => {
+                                                                                            toast.success(
+                                                                                                t(
+                                                                                                    isProductExisting
+                                                                                                        ? "supplier_pages.edit_store.product_delete_success"
+                                                                                                        : "supplier_pages.edit_store.product_create_success",
+                                                                                                ),
+                                                                                            );
+                                                                                            setLoading(
+                                                                                                false,
+                                                                                            );
+                                                                                            getUserCategories();
+                                                                                        },
+                                                                                    )
+                                                                                    .catch(
+                                                                                        (
+                                                                                            err,
+                                                                                        ) => {
+                                                                                            toast.error(
+                                                                                                err
+                                                                                                    ?.response
+                                                                                                    ?.data
+                                                                                                    ?.error,
+                                                                                            );
+                                                                                            setLoading(
+                                                                                                false,
+                                                                                            );
+                                                                                        },
+                                                                                    );
+                                                                            }}
+                                                                        >
+                                                                            {isProductExisting
+                                                                                ? t(
+                                                                                      "supplier_pages.edit_store.rem_pro",
+                                                                                  )
+                                                                                : t(
+                                                                                      "supplier_pages.edit_store.add_pro",
+                                                                                  )}
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
                                                     </tbody>
                                                 </table>
                                             )}
@@ -436,52 +392,43 @@ const EditStore = () => {
                                             <form
                                                 method="post"
                                                 className="mt-3"
-                                                onSubmit={handleSubmit(
-                                                    async (data) => {
-                                                        setLoading(true);
-                                                        await api
-                                                            .post(
-                                                                import.meta.env
-                                                                    .VITE_BACKEND_URL +
-                                                                    "/api/product/private-categories/",
-                                                                {
-                                                                    categoryName:
-                                                                        data.name,
-                                                                }
-                                                            )
-                                                            .then(() => {
-                                                                toast.success(
-                                                                    t(
-                                                                        "supplier_pages.edit_store.category_create_success"
-                                                                    )
-                                                                );
+                                                onSubmit={handleSubmit(async (data) => {
+                                                    setLoading(true);
+                                                    await api
+                                                        .post(
+                                                            import.meta.env
+                                                                .VITE_BACKEND_URL +
+                                                                "/api/product/private-categories/",
+                                                            {
+                                                                categoryName: data.name,
+                                                            },
+                                                        )
+                                                        .then(() => {
+                                                            toast.success(
+                                                                t(
+                                                                    "supplier_pages.edit_store.category_create_success",
+                                                                ),
+                                                            );
 
-                                                                reset();
-                                                                setLoading(
-                                                                    false
-                                                                );
-                                                                getUserCategories();
-                                                            })
-                                                            .catch((err) => {
-                                                                toast.error(
-                                                                    err
-                                                                        ?.response
-                                                                        ?.data
-                                                                        ?.error
-                                                                );
-                                                                setLoading(
-                                                                    false
-                                                                );
-                                                            });
-                                                    }
-                                                )}
+                                                            reset();
+                                                            setLoading(false);
+                                                            getUserCategories();
+                                                        })
+                                                        .catch((err) => {
+                                                            toast.error(
+                                                                err?.response?.data
+                                                                    ?.error,
+                                                            );
+                                                            setLoading(false);
+                                                        });
+                                                })}
                                             >
                                                 <label
                                                     className="form-label"
                                                     htmlFor="in"
                                                 >
                                                     {t(
-                                                        "supplier_pages.edit_store.add_cat"
+                                                        "supplier_pages.edit_store.add_cat",
                                                     )}
                                                 </label>
                                                 <input
@@ -489,12 +436,11 @@ const EditStore = () => {
                                                     id="in"
                                                     className="form-control"
                                                     placeholder={t(
-                                                        "supplier_pages.edit_store.cat_placeholder"
+                                                        "supplier_pages.edit_store.cat_placeholder",
                                                     )}
                                                     type="text"
                                                     style={{
-                                                        borderRight:
-                                                            "1px solid #cccccc",
+                                                        borderRight: "1px solid #cccccc",
                                                     }}
                                                 />
                                                 <button
@@ -504,10 +450,10 @@ const EditStore = () => {
                                                 >
                                                     {isLoading
                                                         ? t(
-                                                              "supplier_pages.edit_store.loading"
+                                                              "supplier_pages.edit_store.loading",
                                                           ) + " ..."
                                                         : t(
-                                                              "supplier_pages.edit_store.add_cat"
+                                                              "supplier_pages.edit_store.add_cat",
                                                           )}
                                                 </button>
                                             </form>
@@ -520,100 +466,82 @@ const EditStore = () => {
                                         >
                                             <table className="table table-bordered mt-3">
                                                 <tbody>
-                                                    {categories.map(
-                                                        (cat, index) => (
-                                                            <tr
-                                                                className="d-flex justify-content-between"
-                                                                key={index}
+                                                    {categories.map((cat, index) => (
+                                                        <tr
+                                                            className="d-flex justify-content-between"
+                                                            key={index}
+                                                        >
+                                                            <td
+                                                                style={{
+                                                                    borderLeft: "none",
+                                                                    borderRight: "none",
+                                                                }}
                                                             >
-                                                                <td
-                                                                    style={{
-                                                                        borderLeft:
-                                                                            "none",
-                                                                        borderRight:
-                                                                            "none",
-                                                                    }}
-                                                                >
-                                                                    {cat.name}
-                                                                </td>
-                                                                <td
-                                                                    style={{
-                                                                        borderLeft:
-                                                                            "none",
-                                                                        borderRight:
-                                                                            "none",
-                                                                    }}
-                                                                >
-                                                                    <button
-                                                                        className="btn btn-outline-danger"
-                                                                        disabled={
-                                                                            isLoading
-                                                                        }
-                                                                        id={
-                                                                            cat.id
-                                                                        }
-                                                                        onClick={async (
-                                                                            e
-                                                                        ) => {
-                                                                            setLoading(
-                                                                                true
-                                                                            );
-                                                                            const categoryID =
-                                                                                e
-                                                                                    ?.target
-                                                                                    ?.id;
+                                                                {cat.name}
+                                                            </td>
+                                                            <td
+                                                                style={{
+                                                                    borderLeft: "none",
+                                                                    borderRight: "none",
+                                                                }}
+                                                            >
+                                                                <button
+                                                                    className="btn btn-outline-danger"
+                                                                    disabled={isLoading}
+                                                                    id={cat.id}
+                                                                    onClick={async (
+                                                                        e,
+                                                                    ) => {
+                                                                        setLoading(true);
+                                                                        const categoryID =
+                                                                            e?.target?.id;
 
-                                                                            await api
-                                                                                .delete(
-                                                                                    import.meta
-                                                                                        .env
-                                                                                        .VITE_BACKEND_URL +
-                                                                                        `/api/product/private-categories/`,
-                                                                                    {
-                                                                                        data: {
-                                                                                            categoryID,
-                                                                                        },
-                                                                                    }
-                                                                                )
-                                                                                .then(
-                                                                                    () => {
-                                                                                        toast.success(
-                                                                                            t(
-                                                                                                "supplier_pages.edit_store.category_delete_success"
-                                                                                            )
-                                                                                        );
-                                                                                        setLoading(
-                                                                                            false
-                                                                                        );
-
-                                                                                        getUserCategories();
-                                                                                    }
-                                                                                )
-                                                                                .catch(
-                                                                                    (
-                                                                                        err
-                                                                                    ) => {
-                                                                                        toast.error(
-                                                                                            err
-                                                                                                ?.response
-                                                                                                ?.data
-                                                                                                ?.error
-                                                                                        );
-                                                                                        setLoading(
-                                                                                            false
-                                                                                        );
-                                                                                    }
+                                                                        await api
+                                                                            .delete(
+                                                                                import.meta
+                                                                                    .env
+                                                                                    .VITE_BACKEND_URL +
+                                                                                    `/api/product/private-categories/`,
+                                                                                {
+                                                                                    data: {
+                                                                                        categoryID,
+                                                                                    },
+                                                                                },
+                                                                            )
+                                                                            .then(() => {
+                                                                                toast.success(
+                                                                                    t(
+                                                                                        "supplier_pages.edit_store.category_delete_success",
+                                                                                    ),
                                                                                 );
-                                                                        }}
-                                                                    >
-                                                                        {t(
-                                                                            "supplier_pages.edit_store.rem_cat"
-                                                                        )}
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    )}
+                                                                                setLoading(
+                                                                                    false,
+                                                                                );
+
+                                                                                getUserCategories();
+                                                                            })
+                                                                            .catch(
+                                                                                (err) => {
+                                                                                    toast.error(
+                                                                                        err
+                                                                                            ?.response
+                                                                                            ?.data
+                                                                                            ?.error,
+                                                                                    );
+                                                                                    setLoading(
+                                                                                        false,
+                                                                                    );
+                                                                                },
+                                                                            );
+                                                                    }}
+                                                                >
+                                                                    {t(
+                                                                        "supplier_pages.edit_store.rem_cat",
+                                                                    )}
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -646,13 +574,11 @@ const EditStore = () => {
                                                     <div className="mt-5 d-flex justify-content-between gap-5 align-items-center">
                                                         <button
                                                             type="button"
-                                                            onClick={
-                                                                removeCoverPicture
-                                                            }
+                                                            onClick={removeCoverPicture}
                                                             className="btn btn-outline-danger d-flex gap-2 align-items-center"
                                                         >
                                                             {t(
-                                                                "supplier_pages.edit_company.rem_cov_pic"
+                                                                "supplier_pages.edit_company.rem_cov_pic",
                                                             )}
                                                             <MdOutlineFolderDelete size="1.4rem" />
                                                         </button>
@@ -663,10 +589,7 @@ const EditStore = () => {
                                                             className="d-none"
                                                             ref={fileRef}
                                                             onChange={(e) =>
-                                                                handleFileChange(
-                                                                    e,
-                                                                    "cp"
-                                                                )
+                                                                handleFileChange(e, "cp")
                                                             }
                                                         />
                                                         <button
@@ -677,7 +600,7 @@ const EditStore = () => {
                                                             className="btn btn-outline-primary d-flex gap-2 align-items-center"
                                                         >
                                                             {t(
-                                                                "supplier_pages.edit_company.update_cov_pic"
+                                                                "supplier_pages.edit_company.update_cov_pic",
                                                             )}
                                                             <TbPhotoEdit size="1.4rem" />
                                                         </button>
@@ -716,13 +639,11 @@ const EditStore = () => {
                                                     <div className="mt-5 d-flex justify-content-between gap-5 align-items-center">
                                                         <button
                                                             type="button"
-                                                            onClick={
-                                                                removeProfilePicture
-                                                            }
+                                                            onClick={removeProfilePicture}
                                                             className="btn btn-outline-danger d-flex gap-2 align-items-center"
                                                         >
                                                             {t(
-                                                                "buyer_pages.profile.rem_pic"
+                                                                "buyer_pages.profile.rem_pic",
                                                             )}
                                                             <MdOutlineFolderDelete size="1.4rem" />
                                                         </button>
@@ -733,21 +654,16 @@ const EditStore = () => {
                                                             className="d-none"
                                                             ref={fileRef}
                                                             onChange={(e) =>
-                                                                handleFileChange(
-                                                                    e,
-                                                                    "pp"
-                                                                )
+                                                                handleFileChange(e, "pp")
                                                             }
                                                         />
                                                         <button
                                                             type="button"
-                                                            onClick={
-                                                                handleFileUpload
-                                                            }
+                                                            onClick={handleFileUpload}
                                                             className="btn btn-outline-primary d-flex gap-2 align-items-center"
                                                         >
                                                             {t(
-                                                                "buyer_pages.profile.update_pic"
+                                                                "buyer_pages.profile.update_pic",
                                                             )}
                                                             <TbPhotoEdit size="1.4rem" />
                                                         </button>

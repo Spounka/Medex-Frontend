@@ -46,27 +46,23 @@ const TrackingDetails = () => {
                         (x) =>
                             x.id ==
                             parseInt(
-                                location?.state?.order?.user?.shipping_address
-                                    ?.country
-                            )
+                                location?.state?.order?.user?.shipping_address?.country,
+                            ),
                     );
                     setCountry(c?.name);
                 })
                 .then(() => {
                     return GetState(
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.country
-                        )
+                        parseInt(location?.state?.order?.user?.shipping_address?.country),
                     ).then((res) => {
                         if (res.length > 0) {
                             let s = res.find(
                                 (x) =>
                                     x.id ==
                                     parseInt(
-                                        location?.state?.order?.user
-                                            ?.shipping_address?.state
-                                    )
+                                        location?.state?.order?.user?.shipping_address
+                                            ?.state,
+                                    ),
                             );
                             setState(s?.name);
                         }
@@ -74,23 +70,17 @@ const TrackingDetails = () => {
                 })
                 .then(() => {
                     return GetCity(
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.country
-                        ),
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.state
-                        )
+                        parseInt(location?.state?.order?.user?.shipping_address?.country),
+                        parseInt(location?.state?.order?.user?.shipping_address?.state),
                     ).then((res) => {
                         if (res.length > 0) {
                             let c = res.find(
                                 (x) =>
                                     x.id ==
                                     parseInt(
-                                        location?.state?.order?.user
-                                            ?.shipping_address?.city
-                                    )
+                                        location?.state?.order?.user?.shipping_address
+                                            ?.city,
+                                    ),
                             );
                             setCity(c?.name);
                         }
@@ -101,7 +91,7 @@ const TrackingDetails = () => {
 
             try {
                 const response = await api.get(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/order/${orderID}/`
+                    `${import.meta.env.VITE_BACKEND_URL}/api/order/${orderID}/`,
                 );
                 setOrder(response.data);
 
@@ -110,27 +100,21 @@ const TrackingDetails = () => {
                         let c = res.find(
                             (x) =>
                                 x.id ==
-                                parseInt(
-                                    response.data?.user?.shipping_address
-                                        ?.country
-                                )
+                                parseInt(response.data?.user?.shipping_address?.country),
                         );
                         setCountry(c?.name);
                     })
                     .then(() => {
                         return GetState(
-                            parseInt(
-                                response.data?.user?.shipping_address?.country
-                            )
+                            parseInt(response.data?.user?.shipping_address?.country),
                         ).then((res) => {
                             if (res.length > 0) {
                                 let s = res.find(
                                     (x) =>
                                         x.id ==
                                         parseInt(
-                                            response.data?.user
-                                                ?.shipping_address?.state
-                                        )
+                                            response.data?.user?.shipping_address?.state,
+                                        ),
                                 );
                                 setState(s?.name);
                             }
@@ -138,21 +122,16 @@ const TrackingDetails = () => {
                     })
                     .then(() => {
                         return GetCity(
-                            parseInt(
-                                response.data?.user?.shipping_address?.country
-                            ),
-                            parseInt(
-                                response.data?.user?.shipping_address?.state
-                            )
+                            parseInt(response.data?.user?.shipping_address?.country),
+                            parseInt(response.data?.user?.shipping_address?.state),
                         ).then((res) => {
                             if (res.length > 0) {
                                 let c = res.find(
                                     (x) =>
                                         x.id ==
                                         parseInt(
-                                            response.data?.user
-                                                ?.shipping_address?.city
-                                        )
+                                            response.data?.user?.shipping_address?.city,
+                                        ),
                                 );
                                 setCity(c?.name);
                             }
@@ -203,22 +182,18 @@ const TrackingDetails = () => {
                                 </p>
                                 <p className="text-xs d-flex align-items-center gap-2">
                                     <MdOutlineCalendarMonth size="1.3rem" />
-                                    {t(
-                                        "supplier_pages.order_details.ordered"
-                                    )}: {order?.created_date}
+                                    {t("supplier_pages.order_details.ordered")}:{" "}
+                                    {order?.created_date}
                                 </p>
 
                                 <p className="text-xs d-flex align-items-center gap-2">
                                     <MdProductionQuantityLimits size="1.3rem" />
-                                    {t("buyer_pages.cart.qty")}:{" "}
-                                    {order?.quantity}
+                                    {t("buyer_pages.cart.qty")}: {order?.quantity}
                                 </p>
 
                                 <h6 className="text-xs d-flex align-items-center gap-2">
                                     <MdOutlinePriceCheck size="1.3rem" />
-                                    {t(
-                                        "supplier_pages.quote_list.price_tot"
-                                    )}{" "}
+                                    {t("supplier_pages.quote_list.price_tot")}{" "}
                                     {order?.final_price} {t("sar")}
                                 </h6>
                             </div>
@@ -240,45 +215,37 @@ const TrackingDetails = () => {
                                         <div className="col-12">
                                             <div className="step-indicator">
                                                 <div className="step step1 active">
-                                                    <div className="step-icon">
-                                                        1
-                                                    </div>
+                                                    <div className="step-icon">1</div>
                                                     <p>
                                                         {t(
-                                                            "supplier_pages.order_details.or"
+                                                            "supplier_pages.order_details.or",
                                                         )}
                                                     </p>
                                                 </div>
                                                 <div
                                                     className={`indicator-line ${
-                                                        order?.shipping_status ===
-                                                            "P" ||
+                                                        order?.shipping_status === "P" ||
                                                         order?.shipping_status ===
                                                             "OTW" ||
-                                                        order?.shipping_status ===
-                                                            "DE"
+                                                        order?.shipping_status === "DE"
                                                             ? "active"
                                                             : ""
                                                     }`}
                                                 ></div>
                                                 <div
                                                     className={`step step2 ${
-                                                        order?.shipping_status ===
-                                                            "P" ||
+                                                        order?.shipping_status === "P" ||
                                                         order?.shipping_status ===
                                                             "OTW" ||
-                                                        order?.shipping_status ===
-                                                            "DE"
+                                                        order?.shipping_status === "DE"
                                                             ? "active"
                                                             : ""
                                                     }`}
                                                 >
-                                                    <div className="step-icon">
-                                                        2
-                                                    </div>
+                                                    <div className="step-icon">2</div>
                                                     <p className="stepper__text-2">
                                                         {t(
-                                                            "supplier_pages.order_details.p"
+                                                            "supplier_pages.order_details.p",
                                                         )}
                                                     </p>
                                                 </div>
@@ -286,8 +253,7 @@ const TrackingDetails = () => {
                                                     className={`indicator-line ${
                                                         order?.shipping_status ===
                                                             "OTW" ||
-                                                        order?.shipping_status ===
-                                                            "DE"
+                                                        order?.shipping_status === "DE"
                                                             ? "active"
                                                             : ""
                                                     }`}
@@ -296,39 +262,34 @@ const TrackingDetails = () => {
                                                     className={`step step3 ${
                                                         order?.shipping_status ===
                                                             "OTW" ||
-                                                        order?.shipping_status ===
-                                                            "DE"
+                                                        order?.shipping_status === "DE"
                                                             ? "active"
                                                             : ""
                                                     }`}
                                                 >
-                                                    <div className="step-icon">
-                                                        3
-                                                    </div>
+                                                    <div className="step-icon">3</div>
                                                     <p>
                                                         {t(
-                                                            "supplier_pages.order_details.otw"
+                                                            "supplier_pages.order_details.otw",
                                                         )}
                                                     </p>
                                                 </div>
                                                 <div
                                                     className={`indicator-line ${
-                                                        order?.shipping_status ==
-                                                            "DE" && "active"
+                                                        order?.shipping_status == "DE" &&
+                                                        "active"
                                                     }`}
                                                 ></div>
                                                 <div
                                                     className={`step step4 ${
-                                                        order?.shipping_status ==
-                                                            "DE" && "active"
+                                                        order?.shipping_status == "DE" &&
+                                                        "active"
                                                     }`}
                                                 >
-                                                    <div className="step-icon">
-                                                        4
-                                                    </div>
+                                                    <div className="step-icon">4</div>
                                                     <p>
                                                         {t(
-                                                            "supplier_pages.order_details.de"
+                                                            "supplier_pages.order_details.de",
                                                         )}
                                                     </p>
                                                 </div>
@@ -342,14 +303,10 @@ const TrackingDetails = () => {
                                     <div className="d-flex justify-content-center align-items-center">
                                         <button
                                             className="btn btn-primary d-flex align-items-center gap-2"
-                                            onClick={() =>
-                                                handleAdvance(order?.id)
-                                            }
+                                            onClick={() => handleAdvance(order?.id)}
                                         >
                                             <MdOutlineNextPlan size="1.3rem" />
-                                            {t(
-                                                "supplier_pages.order_details.next"
-                                            )}
+                                            {t("supplier_pages.order_details.next")}
                                         </button>
                                     </div>
                                 </div>

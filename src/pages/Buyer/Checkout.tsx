@@ -64,9 +64,7 @@ const Checkout = (props) => {
 
     const handleCountryChange = (e) => {
         GetState(e.id).then((result) => {
-            let stateSelect = document.querySelector(
-                "#state .stdropdown-input>input"
-            );
+            let stateSelect = document.querySelector("#state .stdropdown-input>input");
             if (result.length > 0) {
                 if (sameAddress !== true) {
                     stateSelect.setAttribute("required", true);
@@ -83,9 +81,7 @@ const Checkout = (props) => {
 
     const handleStateChange = (countryId, e) => {
         GetCity(countryId, e.id).then((result) => {
-            let citySelect = document.querySelector(
-                "#city .stdropdown-input>input"
-            );
+            let citySelect = document.querySelector("#city .stdropdown-input>input");
             if (result.length > 0) {
                 if (sameAddress !== true) {
                     citySelect.setAttribute("required", true);
@@ -122,7 +118,7 @@ const Checkout = (props) => {
                           billing_address: JSON.stringify(billing_address),
                           cashPayment,
                           cartItems: JSON.stringify(cartItems),
-                      }
+                      },
             )
             .then(() => {
                 toast.success(`${t("buyer_pages.checkout.success")}.`);
@@ -136,17 +132,13 @@ const Checkout = (props) => {
             <section className="py-5">
                 <div className="container">
                     <div className="row">
-                        <BreadCrumb
-                            title={`${t("buyer_pages.checkout.checkout")}`}
-                        />
+                        <BreadCrumb title={`${t("buyer_pages.checkout.checkout")}`} />
                     </div>
 
                     <div className="row mt-5">
                         <div className="col-md-4 order-md-3 mb-4">
                             <h4 className="d-flex justify-content-between align-items-center mb-3">
-                                <span>
-                                    {t("buyer_pages.checkout.your_cart")}
-                                </span>
+                                <span>{t("buyer_pages.checkout.your_cart")}</span>
                                 <span className="badge bg-primary badge-pill">
                                     {cartItems.length}
                                 </span>
@@ -159,9 +151,7 @@ const Checkout = (props) => {
                                             className="list-group-item d-flex justify-content-between align-items-center lh-lg"
                                         >
                                             <div>
-                                                <h6 className="my-0">
-                                                    {item.name}
-                                                </h6>
+                                                <h6 className="my-0">{item.name}</h6>
                                                 <small className="text-muted d-flex align-items-center gap-1">
                                                     <AiOutlineClose size="0.6rem" />
                                                     {item.qty}
@@ -185,8 +175,14 @@ const Checkout = (props) => {
                             <h4 className="mb-3">
                                 {t("buyer_pages.checkout.bill_address")}
                             </h4>
-                            <form onSubmit={handleCheckout} id="checkoutForm">
-                                <div className="mb-3" id="country">
+                            <form
+                                onSubmit={handleCheckout}
+                                id="checkoutForm"
+                            >
+                                <div
+                                    className="mb-3"
+                                    id="country"
+                                >
                                     <label
                                         htmlFor="country"
                                         className="form-label d-flex align-items-center gap-2 "
@@ -199,12 +195,13 @@ const Checkout = (props) => {
                                             setCountry(e);
                                             handleCountryChange(e);
                                         }}
-                                        placeHolder={`${t(
-                                            "select_country"
-                                        )}...`}
+                                        placeHolder={`${t("select_country")}...`}
                                     />
                                 </div>
-                                <div className="mb-3" id="state">
+                                <div
+                                    className="mb-3"
+                                    id="state"
+                                >
                                     <label
                                         htmlFor="state"
                                         className="form-label d-flex align-items-center gap-2 "
@@ -221,7 +218,10 @@ const Checkout = (props) => {
                                         placeHolder={`${t("select_state")}...`}
                                     />
                                 </div>
-                                <div className="mb-3" id="city">
+                                <div
+                                    className="mb-3"
+                                    id="city"
+                                >
                                     <label
                                         htmlFor="city"
                                         className="form-label d-flex align-items-center gap-2 "
@@ -253,9 +253,7 @@ const Checkout = (props) => {
                                         placeholder={`${t("postal")}...`}
                                         required={!sameAddress}
                                         value={postalCode}
-                                        onChange={(e) =>
-                                            setPostalCode(e.target.value)
-                                        }
+                                        onChange={(e) => setPostalCode(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -273,9 +271,7 @@ const Checkout = (props) => {
                                         placeholder={`${t("address1")}...`}
                                         required={!sameAddress}
                                         value={address1}
-                                        onChange={(e) =>
-                                            setAddress1(e.target.value)
-                                        }
+                                        onChange={(e) => setAddress1(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -292,9 +288,7 @@ const Checkout = (props) => {
                                         className="form-control"
                                         placeholder={`${t("address2")}...`}
                                         value={address2}
-                                        onChange={(e) =>
-                                            setAddress2(e.target.value)
-                                        }
+                                        onChange={(e) => setAddress2(e.target.value)}
                                     />
                                 </div>
 
@@ -328,9 +322,7 @@ const Checkout = (props) => {
                                         id="cash"
                                         value={cashPayment}
                                         checked={cashPayment}
-                                        onChange={() =>
-                                            setCashPayment(!cashPayment)
-                                        }
+                                        onChange={() => setCashPayment(!cashPayment)}
                                     />
                                     <label
                                         className="form-check-label"

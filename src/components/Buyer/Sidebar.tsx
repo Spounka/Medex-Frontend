@@ -35,9 +35,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdListAlt size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.orders")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.orders")}</span>
                             <BiSolidDownArrow size=".5rem" />
                         </Link>
                         <ul
@@ -123,9 +121,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <IoStatsChart size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.stats")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.stats")}</span>
                         </Link>
                     </li>
 
@@ -135,9 +131,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BiSolidMessageAltDetail size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.messages")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.messages")}</span>
                         </Link>
                     </li>
 
@@ -147,9 +141,7 @@ const Sidebar = (props) => {
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <BsGearFill size="1.5rem" />
-                            <span className="ms-1">
-                                {t("buyer_sidebar.settings")}
-                            </span>
+                            <span className="ms-1">{t("buyer_sidebar.settings")}</span>
                         </Link>
                     </li>
                 </ul>

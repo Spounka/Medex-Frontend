@@ -29,15 +29,9 @@ const QuoteStatisticsChart = (props) => {
 
     const months = quoteStatistics.map((stat) => monthNames[stat.month - 1]);
     const totalQuotes = quoteStatistics.map((stat) => stat.total_quotes);
-    const approvedQuotes = quoteStatistics.map(
-        (stat) => stat.total_approved_quotes
-    );
-    const declinedQuotes = quoteStatistics.map(
-        (stat) => stat.total_declined_quotes
-    );
-    const pendingQuotes = quoteStatistics.map(
-        (stat) => stat.total_pending_quotes
-    );
+    const approvedQuotes = quoteStatistics.map((stat) => stat.total_approved_quotes);
+    const declinedQuotes = quoteStatistics.map((stat) => stat.total_declined_quotes);
+    const pendingQuotes = quoteStatistics.map((stat) => stat.total_pending_quotes);
 
     const data = {
         labels: months,
@@ -82,7 +76,12 @@ const QuoteStatisticsChart = (props) => {
         },
     };
 
-    return <Line data={data} options={options} />;
+    return (
+        <Line
+            data={data}
+            options={options}
+        />
+    );
 };
 
 export default QuoteStatisticsChart;

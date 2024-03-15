@@ -21,9 +21,7 @@ const Statistics = () => {
     const [monthlyRFQ, setMonthlyRFQ] = useState([]);
 
     const [categoriesPurchases, setCategoriesPurchases] = useState([]);
-    const [totalCategoriesPurchases, setTotalCategoriesPurchases] = useState(
-        []
-    );
+    const [totalCategoriesPurchases, setTotalCategoriesPurchases] = useState([]);
 
     const getStatistics = async () => {
         await api
@@ -59,9 +57,7 @@ const Statistics = () => {
                                 <div className="col-9">
                                     <div className="mb-4">
                                         <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                            {t(
-                                                "buyer_pages.statistics.return_request"
-                                            )}
+                                            {t("buyer_pages.statistics.return_request")}
                                         </h5>
                                     </div>
                                     <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">

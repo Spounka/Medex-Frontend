@@ -22,7 +22,7 @@ const OrderList = () => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/order/orders/?p=${currentPage}&l=20`
+                    `/api/order/orders/?p=${currentPage}&l=20`,
             )
             .then((res) => {
                 setOrderItems(res.data.results.results);
@@ -52,26 +52,20 @@ const OrderList = () => {
                                                 <th># ID</th>
                                                 <th className="text-nowrap">
                                                     {t(
-                                                        "supplier_pages.update_product.buyer"
+                                                        "supplier_pages.update_product.buyer",
                                                     )}
                                                 </th>
                                                 <th className="text-nowrap">
-                                                    {t(
-                                                        "buyer_pages.cart.product"
-                                                    )}
+                                                    {t("buyer_pages.cart.product")}
                                                 </th>
                                                 <th className="text-nowrap">
                                                     {t("buyer_pages.cart.qty")}
                                                 </th>
                                                 <th className="text-nowrap">
-                                                    {t(
-                                                        "buyer_pages.cart.total"
-                                                    )}
+                                                    {t("buyer_pages.cart.total")}
                                                 </th>
                                                 <th className="text-nowrap">
-                                                    {t(
-                                                        "buyer_pages.offers_list.status"
-                                                    )}
+                                                    {t("buyer_pages.offers_list.status")}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -86,16 +80,13 @@ const OrderList = () => {
                                                             <div className="d-flex align-items-center gap-2">
                                                                 <img
                                                                     src={
-                                                                        order
-                                                                            .user
-                                                                            .profile
+                                                                        order.user.profile
                                                                             ?.profile_picture
                                                                             ? `
                                                             ${
                                                                 import.meta.env
                                                                     .VITE_BACKEND_URL +
-                                                                order.user
-                                                                    .profile
+                                                                order.user.profile
                                                                     .profile_picture
                                                             }
                                                             `
@@ -105,17 +96,11 @@ const OrderList = () => {
                                                                     width={30}
                                                                     height={30}
                                                                 />
-                                                                {
-                                                                    order.user
-                                                                        .full_name
-                                                                }
+                                                                {order.user.full_name}
                                                             </div>
                                                         </td>
                                                         <td className="text-nowrap">
-                                                            {
-                                                                order?.product
-                                                                    ?.name
-                                                            }
+                                                            {order?.product?.name}
                                                         </td>
                                                         <td className="text-nowrap">
                                                             {order?.quantity}
@@ -132,7 +117,7 @@ const OrderList = () => {
                                                                 }}
                                                             >
                                                                 {t(
-                                                                    "supplier_pages.dashboard.view"
+                                                                    "supplier_pages.dashboard.view",
                                                                 )}
                                                             </Link>
                                                         </td>
@@ -152,43 +137,39 @@ const OrderList = () => {
                                                     "dashboard__pagination-disabled"
                                                 }`}
                                                 onClick={() =>
-                                                    setCurrentPage(
-                                                        () => currentPage - 1
-                                                    )
+                                                    setCurrentPage(() => currentPage - 1)
                                                 }
                                             >
                                                 {t("previous")}
                                             </button>
                                         </li>
 
-                                        {Array.from(
-                                            Array(totalPages).keys()
-                                        ).map((num) => (
-                                            <li className="page-item" key={num}>
-                                                <button
-                                                    onClick={() =>
-                                                        setCurrentPage(num + 1)
-                                                    }
-                                                    className="page-link"
+                                        {Array.from(Array(totalPages).keys()).map(
+                                            (num) => (
+                                                <li
+                                                    className="page-item"
+                                                    key={num}
                                                 >
-                                                    {num + 1}
-                                                </button>
-                                            </li>
-                                        ))}
+                                                    <button
+                                                        onClick={() =>
+                                                            setCurrentPage(num + 1)
+                                                        }
+                                                        className="page-link"
+                                                    >
+                                                        {num + 1}
+                                                    </button>
+                                                </li>
+                                            ),
+                                        )}
                                         <li className="page-item">
                                             <button
-                                                disabled={
-                                                    currentPage === totalPages
-                                                }
+                                                disabled={currentPage === totalPages}
                                                 className={`page-link ${
-                                                    currentPage ===
-                                                        totalPages &&
+                                                    currentPage === totalPages &&
                                                     "dashboard__pagination-disabled"
                                                 }`}
                                                 onClick={() =>
-                                                    setCurrentPage(
-                                                        () => currentPage + 1
-                                                    )
+                                                    setCurrentPage(() => currentPage + 1)
                                                 }
                                             >
                                                 {t("next")}

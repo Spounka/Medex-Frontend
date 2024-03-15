@@ -22,8 +22,7 @@ import userImage from "../../assets/images/user.png";
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const PASSWORD_REGEX =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const PHONE_REGEX =
     /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
@@ -95,17 +94,13 @@ const Permissions = () => {
         }
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/",
-                {
-                    full_name: name,
-                    email,
-                    password,
-                    position: JSON.stringify(position),
-                    phone,
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/employee/", {
+                full_name: name,
+                email,
+                password,
+                position: JSON.stringify(position),
+                phone,
+            })
             .then(() => {
                 setName("");
                 setEmail("");
@@ -119,23 +114,16 @@ const Permissions = () => {
             .catch((err) => {
                 let errors = err.response.data;
                 if (Object.keys(errors).indexOf("email") > -1) {
-                    toast.error(
-                        t("supplier_pages.permissions.create_fail_email")
-                    );
+                    toast.error(t("supplier_pages.permissions.create_fail_email"));
                 } else {
-                    toast.error(
-                        t("supplier_pages.permissions.create_fail_general")
-                    );
+                    toast.error(t("supplier_pages.permissions.create_fail_general"));
                 }
             });
     };
 
     const getEmployees = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/"
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/employee/")
             .then((res) => {
                 setEmployees(res.data);
             });
@@ -144,19 +132,16 @@ const Permissions = () => {
     const handleDelete = async (employee_id) => {
         await api
             .delete(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/supplier/employee/",
+                import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/employee/",
                 {
                     data: { employee_id },
-                }
+                },
             )
             .then(() => {
                 toast.success(t("supplier_pages.permissions.success"));
 
                 setEmployees((employees) => {
-                    return employees.filter(
-                        (employee) => employee.id !== employee_id
-                    );
+                    return employees.filter((employee) => employee.id !== employee_id);
                 });
             });
     };
@@ -179,9 +164,7 @@ const Permissions = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">
-                            {t("supplier_pages.settings.back")}
-                        </h5>{" "}
+                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
                     </Link>
                     <div className="main-body">
                         <div className="row">
@@ -204,9 +187,7 @@ const Permissions = () => {
                                                     type="text"
                                                     name="name"
                                                     className="form-control"
-                                                    placeholder={`${t(
-                                                        "full_name"
-                                                    )}...`}
+                                                    placeholder={`${t("full_name")}...`}
                                                     required
                                                     value={name}
                                                     onChange={(e) =>
@@ -222,15 +203,13 @@ const Permissions = () => {
                                                 >
                                                     <FaUserTie size="1.4rem" />
                                                     {t(
-                                                        "supplier_pages.permissions.position"
+                                                        "supplier_pages.permissions.position",
                                                     )}{" "}
                                                     *
                                                 </label>
                                                 <Select
                                                     closeMenuOnSelect={false}
-                                                    components={
-                                                        animatedComponents
-                                                    }
+                                                    components={animatedComponents}
                                                     isMulti
                                                     onChange={(e) => {
                                                         setPosition(e);
@@ -254,15 +233,11 @@ const Permissions = () => {
                                                         type="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder={`${t(
-                                                            "email"
-                                                        )}...`}
+                                                        placeholder={`${t("email")}...`}
                                                         required
                                                         value={email}
                                                         onChange={(e) =>
-                                                            setEmail(
-                                                                e.target.value
-                                                            )
+                                                            setEmail(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -285,9 +260,7 @@ const Permissions = () => {
                                                     inputClass="w-100"
                                                     value={phone}
                                                     id="phone"
-                                                    onChange={(e) =>
-                                                        setPhone(e)
-                                                    }
+                                                    onChange={(e) => setPhone(e)}
                                                 />
                                             </div>
                                         </div>
@@ -308,9 +281,7 @@ const Permissions = () => {
                                                     required
                                                     value={password}
                                                     onChange={(e) =>
-                                                        setPassword(
-                                                            e.target.value
-                                                        )
+                                                        setPassword(e.target.value)
                                                     }
                                                 />
                                             </div>
@@ -331,9 +302,7 @@ const Permissions = () => {
                                                     required
                                                     value={confirmPassword}
                                                     onChange={(e) =>
-                                                        setConfirmPassword(
-                                                            e.target.value
-                                                        )
+                                                        setConfirmPassword(e.target.value)
                                                     }
                                                 />
                                             </div>
@@ -344,9 +313,7 @@ const Permissions = () => {
                                                 type="submit"
                                                 className="gradient-bg-color w-100 py-2 text-white rounded shadow fw-bold login__btn d-flex align-items-center gap-2 justify-content-center"
                                             >
-                                                {t(
-                                                    "supplier_pages.permissions.submit"
-                                                )}
+                                                {t("supplier_pages.permissions.submit")}
                                                 <RiUserAddLine size="1.4rem" />
                                             </button>
                                         </div>
@@ -380,24 +347,17 @@ const Permissions = () => {
                                                         </div>
                                                         <div className="col-6 col-md-8 px-2 px-md-0">
                                                             <h3 className="text-capitalize fw-bold m-0 chat__user-name">
-                                                                {
-                                                                    employee.full_name
-                                                                }
+                                                                {employee.full_name}
                                                             </h3>
                                                             <p className="text-muted m-0 px-0 px-md-1 chat__user-message pt-2">
-                                                                {employee
-                                                                    ?.groups
-                                                                    ?.length >
-                                                                    0 &&
+                                                                {employee?.groups
+                                                                    ?.length > 0 &&
                                                                     employee.groups.map(
-                                                                        (
-                                                                            group,
-                                                                            i
-                                                                        ) => {
+                                                                        (group, i) => {
                                                                             const translationKey = `supplier_pages.permissions.${group}`;
                                                                             const translatedGroup =
                                                                                 t(
-                                                                                    translationKey
+                                                                                    translationKey,
                                                                                 );
                                                                             const isLastGroup =
                                                                                 i ===
@@ -409,7 +369,7 @@ const Permissions = () => {
                                                                             return isLastGroup
                                                                                 ? translatedGroup
                                                                                 : `${translatedGroup} - `;
-                                                                        }
+                                                                        },
                                                                     )}
                                                             </p>
                                                         </div>
@@ -418,13 +378,13 @@ const Permissions = () => {
                                                                 className="btn btn-outline-danger"
                                                                 onClick={() =>
                                                                     handleDelete(
-                                                                        employee?.id
+                                                                        employee?.id,
                                                                     )
                                                                 }
                                                                 type="button"
                                                             >
                                                                 {t(
-                                                                    "supplier_pages.edit_store.rem_pro"
+                                                                    "supplier_pages.edit_store.rem_pro",
                                                                 )}
                                                             </button>
                                                         </div>
@@ -434,9 +394,7 @@ const Permissions = () => {
                                         })
                                     ) : (
                                         <p className="text-center">
-                                            {t(
-                                                "supplier_pages.permissions.none"
-                                            )}
+                                            {t("supplier_pages.permissions.none")}
                                         </p>
                                     )}
                                 </div>

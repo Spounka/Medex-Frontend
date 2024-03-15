@@ -19,7 +19,6 @@ const CartContext = React.createContext<CartContextType>({
     },
 });
 
-
 // TODO: Refactor Cart Provider
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const { t } = useTranslation();
@@ -27,9 +26,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const [cartItems, setCartItems] = useState<Product[]>([]);
 
     const addToCart = (product: Product, newQty = 1) => {
-        let buttons = document.querySelectorAll(
-            `#item-cart-button-${product.sku}`,
-        );
+        let buttons = document.querySelectorAll(`#item-cart-button-${product.sku}`);
 
         const exist = cartItems.find((x) => x.sku === product.sku);
 

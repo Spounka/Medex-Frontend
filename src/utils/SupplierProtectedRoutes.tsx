@@ -19,7 +19,7 @@ const hasPermission = (requiredGroups = []) => {
     const { user } = useContext(AuthContext);
 
     const isUserInRequiredGroup = requiredGroups?.some((group) =>
-        user?.group_names?.includes(group)
+        user?.group_names?.includes(group),
     );
 
     return isUserInRequiredGroup;

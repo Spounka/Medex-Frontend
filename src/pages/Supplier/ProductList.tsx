@@ -25,7 +25,7 @@ const ProductList = (props) => {
                 import.meta.env.VITE_BACKEND_URL +
                     `/api/product/product/?supplier=${
                         user?.parent ? user?.parent : user.user_id
-                    }`
+                    }`,
             )
             .then((res) => {
                 setProducts(res.data);
@@ -68,9 +68,7 @@ const ProductList = (props) => {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-center">
-                                {t("buyer_pages.home.none")}!
-                            </p>
+                            <p className="text-center">{t("buyer_pages.home.none")}!</p>
                         )}
                     </div>
                 </div>

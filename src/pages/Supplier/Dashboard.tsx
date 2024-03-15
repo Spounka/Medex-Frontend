@@ -28,14 +28,13 @@ const Dashboard = () => {
 
     const [currentMonthlySales, setCurrentMonthlySales] = useState([]);
 
-    const [percentagePreviousMonthlySales, setPercentagePreviousMonthlySales] =
-        useState([]);
+    const [percentagePreviousMonthlySales, setPercentagePreviousMonthlySales] = useState(
+        [],
+    );
 
     const [monthlySalesCount, setMonthlySalesCount] = useState([]);
-    const [
-        percentagePreviousMonthlySalesCount,
-        setPercentagePreviousMonthlySalesCount,
-    ] = useState([]);
+    const [percentagePreviousMonthlySalesCount, setPercentagePreviousMonthlySalesCount] =
+        useState([]);
 
     const [monthlyBuyersCount, setMonthlyBuyersCount] = useState([]);
     const [
@@ -54,7 +53,7 @@ const Dashboard = () => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/order/orders/?p=${currentPage}&stats=${true}`
+                    `/api/order/orders/?p=${currentPage}&stats=${true}`,
             )
             .then((res) => {
                 setOrderItems(res.data.results.results);
@@ -63,9 +62,7 @@ const Dashboard = () => {
                 setMonths(res.data.results.stats.monthly_sales[0]);
                 setMonthlySales(res.data.results.stats.monthly_sales[1]);
 
-                setCurrentMonthlySales(
-                    res.data.results.stats.current_monthly_sales[0]
-                );
+                setCurrentMonthlySales(res.data.results.stats.current_monthly_sales[0]);
 
                 setDays(res.data.results.stats.daily_sales[0]);
                 setDailySales(res.data.results.stats.daily_sales[1]);
@@ -74,29 +71,21 @@ const Dashboard = () => {
 
                 setPercentagePreviousMonthlySales(
                     Math.round(
-                        parseFloat(
-                            res.data.results.stats.current_monthly_sales[1]
-                        )
-                    )
+                        parseFloat(res.data.results.stats.current_monthly_sales[1]),
+                    ),
                 );
-                setMonthlySalesCount(
-                    res.data.results.stats.monthly_sales_count[0]
-                );
+                setMonthlySalesCount(res.data.results.stats.monthly_sales_count[0]);
                 setPercentagePreviousMonthlySalesCount(
-                    Math.round(res.data.results.stats.monthly_sales_count[1])
+                    Math.round(res.data.results.stats.monthly_sales_count[1]),
                 );
 
-                setMonthlyBuyersCount(
-                    res.data.results.stats.monthly_buyers_count[0]
-                );
+                setMonthlyBuyersCount(res.data.results.stats.monthly_buyers_count[0]);
                 setPercentagePreviousMonthlyBuyersCount(
-                    Math.round(res.data.results.stats.monthly_buyers_count[1])
+                    Math.round(res.data.results.stats.monthly_buyers_count[1]),
                 );
-                setMonthlyThreadsCount(
-                    res.data.results.stats.monthly_threads_count[0]
-                );
+                setMonthlyThreadsCount(res.data.results.stats.monthly_threads_count[0]);
                 setPercentagePreviousMonthlyThreadsCount(
-                    Math.round(res.data.results.stats.monthly_threads_count[1])
+                    Math.round(res.data.results.stats.monthly_threads_count[1]),
                 );
             });
     };
@@ -122,9 +111,7 @@ const Dashboard = () => {
                                     <div className="col-9">
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                                {t(
-                                                    "supplier_pages.dashboard.new_orders"
-                                                )}
+                                                {t("supplier_pages.dashboard.new_orders")}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-2">
@@ -142,7 +129,7 @@ const Dashboard = () => {
                                                 }`}
                                             >
                                                 {Math.abs(
-                                                    percentagePreviousMonthlySalesCount
+                                                    percentagePreviousMonthlySalesCount,
                                                 )}
                                                 %
                                                 {percentagePreviousMonthlySalesCount >
@@ -163,9 +150,7 @@ const Dashboard = () => {
                                     <div className="col-9">
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                                {t(
-                                                    "supplier_pages.dashboard.new_buyers"
-                                                )}
+                                                {t("supplier_pages.dashboard.new_buyers")}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-2">
@@ -183,7 +168,7 @@ const Dashboard = () => {
                                                 }`}
                                             >
                                                 {Math.abs(
-                                                    percentagePreviousMonthlyBuyersCount
+                                                    percentagePreviousMonthlyBuyersCount,
                                                 )}
                                                 %
                                                 {percentagePreviousMonthlyBuyersCount >
@@ -204,9 +189,7 @@ const Dashboard = () => {
                                     <div className="col-9">
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                                {t(
-                                                    "supplier_pages.dashboard.monthly"
-                                                )}
+                                                {t("supplier_pages.dashboard.monthly")}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-2">
@@ -218,18 +201,14 @@ const Dashboard = () => {
                                             </h2>
                                             <div
                                                 className={`d-flex align-items-center gap-1 px-3 py-1 ${
-                                                    percentagePreviousMonthlySales >
-                                                    0
+                                                    percentagePreviousMonthlySales > 0
                                                         ? "gainColor"
                                                         : "lossColor"
                                                 }`}
                                             >
-                                                {Math.abs(
-                                                    percentagePreviousMonthlySales
-                                                )}
+                                                {Math.abs(percentagePreviousMonthlySales)}
                                                 %
-                                                {percentagePreviousMonthlySales >
-                                                0 ? (
+                                                {percentagePreviousMonthlySales > 0 ? (
                                                     <FaArrowTrendUp size="1rem" />
                                                 ) : (
                                                     <FaArrowTrendDown size="1rem" />
@@ -246,9 +225,7 @@ const Dashboard = () => {
                                     <div className="col-9">
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0  dashboard__stats-card-title">
-                                                {t(
-                                                    "supplier_pages.dashboard.messages"
-                                                )}
+                                                {t("supplier_pages.dashboard.messages")}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-2">
@@ -266,7 +243,7 @@ const Dashboard = () => {
                                                 }`}
                                             >
                                                 {Math.abs(
-                                                    percentagePreviousMonthlyThreadsCount
+                                                    percentagePreviousMonthlyThreadsCount,
                                                 )}
                                                 %
                                                 {percentagePreviousMonthlyThreadsCount >
@@ -304,32 +281,16 @@ const Dashboard = () => {
                                     <Button
                                         size="medium"
                                         onClick={() => setSlot("month")}
-                                        color={
-                                            slot === "month"
-                                                ? "primary"
-                                                : "inherit"
-                                        }
-                                        variant={
-                                            slot === "month"
-                                                ? "outlined"
-                                                : "text"
-                                        }
+                                        color={slot === "month" ? "primary" : "inherit"}
+                                        variant={slot === "month" ? "outlined" : "text"}
                                     >
                                         {t("supplier_pages.dashboard.month")}
                                     </Button>
                                     <Button
                                         size="medium"
                                         onClick={() => setSlot("week")}
-                                        color={
-                                            slot === "week"
-                                                ? "primary"
-                                                : "inherit"
-                                        }
-                                        variant={
-                                            slot === "week"
-                                                ? "outlined"
-                                                : "text"
-                                        }
+                                        color={slot === "week" ? "primary" : "inherit"}
+                                        variant={slot === "week" ? "outlined" : "text"}
                                     >
                                         {t("supplier_pages.dashboard.week")}
                                     </Button>
@@ -402,7 +363,7 @@ const Dashboard = () => {
                                                     }}
                                                 >
                                                     {t(
-                                                        "supplier_pages.update_product.buyer"
+                                                        "supplier_pages.update_product.buyer",
                                                     )}
                                                 </th>
                                                 <th
@@ -411,9 +372,7 @@ const Dashboard = () => {
                                                     }}
                                                     className="text-nowrap"
                                                 >
-                                                    {t(
-                                                        "buyer_pages.cart.product"
-                                                    )}
+                                                    {t("buyer_pages.cart.product")}
                                                 </th>
                                                 <th
                                                     style={{
@@ -429,9 +388,7 @@ const Dashboard = () => {
                                                     }}
                                                     className="text-nowrap"
                                                 >
-                                                    {t(
-                                                        "buyer_pages.cart.total"
-                                                    )}
+                                                    {t("buyer_pages.cart.total")}
                                                 </th>
                                                 <th
                                                     style={{
@@ -439,9 +396,7 @@ const Dashboard = () => {
                                                     }}
                                                     className="text-nowrap"
                                                 >
-                                                    {t(
-                                                        "buyer_pages.offers_list.status"
-                                                    )}
+                                                    {t("buyer_pages.offers_list.status")}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -456,16 +411,13 @@ const Dashboard = () => {
                                                             <div className="d-flex align-items-center gap-2">
                                                                 <img
                                                                     src={
-                                                                        order
-                                                                            .user
-                                                                            .profile
+                                                                        order.user.profile
                                                                             ?.profile_picture
                                                                             ? `
                                                             ${
                                                                 import.meta.env
                                                                     .VITE_BACKEND_URL +
-                                                                order.user
-                                                                    .profile
+                                                                order.user.profile
                                                                     .profile_picture
                                                             }
                                                             `
@@ -475,17 +427,11 @@ const Dashboard = () => {
                                                                     width={30}
                                                                     height={30}
                                                                 />
-                                                                {
-                                                                    order.user
-                                                                        .full_name
-                                                                }
+                                                                {order.user.full_name}
                                                             </div>
                                                         </td>
                                                         <td className="text-nowrap">
-                                                            {
-                                                                order?.product
-                                                                    ?.name
-                                                            }
+                                                            {order?.product?.name}
                                                         </td>
                                                         <td className="text-nowrap">
                                                             {order?.quantity}
@@ -505,7 +451,7 @@ const Dashboard = () => {
                                                                 }}
                                                             >
                                                                 {t(
-                                                                    "supplier_pages.dashboard.view"
+                                                                    "supplier_pages.dashboard.view",
                                                                 )}
                                                             </Link>
                                                         </td>
@@ -531,43 +477,39 @@ const Dashboard = () => {
                                                     "dashboard__pagination-disabled"
                                                 }`}
                                                 onClick={() =>
-                                                    setCurrentPage(
-                                                        () => currentPage - 1
-                                                    )
+                                                    setCurrentPage(() => currentPage - 1)
                                                 }
                                             >
                                                 {t("previous")}
                                             </button>
                                         </li>
 
-                                        {Array.from(
-                                            Array(totalPages).keys()
-                                        ).map((num) => (
-                                            <li className="page-item" key={num}>
-                                                <button
-                                                    onClick={() =>
-                                                        setCurrentPage(num + 1)
-                                                    }
-                                                    className="page-link"
+                                        {Array.from(Array(totalPages).keys()).map(
+                                            (num) => (
+                                                <li
+                                                    className="page-item"
+                                                    key={num}
                                                 >
-                                                    {num + 1}
-                                                </button>
-                                            </li>
-                                        ))}
+                                                    <button
+                                                        onClick={() =>
+                                                            setCurrentPage(num + 1)
+                                                        }
+                                                        className="page-link"
+                                                    >
+                                                        {num + 1}
+                                                    </button>
+                                                </li>
+                                            ),
+                                        )}
                                         <li className="page-item">
                                             <button
-                                                disabled={
-                                                    currentPage === totalPages
-                                                }
+                                                disabled={currentPage === totalPages}
                                                 className={`page-link text-white ${
-                                                    currentPage ===
-                                                        totalPages &&
+                                                    currentPage === totalPages &&
                                                     "dashboard__pagination-disabled"
                                                 }`}
                                                 onClick={() =>
-                                                    setCurrentPage(
-                                                        () => currentPage + 1
-                                                    )
+                                                    setCurrentPage(() => currentPage + 1)
                                                 }
                                             >
                                                 {t("next")}

@@ -45,9 +45,7 @@ const ReturnDetails = () => {
     const getRequest = async () => {
         try {
             const response = await api.get(
-                `${
-                    import.meta.env.VITE_BACKEND_URL
-                }/api/order/return/${requestID}/`
+                `${import.meta.env.VITE_BACKEND_URL}/api/order/return/${requestID}/`,
             );
             setRequest(response.data);
 
@@ -56,24 +54,21 @@ const ReturnDetails = () => {
                     let c = res.find(
                         (x) =>
                             x.id ==
-                            parseInt(
-                                response.data?.user?.shipping_address?.country
-                            )
+                            parseInt(response.data?.user?.shipping_address?.country),
                     );
                     setCountry(c?.name);
                 })
                 .then(() => {
                     return GetState(
-                        parseInt(response.data?.user?.shipping_address?.country)
+                        parseInt(response.data?.user?.shipping_address?.country),
                     ).then((res) => {
                         if (res.length > 0) {
                             let s = res.find(
                                 (x) =>
                                     x.id ==
                                     parseInt(
-                                        response.data?.user?.shipping_address
-                                            ?.state
-                                    )
+                                        response.data?.user?.shipping_address?.state,
+                                    ),
                             );
                             setState(s?.name);
                         }
@@ -81,19 +76,14 @@ const ReturnDetails = () => {
                 })
                 .then(() => {
                     return GetCity(
-                        parseInt(
-                            response.data?.user?.shipping_address?.country
-                        ),
-                        parseInt(response.data?.user?.shipping_address?.state)
+                        parseInt(response.data?.user?.shipping_address?.country),
+                        parseInt(response.data?.user?.shipping_address?.state),
                     ).then((res) => {
                         if (res.length > 0) {
                             let c = res.find(
                                 (x) =>
                                     x.id ==
-                                    parseInt(
-                                        response.data?.user?.shipping_address
-                                            ?.city
-                                    )
+                                    parseInt(response.data?.user?.shipping_address?.city),
                             );
                             setCity(c?.name);
                         }
@@ -114,7 +104,7 @@ const ReturnDetails = () => {
         await api
             .post(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/order/return/${requestID}/approve/`
+                    `/api/order/return/${requestID}/approve/`,
             )
             .then(() => {
                 setRequest((prevState) => ({
@@ -122,9 +112,7 @@ const ReturnDetails = () => {
                     status: "APR",
                 }));
 
-                toast.success(
-                    t("supplier_pages.return_request.approve_success")
-                );
+                toast.success(t("supplier_pages.return_request.approve_success"));
             });
     };
 
@@ -136,7 +124,7 @@ const ReturnDetails = () => {
                     `/api/order/return/${requestID}/decline/`,
                 {
                     reason: reason,
-                }
+                },
             )
             .then(() => {
                 let closeBtn = document.querySelector("#closeBtn");
@@ -148,9 +136,7 @@ const ReturnDetails = () => {
                     status: "DEC",
                 }));
 
-                toast.success(
-                    t("supplier_pages.return_request.decline_success")
-                );
+                toast.success(t("supplier_pages.return_request.decline_success"));
             });
     };
 
@@ -165,8 +151,7 @@ const ReturnDetails = () => {
                                     <div className="d-flex gap-3 align-items-center">
                                         <img
                                             src={
-                                                request?.user?.profile
-                                                    ?.profile_picture
+                                                request?.user?.profile?.profile_picture
                                                     ? request?.user?.profile
                                                           ?.profile_picture
                                                     : userImage
@@ -192,17 +177,11 @@ const ReturnDetails = () => {
                                             <FaRegFlag size="1.1rem" />
                                             {country} {state && `, ${state}`}{" "}
                                             {city && `, ${city}`}{" "}
-                                            {
-                                                request?.user?.shipping_address
-                                                    ?.postal_code
-                                            }
+                                            {request?.user?.shipping_address?.postal_code}
                                         </p>
                                         <span className="d-flex align-items-center gap-2">
                                             <FaLocationDot size="1.1rem" />
-                                            {
-                                                request?.user?.shipping_address
-                                                    ?.address_1
-                                            }
+                                            {request?.user?.shipping_address?.address_1}
                                             {request?.user?.shipping_address
                                                 ?.address_2 !== "" &&
                                                 `, ${request?.user?.shipping_address?.address_2}`}
@@ -218,15 +197,11 @@ const ReturnDetails = () => {
                                         <img
                                             src={
                                                 request?.product?.product?.thumbnail.startsWith(
-                                                    import.meta.env
-                                                        .VITE_BACKEND_URL
+                                                    import.meta.env.VITE_BACKEND_URL,
                                                 )
-                                                    ? request?.product?.product
-                                                          ?.thumbnail
-                                                    : import.meta.env
-                                                          .VITE_BACKEND_URL +
-                                                      request?.product?.product
-                                                          ?.thumbnail
+                                                    ? request?.product?.product?.thumbnail
+                                                    : import.meta.env.VITE_BACKEND_URL +
+                                                      request?.product?.product?.thumbnail
                                             }
                                             alt="Picture"
                                             id="Product Picture"
@@ -245,61 +220,43 @@ const ReturnDetails = () => {
                                             <FaRegCalendarCheck size="1rem" />
                                             <b>
                                                 {t(
-                                                    "supplier_pages.order_details.ordered"
+                                                    "supplier_pages.order_details.ordered",
                                                 )}
                                             </b>
-                                            <span>
-                                                {request?.product?.created_date}
-                                            </span>
+                                            <span>{request?.product?.created_date}</span>
                                         </p>
                                         <div className="d-flex align-items-center gap-2">
                                             <MdOutlineLocalShipping size="1.2rem" />
                                             <b>
-                                                {t(
-                                                    "supplier_pages.order_details.status"
-                                                )}
+                                                {t("supplier_pages.order_details.status")}
                                             </b>
                                             <span>
-                                                {request?.product
-                                                    ?.shipping_status == "DE" &&
-                                                    t(
-                                                        "supplier_pages.order_details.de"
-                                                    )}
-                                                {request?.product
-                                                    ?.shipping_status ==
+                                                {request?.product?.shipping_status ==
+                                                    "DE" &&
+                                                    t("supplier_pages.order_details.de")}
+                                                {request?.product?.shipping_status ==
                                                     "OTW" &&
-                                                    t(
-                                                        "supplier_pages.order_details.otw"
-                                                    )}
-                                                {request?.product
-                                                    ?.shipping_status == "P" &&
-                                                    t(
-                                                        "supplier_pages.order_details.p"
-                                                    )}
-                                                {request?.product
-                                                    ?.shipping_status == "OR" &&
-                                                    t(
-                                                        "supplier_pages.order_details.or"
-                                                    )}
+                                                    t("supplier_pages.order_details.otw")}
+                                                {request?.product?.shipping_status ==
+                                                    "P" &&
+                                                    t("supplier_pages.order_details.p")}
+                                                {request?.product?.shipping_status ==
+                                                    "OR" &&
+                                                    t("supplier_pages.order_details.or")}
                                             </span>
                                         </div>
                                         <div className="mt-3 d-flex align-items-center gap-2">
                                             <MdProductionQuantityLimits size="1.2rem" />
                                             <b>{t("buyer_pages.cart.qty")}</b>
-                                            <span>
-                                                {request?.product?.quantity}
-                                            </span>
+                                            <span>{request?.product?.quantity}</span>
                                         </div>
                                         <div className="mt-3 d-flex align-items-center gap-2">
                                             <MdOutlinePriceCheck size="1.3rem" />
                                             <b>
-                                                {t(
-                                                    "supplier_pages.quote_list.price_tot"
-                                                )}
+                                                {t("supplier_pages.quote_list.price_tot")}
                                             </b>
                                             <span>
-                                                {request?.product?.final_price}{" "}
-                                                {t("sar")}
+                                                {request?.product?.final_price} {t("sar")}
                                             </span>
                                         </div>
                                     </div>
@@ -311,84 +268,63 @@ const ReturnDetails = () => {
                         <div className="col-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <h5>
-                                        {t("buyer_pages.return_request.reason")}
-                                    </h5>
+                                    <h5>{t("buyer_pages.return_request.reason")}</h5>
                                     <p>
                                         {request?.reason == "POO" &&
-                                            t(
-                                                "buyer_pages.return_request.poor"
-                                            )}
+                                            t("buyer_pages.return_request.poor")}
 
                                         {request?.reason == "WRO" &&
-                                            t(
-                                                "buyer_pages.return_request.wrong"
-                                            )}
+                                            t("buyer_pages.return_request.wrong")}
 
                                         {request?.reason == "ADD" &&
-                                            t(
-                                                "buyer_pages.return_request.address"
-                                            )}
+                                            t("buyer_pages.return_request.address")}
                                     </p>
                                     <h5 className="mt-3">
-                                        {t(
-                                            "buyer_pages.return_request.description"
-                                        )}
+                                        {t("buyer_pages.return_request.description")}
                                     </h5>
                                     <p>{request?.description}</p>
                                     <h5 className="mt-3">
-                                        {t(
-                                            "buyer_pages.return_request.evidence"
-                                        )}
+                                        {t("buyer_pages.return_request.evidence")}
                                     </h5>
 
                                     <div className="d-flex align-items-center gap-3">
-                                        {request?.evidence_files?.map(
-                                            (file, index) => (
-                                                <Link
-                                                    key={index}
-                                                    to={
-                                                        import.meta.env
-                                                            .VITE_BACKEND_URL +
-                                                        file.evidence_file
-                                                    }
-                                                    target="_blank"
-                                                >
-                                                    <span className="badge border border-primary text-dark d-flex align-items-center gap-2">
-                                                        {file.evidence_file
-                                                            .toLowerCase()
-                                                            .endsWith("mp4") ||
-                                                        file.evidence_file
-                                                            .toLowerCase()
-                                                            .endsWith("wav") ||
-                                                        file.evidence_file
-                                                            .toLowerCase()
-                                                            .endsWith("avi") ? (
-                                                            <FaPhotoVideo size="1.5rem" />
-                                                        ) : file.evidence_file
-                                                              .toLowerCase()
-                                                              .endsWith(
-                                                                  "jpg"
-                                                              ) ||
-                                                          file.evidence_file
-                                                              .toLowerCase()
-                                                              .endsWith(
-                                                                  "jpeg"
-                                                              ) ||
-                                                          file.evidence_file
-                                                              .toLowerCase()
-                                                              .endsWith(
-                                                                  "png"
-                                                              ) ? (
-                                                            <FaImage size="1.5rem" />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        <span>{index + 1}</span>
-                                                    </span>
-                                                </Link>
-                                            )
-                                        )}
+                                        {request?.evidence_files?.map((file, index) => (
+                                            <Link
+                                                key={index}
+                                                to={
+                                                    import.meta.env.VITE_BACKEND_URL +
+                                                    file.evidence_file
+                                                }
+                                                target="_blank"
+                                            >
+                                                <span className="badge border border-primary text-dark d-flex align-items-center gap-2">
+                                                    {file.evidence_file
+                                                        .toLowerCase()
+                                                        .endsWith("mp4") ||
+                                                    file.evidence_file
+                                                        .toLowerCase()
+                                                        .endsWith("wav") ||
+                                                    file.evidence_file
+                                                        .toLowerCase()
+                                                        .endsWith("avi") ? (
+                                                        <FaPhotoVideo size="1.5rem" />
+                                                    ) : file.evidence_file
+                                                          .toLowerCase()
+                                                          .endsWith("jpg") ||
+                                                      file.evidence_file
+                                                          .toLowerCase()
+                                                          .endsWith("jpeg") ||
+                                                      file.evidence_file
+                                                          .toLowerCase()
+                                                          .endsWith("png") ? (
+                                                        <FaImage size="1.5rem" />
+                                                    ) : (
+                                                        ""
+                                                    )}
+                                                    <span>{index + 1}</span>
+                                                </span>
+                                            </Link>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -410,7 +346,7 @@ const ReturnDetails = () => {
                                                 <IoCheckmarkDone size="1.3rem" />
                                                 <span>
                                                     {t(
-                                                        "supplier_pages.return_request.approve"
+                                                        "supplier_pages.return_request.approve",
                                                     )}
                                                 </span>
                                             </button>
@@ -424,7 +360,7 @@ const ReturnDetails = () => {
                                             <GiCancel size="1.2rem" />
                                             <span>
                                                 {t(
-                                                    "supplier_pages.return_request.decline"
+                                                    "supplier_pages.return_request.decline",
                                                 )}
                                             </span>
                                         </button>
@@ -447,29 +383,24 @@ const ReturnDetails = () => {
                                                                 <textarea
                                                                     className="form-control"
                                                                     placeholder={t(
-                                                                        "supplier_pages.return_request.reason_placeholder"
+                                                                        "supplier_pages.return_request.reason_placeholder",
                                                                     )}
                                                                     id="floatingTextarea2"
                                                                     style={{
                                                                         height: "250px",
                                                                     }}
-                                                                    value={
-                                                                        reason
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) =>
+                                                                    value={reason}
+                                                                    onChange={(e) =>
                                                                         setReason(
-                                                                            e
-                                                                                .target
-                                                                                .value
+                                                                            e.target
+                                                                                .value,
                                                                         )
                                                                     }
                                                                     required
                                                                 ></textarea>
                                                                 <label htmlFor="floatingTextarea2">
                                                                     {t(
-                                                                        "supplier_pages.return_request.reason"
+                                                                        "supplier_pages.return_request.reason",
                                                                     )}
                                                                 </label>
                                                             </div>
@@ -482,7 +413,7 @@ const ReturnDetails = () => {
                                                                 id="closeBtn"
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.cancel"
+                                                                    "buyer_pages.profile.cancel",
                                                                 )}
                                                             </button>
                                                             <button
@@ -490,7 +421,7 @@ const ReturnDetails = () => {
                                                                 className="btn btn-danger"
                                                             >
                                                                 {t(
-                                                                    "supplier_pages.return_request.decline"
+                                                                    "supplier_pages.return_request.decline",
                                                                 )}
                                                             </button>
                                                         </div>
@@ -503,13 +434,11 @@ const ReturnDetails = () => {
                                 {request?.status == "DEC" && (
                                     <div className="card-body text-center">
                                         <h4>
-                                            {t(
-                                                "supplier_pages.return_request.status"
-                                            )}
+                                            {t("supplier_pages.return_request.status")}
                                         </h4>
                                         <p className="mt-3">
                                             {t(
-                                                "supplier_pages.return_request.decline_msg"
+                                                "supplier_pages.return_request.decline_msg",
                                             )}
                                         </p>
                                     </div>
@@ -518,13 +447,11 @@ const ReturnDetails = () => {
                                 {request?.status == "APR" && (
                                     <div className="card-body text-center">
                                         <h4>
-                                            {t(
-                                                "supplier_pages.return_request.status"
-                                            )}
+                                            {t("supplier_pages.return_request.status")}
                                         </h4>
                                         <p className="mt-3">
                                             {t(
-                                                "supplier_pages.return_request.approve_msg"
+                                                "supplier_pages.return_request.approve_msg",
                                             )}
                                         </p>
                                     </div>

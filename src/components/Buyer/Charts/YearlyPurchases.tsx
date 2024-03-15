@@ -17,7 +17,7 @@ Chart.register(
     LineElement,
     Filler,
     Tooltip,
-    Legend
+    Legend,
 );
 
 const YearlyPurchases = (props) => {
@@ -31,12 +31,7 @@ const YearlyPurchases = (props) => {
         if (!gradient || width !== chartWidth || height !== chartHeight) {
             width = chartWidth;
             height = chartHeight;
-            gradient = ctx.createLinearGradient(
-                0,
-                chartArea.bottom,
-                0,
-                chartArea.top
-            );
+            gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
             gradient.addColorStop(0, "#0C60FF");
             gradient.addColorStop(0.5, "#3A8BFF");
             gradient.addColorStop(1, "#80B6FF");

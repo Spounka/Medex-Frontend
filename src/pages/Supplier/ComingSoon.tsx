@@ -21,9 +21,7 @@ const ComingSoon = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">
-                            {t("supplier_pages.settings.back")}
-                        </h5>{" "}
+                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
                     </Link>
                     <div className="main-body">
                         <div className="row">

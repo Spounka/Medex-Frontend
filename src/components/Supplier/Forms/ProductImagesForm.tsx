@@ -32,10 +32,7 @@ const ProductImagesForm = ({
 
     const handleFileChange = (e) => {
         const selectedFile = Array.from(e.target.files);
-        const { isValid } = validateFileExtensions(
-            selectedFile,
-            ALLOWED_EXTENSIONS
-        );
+        const { isValid } = validateFileExtensions(selectedFile, ALLOWED_EXTENSIONS);
         if (!isValid) {
             toast.error(t("buyer_pages.profile.file_type_err"));
             if (window.location.href.indexOf("update") === -1) {
@@ -111,7 +108,10 @@ const ProductImagesForm = ({
                 {update && (
                     <div className="mt-3 px-2 update__link">
                         <span>{t("currently")}: &nbsp;</span>
-                        <Link to={thumbnail} target="_blank">
+                        <Link
+                            to={thumbnail}
+                            target="_blank"
+                        >
                             {thumbnail}
                         </Link>
                     </div>
@@ -137,7 +137,10 @@ const ProductImagesForm = ({
                         {otherImages[0] != "" && (
                             <>
                                 <span>Currently: &nbsp;</span>
-                                <Link to={otherImages[0]} target="_blank">
+                                <Link
+                                    to={otherImages[0]}
+                                    target="_blank"
+                                >
                                     {otherImages[0]}
                                 </Link>
                             </>
@@ -161,7 +164,10 @@ const ProductImagesForm = ({
                         {otherImages[1] != "" && (
                             <>
                                 <span>Currently: &nbsp;</span>
-                                <Link to={otherImages[1]} target="_blank">
+                                <Link
+                                    to={otherImages[1]}
+                                    target="_blank"
+                                >
                                     {otherImages[1]}
                                 </Link>
                             </>
@@ -185,7 +191,10 @@ const ProductImagesForm = ({
                         {otherImages[2] != "" && (
                             <>
                                 <span>Currently: &nbsp;</span>
-                                <Link to={otherImages[2]} target="_blank">
+                                <Link
+                                    to={otherImages[2]}
+                                    target="_blank"
+                                >
                                     {otherImages[2]}
                                 </Link>
                             </>
@@ -209,7 +218,10 @@ const ProductImagesForm = ({
                         {otherImages[3] != "" && (
                             <>
                                 <span>Currently: &nbsp;</span>
-                                <Link to={otherImages[3]} target="_blank">
+                                <Link
+                                    to={otherImages[3]}
+                                    target="_blank"
+                                >
                                     {otherImages[3]}
                                 </Link>
                             </>

@@ -16,7 +16,7 @@ const Cart = (props) => {
 
     const subtotal = cartItems?.reduce(
         (a, c) => a + (c.sale_price > 0 ? c.sale_price : c.price) * c.qty,
-        0
+        0,
     );
 
     const handleItemDelete = (product) => {
@@ -78,9 +78,7 @@ const Cart = (props) => {
                                                 <div className="cart__table-title gap-2 cart__table-col-1 d-flex align-items-center">
                                                     <div className="w-25">
                                                         <img
-                                                            src={
-                                                                product.thumbnail
-                                                            }
+                                                            src={product.thumbnail}
                                                             alt="Product"
                                                             className="img-fluid rounded shadow cart__table-img"
                                                         />
@@ -89,8 +87,7 @@ const Cart = (props) => {
                                                         <Link
                                                             to={`/products/${product.sku}`}
                                                             state={{
-                                                                product:
-                                                                    product,
+                                                                product: product,
                                                             }}
                                                             className="cart__table-link"
                                                         >
@@ -108,17 +105,13 @@ const Cart = (props) => {
                                                 <div className="cart__table-col-3 d-flex align-items-center gap-1 gap-md-3">
                                                     <NumberPicker
                                                         id={`qty-${product.sku}`}
-                                                        defaultValue={
-                                                            product.qty
-                                                        }
+                                                        defaultValue={product.qty}
                                                         min={0}
-                                                        max={
-                                                            product.stock_quantity
-                                                        }
+                                                        max={product.stock_quantity}
                                                         onChange={(e) => {
                                                             handleQuantityChange(
                                                                 e,
-                                                                product
+                                                                product,
                                                             );
                                                         }}
                                                         className="w-75 w-md-50"
@@ -128,9 +121,7 @@ const Cart = (props) => {
                                                         size="1.6rem"
                                                         className="cart__delete-icon"
                                                         onClick={() =>
-                                                            handleItemDelete(
-                                                                product
-                                                            )
+                                                            handleItemDelete(product)
                                                         }
                                                     />
                                                 </div>
@@ -138,8 +129,7 @@ const Cart = (props) => {
                                                     {(
                                                         (product.sale_price > 0
                                                             ? product.sale_price
-                                                            : product.price) *
-                                                        product.qty
+                                                            : product.price) * product.qty
                                                     ).toFixed(2)}
                                                 </div>
                                             </div>

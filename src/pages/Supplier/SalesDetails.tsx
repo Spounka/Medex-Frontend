@@ -48,27 +48,23 @@ const OrderDetails = () => {
                         (x) =>
                             x.id ==
                             parseInt(
-                                location?.state?.order?.user?.shipping_address
-                                    ?.country
-                            )
+                                location?.state?.order?.user?.shipping_address?.country,
+                            ),
                     );
                     setCountry(c?.name);
                 })
                 .then(() => {
                     return GetState(
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.country
-                        )
+                        parseInt(location?.state?.order?.user?.shipping_address?.country),
                     ).then((res) => {
                         if (res.length > 0) {
                             let s = res.find(
                                 (x) =>
                                     x.id ==
                                     parseInt(
-                                        location?.state?.order?.user
-                                            ?.shipping_address?.state
-                                    )
+                                        location?.state?.order?.user?.shipping_address
+                                            ?.state,
+                                    ),
                             );
                             setState(s?.name);
                         }
@@ -76,23 +72,17 @@ const OrderDetails = () => {
                 })
                 .then(() => {
                     return GetCity(
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.country
-                        ),
-                        parseInt(
-                            location?.state?.order?.user?.shipping_address
-                                ?.state
-                        )
+                        parseInt(location?.state?.order?.user?.shipping_address?.country),
+                        parseInt(location?.state?.order?.user?.shipping_address?.state),
                     ).then((res) => {
                         if (res.length > 0) {
                             let c = res.find(
                                 (x) =>
                                     x.id ==
                                     parseInt(
-                                        location?.state?.order?.user
-                                            ?.shipping_address?.city
-                                    )
+                                        location?.state?.order?.user?.shipping_address
+                                            ?.city,
+                                    ),
                             );
                             setCity(c?.name);
                         }
@@ -103,7 +93,7 @@ const OrderDetails = () => {
 
             try {
                 const response = await api.get(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/order/${orderID}/`
+                    `${import.meta.env.VITE_BACKEND_URL}/api/order/${orderID}/`,
                 );
                 setOrder(response.data);
 
@@ -112,27 +102,21 @@ const OrderDetails = () => {
                         let c = res.find(
                             (x) =>
                                 x.id ==
-                                parseInt(
-                                    response.data?.user?.shipping_address
-                                        ?.country
-                                )
+                                parseInt(response.data?.user?.shipping_address?.country),
                         );
                         setCountry(c?.name);
                     })
                     .then(() => {
                         return GetState(
-                            parseInt(
-                                response.data?.user?.shipping_address?.country
-                            )
+                            parseInt(response.data?.user?.shipping_address?.country),
                         ).then((res) => {
                             if (res.length > 0) {
                                 let s = res.find(
                                     (x) =>
                                         x.id ==
                                         parseInt(
-                                            response.data?.user
-                                                ?.shipping_address?.state
-                                        )
+                                            response.data?.user?.shipping_address?.state,
+                                        ),
                                 );
                                 setState(s?.name);
                             }
@@ -140,21 +124,16 @@ const OrderDetails = () => {
                     })
                     .then(() => {
                         return GetCity(
-                            parseInt(
-                                response.data?.user?.shipping_address?.country
-                            ),
-                            parseInt(
-                                response.data?.user?.shipping_address?.state
-                            )
+                            parseInt(response.data?.user?.shipping_address?.country),
+                            parseInt(response.data?.user?.shipping_address?.state),
                         ).then((res) => {
                             if (res.length > 0) {
                                 let c = res.find(
                                     (x) =>
                                         x.id ==
                                         parseInt(
-                                            response.data?.user
-                                                ?.shipping_address?.city
-                                        )
+                                            response.data?.user?.shipping_address?.city,
+                                        ),
                                 );
                                 setCity(c?.name);
                             }
@@ -215,22 +194,18 @@ const OrderDetails = () => {
                                 </p>
                                 <p className="text-xs d-flex align-items-center gap-2">
                                     <MdOutlineCalendarMonth size="1.3rem" />
-                                    {t(
-                                        "supplier_pages.order_details.ordered"
-                                    )}: {order?.created_date}
+                                    {t("supplier_pages.order_details.ordered")}:{" "}
+                                    {order?.created_date}
                                 </p>
 
                                 <p className="text-xs d-flex align-items-center gap-2">
                                     <MdProductionQuantityLimits size="1.3rem" />
-                                    {t("buyer_pages.cart.qty")}:{" "}
-                                    {order?.quantity}
+                                    {t("buyer_pages.cart.qty")}: {order?.quantity}
                                 </p>
 
                                 <h6 className="text-xs d-flex align-items-center gap-2">
                                     <MdOutlinePriceCheck size="1.3rem" />
-                                    {t(
-                                        "supplier_pages.quote_list.price_tot"
-                                    )}{" "}
+                                    {t("supplier_pages.quote_list.price_tot")}{" "}
                                     {order?.final_price} {t("sar")}
                                 </h6>
                             </div>
@@ -252,14 +227,12 @@ const OrderDetails = () => {
                                         <div className="d-flex flex-column justify-content-center align-items-center gap-3">
                                             <img
                                                 src={
-                                                    order?.user?.profile
-                                                        ?.profile_picture
+                                                    order?.user?.profile?.profile_picture
                                                         ? `
                                                             ${
                                                                 import.meta.env
                                                                     .VITE_BACKEND_URL +
-                                                                order?.user
-                                                                    ?.profile
+                                                                order?.user?.profile
                                                                     ?.profile_picture
                                                             }
                                                             `
@@ -270,9 +243,7 @@ const OrderDetails = () => {
                                                 width={120}
                                                 height={120}
                                             />
-                                            <span>
-                                                {order?.user?.full_name}
-                                            </span>
+                                            <span>{order?.user?.full_name}</span>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-9">
@@ -287,21 +258,13 @@ const OrderDetails = () => {
                                         <p className="text-xs d-flex align-items-center gap-2">
                                             <CiLocationOn size="1.3rem" />
                                             {t(
-                                                "supplier_pages.order_details.ship_add"
-                                            )}
-                                            : {country}{" "}
-                                            {state != "" && `, ${state}`}
-                                            {
-                                                order?.user?.shipping_address
-                                                    ?.postal_code
-                                            }
+                                                "supplier_pages.order_details.ship_add",
+                                            )}: {country} {state != "" && `, ${state}`}
+                                            {order?.user?.shipping_address?.postal_code}
                                             {city != "" && `, ${city}`},{" "}
-                                            {
-                                                order?.user?.shipping_address
-                                                    ?.address_1
-                                            }
-                                            {order?.user?.shipping_address
-                                                ?.address_2 !== "" &&
+                                            {order?.user?.shipping_address?.address_1}
+                                            {order?.user?.shipping_address?.address_2 !==
+                                                "" &&
                                                 `, ${order?.user?.shipping_address?.address_2}`}
                                         </p>
                                     </div>

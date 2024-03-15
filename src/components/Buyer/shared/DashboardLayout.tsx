@@ -9,7 +9,10 @@ const DashboardLayout = () => {
 
     return (
         <>
-            <SidebarToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <SidebarToggle
+                menuOpen={menuOpen}
+                setMenuOpen={setMenuOpen}
+            />
 
             <div className="d-flex">
                 <Sidebar menuOpen={menuOpen} />

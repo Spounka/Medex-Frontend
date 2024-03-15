@@ -24,7 +24,7 @@ const Contact = () => {
                 },
                 {
                     "Content-type": "application/json",
-                }
+                },
             )
             .then(() => {
                 toast.success(`${t("buyer_pages.contact_us.success")}!`);
@@ -58,7 +58,10 @@ const Contact = () => {
                         <div className="col-12 col-md-6">
                             <h3 className="contact__title">Contact Us</h3>
                             <div className="flex flex-column justify-content-center align-items-center mt-5">
-                                <form method="post" onSubmit={handleSubmit}>
+                                <form
+                                    method="post"
+                                    onSubmit={handleSubmit}
+                                >
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -97,7 +100,7 @@ const Contact = () => {
                                         <textarea
                                             className="form-control"
                                             placeholder={`${t(
-                                                "buyer_pages.buyer_pages.message"
+                                                "buyer_pages.buyer_pages.message",
                                             )}...`}
                                             id="floatingCommentTextarea"
                                             name="message"
@@ -108,9 +111,7 @@ const Contact = () => {
                                             htmlFor="floatingCommentTextarea"
                                             className="contact__form-label"
                                         >
-                                            {t(
-                                                "buyer_pages.contact_us.message"
-                                            )}
+                                            {t("buyer_pages.contact_us.message")}
                                         </label>
                                     </div>
                                     <div className="row mt-2">

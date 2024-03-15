@@ -26,10 +26,7 @@ const CreateProductExcel = () => {
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-        const { isValid } = validateFileExtensions(
-            selectedFiles,
-            ALLOWED_EXTENSIONS
-        );
+        const { isValid } = validateFileExtensions(selectedFiles, ALLOWED_EXTENSIONS);
         if (!isValid) {
             toast.error(t("supplier_pages.create_product_excel.file_type_err"));
             fileRef.current.value = null;
@@ -42,12 +39,9 @@ const CreateProductExcel = () => {
         e.preventDefault();
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + "/api/product/excel-create/",
-                {
-                    excelFile: excelFile,
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/product/excel-create/", {
+                excelFile: excelFile,
+            })
             .then(() => {
                 fileRef.current.value = null;
                 toast.success(t("supplier_pages.create_product_excel.success"));
@@ -79,7 +73,7 @@ const CreateProductExcel = () => {
                                     >
                                         <MdOutlineFilePresent size="1.8rem" />
                                         {t(
-                                            "supplier_pages.create_product_excel.file_label"
+                                            "supplier_pages.create_product_excel.file_label",
                                         )}
                                     </label>
                                     <input
@@ -94,20 +88,18 @@ const CreateProductExcel = () => {
                                     <div className="form-text">
                                         <div className="d-flex align-items-center gap-2 mb-1">
                                             <AiOutlineExclamationCircle size="1.2rem" />
-                                            {t(
-                                                "supplier_pages.create_product_excel.tip"
-                                            )}
+                                            {t("supplier_pages.create_product_excel.tip")}
                                         </div>
                                         <ol>
                                             <li className="mt-3">
                                                 {t(
-                                                    "supplier_pages.create_product_excel.tip1"
+                                                    "supplier_pages.create_product_excel.tip1",
                                                 )}
                                                 .
                                             </li>
                                             <li className="mt-3">
                                                 {t(
-                                                    "supplier_pages.create_product_excel.tip2"
+                                                    "supplier_pages.create_product_excel.tip2",
                                                 )}
                                                 :
                                                 <br />
@@ -117,42 +109,42 @@ const CreateProductExcel = () => {
                                                     download={true}
                                                 >
                                                     {t(
-                                                        "supplier_pages.create_product_excel.tip2_image"
+                                                        "supplier_pages.create_product_excel.tip2_image",
                                                     )}
                                                 </a>
                                                 .
                                             </li>
                                             <li className="mt-3">
                                                 {t(
-                                                    "supplier_pages.create_product_excel.tip3"
+                                                    "supplier_pages.create_product_excel.tip3",
                                                 )}
                                                 :
                                                 <ul>
                                                     <li className="mt-2">
                                                         {t(
-                                                            "supplier_pages.create_product_excel.tip3_1"
+                                                            "supplier_pages.create_product_excel.tip3_1",
                                                         )}
                                                     </li>
                                                     <li className="mt-2">
                                                         {t(
-                                                            "supplier_pages.create_product_excel.tip3_2"
+                                                            "supplier_pages.create_product_excel.tip3_2",
                                                         )}
                                                     </li>
                                                     <li className="mt-2">
                                                         {t(
-                                                            "supplier_pages.create_product_excel.tip3_3"
+                                                            "supplier_pages.create_product_excel.tip3_3",
                                                         )}
                                                     </li>
                                                 </ul>
                                             </li>
                                             <li className="mt-3">
                                                 {t(
-                                                    "supplier_pages.create_product_excel.tip4"
+                                                    "supplier_pages.create_product_excel.tip4",
                                                 )}
                                             </li>
                                             <li className="mt-3">
                                                 {t(
-                                                    "supplier_pages.create_product_excel.tip5"
+                                                    "supplier_pages.create_product_excel.tip5",
                                                 )}
                                             </li>
                                         </ol>
@@ -163,9 +155,7 @@ const CreateProductExcel = () => {
                                     className="btn btn-primary px-5 d-flex align-items-center gap-3"
                                 >
                                     <IoCloudUploadOutline size="1.3rem" />
-                                    {t(
-                                        "supplier_pages.create_product_excel.submit"
-                                    )}
+                                    {t("supplier_pages.create_product_excel.submit")}
                                 </button>
                             </form>
                         </div>

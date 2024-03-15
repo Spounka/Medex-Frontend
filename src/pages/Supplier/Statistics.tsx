@@ -21,9 +21,7 @@ const Statistics = () => {
     const [customersCountPercentage, setCustomersCountPercentage] = useState(0);
 
     const [orderStatistics, setOrderStatistics] = useState({});
-    const [orderStatisticsPercentage, setOrderStatisticsPercentage] = useState(
-        {}
-    );
+    const [orderStatisticsPercentage, setOrderStatisticsPercentage] = useState({});
 
     const [quoteStatistics, setQuoteStatistics] = useState({});
 
@@ -45,20 +43,18 @@ const Statistics = () => {
 
                 setCustomersCount(res?.data?.monthly_customers_count);
                 setCustomersCountPercentage(
-                    res?.data?.monthly_customers_count_percentage
+                    res?.data?.monthly_customers_count_percentage,
                 );
 
                 setOrderStatistics(res?.data?.monthly_orders_statistics);
                 setOrderStatisticsPercentage(
-                    res?.data?.monthly_orders_statistics_percentage
+                    res?.data?.monthly_orders_statistics_percentage,
                 );
 
                 setQuoteStatistics(res?.data?.monthly_quotes_statistics);
 
                 setSalesCount(res?.data?.monthly_sales_count);
-                setSalesCountPercentage(
-                    res?.data?.monthly_sales_count_percentage
-                );
+                setSalesCountPercentage(res?.data?.monthly_sales_count_percentage);
 
                 setTopBuyersStatistics(res?.data?.top_buyers_statistics);
             });
@@ -77,9 +73,7 @@ const Statistics = () => {
                 </h2>
                 <div className="mt-5">
                     <h4 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                        {t(
-                            "supplier_pages.statistics.monthly_orders_statistics"
-                        )}
+                        {t("supplier_pages.statistics.monthly_orders_statistics")}
                     </h4>
                     <div className={`d-flex flex-wrap as`}>
                         <div className="mt-3">
@@ -89,14 +83,13 @@ const Statistics = () => {
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
                                                 {t(
-                                                    "supplier_pages.statistics.orders_max"
+                                                    "supplier_pages.statistics.orders_max",
                                                 )}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                                {orderStatistics?.highest_sale >
-                                                0
+                                                {orderStatistics?.highest_sale > 0
                                                     ? orderStatistics?.highest_sale
                                                     : 0}
                                             </h2>
@@ -110,8 +103,8 @@ const Statistics = () => {
                                             >
                                                 {Math.abs(
                                                     Math.round(
-                                                        orderStatisticsPercentage?.highest_sale
-                                                    )
+                                                        orderStatisticsPercentage?.highest_sale,
+                                                    ),
                                                 )}
                                                 %
                                                 {orderStatisticsPercentage?.highest_sale >
@@ -133,14 +126,13 @@ const Statistics = () => {
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
                                                 {t(
-                                                    "supplier_pages.statistics.orders_min"
+                                                    "supplier_pages.statistics.orders_min",
                                                 )}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                                {orderStatistics?.lowest_sale >
-                                                0
+                                                {orderStatistics?.lowest_sale > 0
                                                     ? orderStatistics?.lowest_sale
                                                     : 0}
                                             </h2>
@@ -154,8 +146,8 @@ const Statistics = () => {
                                             >
                                                 {Math.abs(
                                                     Math.round(
-                                                        orderStatisticsPercentage?.lowest_sale
-                                                    )
+                                                        orderStatisticsPercentage?.lowest_sale,
+                                                    ),
                                                 )}
                                                 %
                                                 {orderStatisticsPercentage?.lowest_sale >
@@ -177,16 +169,15 @@ const Statistics = () => {
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
                                                 {t(
-                                                    "supplier_pages.statistics.orders_avg"
+                                                    "supplier_pages.statistics.orders_avg",
                                                 )}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                                {orderStatistics?.average_sale >
-                                                0
+                                                {orderStatistics?.average_sale > 0
                                                     ? orderStatistics?.average_sale.toFixed(
-                                                          2
+                                                          2,
                                                       )
                                                     : 0}
                                             </h2>
@@ -200,8 +191,8 @@ const Statistics = () => {
                                             >
                                                 {Math.abs(
                                                     Math.round(
-                                                        orderStatisticsPercentage?.average_sale
-                                                    )
+                                                        orderStatisticsPercentage?.average_sale,
+                                                    ),
                                                 )}
                                                 %
                                                 {orderStatisticsPercentage?.average_sale >
@@ -245,15 +236,13 @@ const Statistics = () => {
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
                                                 {t(
-                                                    "supplier_pages.statistics.monthly_sales"
+                                                    "supplier_pages.statistics.monthly_sales",
                                                 )}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                                {salesCount > 0
-                                                    ? salesCount
-                                                    : 0}
+                                                {salesCount > 0 ? salesCount : 0}
                                             </h2>
                                             <div
                                                 className={`d-flex align-items-center gap-1 px-3 py-1 ${
@@ -263,9 +252,7 @@ const Statistics = () => {
                                                 }`}
                                             >
                                                 {Math.abs(
-                                                    Math.round(
-                                                        salesCountPercentage
-                                                    )
+                                                    Math.round(salesCountPercentage),
                                                 )}
                                                 %
                                                 {salesCountPercentage > 0 ? (
@@ -286,16 +273,12 @@ const Statistics = () => {
                                     <div className="col-9">
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                                {t(
-                                                    "supplier_pages.dashboard.new_buyers"
-                                                )}
+                                                {t("supplier_pages.dashboard.new_buyers")}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="mb-0 dashboard__stats-card-text">
-                                                {customersCount > 0
-                                                    ? customersCount
-                                                    : 0}
+                                                {customersCount > 0 ? customersCount : 0}
                                             </h2>
                                             <div
                                                 className={`d-flex align-items-center gap-1 px-3 py-1 ${
@@ -304,12 +287,8 @@ const Statistics = () => {
                                                         : "lossColor"
                                                 }`}
                                             >
-                                                {Math.abs(
-                                                    customersCountPercentage
-                                                )}
-                                                %
-                                                {customersCountPercentage >
-                                                0 ? (
+                                                {Math.abs(customersCountPercentage)}%
+                                                {customersCountPercentage > 0 ? (
                                                     <FaArrowTrendUp size="1rem" />
                                                 ) : (
                                                     <FaArrowTrendDown size="1rem" />
@@ -328,15 +307,13 @@ const Statistics = () => {
                                         <div className="mb-4">
                                             <h5 className="card-title mb-0 dashboard__stats-card-title">
                                                 {t(
-                                                    "supplier_pages.statistics.product_count"
+                                                    "supplier_pages.statistics.product_count",
                                                 )}
                                             </h5>
                                         </div>
                                         <div className="d-flex align-items-center gap-3">
                                             <h2 className="mb-0 dashboard__stats-card-text">
-                                                {totalProducts > 0
-                                                    ? totalProducts
-                                                    : 0}
+                                                {totalProducts > 0 ? totalProducts : 0}
                                             </h2>
                                         </div>
                                     </div>
@@ -352,9 +329,7 @@ const Statistics = () => {
                     </h4>
                     <div className="row">
                         <div className="col-12">
-                            <QuoteStatisticsChart
-                                quoteStatistics={quoteStatistics}
-                            />
+                            <QuoteStatisticsChart quoteStatistics={quoteStatistics} />
                         </div>
                     </div>
                 </div>
@@ -364,7 +339,10 @@ const Statistics = () => {
                         {t("supplier_pages.statistics.best_buyers_statistics")}
                     </h4>
                     <div className="row my-5">
-                        <div className="col-12" style={{ height: "350px" }}>
+                        <div
+                            className="col-12"
+                            style={{ height: "350px" }}
+                        >
                             <UserSpendingsChart
                                 topBuyersStatistics={topBuyersStatistics}
                             />

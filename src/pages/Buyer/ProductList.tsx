@@ -2,10 +2,7 @@ import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
 import { BiCategoryAlt, BiSearchAlt, BiFilterAlt } from "react-icons/bi";
 import { TbZoomMoney, TbCurrencyDollarOff } from "react-icons/tb";
-import {
-    AiOutlineCloseCircle,
-    AiOutlineSafetyCertificate,
-} from "react-icons/ai";
+import { AiOutlineCloseCircle, AiOutlineSafetyCertificate } from "react-icons/ai";
 import { BsSortUpAlt } from "react-icons/bs";
 
 import Slider from "react-slider";
@@ -35,19 +32,17 @@ const OurStore = (props) => {
     const [query, setQuery] = useState("name");
 
     const [keywordFilter, setKeywordFilter] = useState(
-        queryParameters.get("keyword") ? queryParameters.get("keyword") : ""
+        queryParameters.get("keyword") ? queryParameters.get("keyword") : "",
     );
     const [onSaleFilter, setOnSaleFilter] = useState(false);
     const [categoryFilter, setCategoryFilter] = useState(
-        queryParameters.get("category") ? queryParameters.get("category") : ""
+        queryParameters.get("category") ? queryParameters.get("category") : "",
     );
     const [subCategoryFilter, setSubCategoryFilter] = useState(
-        queryParameters.get("sub-category")
-            ? queryParameters.get("sub-category")
-            : ""
+        queryParameters.get("sub-category") ? queryParameters.get("sub-category") : "",
     );
     const [brandFilter, setBrandFilter] = useState(
-        queryParameters.get("brand") ? queryParameters.get("brand") : ""
+        queryParameters.get("brand") ? queryParameters.get("brand") : "",
     );
     const [priceValues, setPriceValues] = useState([MIN, MAX]);
 
@@ -57,7 +52,7 @@ const OurStore = (props) => {
 
     const fetchBrands = async () => {
         const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`,
         );
         const brandOptions = response.data.map((brand) => ({
             value: brand.slug,
@@ -68,7 +63,7 @@ const OurStore = (props) => {
 
     const fetchCategories = async () => {
         const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
         );
         const categoryOptions = response.data.map((category) => ({
             value: category.slug,
@@ -82,7 +77,7 @@ const OurStore = (props) => {
             .get(
                 `${
                     import.meta.env.VITE_BACKEND_URL
-                }/api/product/category?level=1&parent=${catName}`
+                }/api/product/category?level=1&parent=${catName}`,
             )
             .then((res) => {
                 const categoryOptions = res.data.map((category) => ({
@@ -156,17 +151,28 @@ const OurStore = (props) => {
                     </div>
                     <div className="row mt-2 mt-md-3 ">
                         <div className="col-12 col-md-3">
-                            <div className="d-md-none" >
+                            <div className="d-md-none">
                                 <button
                                     onClick={showFilterMenu}
                                     className="w-75 mx-auto py-1 mb-1 fw-bold text-center d-flex justify-content-center align-items-center gap-2"
-                                    style={{backgroundColor:"white", border:"1px solid #8e65c1", color:"#8e65c1", borderRadius:"5px"}}
+                                    style={{
+                                        backgroundColor: "white",
+                                        border: "1px solid #8e65c1",
+                                        color: "#8e65c1",
+                                        borderRadius: "5px",
+                                    }}
                                 >
                                     <BiFilterAlt size="1.2rem" />
                                     {t("buyer_pages.products_list.filter")}
                                 </button>
                             </div>
-                            <div className="store__filter-card mb-3 store__filter-menu" style={{boxShadow: 'none', border:'1px solid rgb(210, 210, 208)'}}>
+                            <div
+                                className="store__filter-card mb-3 store__filter-menu"
+                                style={{
+                                    boxShadow: "none",
+                                    border: "1px solid rgb(210, 210, 208)",
+                                }}
+                            >
                                 <div className="row mt-3 d-block d-md-none">
                                     <div className="col-12 text-end">
                                         <AiOutlineCloseCircle
@@ -184,9 +190,9 @@ const OurStore = (props) => {
                                     type="text"
                                     name="keyword"
                                     className="form-control"
-                                    style={{borderRight:"1px solid #bbbbbb"}}
+                                    style={{ borderRight: "1px solid #bbbbbb" }}
                                     placeholder={`${t(
-                                        "buyer_pages.products_list.type"
+                                        "buyer_pages.products_list.type",
                                     )}...`}
                                     onInput={(e) => {
                                         queryParameters.delete("keyword");
@@ -204,7 +210,7 @@ const OurStore = (props) => {
                                     classNamePrefix="select"
                                     isClearable={true}
                                     placeholder={`${t(
-                                        "buyer_pages.products_list.select_cat"
+                                        "buyer_pages.products_list.select_cat",
                                     )}`}
                                     isSearchable={true}
                                     name="category"
@@ -229,7 +235,7 @@ const OurStore = (props) => {
                                     classNamePrefix="select"
                                     isClearable={true}
                                     placeholder={`${t(
-                                        "buyer_pages.products_list.select_subcategory"
+                                        "buyer_pages.products_list.select_subcategory",
                                     )}`}
                                     isSearchable={true}
                                     name="subCategory"
@@ -254,7 +260,7 @@ const OurStore = (props) => {
                                     classNamePrefix="select"
                                     isClearable={true}
                                     placeholder={`${t(
-                                        "buyer_pages.products_list.select_brand"
+                                        "buyer_pages.products_list.select_brand",
                                     )}`}
                                     isSearchable={true}
                                     name="brand"
@@ -308,15 +314,16 @@ const OurStore = (props) => {
                                         className="form-check-label"
                                         htmlFor="sale"
                                     >
-                                        {t(
-                                            "buyer_pages.products_list.product_sale"
-                                        )}
+                                        {t("buyer_pages.products_list.product_sale")}
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-9">
-                            <div className="store__sorting-menu py-2" style={{border: '1px solid #d2d2d0'}}>
+                            <div
+                                className="store__sorting-menu py-2"
+                                style={{ border: "1px solid #d2d2d0" }}
+                            >
                                 <div className="d-flex align-items-center gap-5">
                                     <p className="mb-0 d-flex align-items-center gap-2">
                                         <BsSortUpAlt size="1.5rem" />
@@ -326,40 +333,26 @@ const OurStore = (props) => {
                                         name="sort"
                                         className="form-control form-select store__sorting-select"
                                         defaultValue="alphabet_ascending"
-                                        style={{borderRight:"1px solid #bbbbbb"}}
-                                        onChange={(e) =>
-                                            setQuery(e.target.value)
-                                        }
+                                        style={{ borderRight: "1px solid #bbbbbb" }}
+                                        onChange={(e) => setQuery(e.target.value)}
                                     >
                                         <option value="name">
-                                            {t(
-                                                "buyer_pages.products_list.al_az"
-                                            )}
+                                            {t("buyer_pages.products_list.al_az")}
                                         </option>
                                         <option value="-name">
-                                            {t(
-                                                "buyer_pages.products_list.al_za"
-                                            )}
+                                            {t("buyer_pages.products_list.al_za")}
                                         </option>
                                         <option value="blended_price">
-                                            {t(
-                                                "buyer_pages.products_list.pr_a"
-                                            )}
+                                            {t("buyer_pages.products_list.pr_a")}
                                         </option>
                                         <option value="-blended_price">
-                                            {t(
-                                                "buyer_pages.products_list.pr_d"
-                                            )}
+                                            {t("buyer_pages.products_list.pr_d")}
                                         </option>
                                         <option value="created">
-                                            {t(
-                                                "buyer_pages.products_list.da_a"
-                                            )}
+                                            {t("buyer_pages.products_list.da_a")}
                                         </option>
                                         <option value="-created">
-                                            {t(
-                                                "buyer_pages.products_list.da_d"
-                                            )}
+                                            {t("buyer_pages.products_list.da_d")}
                                         </option>
                                     </select>
                                 </div>

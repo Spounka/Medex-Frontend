@@ -15,11 +15,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import {
-    BsGlobeEuropeAfrica,
-    BsPhoneVibrate,
-    BsSignpost2,
-} from "react-icons/bs";
+import { BsGlobeEuropeAfrica, BsPhoneVibrate, BsSignpost2 } from "react-icons/bs";
 import {
     MdDeleteOutline,
     MdLocationCity,
@@ -78,10 +74,7 @@ const PersonalSettings = () => {
 
     const handleFileChange = (e) => {
         const selectedFile = Array.from(e.target.files);
-        const { isValid } = validateFileExtensions(
-            selectedFile,
-            ALLOWED_EXTENSIONS
-        );
+        const { isValid } = validateFileExtensions(selectedFile, ALLOWED_EXTENSIONS);
         if (!isValid) {
             toast.error(t("buyer_pages.profile.file_type_err"));
             fileRef.current.value = null;
@@ -136,10 +129,7 @@ const PersonalSettings = () => {
         setUser(updatedUser);
 
         await api
-            .patch(
-                import.meta.env.VITE_BACKEND_URL + "/api/account/profile/",
-                formData
-            )
+            .patch(import.meta.env.VITE_BACKEND_URL + "/api/account/profile/", formData)
             .then(() => {
                 toast.success(`${t("buyer_pages.profile.updated")}!`);
             });
@@ -155,43 +145,38 @@ const PersonalSettings = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) =>
-                                    x.id ==
-                                    parseInt(data.shipping_address.country)
+                                (x) => x.id == parseInt(data.shipping_address.country),
                             );
                             setCountry(c);
                             handleCountryChange(c);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data.shipping_address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id ==
-                                            parseInt(
-                                                data.shipping_address.state
-                                            )
-                                    );
-                                    setState(s);
-                                    handleStateChange(
-                                        data.shipping_address.country,
-                                        s
-                                    );
-                                }
-                            });
+                            return GetState(parseInt(data.shipping_address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) =>
+                                                x.id ==
+                                                parseInt(data.shipping_address.state),
+                                        );
+                                        setState(s);
+                                        handleStateChange(
+                                            data.shipping_address.country,
+                                            s,
+                                        );
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data.shipping_address.country),
-                                parseInt(data.shipping_address.state)
+                                parseInt(data.shipping_address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
-                                            x.id ==
-                                            parseInt(data.shipping_address.city)
+                                            x.id == parseInt(data.shipping_address.city),
                                     );
                                     setCity(c);
                                 }
@@ -201,39 +186,34 @@ const PersonalSettings = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) =>
-                                    x.id ==
-                                    parseInt(data.shipping_address.country)
+                                (x) => x.id == parseInt(data.shipping_address.country),
                             );
                             console.log(c);
                             setCountry(c.name);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data.shipping_address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id ==
-                                            parseInt(
-                                                data.shipping_address.state
-                                            )
-                                    );
-                                    setState(s.name);
-                                }
-                            });
+                            return GetState(parseInt(data.shipping_address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) =>
+                                                x.id ==
+                                                parseInt(data.shipping_address.state),
+                                        );
+                                        setState(s.name);
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data.shipping_address.country),
-                                parseInt(data.shipping_address.state)
+                                parseInt(data.shipping_address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
-                                            x.id ==
-                                            parseInt(data.shipping_address.city)
+                                            x.id == parseInt(data.shipping_address.city),
                                     );
                                     setCity(c.name);
                                 }
@@ -257,7 +237,7 @@ const PersonalSettings = () => {
 
         if (userId == user.user_id) {
             const countryInput = document.querySelector(
-                "#country > div.col-sm-9 > div > div > div > input"
+                "#country > div.col-sm-9 > div > div > div > input",
             );
 
             countryInput.setAttribute("required", true);
@@ -275,13 +255,9 @@ const PersonalSettings = () => {
         formData.append("profile_picture", e.target.profilePicture.files[0]);
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + "/api/account/profile/",
-                formData,
-                {
-                    "Content-Type": "multipart/form-data",
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/account/profile/", formData, {
+                "Content-Type": "multipart/form-data",
+            })
             .then(() => {
                 toast.success(`${t("buyer_pages.profile.pic_updated")}!`);
             })
@@ -291,9 +267,7 @@ const PersonalSettings = () => {
     };
 
     const removeProfilePicture = async () => {
-        document
-            .getElementById("userProfilePicture")
-            .setAttribute("src", userImage);
+        document.getElementById("userProfilePicture").setAttribute("src", userImage);
 
         await api
             .post(import.meta.env.VITE_BACKEND_URL + "/api/account/profile/", {
@@ -306,15 +280,12 @@ const PersonalSettings = () => {
 
     const deleteProfileSubmit = async () => {
         await api
-            .delete(
-                import.meta.env.VITE_BACKEND_URL + "/api/account/profile/",
-                {
-                    Authorization: `Bearer ${authTokens.access}`,
-                    data: {
-                        id: user.user_id,
-                    },
-                }
-            )
+            .delete(import.meta.env.VITE_BACKEND_URL + "/api/account/profile/", {
+                Authorization: `Bearer ${authTokens.access}`,
+                data: {
+                    id: user.user_id,
+                },
+            })
             .then(() => {
                 logoutUser();
                 toast.success(`${t("buyer_pages.profile.del_success")}!`);
@@ -338,9 +309,7 @@ const PersonalSettings = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">
-                            {t("supplier_pages.settings.back")}
-                        </h5>{" "}
+                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
                     </Link>
                     <div className="main-body">
                         <div className="row">
@@ -371,9 +340,7 @@ const PersonalSettings = () => {
                                                 {userId == user.user_id && (
                                                     <form
                                                         encType="multipart/form-data"
-                                                        onSubmit={
-                                                            changeProfilePicture
-                                                        }
+                                                        onSubmit={changeProfilePicture}
                                                     >
                                                         <div className="mt-5 d-flex justify-content-between gap-5 align-items-center">
                                                             <button
@@ -384,7 +351,7 @@ const PersonalSettings = () => {
                                                                 className="btn btn-outline-danger d-flex gap-2 align-items-center"
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.rem_pic"
+                                                                    "buyer_pages.profile.rem_pic",
                                                                 )}
                                                                 <MdOutlineFolderDelete size="1.4rem" />
                                                             </button>
@@ -400,13 +367,11 @@ const PersonalSettings = () => {
                                                             />
                                                             <button
                                                                 type="button"
-                                                                onClick={
-                                                                    handleFileUpload
-                                                                }
+                                                                onClick={handleFileUpload}
                                                                 className="btn btn-outline-primary d-flex gap-2 align-items-center"
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.update_pic"
+                                                                    "buyer_pages.profile.update_pic",
                                                                 )}
                                                                 <TbPhotoEdit size="1.4rem" />
                                                             </button>
@@ -417,12 +382,11 @@ const PersonalSettings = () => {
                                                                 type="submit"
                                                                 className="gradient-bg-color text-white border-0 w-100 justify-content-center py-2 d-flex gap-2 align-items-center"
                                                                 style={{
-                                                                    borderRadius:
-                                                                        "5px",
+                                                                    borderRadius: "5px",
                                                                 }}
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.save"
+                                                                    "buyer_pages.profile.save",
                                                                 )}
                                                                 <TfiSave size="1.4rem" />
                                                             </button>
@@ -441,11 +405,7 @@ const PersonalSettings = () => {
                                     >
                                         <div className="card-body">
                                             <div className="d-flex flex-column align-items-center text-center">
-                                                <h3>
-                                                    {t(
-                                                        "buyer_pages.profile.opt"
-                                                    )}
-                                                </h3>
+                                                <h3>{t("buyer_pages.profile.opt")}</h3>
 
                                                 <div
                                                     className="overlay d-none justify-content-center align-items-center"
@@ -454,7 +414,7 @@ const PersonalSettings = () => {
                                                     <div className="popup">
                                                         <p>
                                                             {t(
-                                                                "buyer_pages.profile.conf"
+                                                                "buyer_pages.profile.conf",
                                                             )}
                                                             ?
                                                         </p>
@@ -467,7 +427,7 @@ const PersonalSettings = () => {
                                                                 }
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.cancel"
+                                                                    "buyer_pages.profile.cancel",
                                                                 )}
                                                                 <MdOutlineCancel size="1.4rem" />
                                                             </button>
@@ -479,7 +439,7 @@ const PersonalSettings = () => {
                                                                 }
                                                             >
                                                                 {t(
-                                                                    "buyer_pages.profile.del"
+                                                                    "buyer_pages.profile.del",
                                                                 )}
                                                                 <BiCheckDouble size="1.4rem" />
                                                             </button>
@@ -495,14 +455,10 @@ const PersonalSettings = () => {
                                                         <MdOutlineRequestQuote size="1.4rem" />
                                                     </Link>
                                                     <button
-                                                        onClick={
-                                                            deleteProfileShowOverlay
-                                                        }
+                                                        onClick={deleteProfileShowOverlay}
                                                         className="btn btn-outline-danger d-flex gap-2 align-items-center"
                                                     >
-                                                        {t(
-                                                            "buyer_pages.profile.del_btn"
-                                                        )}
+                                                        {t("buyer_pages.profile.del_btn")}
                                                         <MdDeleteOutline size="1.4rem" />
                                                     </button>
                                                 </div>
@@ -516,32 +472,20 @@ const PersonalSettings = () => {
                                 >
                                     <div className="card-body">
                                         <div className="d-flex flex-column align-items-center text-center">
-                                            <h4>
-                                                {t(
-                                                    "supplier_pages.settings.change"
-                                                )}
-                                            </h4>
+                                            <h4>{t("supplier_pages.settings.change")}</h4>
                                             <select
                                                 onChange={(data) =>
-                                                    i18n.changeLanguage(
-                                                        data.target.value
-                                                    )
+                                                    i18n.changeLanguage(data.target.value)
                                                 }
-                                                defaultValue={
-                                                    i18n.resolvedLanguage
-                                                }
+                                                defaultValue={i18n.resolvedLanguage}
                                                 type="text"
                                                 className="form-select mt-2"
                                             >
                                                 <option value="en">
-                                                    {t(
-                                                        "buyer_pages.profile.en"
-                                                    )}
+                                                    {t("buyer_pages.profile.en")}
                                                 </option>
                                                 <option value="ar">
-                                                    {t(
-                                                        "buyer_pages.profile.ar"
-                                                    )}
+                                                    {t("buyer_pages.profile.ar")}
                                                 </option>
                                             </select>
                                         </div>
@@ -576,8 +520,7 @@ const PersonalSettings = () => {
                                                             value={fullName}
                                                             onChange={(e) =>
                                                                 setFullName(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             required
@@ -597,10 +540,7 @@ const PersonalSettings = () => {
                                                             className="form-control"
                                                             value={email}
                                                             onChange={(e) =>
-                                                                setEmail(
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                                setEmail(e.target.value)
                                                             }
                                                             required
                                                         />
@@ -618,14 +558,10 @@ const PersonalSettings = () => {
                                                     </div>
                                                     <div className="col-sm-9 text-secondary">
                                                         <CountrySelect
-                                                            defaultValue={
-                                                                country
-                                                            }
+                                                            defaultValue={country}
                                                             onChange={(e) => {
                                                                 setCountry(e);
-                                                                handleCountryChange(
-                                                                    e
-                                                                );
+                                                                handleCountryChange(e);
                                                             }}
                                                         />
                                                     </div>
@@ -643,18 +579,16 @@ const PersonalSettings = () => {
                                                     >
                                                         <StateSelect
                                                             defaultValue={state}
-                                                            countryid={
-                                                                country.id
-                                                            }
+                                                            countryid={country.id}
                                                             onChange={(e) => {
                                                                 setState(e);
                                                                 handleStateChange(
                                                                     country.id,
-                                                                    e
+                                                                    e,
                                                                 );
                                                             }}
                                                             placeHolder={`${t(
-                                                                "select_state"
+                                                                "select_state",
                                                             )}`}
                                                         />
                                                     </div>
@@ -671,16 +605,14 @@ const PersonalSettings = () => {
                                                         id="city"
                                                     >
                                                         <CitySelect
-                                                            countryid={
-                                                                country.id
-                                                            }
+                                                            countryid={country.id}
                                                             stateid={state.id}
                                                             defaultValue={city}
                                                             onChange={(e) => {
                                                                 setCity(e);
                                                             }}
                                                             placeHolder={`${t(
-                                                                "select_city"
+                                                                "select_city",
                                                             )}`}
                                                         />
                                                     </div>
@@ -698,10 +630,7 @@ const PersonalSettings = () => {
                                                             className="form-control"
                                                             value={postal}
                                                             onChange={(e) =>
-                                                                setPostal(
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                                setPostal(e.target.value)
                                                             }
                                                             required
                                                         />
@@ -721,8 +650,7 @@ const PersonalSettings = () => {
                                                             value={address1}
                                                             onChange={(e) =>
                                                                 setAddress1(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             required
@@ -743,12 +671,11 @@ const PersonalSettings = () => {
                                                             value={address2}
                                                             onChange={(e) =>
                                                                 setAddress2(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             placeholder={`${t(
-                                                                "address2"
+                                                                "address2",
                                                             )}...`}
                                                         />
                                                     </div>
@@ -763,18 +690,14 @@ const PersonalSettings = () => {
                                                     <div className="col-sm-9 text-secondary">
                                                         <PhoneInput
                                                             // localization={ar}
-                                                            countryCodeEditable={
-                                                                false
-                                                            }
+                                                            countryCodeEditable={false}
                                                             name="phone"
                                                             specialLabel=""
                                                             required={true}
                                                             inputClass="w-100"
                                                             value={phone}
                                                             id="phone"
-                                                            onChange={(e) =>
-                                                                setPhone(e)
-                                                            }
+                                                            onChange={(e) => setPhone(e)}
                                                         />
                                                     </div>
                                                 </div>
@@ -786,12 +709,11 @@ const PersonalSettings = () => {
                                                             type="submit"
                                                             className="p-2 gradient-bg-color text-white border-0 px-5 d-flex gap-2 align-items-center"
                                                             style={{
-                                                                borderRadius:
-                                                                    "5px",
+                                                                borderRadius: "5px",
                                                             }}
                                                         >
                                                             {t(
-                                                                "buyer_pages.profile.edit"
+                                                                "buyer_pages.profile.edit",
                                                             )}
 
                                                             <BiEditAlt size="1.4rem" />
@@ -813,12 +735,8 @@ const PersonalSettings = () => {
 
 const handleCountryChange = (e) => {
     GetState(parseInt(e.id)).then((result) => {
-        let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input"
-        );
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
-        );
+        let stateSelect = document.querySelector("#state .stdropdown-input>input");
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
 
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
@@ -833,9 +751,7 @@ const handleCountryChange = (e) => {
 
 const handleStateChange = (countryId, e) => {
     GetCity(parseInt(countryId), parseInt(e.id)).then((result) => {
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
-        );
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
 
         if (result.length > 0) {
             citySelect.setAttribute("required", true);

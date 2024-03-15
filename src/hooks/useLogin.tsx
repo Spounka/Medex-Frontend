@@ -9,11 +9,23 @@ import { Product } from "../types/product.ts";
 import { NavigateFunction } from "react-router-dom";
 import { TFunction } from "i18next";
 
-export function useLogin({ setAuthTokens, setUser, navigate, t }: {
-    setAuthTokens: (value: (((prevState: ResponseToken) => ResponseToken) | ResponseToken)) => void,
-    setUser: (value: (((prevState: (DecodedUser | null)) => (DecodedUser | null)) | DecodedUser | null)) => void,
-    navigate: NavigateFunction,
-    t: TFunction<"translation", undefined>
+export function useLogin({
+    setAuthTokens,
+    setUser,
+    navigate,
+    t,
+}: {
+    setAuthTokens: (
+        value: ((prevState: ResponseToken) => ResponseToken) | ResponseToken,
+    ) => void;
+    setUser: (
+        value:
+            | ((prevState: DecodedUser | null) => DecodedUser | null)
+            | DecodedUser
+            | null,
+    ) => void;
+    navigate: NavigateFunction;
+    t: TFunction<"translation", undefined>;
 }) {
     const baseURL = import.meta.env.VITE_BACKEND_URL;
     return async (email: string, password: string, rememberMe: boolean) => {

@@ -47,9 +47,7 @@ const ProductCard = (props) => {
             : [];
 
         cartItems.forEach((item) => {
-            let buttons = document.querySelectorAll(
-                `#item-cart-button-${item.sku}`
-            );
+            let buttons = document.querySelectorAll(`#item-cart-button-${item.sku}`);
 
             if (item.qty < item.stock_quantity) {
                 buttons.forEach((btn) => {
@@ -65,7 +63,10 @@ const ProductCard = (props) => {
     }, []);
 
     return (
-        <div className="cardd card home__card" style={{ borderRadius: "5px" }}>
+        <div
+            className="cardd card home__card"
+            style={{ borderRadius: "5px" }}
+        >
             <Link
                 to={`/products/${product.sku}`}
                 state={{ product: product }}
@@ -76,8 +77,7 @@ const ProductCard = (props) => {
                         user
                             ? user.role == "buyer"
                                 ? product.thumbnail
-                                : import.meta.env.VITE_BACKEND_URL +
-                                  product.thumbnail
+                                : import.meta.env.VITE_BACKEND_URL + product.thumbnail
                             : product.thumbnail
                     }
                     className="card-img-top home__card-img"

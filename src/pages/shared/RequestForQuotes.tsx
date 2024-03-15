@@ -46,9 +46,7 @@ const RequestForQuotes = () => {
 
     const getSuppliers = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/list/"
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/list/")
             .then((res) => {
                 const nameOptions = res.data.map((supplier) => ({
                     value: supplier.id,
@@ -119,9 +117,7 @@ const RequestForQuotes = () => {
     return (
         <main className="w-100">
             <section
-                className={`${
-                    window.location.href.indexOf("supplier") === -1 && "py-5"
-                }`}
+                className={`${window.location.href.indexOf("supplier") === -1 && "py-5"}`}
             >
                 <div className="container">
                     {window.location.href.indexOf("supplier") > -1 ||
@@ -139,8 +135,7 @@ const RequestForQuotes = () => {
                     <div className="row">
                         <div
                             className={`mt-5 col-12 px-4 ${
-                                window.location.href.indexOf("supplier") ===
-                                    -1 &&
+                                window.location.href.indexOf("supplier") === -1 &&
                                 window.location.href.indexOf("dashboard") === -1
                                     ? "mx-auto"
                                     : "mt-4"
@@ -184,9 +179,7 @@ const RequestForQuotes = () => {
                                         className="basic-single"
                                         classNamePrefix="select"
                                         isClearable={true}
-                                        placeholder={`${t(
-                                            "shared.rfq.supplier"
-                                        )}`}
+                                        placeholder={`${t("shared.rfq.supplier")}`}
                                         isSearchable={true}
                                         name="supplier"
                                         options={supplierNameOptions}
@@ -393,11 +386,9 @@ const clearInput = () => {
 };
 
 const countLetters = () => {
-    let text_length = document.querySelector("textarea[name=requirements]")
-        .value.length;
+    let text_length = document.querySelector("textarea[name=requirements]").value.length;
 
-    document.getElementById("count_message").innerHTML =
-        text_length + " / " + TEXT_MAX;
+    document.getElementById("count_message").innerHTML = text_length + " / " + TEXT_MAX;
 };
 
 export default RequestForQuotes;

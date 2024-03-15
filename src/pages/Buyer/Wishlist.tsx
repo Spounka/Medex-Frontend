@@ -13,11 +13,9 @@ const Wishlist = () => {
     const api = useAxios();
 
     const getWishlistProducts = async () => {
-        await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/wishlist/")
-            .then((res) => {
-                setWishlistProducts(res.data);
-            });
+        await api.get(import.meta.env.VITE_BACKEND_URL + "/api/wishlist/").then((res) => {
+            setWishlistProducts(res.data);
+        });
     };
 
     useEffect(() => {

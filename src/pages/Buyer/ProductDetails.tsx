@@ -9,11 +9,7 @@ import { IoTicketOutline } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiCategoryAlt, BiSolidCategoryAlt } from "react-icons/bi";
 import { BsCart3, BsShare } from "react-icons/bs";
-import {
-    MdFavoriteBorder,
-    MdFavorite,
-    MdOutlineContactMail,
-} from "react-icons/md";
+import { MdFavoriteBorder, MdFavorite, MdOutlineContactMail } from "react-icons/md";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { LuWarehouse } from "react-icons/lu";
 import { TbTruckReturn } from "react-icons/tb";
@@ -52,7 +48,7 @@ const ProductDetails = (props) => {
                 const response = await axios.get(
                     `${
                         import.meta.env.VITE_BACKEND_URL
-                    }/api/product/product/${productID}`
+                    }/api/product/product/${productID}`,
                 );
                 setProduct(response.data);
             } catch (err) {
@@ -66,28 +62,26 @@ const ProductDetails = (props) => {
     }, []);
 
     useEffect(() => {
-        document
-            .querySelectorAll(".details__image-container")
-            .forEach((elem) => {
-                let x, y, width, height;
+        document.querySelectorAll(".details__image-container").forEach((elem) => {
+            let x, y, width, height;
 
-                elem.addEventListener("mouseenter", () => {
-                    const size = elem.getBoundingClientRect();
+            elem.addEventListener("mouseenter", () => {
+                const size = elem.getBoundingClientRect();
 
-                    x = size.x;
-                    y = size.y;
-                    width = size.width;
-                    height = size.height;
-                });
-
-                elem.addEventListener("mousemove", (e) => {
-                    let horizontal = ((e.clientX - x) / width) * 100;
-                    let vertical = ((e.clientY - y) / height) * 100;
-
-                    elem.style.setProperty("--x", horizontal + "%");
-                    elem.style.setProperty("--y", vertical + "%");
-                });
+                x = size.x;
+                y = size.y;
+                width = size.width;
+                height = size.height;
             });
+
+            elem.addEventListener("mousemove", (e) => {
+                let horizontal = ((e.clientX - x) / width) * 100;
+                let vertical = ((e.clientY - y) / height) * 100;
+
+                elem.style.setProperty("--x", horizontal + "%");
+                elem.style.setProperty("--y", vertical + "%");
+            });
+        });
     }, []);
 
     const [isInWishlist, setIsInWishlist] = useState(false);
@@ -100,8 +94,7 @@ const ProductDetails = (props) => {
     };
 
     useEffect(() => {
-        const wishlistArray =
-            JSON.parse(localStorage.getItem("wishlist")) || [];
+        const wishlistArray = JSON.parse(localStorage.getItem("wishlist")) || [];
 
         setIsInWishlist(wishlistArray.includes(product?.sku));
     }, [product?.sku]);
@@ -116,7 +109,10 @@ const ProductDetails = (props) => {
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <div className="details__image-container shadow">
-                                <img src={product?.thumbnail} alt="Product" />
+                                <img
+                                    src={product?.thumbnail}
+                                    alt="Product"
+                                />
                             </div>
 
                             <div className="detail__other-images">
@@ -192,10 +188,7 @@ const ProductDetails = (props) => {
                                         <p className="fw-bold d-flex align-items-center gap-2">
                                             <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                                 <PiMoney size="1.4rem" />
-                                                {t(
-                                                    "buyer_pages.product_details.was"
-                                                )}
-                                                :
+                                                {t("buyer_pages.product_details.was")}:
                                             </span>
 
                                             <span className="text-decoration-line-through">
@@ -208,10 +201,7 @@ const ProductDetails = (props) => {
                                     <p className="fw-bold d-flex align-items-center gap-2">
                                         <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                             <PiMoney size="1.4rem" />
-                                            {t(
-                                                "buyer_pages.product_details.now"
-                                            )}
-                                            :
+                                            {t("buyer_pages.product_details.now")}:
                                         </span>
                                         {product?.price > 0 && (
                                             <span className="detail__title">
@@ -229,28 +219,23 @@ const ProductDetails = (props) => {
                                             </span>
                                         )}
                                         <span className="text-muted fw-normal">
-                                            {t(
-                                                "buyer_pages.product_details.incl"
-                                            )}
+                                            {t("buyer_pages.product_details.incl")}
                                         </span>
                                     </p>
 
                                     <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                         <LuWarehouse size="1.3rem" />
-                                        {t("buyer_pages.product_details.avail")}
-                                        :{" "}
+                                        {t("buyer_pages.product_details.avail")}:{" "}
                                         {product?.is_available &&
                                         product?.stock_quantity > 0 ? (
                                             <>
-                                                {t(
-                                                    "buyer_pages.product_details.in"
-                                                )}{" "}
-                                                ({product?.stock_quantity} left)
+                                                {t("buyer_pages.product_details.in")} (
+                                                {product?.stock_quantity} left)
                                             </>
                                         ) : (
                                             <span>
                                                 {t(
-                                                    "buyer_pages.product_details.unavailable"
+                                                    "buyer_pages.product_details.unavailable",
                                                 )}
                                             </span>
                                         )}
@@ -265,13 +250,13 @@ const ProductDetails = (props) => {
                                                     "buyer_pages.product_details.return_valid",
                                                     {
                                                         days: product?.return_deadline,
-                                                    }
+                                                    },
                                                 )}
                                             </span>
                                         ) : (
                                             <span>
                                                 {t(
-                                                    "buyer_pages.product_details.unreturnable"
+                                                    "buyer_pages.product_details.unreturnable",
                                                 )}
                                             </span>
                                         )}
@@ -283,23 +268,18 @@ const ProductDetails = (props) => {
                                                 <button
                                                     className={`gradient-bg-color w-100 py-2 text-white rounded border-0 d-flex align-items-center gap-2 justify-content-center ${
                                                         product?.is_available &&
-                                                        product?.stock_quantity >
-                                                            0
+                                                        product?.stock_quantity > 0
                                                             ? ""
                                                             : "disabled"
                                                     }`}
-                                                    onClick={() =>
-                                                        addToCart(product)
-                                                    }
+                                                    onClick={() => addToCart(product)}
                                                     disabled={
                                                         !product?.is_available ||
                                                         !product?.stock_quantity
                                                     }
                                                     id={`item-cart-button-${product?.sku}`}
                                                 >
-                                                    {t(
-                                                        "buyer_pages.product_details.add"
-                                                    )}
+                                                    {t("buyer_pages.product_details.add")}
                                                     <BsCart3
                                                         style={{
                                                             fontSize: "1.5rem",
@@ -312,7 +292,7 @@ const ProductDetails = (props) => {
                                                     className="gradient-bg-color w-100 py-2 text-white rounded border-0 d-flex align-items-center gap-2 justify-content-center"
                                                 >
                                                     {t(
-                                                        "buyer_pages.product_details.contact"
+                                                        "buyer_pages.product_details.contact",
                                                     )}
                                                     <MdOutlineContactMail
                                                         style={{
@@ -326,9 +306,7 @@ const ProductDetails = (props) => {
                                             {!isInWishlist ? (
                                                 <button
                                                     className="btn detail__wish border d-flex align-items-center py-2 gap-2 w-100 mt-3 mt-md-0 justify-content-center"
-                                                    onClick={
-                                                        handleWishButtonClick
-                                                    }
+                                                    onClick={handleWishButtonClick}
                                                 >
                                                     <MdFavoriteBorder
                                                         size="1.5rem"
@@ -336,14 +314,12 @@ const ProductDetails = (props) => {
                                                         style={{ color: "red" }}
                                                     />
                                                     {t(
-                                                        "buyer_pages.product_details.wish"
+                                                        "buyer_pages.product_details.wish",
                                                     )}
                                                 </button>
                                             ) : (
                                                 <button
-                                                    onClick={
-                                                        handleWishButtonClick
-                                                    }
+                                                    onClick={handleWishButtonClick}
                                                     className="btn detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
                                                 >
                                                     <MdFavorite
@@ -351,7 +327,7 @@ const ProductDetails = (props) => {
                                                         className="detail__wish-fav"
                                                     />
                                                     {t(
-                                                        "buyer_pages.product_details.unwish"
+                                                        "buyer_pages.product_details.unwish",
                                                     )}
                                                 </button>
                                             )}
@@ -390,8 +366,7 @@ const ProductDetails = (props) => {
                                                         ?.profile_picture
                                                         ? import.meta.env
                                                               .VITE_BACKEND_URL +
-                                                          product?.supplier
-                                                              ?.profile
+                                                          product?.supplier?.profile
                                                               ?.profile_picture
                                                         : userImage
                                                 }
@@ -439,9 +414,7 @@ const shareProduct = () => {
 const exchangeImage = (e) => {
     let currentImage = document.querySelector(".details__image-container>img");
 
-    let currentImageSrc = document.querySelector(
-        ".details__image-container>img"
-    ).src;
+    let currentImageSrc = document.querySelector(".details__image-container>img").src;
 
     let newImageSrc = e.target.src;
 

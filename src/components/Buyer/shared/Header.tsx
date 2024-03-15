@@ -2,13 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
-import {
-    BiHomeAlt,
-    BiCategoryAlt,
-    BiLogIn,
-    BiLogOut,
-    BiUserPlus,
-} from "react-icons/bi";
+import { BiHomeAlt, BiCategoryAlt, BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
 import { MdOutlineSpaceDashboard, MdStorefront } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
@@ -29,7 +23,7 @@ const Header = () => {
     const countCartItems = useDeferredValue(
         localStorage.getItem("cartItems")
             ? JSON.parse(localStorage.getItem("cartItems")).length
-            : 0
+            : 0,
     );
 
     const { user, logoutUser } = useContext(AuthContext);
@@ -80,7 +74,10 @@ const Header = () => {
                     className="container-xxl"
                     style={{ padding: "0 25px", flexWrap: "nowrap" }}
                 >
-                    <Link to="/" className="navbar-brand fs-2 fw-bold">
+                    <Link
+                        to="/"
+                        className="navbar-brand fs-2 fw-bold"
+                    >
                         Medex
                     </Link>
                     <div className="d-flex justify-content-center align-items-center gap-4 d-md-none">
@@ -97,7 +94,10 @@ const Header = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 64 64"
                             >
-                                <g id="Layer_46" data-name="Layer 46">
+                                <g
+                                    id="Layer_46"
+                                    data-name="Layer 46"
+                                >
                                     <path d="M56.73,10.82a16.36,16.36,0,0,0-23,0L32,12.51l-1.7-1.69a16.36,16.36,0,0,0-23,0,16.28,16.28,0,0,0,0,23L30.94, 57.52a1.51,1.51,0,0,0,2.12,0L56.73,33.85A16.36,16.36,0,0,0,56.73,10.82ZM54.61,31.73,32,54.33,9.39,31.73a13.21, 13.21,0,0,1-3.89-9.4A13.35,13.35,0,0,1,18.79,9.05a13.16,13.16,0,0,1,9.39,3.89l2.76,2.75a1.49,1.49,0,0,0,2.12,0l2.76-2.75A13.29,13.29,0,0,1,54.61,31.73Z"></path>
                                 </g>
                             </svg>
@@ -111,9 +111,17 @@ const Header = () => {
                                 aria-expanded="false"
                             >
                                 {i18n.language === "en" ? (
-                                    <img src={enFlag} alt="EN" width="25" />
+                                    <img
+                                        src={enFlag}
+                                        alt="EN"
+                                        width="25"
+                                    />
                                 ) : (
-                                    <img src={arFlag} alt="AR" width="25" />
+                                    <img
+                                        src={arFlag}
+                                        alt="AR"
+                                        width="25"
+                                    />
                                 )}
                             </Link>
                             {i18n.language === "en" ? (
@@ -122,9 +130,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-around text-center"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("ar")
-                                            }
+                                            onClick={() => i18n.changeLanguage("ar")}
                                         >
                                             <img
                                                 src={arFlag}
@@ -138,9 +144,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-around"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("en")
-                                            }
+                                            onClick={() => i18n.changeLanguage("en")}
                                         >
                                             <img
                                                 src={enFlag}
@@ -157,9 +161,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-around text-center"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("ar")
-                                            }
+                                            onClick={() => i18n.changeLanguage("ar")}
                                         >
                                             <img
                                                 src={arFlag}
@@ -173,9 +175,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-around"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("en")
-                                            }
+                                            onClick={() => i18n.changeLanguage("en")}
                                         >
                                             <img
                                                 src={enFlag}
@@ -193,9 +193,7 @@ const Header = () => {
                     <div className="collapse navbar-collapse d-none d-md-block">
                         <ul
                             className={`navbar-nav ${
-                                i18n.resolvedLanguage == "en"
-                                    ? "ms-auto"
-                                    : "me-auto"
+                                i18n.resolvedLanguage == "en" ? "ms-auto" : "me-auto"
                             } mb-2 mb-lg-0`}
                             style={{ width: "100%" }}
                         >
@@ -204,7 +202,10 @@ const Header = () => {
                                 style={{ width: "100%" }}
                             >
                                 <div className="search-bar">
-                                    <form method="get" action="/products">
+                                    <form
+                                        method="get"
+                                        action="/products"
+                                    >
                                         <li
                                             className={`w-100 ${
                                                 i18n.resolvedLanguage == "en"
@@ -224,10 +225,10 @@ const Header = () => {
                                                         name="keyword"
                                                         className="form-control py-2"
                                                         placeholder={`${t(
-                                                            "header.search_product"
+                                                            "header.search_product",
                                                         )}...`}
                                                         aria-label={`${t(
-                                                            "header.search_product"
+                                                            "header.search_product",
                                                         )}...`}
                                                         aria-describedby="header-search-bar"
                                                     />
@@ -238,10 +239,8 @@ const Header = () => {
                                                         id="header-search-bar"
                                                         style={{
                                                             borderLeft: "none",
-                                                            borderColor:
-                                                                "#bbbbbb",
-                                                            backgroundColor:
-                                                                "white",
+                                                            borderColor: "#bbbbbb",
+                                                            backgroundColor: "white",
                                                         }}
                                                     >
                                                         <CiSearch
@@ -281,8 +280,7 @@ const Header = () => {
                                                 </svg>
                                                 <p className="m-0 header__link">
                                                     {t("header.favorite")}
-                                                    <br />{" "}
-                                                    {t("header.wishlist")}
+                                                    <br /> {t("header.wishlist")}
                                                 </p>
                                             </Link>
                                         </li>
@@ -357,23 +355,17 @@ const Header = () => {
                                                                     to="/account/dashboard"
                                                                 >
                                                                     <MdOutlineSpaceDashboard size="1.5rem" />
-                                                                    {t(
-                                                                        "dashboard"
-                                                                    )}
+                                                                    {t("dashboard")}
                                                                 </Link>
                                                             </li>
                                                             <li>
                                                                 <Link
                                                                     className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
                                                                     role="button"
-                                                                    onClick={
-                                                                        logoutUser
-                                                                    }
+                                                                    onClick={logoutUser}
                                                                 >
                                                                     <BiLogOut size="1.5rem" />
-                                                                    {t(
-                                                                        "logout"
-                                                                    )}
+                                                                    {t("logout")}
                                                                 </Link>
                                                             </li>
                                                         </>
@@ -501,10 +493,9 @@ const Header = () => {
                                             to="/categories"
                                             className="d-flex gap-2 align-items-center"
                                             onMouseEnter={(e) => {
-                                                let elm =
-                                                    document.querySelector(
-                                                        ".navbar__bottom-menu-dropdown"
-                                                    );
+                                                let elm = document.querySelector(
+                                                    ".navbar__bottom-menu-dropdown",
+                                                );
                                                 elm.classList.add("visible");
                                             }}
                                         >
@@ -569,9 +560,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-center gap-3"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("ar")
-                                            }
+                                            onClick={() => i18n.changeLanguage("ar")}
                                         >
                                             <img
                                                 src={arFlag}
@@ -585,9 +574,7 @@ const Header = () => {
                                         <Link
                                             className="dropdown-item d-flex justify-content-center gap-3"
                                             role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("en")
-                                            }
+                                            onClick={() => i18n.changeLanguage("en")}
                                         >
                                             <img
                                                 src={enFlag}
@@ -606,9 +593,7 @@ const Header = () => {
             <div
                 className="navbar__bottom-menu-dropdown"
                 onMouseLeave={(e) => {
-                    let elm = document.querySelector(
-                        ".navbar__bottom-menu-dropdown"
-                    );
+                    let elm = document.querySelector(".navbar__bottom-menu-dropdown");
                     elm.classList.remove("visible");
                 }}
             >
@@ -659,7 +644,7 @@ const Header = () => {
                                     cat.parent_slug === parentSlug &&
                                     cat.name
                                         .toLowerCase()
-                                        .includes(searchQuery.toLowerCase())
+                                        .includes(searchQuery.toLowerCase()),
                             );
 
                             return (
@@ -676,9 +661,7 @@ const Header = () => {
                                         <input
                                             type="text"
                                             className="form-control chat__search-input"
-                                            placeholder={`${t(
-                                                "header.search"
-                                            )}...`}
+                                            placeholder={`${t("header.search")}...`}
                                             value={searchQuery}
                                             onChange={(e) => {
                                                 setSearchQuery(e.target.value);
@@ -700,8 +683,7 @@ const Header = () => {
                                             >
                                                 <img
                                                     src={
-                                                        import.meta.env
-                                                            .VITE_BACKEND_URL +
+                                                        import.meta.env.VITE_BACKEND_URL +
                                                         cat?.image
                                                     }
                                                     alt="Cat Image"
@@ -729,7 +711,10 @@ const Header = () => {
                         })}
                     </div>
                 ) : (
-                    <p className="text-center" id="no_categories_msg">
+                    <p
+                        className="text-center"
+                        id="no_categories_msg"
+                    >
                         {t("no_categories")}!
                     </p>
                 )}

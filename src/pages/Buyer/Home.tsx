@@ -32,9 +32,7 @@ const Home = (props) => {
 
     const fetchBrands = async () => {
         await axios
-            .get(
-                import.meta.env.VITE_BACKEND_URL + "/api/product/brand?limit=6"
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/brand?limit=6")
             .then((res) => {
                 setBrands(res.data);
             })
@@ -47,7 +45,7 @@ const Home = (props) => {
         await axios
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/category?featured=${true}`
+                    `/api/product/category?featured=${true}`,
             )
             .then((res) => {
                 setFeaturedCategories(res.data);
@@ -62,13 +60,13 @@ const Home = (props) => {
                 response = await axios.get(
                     `${
                         import.meta.env.VITE_BACKEND_URL
-                    }/api/product/product?order=${query}&ads=${true}`
+                    }/api/product/product?order=${query}&ads=${true}`,
                 );
             } else {
                 response = await axios.get(
                     `${
                         import.meta.env.VITE_BACKEND_URL
-                    }/api/product/product?on_sale=true&ads=${true}`
+                    }/api/product/product?on_sale=true&ads=${true}`,
                 );
             }
 
@@ -175,12 +173,13 @@ const Home = (props) => {
             <section className="container">
                 <div className="pb-5 pt-2">
                     <div className="p-3 two">
-                        <form method="get" action="/products">
+                        <form
+                            method="get"
+                            action="/products"
+                        >
                             <div
                                 className={`w-100 ${
-                                    i18n.resolvedLanguage == "en"
-                                        ? "me-lg-5"
-                                        : "ms-lg-5"
+                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
                                 }`}
                             >
                                 <div className="nav-link">
@@ -195,10 +194,10 @@ const Home = (props) => {
                                             name="keyword"
                                             className="form-control py-2"
                                             placeholder={`${t(
-                                                "header.search_product"
+                                                "header.search_product",
                                             )}...`}
                                             aria-label={`${t(
-                                                "header.search_product"
+                                                "header.search_product",
                                             )}...`}
                                             aria-describedby="header-search-bar"
                                             style={{
@@ -279,14 +278,16 @@ const Home = (props) => {
                                     >
                                         <div
                                             style={{
-                                                backgroundColor:
-                                                    "rgb(250 250 250)",
+                                                backgroundColor: "rgb(250 250 250)",
                                                 borderRadius: "50%",
                                                 cursor: "pointer",
                                                 transition: "0.3s",
                                             }}
                                         >
-                                            <FaXRay className="p-3" size={65} />
+                                            <FaXRay
+                                                className="p-3"
+                                                size={65}
+                                            />
                                         </div>
                                         <p
                                             className="text-center m-0"
@@ -301,8 +302,7 @@ const Home = (props) => {
                                     >
                                         <div
                                             style={{
-                                                backgroundColor:
-                                                    "rgb(250 250 250)",
+                                                backgroundColor: "rgb(250 250 250)",
                                                 borderRadius: "50%",
                                                 cursor: "pointer",
                                                 transition: "0.3s",
@@ -326,8 +326,7 @@ const Home = (props) => {
                                     >
                                         <div
                                             style={{
-                                                backgroundColor:
-                                                    "rgb(250 250 250)",
+                                                backgroundColor: "rgb(250 250 250)",
                                                 borderRadius: "50%",
                                                 cursor: "pointer",
                                                 transition: "0.3s",
@@ -351,14 +350,16 @@ const Home = (props) => {
                                     >
                                         <div
                                             style={{
-                                                backgroundColor:
-                                                    "rgb(250 250 250)",
+                                                backgroundColor: "rgb(250 250 250)",
                                                 borderRadius: "50%",
                                                 cursor: "pointer",
                                                 transition: "0.3s",
                                             }}
                                         >
-                                            <ImLab className="p-3" size={65} />
+                                            <ImLab
+                                                className="p-3"
+                                                size={65}
+                                            />
                                         </div>
                                         <p
                                             className="text-center m-0"
@@ -373,8 +374,7 @@ const Home = (props) => {
                                     >
                                         <div
                                             style={{
-                                                backgroundColor:
-                                                    "rgb(250 250 250)",
+                                                backgroundColor: "rgb(250 250 250)",
                                                 borderRadius: "50%",
                                                 cursor: "pointer",
                                                 transition: "0.3s",

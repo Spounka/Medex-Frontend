@@ -18,11 +18,7 @@ import {
     MdOutlineContactMail,
 } from "react-icons/md";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
-import {
-    BsPhoneVibrate,
-    BsGlobeEuropeAfrica,
-    BsSignpost2,
-} from "react-icons/bs";
+import { BsPhoneVibrate, BsGlobeEuropeAfrica, BsSignpost2 } from "react-icons/bs";
 import AuthContext from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
@@ -62,7 +58,7 @@ const SupplierProfile = () => {
                 const response = await axios.get(
                     `${
                         import.meta.env.VITE_BACKEND_URL
-                    }/api/account/profile/${supplierID}`
+                    }/api/account/profile/${supplierID}`,
                 );
                 setSupplier(response.data);
             } catch (err) {
@@ -70,13 +66,13 @@ const SupplierProfile = () => {
             }
         }
     };
-    
+
     const getSupplierProducts = async () => {
         await axios
             .get(
                 `${
                     import.meta.env.VITE_BACKEND_URL
-                }/api/product/product/by-supplier/${supplierID}/`
+                }/api/product/product/by-supplier/${supplierID}/`,
             )
             .then((res) => {
                 setSupplierProducts(res.data);
@@ -105,8 +101,7 @@ const SupplierProfile = () => {
                                         <img
                                             src={
                                                 supplier?.profilePicture
-                                                    ? import.meta.env
-                                                          .VITE_BACKEND_URL +
+                                                    ? import.meta.env.VITE_BACKEND_URL +
                                                       supplier?.profilePicture
                                                     : userImage
                                             }
@@ -152,9 +147,7 @@ const SupplierProfile = () => {
                                                 </h6>
                                             </div>
                                             <div className="col-sm-8 text-secondary">
-                                                <p className="mb-0">
-                                                    {supplier?.email}
-                                                </p>
+                                                <p className="mb-0">{supplier?.email}</p>
                                             </div>
                                         </div>
                                         <div
@@ -169,17 +162,12 @@ const SupplierProfile = () => {
                                             </div>
                                             <div className="col-sm-8 text-secondary">
                                                 <p className="mb-0">
-                                                    {
-                                                        supplier
-                                                            ?.shipping_address
-                                                            ?.country
-                                                    }
+                                                    {supplier?.shipping_address?.country}
                                                 </p>
                                             </div>
                                         </div>
 
-                                        {supplier?.shipping_address?.state !=
-                                            "" && (
+                                        {supplier?.shipping_address?.state != "" && (
                                             <div className="row mb-4 d-flex align-items-center">
                                                 <div className="col-sm-4">
                                                     <h6 className="mb-0 d-flex align-items-center gap-2">
@@ -198,8 +186,7 @@ const SupplierProfile = () => {
                                             </div>
                                         )}
 
-                                        {supplier?.shipping_address?.city !=
-                                            "" && (
+                                        {supplier?.shipping_address?.city != "" && (
                                             <div className="row mb-4 d-flex align-items-center">
                                                 <div className="col-sm-4">
                                                     <h6 className="mb-0 d-flex align-items-center gap-2">
@@ -228,8 +215,7 @@ const SupplierProfile = () => {
                                             <div className="col-sm-8 text-secondary">
                                                 <p className="mb-0">
                                                     {
-                                                        supplier
-                                                            ?.shipping_address
+                                                        supplier?.shipping_address
                                                             ?.postal_code
                                                     }
                                                 </p>
@@ -245,16 +231,14 @@ const SupplierProfile = () => {
                                             <div className="col-sm-8 text-secondary">
                                                 <p className="mb-0">
                                                     {
-                                                        supplier
-                                                            ?.shipping_address
+                                                        supplier?.shipping_address
                                                             ?.address_1
                                                     }
                                                 </p>
                                             </div>
                                         </div>
 
-                                        {supplier?.shipping_address
-                                            ?.address_2 != "" && (
+                                        {supplier?.shipping_address?.address_2 != "" && (
                                             <div className="row mb-4 d-flex align-items-center">
                                                 <div className="col-sm-4">
                                                     <h6 className="mb-0 d-flex align-items-center gap-2">
@@ -265,8 +249,7 @@ const SupplierProfile = () => {
                                                 <div className="col-sm-8 text-secondary">
                                                     <p className="mb-0">
                                                         {
-                                                            supplier
-                                                                ?.shipping_address
+                                                            supplier?.shipping_address
                                                                 ?.address2
                                                         }
                                                     </p>
@@ -282,9 +265,7 @@ const SupplierProfile = () => {
                                                 </h6>
                                             </div>
                                             <div className="col-sm-8 text-secondary">
-                                                <p className="mb-0">
-                                                    +{supplier?.phone}
-                                                </p>
+                                                <p className="mb-0">+{supplier?.phone}</p>
                                             </div>
                                         </div>
                                     </div>

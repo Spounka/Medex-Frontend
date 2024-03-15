@@ -22,11 +22,9 @@ const Chat = () => {
     const [filteredThreads, setFilteredThreads] = useState([]);
 
     const getInboxThreads = async () => {
-        await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/chat/")
-            .then((res) => {
-                setThreadsList(res.data);
-            });
+        await api.get(import.meta.env.VITE_BACKEND_URL + "/api/chat/").then((res) => {
+            setThreadsList(res.data);
+        });
     };
 
     const filterThreads = () => {
@@ -44,9 +42,7 @@ const Chat = () => {
                         ? thread.second.full_name
                         : thread.first.full_name;
             }
-            return displayName
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase());
+            return displayName.toLowerCase().includes(searchQuery.toLowerCase());
         });
         setFilteredThreads(filtered);
     };
@@ -62,9 +58,7 @@ const Chat = () => {
     return (
         <main className="w-100">
             <section
-                className={`${
-                    window.location.href.indexOf("supplier") === -1 && "py-5"
-                }`}
+                className={`${window.location.href.indexOf("supplier") === -1 && "py-5"}`}
             >
                 <div className="container">
                     <div className="row justify-content-center h-100 px-md-3">
@@ -79,9 +73,7 @@ const Chat = () => {
                                         <input
                                             type="text"
                                             className="form-control chat__search-input"
-                                            placeholder={`${t(
-                                                "shared.chat.search"
-                                            )}...`}
+                                            placeholder={`${t("shared.chat.search")}...`}
                                             onChange={(e) =>
                                                 setSearchQuery(e.target.value)
                                             }
@@ -99,7 +91,7 @@ const Chat = () => {
                                             <Link
                                                 to={
                                                     window.location.href.indexOf(
-                                                        "supplier"
+                                                        "supplier",
                                                     ) === -1
                                                         ? user.parent !== null
                                                             ? user.parent ===
@@ -107,18 +99,18 @@ const Chat = () => {
                                                                 ? `/chat/${thread.second.id}`
                                                                 : `/chat/${thread.first.id}`
                                                             : user.user_id ===
-                                                              thread.first.id
-                                                            ? `/chat/${thread.second.id}`
-                                                            : `/chat/${thread.first.id}`
+                                                                thread.first.id
+                                                              ? `/chat/${thread.second.id}`
+                                                              : `/chat/${thread.first.id}`
                                                         : user.parent !== null
-                                                        ? user.parent ===
-                                                          thread.first.id
+                                                          ? user.parent ===
+                                                            thread.first.id
+                                                              ? `/supplier/chat/${thread.second.id}`
+                                                              : `/supplier/chat/${thread.first.id}`
+                                                          : user.user_id ===
+                                                              thread.first.id
                                                             ? `/supplier/chat/${thread.second.id}`
                                                             : `/supplier/chat/${thread.first.id}`
-                                                        : user.user_id ===
-                                                          thread.first.id
-                                                        ? `/supplier/chat/${thread.second.id}`
-                                                        : `/supplier/chat/${thread.first.id}`
                                                 }
                                                 className="text-decoration-none w-100"
                                             >
@@ -128,12 +120,9 @@ const Chat = () => {
                                                             <img
                                                                 className="object-fit-contain shadow rounded-circle border p-1 border-primary"
                                                                 src={
-                                                                    user.parent !==
-                                                                    null
+                                                                    user.parent !== null
                                                                         ? user.parent ===
-                                                                          thread
-                                                                              .first
-                                                                              .id
+                                                                          thread.first.id
                                                                             ? thread
                                                                                   ?.second
                                                                                   ?.profile
@@ -147,45 +136,42 @@ const Chat = () => {
                                                                                       ?.profile_picture
                                                                                 : userImage
                                                                             : thread
-                                                                                  ?.first
-                                                                                  ?.profile
-                                                                                  ?.profile_picture
-                                                                            ? import.meta
-                                                                                  .env
-                                                                                  .VITE_BACKEND_URL +
-                                                                              thread
-                                                                                  ?.first
-                                                                                  ?.profile
-                                                                                  ?.profile_picture
-                                                                            : userImage
+                                                                                    ?.first
+                                                                                    ?.profile
+                                                                                    ?.profile_picture
+                                                                              ? import.meta
+                                                                                    .env
+                                                                                    .VITE_BACKEND_URL +
+                                                                                thread
+                                                                                    ?.first
+                                                                                    ?.profile
+                                                                                    ?.profile_picture
+                                                                              : userImage
                                                                         : user.user_id ===
-                                                                          thread
-                                                                              .first
-                                                                              .id
-                                                                        ? thread
-                                                                              ?.second
-                                                                              ?.profile
-                                                                              ?.profile_picture
+                                                                            thread.first
+                                                                                .id
+                                                                          ? thread?.second
+                                                                                ?.profile
+                                                                                ?.profile_picture
+                                                                              ? import.meta
+                                                                                    .env
+                                                                                    .VITE_BACKEND_URL +
+                                                                                thread
+                                                                                    ?.second
+                                                                                    ?.profile
+                                                                                    ?.profile_picture
+                                                                              : userImage
+                                                                          : thread?.first
+                                                                                  ?.profile
+                                                                                  ?.profile_picture
                                                                             ? import.meta
                                                                                   .env
                                                                                   .VITE_BACKEND_URL +
                                                                               thread
-                                                                                  ?.second
+                                                                                  ?.first
                                                                                   ?.profile
                                                                                   ?.profile_picture
                                                                             : userImage
-                                                                        : thread
-                                                                              ?.first
-                                                                              ?.profile
-                                                                              ?.profile_picture
-                                                                        ? import.meta
-                                                                              .env
-                                                                              .VITE_BACKEND_URL +
-                                                                          thread
-                                                                              ?.first
-                                                                              ?.profile
-                                                                              ?.profile_picture
-                                                                        : userImage
                                                                 }
                                                                 alt="User Logo"
                                                                 width={55}
@@ -194,33 +180,23 @@ const Chat = () => {
                                                         </div>
                                                         <div className="col-6 col-md-8 px-2 px-md-0">
                                                             <h3 className="text-capitalize fw-bold m-0 chat__user-name">
-                                                                {user.parent !==
-                                                                null
+                                                                {user.parent !== null
                                                                     ? user.parent ===
-                                                                      thread
-                                                                          .first
-                                                                          .id
-                                                                        ? thread
-                                                                              .second
+                                                                      thread.first.id
+                                                                        ? thread.second
                                                                               .full_name
-                                                                        : thread
-                                                                              .first
+                                                                        : thread.first
                                                                               .full_name
                                                                     : user.user_id ===
-                                                                      thread
-                                                                          .first
-                                                                          .id
-                                                                    ? thread
-                                                                          .second
-                                                                          .full_name
-                                                                    : thread
-                                                                          .first
-                                                                          .full_name}
+                                                                        thread.first.id
+                                                                      ? thread.second
+                                                                            .full_name
+                                                                      : thread.first
+                                                                            .full_name}
                                                             </h3>
                                                             <p className="text-muted m-0 px-0 px-md-1 chat__user-message pt-2">
                                                                 {
-                                                                    thread
-                                                                        ?.last_message
+                                                                    thread?.last_message
                                                                         ?.message
                                                                 }
                                                             </p>
@@ -228,8 +204,7 @@ const Chat = () => {
                                                         <div className="col-5 col-md-3 my-auto text-end px-0 px-md-3">
                                                             <small className="m-0 p-0 text-xs">
                                                                 {
-                                                                    thread
-                                                                        ?.last_message
+                                                                    thread?.last_message
                                                                         ?.created
                                                                 }{" "}
                                                                 {t("ago")}

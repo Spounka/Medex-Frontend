@@ -14,8 +14,7 @@ import useAxios from "../../utils/useAxios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-const PASSWORD_REGEX =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const UpdatePassword = () => {
     const { t, i18n } = useTranslation();
@@ -42,14 +41,10 @@ const UpdatePassword = () => {
         }
 
         await api
-            .put(
-                import.meta.env.VITE_BACKEND_URL +
-                    "/api/account/update-password/",
-                {
-                    current_password: oldPassword,
-                    new_password: newPassword1,
-                }
-            )
+            .put(import.meta.env.VITE_BACKEND_URL + "/api/account/update-password/", {
+                current_password: oldPassword,
+                new_password: newPassword1,
+            })
             .then(() => {
                 toast.success(t("shared.password_update.success"));
 
@@ -69,9 +64,7 @@ const UpdatePassword = () => {
     return (
         <main className="w-100">
             <section
-                className={`${
-                    window.location.href.indexOf("supplier") === -1 && "py-5"
-                }`}
+                className={`${window.location.href.indexOf("supplier") === -1 && "py-5"}`}
             >
                 <div className="container">
                     <Link
@@ -84,9 +77,7 @@ const UpdatePassword = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">
-                            {t("supplier_pages.settings.back")}
-                        </h5>{" "}
+                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
                     </Link>
 
                     {window.location.href.indexOf("supplier") > -1 ||
@@ -98,9 +89,7 @@ const UpdatePassword = () => {
                     ) : (
                         <div className="row">
                             <BreadCrumb
-                                title={`${t(
-                                    "supplier_sidebar.password_update"
-                                )}`}
+                                title={`${t("supplier_sidebar.password_update")}`}
                             />
                         </div>
                     )}
@@ -108,14 +97,16 @@ const UpdatePassword = () => {
                     <div className="row">
                         <div
                             className={`mt-5 col-12 px-4 ${
-                                window.location.href.indexOf("supplier") ===
-                                    -1 &&
+                                window.location.href.indexOf("supplier") === -1 &&
                                 window.location.href.indexOf("dashboard") === -1
                                     ? "mx-auto"
                                     : "mt-4"
                             }`}
                         >
-                            <form method="post" onSubmit={handleSubmit}>
+                            <form
+                                method="post"
+                                onSubmit={handleSubmit}
+                            >
                                 <div className="mb-3">
                                     <label
                                         htmlFor="old"
@@ -131,9 +122,7 @@ const UpdatePassword = () => {
                                         placeholder="••••••••••••"
                                         required
                                         value={oldPassword}
-                                        onChange={(e) =>
-                                            setOldPassword(e.target.value)
-                                        }
+                                        onChange={(e) => setOldPassword(e.target.value)}
                                     />
                                 </div>
 
@@ -153,9 +142,7 @@ const UpdatePassword = () => {
                                         placeholder="••••••••••••"
                                         required
                                         value={newPassword1}
-                                        onChange={(e) =>
-                                            setNewPassword1(e.target.value)
-                                        }
+                                        onChange={(e) => setNewPassword1(e.target.value)}
                                     />
                                 </div>
 
@@ -175,9 +162,7 @@ const UpdatePassword = () => {
                                         placeholder="••••••••••••"
                                         required
                                         value={newPassword2}
-                                        onChange={(e) =>
-                                            setNewPassword2(e.target.value)
-                                        }
+                                        onChange={(e) => setNewPassword2(e.target.value)}
                                     />
                                 </div>
                                 <div className="my-5">

@@ -27,8 +27,7 @@ const ViewStore = () => {
 
     const [privateCategories, setPrivateCategories] = useState([]);
 
-    const [companyProfilePicture, setCompanyProfilePicture] =
-        useState(profilePic);
+    const [companyProfilePicture, setCompanyProfilePicture] = useState(profilePic);
     const [companyCoverPicture, setCompanyCoverPicture] = useState(coverPic);
 
     const [companyName, setCompanyName] = useState("");
@@ -48,8 +47,7 @@ const ViewStore = () => {
     const getUserData = async (user_id) => {
         await axios
             .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user_id}/?cat=${true}`
+                import.meta.env.VITE_BACKEND_URL + `/api/company/${user_id}/?cat=${true}`,
             )
             .then((res) => {
                 const data = res.data;
@@ -60,38 +58,33 @@ const ViewStore = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) =>
-                                    x.id ==
-                                    parseInt(data?.company.address.country)
+                                (x) => x.id == parseInt(data?.company.address.country),
                             );
                             setCountry(c);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data?.company.address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id ==
-                                            parseInt(
-                                                data?.company.address.state
-                                            )
-                                    );
-                                    setState(s);
-                                }
-                            });
+                            return GetState(parseInt(data?.company.address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) =>
+                                                x.id ==
+                                                parseInt(data?.company.address.state),
+                                        );
+                                        setState(s);
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data?.company.address.country),
-                                parseInt(data?.company.address.state)
+                                parseInt(data?.company.address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
-                                            x.id ==
-                                            parseInt(data?.company.address.city)
+                                            x.id == parseInt(data?.company.address.city),
                                     );
                                     setCity(c);
                                 }
@@ -101,38 +94,33 @@ const ViewStore = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) =>
-                                    x.id ==
-                                    parseInt(data?.company.address.country)
+                                (x) => x.id == parseInt(data?.company.address.country),
                             );
                             setCountry(c.name);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data?.company.address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id ==
-                                            parseInt(
-                                                data?.company.address.state
-                                            )
-                                    );
-                                    setState(s.name);
-                                }
-                            });
+                            return GetState(parseInt(data?.company.address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) =>
+                                                x.id ==
+                                                parseInt(data?.company.address.state),
+                                        );
+                                        setState(s.name);
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data?.company.address.country),
-                                parseInt(data?.company.address.state)
+                                parseInt(data?.company.address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
-                                            x.id ==
-                                            parseInt(data?.company.address.city)
+                                            x.id == parseInt(data?.company.address.city),
                                     );
                                     setCity(c.name);
                                 }
@@ -146,12 +134,8 @@ const ViewStore = () => {
                 setCompanyName(data?.company?.name);
                 setEmail(data?.company?.email);
                 setPhone(data?.company?.phone);
-                setCompanyProfilePicture(
-                    data?.company?.company_profile_picture || ""
-                );
-                setCompanyCoverPicture(
-                    data?.company?.company_cover_picture || ""
-                );
+                setCompanyProfilePicture(data?.company?.company_profile_picture || "");
+                setCompanyCoverPicture(data?.company?.company_cover_picture || "");
                 setWebsite(data?.company?.website || "");
                 setBio(data?.company?.bio || "");
                 setCreated(data?.company?.created || "");
@@ -317,9 +301,7 @@ const ViewStore = () => {
                             <div className="p-3 d-flex align-items-center gap-3">
                                 <MdPhoneIphone size="1.2rem" />
                                 <div className="d-flex flex-column">
-                                    <h5 style={{ margin: "0" }}>
-                                        {t("phone")}
-                                    </h5>
+                                    <h5 style={{ margin: "0" }}>{t("phone")}</h5>
                                     {phone}
                                 </div>
                             </div>
@@ -329,9 +311,7 @@ const ViewStore = () => {
                                 <IoEarthSharp size="1.2rem" />
                                 <div className="d-flex flex-column">
                                     <h5 style={{ margin: "0" }}>
-                                        {t(
-                                            "supplier_pages.edit_company.website"
-                                        )}
+                                        {t("supplier_pages.edit_company.website")}
                                     </h5>
                                     {website}
                                 </div>
@@ -378,20 +358,20 @@ const ViewStore = () => {
                     {privateCategories.map(
                         (category) =>
                             category.products.length > 0 && (
-                                <div className="mb-5" key={category.id}>
+                                <div
+                                    className="mb-5"
+                                    key={category.id}
+                                >
                                     <h2>{category.name}</h2>
                                     {privateCategories.length > 0 ? (
                                         <Slider
                                             className={
-                                                category.products.length < 4
-                                                    ? "ds"
-                                                    : ""
+                                                category.products.length < 4 ? "ds" : ""
                                             }
                                             {...settings}
                                         >
                                             {category.products.map((product) =>
-                                                user &&
-                                                user.role === "supplier" ? (
+                                                user && user.role === "supplier" ? (
                                                     <SupplierProductCard
                                                         product={product}
                                                         buttonLink={
@@ -399,11 +379,9 @@ const ViewStore = () => {
                                                             product.sku
                                                         }
                                                         buttonText={t(
-                                                            "supplier_pages.product_details.view"
+                                                            "supplier_pages.product_details.view",
                                                         )}
-                                                        buttonIcon={
-                                                            <TbListDetails />
-                                                        }
+                                                        buttonIcon={<TbListDetails />}
                                                         key={product.sku}
                                                     />
                                                 ) : (
@@ -413,7 +391,7 @@ const ViewStore = () => {
                                                         cart={true}
                                                         key={product.sku}
                                                     />
-                                                )
+                                                ),
                                             )}
                                         </Slider>
                                     ) : (
@@ -422,7 +400,7 @@ const ViewStore = () => {
                                         </p>
                                     )}
                                 </div>
-                            )
+                            ),
                     )}
                 </div>
             </section>

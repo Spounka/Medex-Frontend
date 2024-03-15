@@ -16,11 +16,7 @@ import "react-phone-input-2/lib/material.css";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
-import {
-    BsGlobeEuropeAfrica,
-    BsPhoneVibrate,
-    BsSignpost2,
-} from "react-icons/bs";
+import { BsGlobeEuropeAfrica, BsPhoneVibrate, BsSignpost2 } from "react-icons/bs";
 import { CiLink } from "react-icons/ci";
 import { FaRegBuilding } from "react-icons/fa";
 import { MdLocationCity, MdOutlineLocationOn } from "react-icons/md";
@@ -101,9 +97,8 @@ const CompanySettings = () => {
 
         await api
             .patch(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`,
-                formData
+                import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`,
+                formData,
             )
             .then(() => {
                 toast.success(`${t("buyer_pages.profile.updated")}!`);
@@ -112,10 +107,7 @@ const CompanySettings = () => {
 
     const getUserData = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/company/${user.user_id}/`
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + `/api/company/${user.user_id}/`)
             .then((res) => {
                 const data = res.data.company;
 
@@ -123,34 +115,32 @@ const CompanySettings = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) => x.id == parseInt(data.address.country)
+                                (x) => x.id == parseInt(data.address.country),
                             );
                             setCountry(c);
                             handleCountryChange(c);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data.address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id == parseInt(data.address.state)
-                                    );
-                                    setState(s);
-                                    handleStateChange(data.address.country, s);
-                                }
-                            });
+                            return GetState(parseInt(data.address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) => x.id == parseInt(data.address.state),
+                                        );
+                                        setState(s);
+                                        handleStateChange(data.address.country, s);
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data.address.country),
-                                parseInt(data.address.state)
+                                parseInt(data.address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
-                                        (x) =>
-                                            x.id == parseInt(data.address.city)
+                                        (x) => x.id == parseInt(data.address.city),
                                     );
                                     setCity(c);
                                 }
@@ -160,32 +150,30 @@ const CompanySettings = () => {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
-                                (x) => x.id == parseInt(data.address.country)
+                                (x) => x.id == parseInt(data.address.country),
                             );
                             setCountry(c.name);
                         })
                         .then(() => {
-                            return GetState(
-                                parseInt(data.address.country)
-                            ).then((res) => {
-                                if (res.length > 0) {
-                                    let s = res.find(
-                                        (x) =>
-                                            x.id == parseInt(data.address.state)
-                                    );
-                                    setState(s.name);
-                                }
-                            });
+                            return GetState(parseInt(data.address.country)).then(
+                                (res) => {
+                                    if (res.length > 0) {
+                                        let s = res.find(
+                                            (x) => x.id == parseInt(data.address.state),
+                                        );
+                                        setState(s.name);
+                                    }
+                                },
+                            );
                         })
                         .then(() => {
                             return GetCity(
                                 parseInt(data.address.country),
-                                parseInt(data.address.state)
+                                parseInt(data.address.state),
                             ).then((res) => {
                                 if (res.length > 0) {
                                     let c = res.find(
-                                        (x) =>
-                                            x.id == parseInt(data.address.city)
+                                        (x) => x.id == parseInt(data.address.city),
                                     );
                                     setCity(c.name);
                                 }
@@ -209,7 +197,7 @@ const CompanySettings = () => {
 
         if (userId == user.user_id) {
             const countryInput = document.querySelector(
-                "#country > div.col-sm-9 > div > div > div > input"
+                "#country > div.col-sm-9 > div > div > div > input",
             );
 
             countryInput.setAttribute("required", true);
@@ -230,9 +218,7 @@ const CompanySettings = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">
-                            {t("supplier_pages.settings.back")}
-                        </h5>{" "}
+                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
                     </Link>
                     <div className="main-body">
                         <div className="row">
@@ -242,9 +228,7 @@ const CompanySettings = () => {
                                     style={{ border: "none" }}
                                 >
                                     <div className="card-title p-4 pb-0 profile__title">
-                                        <h3>
-                                            {t("buyer_pages.profile.company")}
-                                        </h3>
+                                        <h3>{t("buyer_pages.profile.company")}</h3>
                                     </div>
                                     <div className="card-body">
                                         {userId == user.user_id && (
@@ -257,7 +241,7 @@ const CompanySettings = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <FaRegBuilding size="1.5rem" />
                                                             {t(
-                                                                "supplier_pages.edit_company.name"
+                                                                "supplier_pages.edit_company.name",
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -269,8 +253,7 @@ const CompanySettings = () => {
                                                             value={companyName}
                                                             onChange={(e) =>
                                                                 setCompanyName(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             required
@@ -282,7 +265,7 @@ const CompanySettings = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <CiLink size="1.8rem" />
                                                             {t(
-                                                                "supplier_pages.edit_company.website"
+                                                                "supplier_pages.edit_company.website",
                                                             )}
                                                         </h6>
                                                     </div>
@@ -293,14 +276,11 @@ const CompanySettings = () => {
                                                             value={website}
                                                             placeholder={
                                                                 t(
-                                                                    "supplier_pages.edit_company.website"
+                                                                    "supplier_pages.edit_company.website",
                                                                 ) + "..."
                                                             }
                                                             onChange={(e) =>
-                                                                setWebsite(
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                                setWebsite(e.target.value)
                                                             }
                                                         />
                                                     </div>
@@ -310,7 +290,7 @@ const CompanySettings = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <TfiEmail size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.edit_company.email"
+                                                                "supplier_pages.edit_company.email",
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -321,10 +301,7 @@ const CompanySettings = () => {
                                                             className="form-control"
                                                             value={email}
                                                             onChange={(e) =>
-                                                                setEmail(
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                                setEmail(e.target.value)
                                                             }
                                                             required
                                                         />
@@ -342,14 +319,10 @@ const CompanySettings = () => {
                                                     </div>
                                                     <div className="col-sm-9 text-secondary">
                                                         <CountrySelect
-                                                            defaultValue={
-                                                                country
-                                                            }
+                                                            defaultValue={country}
                                                             onChange={(e) => {
                                                                 setCountry(e);
-                                                                handleCountryChange(
-                                                                    e
-                                                                );
+                                                                handleCountryChange(e);
                                                             }}
                                                         />
                                                     </div>
@@ -367,18 +340,16 @@ const CompanySettings = () => {
                                                     >
                                                         <StateSelect
                                                             defaultValue={state}
-                                                            countryid={
-                                                                country.id
-                                                            }
+                                                            countryid={country.id}
                                                             onChange={(e) => {
                                                                 setState(e);
                                                                 handleStateChange(
                                                                     country.id,
-                                                                    e
+                                                                    e,
                                                                 );
                                                             }}
                                                             placeHolder={`${t(
-                                                                "select_state"
+                                                                "select_state",
                                                             )}`}
                                                         />
                                                     </div>
@@ -395,16 +366,14 @@ const CompanySettings = () => {
                                                         id="city"
                                                     >
                                                         <CitySelect
-                                                            countryid={
-                                                                country.id
-                                                            }
+                                                            countryid={country.id}
                                                             stateid={state.id}
                                                             defaultValue={city}
                                                             onChange={(e) => {
                                                                 setCity(e);
                                                             }}
                                                             placeHolder={`${t(
-                                                                "select_city"
+                                                                "select_city",
                                                             )}`}
                                                         />
                                                     </div>
@@ -422,10 +391,7 @@ const CompanySettings = () => {
                                                             className="form-control"
                                                             value={postal}
                                                             onChange={(e) =>
-                                                                setPostal(
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                                setPostal(e.target.value)
                                                             }
                                                             required
                                                         />
@@ -445,8 +411,7 @@ const CompanySettings = () => {
                                                             value={address1}
                                                             onChange={(e) =>
                                                                 setAddress1(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             required
@@ -467,12 +432,11 @@ const CompanySettings = () => {
                                                             value={address2}
                                                             onChange={(e) =>
                                                                 setAddress2(
-                                                                    e.target
-                                                                        .value
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                             placeholder={`${t(
-                                                                "address2"
+                                                                "address2",
                                                             )}...`}
                                                         />
                                                     </div>
@@ -482,25 +446,21 @@ const CompanySettings = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <BsPhoneVibrate size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.edit_company.phone"
+                                                                "supplier_pages.edit_company.phone",
                                                             )}{" "}
                                                             *
                                                         </h6>
                                                     </div>
                                                     <div className="col-sm-9 text-secondary">
                                                         <PhoneInput
-                                                            countryCodeEditable={
-                                                                false
-                                                            }
+                                                            countryCodeEditable={false}
                                                             name="phone"
                                                             specialLabel=""
                                                             required={true}
                                                             inputClass="w-100"
                                                             value={phone}
                                                             id="phone"
-                                                            onChange={(e) =>
-                                                                setPhone(e)
-                                                            }
+                                                            onChange={(e) => setPhone(e)}
                                                         />
                                                     </div>
                                                 </div>
@@ -512,12 +472,11 @@ const CompanySettings = () => {
                                                             type="submit"
                                                             className="p-2 gradient-bg-color text-white border-0 px-5 d-flex gap-2 align-items-center"
                                                             style={{
-                                                                borderRadius:
-                                                                    "5px",
+                                                                borderRadius: "5px",
                                                             }}
                                                         >
                                                             {t(
-                                                                "supplier_pages.edit_company.edit"
+                                                                "supplier_pages.edit_company.edit",
                                                             )}
 
                                                             <BiEditAlt size="1.4rem" />
@@ -539,12 +498,8 @@ const CompanySettings = () => {
 
 const handleCountryChange = (e) => {
     GetState(parseInt(e.id)).then((result) => {
-        let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input"
-        );
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
-        );
+        let stateSelect = document.querySelector("#state .stdropdown-input>input");
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
 
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
@@ -559,9 +514,7 @@ const handleCountryChange = (e) => {
 
 const handleStateChange = (countryId, e) => {
     GetCity(parseInt(countryId), parseInt(e.id)).then((result) => {
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
-        );
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
 
         if (result.length > 0) {
             citySelect.setAttribute("required", true);

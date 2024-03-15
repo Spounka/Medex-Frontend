@@ -12,8 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
-const PASSWORD_REGEX =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const ResetPassword = () => {
     const { t } = useTranslation();
@@ -44,10 +43,10 @@ const ResetPassword = () => {
             .post(
                 import.meta.env.VITE_BACKEND_URL +
                     `/api/account/password/reset/confirm?token=${queryParameters?.get(
-                        "token"
+                        "token",
                     )}`,
                 { password },
-                { "Content-Type": "application/json" }
+                { "Content-Type": "application/json" },
             )
             .then(() => {
                 navigate("/account/login");
@@ -84,8 +83,7 @@ const ResetPassword = () => {
                                                         className="form-label d-flex align-items-center gap-2 login__form-label"
                                                     >
                                                         <RiLockPasswordLine size="1.4rem" />
-                                                        {t("shared.reset.new")}{" "}
-                                                        *
+                                                        {t("shared.reset.new")} *
                                                     </label>
                                                     <input
                                                         type="password"
@@ -95,9 +93,7 @@ const ResetPassword = () => {
                                                         required
                                                         value={password}
                                                         onChange={(e) =>
-                                                            setPassword(
-                                                                e.target.value
-                                                            )
+                                                            setPassword(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -107,8 +103,7 @@ const ResetPassword = () => {
                                                         className="form-label d-flex align-items-center gap-2 login__form-label"
                                                     >
                                                         <RiLockPasswordLine size="1.4rem" />
-                                                        {t("shared.reset.new2")}{" "}
-                                                        *
+                                                        {t("shared.reset.new2")} *
                                                     </label>
                                                     <input
                                                         type="password"
@@ -119,7 +114,7 @@ const ResetPassword = () => {
                                                         value={confirmPassword}
                                                         onChange={(e) =>
                                                             setConfirmPassword(
-                                                                e.target.value
+                                                                e.target.value,
                                                             )
                                                         }
                                                     />
@@ -130,9 +125,7 @@ const ResetPassword = () => {
                                                         type="submit"
                                                         className="gradient-bg-color w-100 py-2 text-white rounded shadow fw-bold login__btn d-flex align-items-center gap-2 justify-content-center"
                                                     >
-                                                        {t(
-                                                            "shared.reset.submit"
-                                                        )}
+                                                        {t("shared.reset.submit")}
                                                         <MdOutlineLockReset size="1.4rem" />
                                                     </button>
                                                 </div>

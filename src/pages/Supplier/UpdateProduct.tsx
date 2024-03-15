@@ -48,10 +48,7 @@ const UpdateProduct = () => {
 
     const getProduct = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/product/${product_sku}`
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + `/api/product/product/${product_sku}`)
             .then((res) => {
                 let data = res.data;
 
@@ -150,9 +147,7 @@ const UpdateProduct = () => {
                     parseFloat(productFormData.priceRangeMin) !== 0.0 ||
                     parseFloat(productFormData.priceRangeMax) !== 0.0
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.both_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.both_err")}!`);
                     return false;
                 }
             } else if (productFormData.price === 0.0) {
@@ -160,9 +155,7 @@ const UpdateProduct = () => {
                     parseFloat(productFormData.priceRangeMin) === 0.0 &&
                     parseFloat(productFormData.priceRangeMax) === 0.0
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.no_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.no_err")}!`);
                     return false;
                 } else if (
                     parseFloat(productFormData.priceRangeMin) <= 0.0 ||
@@ -170,9 +163,7 @@ const UpdateProduct = () => {
                     parseFloat(productFormData.priceRangeMin) >
                         parseFloat(productFormData.priceRangeMax)
                 ) {
-                    toast.error(
-                        `${t("supplier_pages.update_product.mm_err")}!`
-                    );
+                    toast.error(`${t("supplier_pages.update_product.mm_err")}!`);
                     return false;
                 }
             }
@@ -187,9 +178,8 @@ const UpdateProduct = () => {
 
         await api
             .patch(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/product/${product_sku}/`,
-                productFormData
+                import.meta.env.VITE_BACKEND_URL + `/api/product/product/${product_sku}/`,
+                productFormData,
             )
             .then(() => {
                 toast.success(`${t("supplier_pages.update_product.success")}!`);
@@ -214,8 +204,8 @@ const UpdateProduct = () => {
                                             currentStepIndex == 0
                                                 ? 0
                                                 : currentStepIndex == 1
-                                                ? 50
-                                                : 100
+                                                  ? 50
+                                                  : 100
                                         }
                                         max={100}
                                     ></progress>
@@ -277,7 +267,7 @@ const UpdateProduct = () => {
                                         >
                                             {isLastStep
                                                 ? `${t(
-                                                      "supplier_pages.update_product.title"
+                                                      "supplier_pages.update_product.title",
                                                   )}`
                                                 : `${t("next")}`}
                                         </button>

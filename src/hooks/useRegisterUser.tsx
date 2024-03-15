@@ -7,7 +7,6 @@ export default function useRegisterUser() {
     const { t } = useTranslation();
     const baseURL = import.meta.env.VITE_BACKEND_URL;
     return async (data: TempUser, isSupplier: boolean) => {
-
         let formData = new FormData();
         formData.append("email", data.email);
         formData.append("full_name", data.full_name);
@@ -23,9 +22,7 @@ export default function useRegisterUser() {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    toast.success(
-                        `${t("auth_context.buyer_register_successful")}!`,
-                    );
+                    toast.success(`${t("auth_context.buyer_register_successful")}!`);
                     data.setEmail("");
                     data.setFullName("");
                     data.setPhone("+966");

@@ -3,7 +3,6 @@ function useStorageTokens() {
     const sessionStorageToken = sessionStorage.getItem("authTokens");
 
     return [localStorageToken, sessionStorageToken];
-
 }
 
 export default useStorageTokens;

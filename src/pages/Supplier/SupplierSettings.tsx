@@ -25,7 +25,10 @@ const Settings = () => {
                     className="col-12 p-4 gap-4 d-flex flex-wrap"
                     style={{ backgroundColor: "#fff" }}
                 >
-                    <Link to="profile" className="d-flex gap-2">
+                    <Link
+                        to="profile"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <IoSettings size={25} />
                         </div>
@@ -42,7 +45,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="password/update" className="d-flex gap-2">
+                    <Link
+                        to="password/update"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <TbPasswordFingerprint size={25} />
                         </div>
@@ -56,7 +62,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="permissions" className="d-flex gap-2">
+                    <Link
+                        to="permissions"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <IoPersonCircleSharp size={25} />
                         </div>
@@ -70,7 +79,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="store" className="d-flex gap-2">
+                    <Link
+                        to="store"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <FaStore size={25} />
                         </div>
@@ -84,7 +96,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link
+                        to="soon"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <MdLocalShipping size={25} />
                         </div>
@@ -98,7 +113,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link
+                        to="soon"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <GoRepoForked size={25} />
                         </div>
@@ -112,7 +130,10 @@ const Settings = () => {
                         </div>
                     </Link>
 
-                    <Link to="soon" className="d-flex gap-2">
+                    <Link
+                        to="soon"
+                        className="d-flex gap-2"
+                    >
                         <div className="settings-icon">
                             <MdAttachMoney size={25} />
                         </div>

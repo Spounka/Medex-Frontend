@@ -17,14 +17,14 @@ Chart.register(
     BarElement,
     Filler,
     Tooltip,
-    Legend
+    Legend,
 );
 
 const CategoriesPurchases = (props) => {
     const { categoriesPurchases, totalCategoriesPurchases } = props;
 
     const capitalizedLabels = categoriesPurchases.map(
-        (category) => category.charAt(0).toUpperCase() + category.slice(1)
+        (category) => category.charAt(0).toUpperCase() + category.slice(1),
     );
 
     const data = {

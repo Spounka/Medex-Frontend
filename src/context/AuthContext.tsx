@@ -21,23 +21,16 @@ const AuthContext = createContext<AuthContextType>({
     logoutUser: () => {
         throw new Error("logoutUser must be implemented");
     },
-    registerBuyer: (
-        data: TempUser,
-    ) => {
+    registerBuyer: (data: TempUser) => {
         throw new Error("registerUser must be implemented");
     },
-    registerSupplier: (
-        data: TempUser,
-    ) => {
+    registerSupplier: (data: TempUser) => {
         throw new Error("registerUser must be implemented");
     },
-    setAuthTokens: () => {
-    },
-    setUser: () => {
-    },
+    setAuthTokens: () => {},
+    setUser: () => {},
 });
 export default AuthContext;
-
 
 export const AuthProvider = ({ children }: { children: ReactNode }): ReactNode => {
     const { authTokens, setAuthTokens } = useAuthToken();
@@ -54,27 +47,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }): ReactNode =
 
     const loginUser = useLogin({ setAuthTokens, setUser, navigate, t });
 
-    const registerBuyer = async (
-        data: TempUser,
-    ): Promise<void> => {
+    const registerBuyer = async (data: TempUser): Promise<void> => {
         return registerUser(data, false);
     };
 
-    const registerSupplier = async (
-        data: TempUser,
-    ): Promise<void> => {
+    const registerSupplier = async (data: TempUser): Promise<void> => {
         return registerUser(data, true);
     };
 
     const contextData: {
-        user: DecodedUser | null,
-        setUser: any,
-        authTokens: ResponseToken,
-        setAuthTokens: any,
-        registerBuyer: typeof registerBuyer,
-        registerSupplier: typeof registerSupplier,
-        loginUser: (email: string, password: string, rememberMe: boolean) => Promise<void>,
-        logoutUser: typeof logout,
+        user: DecodedUser | null;
+        setUser: any;
+        authTokens: ResponseToken;
+        setAuthTokens: any;
+        registerBuyer: typeof registerBuyer;
+        registerSupplier: typeof registerSupplier;
+        loginUser: (
+            email: string,
+            password: string,
+            rememberMe: boolean,
+        ) => Promise<void>;
+        logoutUser: typeof logout;
     } = {
         user,
         setUser,

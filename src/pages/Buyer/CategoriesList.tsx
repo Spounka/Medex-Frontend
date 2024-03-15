@@ -14,7 +14,7 @@ const CategoriesList = () => {
 
     const getCategories = async () => {
         const res = await axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
         );
         setCategories(res.data);
         setSelectedCategory(res.data[0]);
@@ -24,7 +24,7 @@ const CategoriesList = () => {
         const res = await axios.get(
             `${
                 import.meta.env.VITE_BACKEND_URL
-            }/api/product/category?level=1&parent=${selectedCategory.slug}`
+            }/api/product/category?level=1&parent=${selectedCategory.slug}`,
         );
         setSubCategories(res.data);
     };
@@ -57,8 +57,7 @@ const CategoriesList = () => {
                                     categories.map((cat) => (
                                         <Link
                                             className={`list-group-item list-group-item-action category__sections-link ${
-                                                selectedCategory.slug ==
-                                                cat.slug
+                                                selectedCategory.slug == cat.slug
                                                     ? "active"
                                                     : ""
                                             }`}
@@ -68,9 +67,7 @@ const CategoriesList = () => {
                                             role="tab"
                                             aria-controls={`list-${cat.slug}`}
                                             key={cat.slug}
-                                            onClick={() =>
-                                                setSelectedCategory(cat)
-                                            }
+                                            onClick={() => setSelectedCategory(cat)}
                                         >
                                             {cat.name}
                                         </Link>
@@ -87,17 +84,18 @@ const CategoriesList = () => {
                                 <BiCategory size="2rem" />
                                 All &ldquo;
                                 {selectedCategory.name?.toLocaleUpperCase()}
-                                &rdquo;{" "}
-                                {t("buyer_pages.categories_list.subcategories")}
+                                &rdquo; {t("buyer_pages.categories_list.subcategories")}
                             </h3>
                             <hr />
-                            <div className="tab-content" id="nav-tabContent">
+                            <div
+                                className="tab-content"
+                                id="nav-tabContent"
+                            >
                                 {categories.length > 0 &&
                                     categories.map((cat) => (
                                         <div
                                             className={`tab-pane fade ${
-                                                selectedCategory.slug ==
-                                                cat.slug
+                                                selectedCategory.slug == cat.slug
                                                     ? "active show"
                                                     : ""
                                             }`}
@@ -116,8 +114,7 @@ const CategoriesList = () => {
                                                         <div className="card shadow d-flex flex-column gap-3 align-items-center justify-content-center categories__card py-3">
                                                             <img
                                                                 src={
-                                                                    import.meta
-                                                                        .env
+                                                                    import.meta.env
                                                                         .VITE_BACKEND_URL +
                                                                     subCat.image
                                                                 }
@@ -153,9 +150,7 @@ const CategoriesList = () => {
                                     All &ldquo;
                                     {selectedCategory.name?.toLocaleUpperCase()}
                                     &rdquo;{" "}
-                                    {t(
-                                        "buyer_pages.categories_list.subcategories"
-                                    )}
+                                    {t("buyer_pages.categories_list.subcategories")}
                                 </h6>
                                 <hr />
                             </div>
@@ -171,8 +166,7 @@ const CategoriesList = () => {
                                         categories.map((cat) => (
                                             <Link
                                                 className={`list-group-item list-group-item-action category__sections-text category__sections-link ${
-                                                    selectedCategory.slug ==
-                                                    cat.slug
+                                                    selectedCategory.slug == cat.slug
                                                         ? "active"
                                                         : ""
                                                 }`}
@@ -182,18 +176,14 @@ const CategoriesList = () => {
                                                 role="tab"
                                                 aria-controls={`list-${cat.slug}`}
                                                 key={cat.slug}
-                                                onClick={() =>
-                                                    setSelectedCategory(cat)
-                                                }
+                                                onClick={() => setSelectedCategory(cat)}
                                             >
                                                 {cat.name}
                                             </Link>
                                         ))
                                     ) : (
                                         <p className="text-center">
-                                            {t(
-                                                "buyer_pages.categories_list.none"
-                                            )}
+                                            {t("buyer_pages.categories_list.none")}
                                         </p>
                                     )}
                                 </div>
@@ -207,8 +197,7 @@ const CategoriesList = () => {
                                         categories.map((cat) => (
                                             <div
                                                 className={`tab-pane fade ${
-                                                    selectedCategory.slug ==
-                                                    cat.slug
+                                                    selectedCategory.slug == cat.slug
                                                         ? "active show"
                                                         : ""
                                                 }`}
@@ -218,31 +207,26 @@ const CategoriesList = () => {
                                                 key={cat.slug}
                                             >
                                                 {subCategories.length > 0 &&
-                                                    subCategories.map(
-                                                        (subCat) => (
-                                                            <Link
-                                                                to={`/products?category=${selectedCategory.slug}&sub-category=${subCat.slug}`}
-                                                                className="col-4 col-md-3 my-2 category__sections-text"
-                                                                key={subCat.id}
-                                                            >
-                                                                <div className="d-flex flex-column gap-2 justify-content-center align-items-center">
-                                                                    <img
-                                                                        src={
-                                                                            import.meta
-                                                                                .env
-                                                                                .VITE_BACKEND_URL +
-                                                                            subCat.image
-                                                                        }
-                                                                        alt="subCategory"
-                                                                        className="category__sections-img rounded shadow-sm"
-                                                                    />
-                                                                    {
-                                                                        subCat.name
+                                                    subCategories.map((subCat) => (
+                                                        <Link
+                                                            to={`/products?category=${selectedCategory.slug}&sub-category=${subCat.slug}`}
+                                                            className="col-4 col-md-3 my-2 category__sections-text"
+                                                            key={subCat.id}
+                                                        >
+                                                            <div className="d-flex flex-column gap-2 justify-content-center align-items-center">
+                                                                <img
+                                                                    src={
+                                                                        import.meta.env
+                                                                            .VITE_BACKEND_URL +
+                                                                        subCat.image
                                                                     }
-                                                                </div>
-                                                            </Link>
-                                                        )
-                                                    )}
+                                                                    alt="subCategory"
+                                                                    className="category__sections-img rounded shadow-sm"
+                                                                />
+                                                                {subCat.name}
+                                                            </div>
+                                                        </Link>
+                                                    ))}
                                             </div>
                                         ))}
                                 </div>

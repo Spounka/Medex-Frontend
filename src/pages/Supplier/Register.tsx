@@ -8,11 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
 import { PiUserCircle } from "react-icons/pi";
-import {
-    BsPhoneVibrate,
-    BsGlobeEuropeAfrica,
-    BsSignpost2,
-} from "react-icons/bs";
+import { BsPhoneVibrate, BsGlobeEuropeAfrica, BsSignpost2 } from "react-icons/bs";
 import { TbUserSquareRounded } from "react-icons/tb";
 import { MdLocationCity, MdOutlineLocationOn } from "react-icons/md";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
@@ -45,8 +41,7 @@ import { useTranslation } from "react-i18next";
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const PASSWORD_REGEX =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const PHONE_REGEX =
     /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
@@ -129,25 +124,23 @@ const Register = () => {
             address_2: address2,
         };
 
-        registerSupplier(
-            {
-                email,
-                phone,
-                shipping_address,
-                password,
-                setEmail,
-                setFullName,
-                setPhone,
-                setPostalCode,
-                setAddress1,
-                setAddress2,
-                pictureRef,
-                setPassword,
-                setConfirmPassword,
-                full_name: fullName,
-                profile_picture: profilePicture,
-            },
-        );
+        registerSupplier({
+            email,
+            phone,
+            shipping_address,
+            password,
+            setEmail,
+            setFullName,
+            setPhone,
+            setPostalCode,
+            setAddress1,
+            setAddress2,
+            pictureRef,
+            setPassword,
+            setConfirmPassword,
+            full_name: fullName,
+            profile_picture: profilePicture,
+        });
     };
     return (
         <>
@@ -207,8 +200,7 @@ const Register = () => {
                                                             value={fullName}
                                                             onChange={(e) =>
                                                                 setFullName(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -231,10 +223,7 @@ const Register = () => {
                                                             required
                                                             value={email}
                                                             onChange={(e) =>
-                                                                setEmail(
-                                                                    e.target
-                                                                        .value,
-                                                                )
+                                                                setEmail(e.target.value)
                                                             }
                                                         />
                                                     </div>
@@ -252,9 +241,7 @@ const Register = () => {
                                                         <CountrySelect
                                                             onChange={(e) => {
                                                                 setCountry(e);
-                                                                handleCountryChange(
-                                                                    e,
-                                                                );
+                                                                handleCountryChange(e);
                                                             }}
                                                             placeHolder={`${t(
                                                                 "select_country",
@@ -273,9 +260,7 @@ const Register = () => {
                                                             {t("state")} *
                                                         </label>
                                                         <StateSelect
-                                                            countryid={
-                                                                country?.id
-                                                            }
+                                                            countryid={country?.id}
                                                             onChange={(e) => {
                                                                 setState(e);
                                                                 handleStateChange(
@@ -300,9 +285,7 @@ const Register = () => {
                                                             {t("city")} *
                                                         </label>
                                                         <CitySelect
-                                                            countryid={
-                                                                country.id
-                                                            }
+                                                            countryid={country.id}
                                                             stateid={state.id}
                                                             onChange={(e) => {
                                                                 setCity(e);
@@ -331,8 +314,7 @@ const Register = () => {
                                                             value={postalCode}
                                                             onChange={(e) =>
                                                                 setPostalCode(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -356,8 +338,7 @@ const Register = () => {
                                                             value={address1}
                                                             onChange={(e) =>
                                                                 setAddress1(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -380,8 +361,7 @@ const Register = () => {
                                                             value={address2}
                                                             onChange={(e) =>
                                                                 setAddress2(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -401,18 +381,14 @@ const Register = () => {
                                                                     : "sa"
                                                             }
                                                             // localization={ar}
-                                                            countryCodeEditable={
-                                                                false
-                                                            }
+                                                            countryCodeEditable={false}
                                                             name="phone"
                                                             specialLabel=""
                                                             required={true}
                                                             inputClass="w-100"
                                                             value={phone}
                                                             id="phone"
-                                                            onChange={(e) =>
-                                                                setPhone(e)
-                                                            }
+                                                            onChange={(e) => setPhone(e)}
                                                         />
                                                     </div>
                                                     <div className="mb-3">
@@ -430,8 +406,7 @@ const Register = () => {
                                                             ref={pictureRef}
                                                             onChange={(e) =>
                                                                 setProfilePicture(
-                                                                    e.target
-                                                                        .files[0],
+                                                                    e.target.files[0],
                                                                 )
                                                             }
                                                         />
@@ -453,8 +428,7 @@ const Register = () => {
                                                             value={password}
                                                             onChange={(e) =>
                                                                 setPassword(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -473,13 +447,10 @@ const Register = () => {
                                                             className="form-control"
                                                             placeholder="••••••••••••"
                                                             required
-                                                            value={
-                                                                confirmPassword
-                                                            }
+                                                            value={confirmPassword}
                                                             onChange={(e) =>
                                                                 setConfirmPassword(
-                                                                    e.target
-                                                                        .value,
+                                                                    e.target.value,
                                                                 )
                                                             }
                                                         />
@@ -507,10 +478,7 @@ const Register = () => {
                                                         {t(
                                                             "supplier_pages.update_product.not",
                                                         )}{" "}
-                                                        ?{" "}
-                                                        {t(
-                                                            "buyer_pages.register.as",
-                                                        )}
+                                                        ? {t("buyer_pages.register.as")}
                                                         <Link to="/supplier/account/register">
                                                             {t(
                                                                 "supplier_pages.update_product.buyer",
@@ -534,9 +502,7 @@ const Register = () => {
 
 const handleCountryChange = (e) => {
     GetState(e.id).then((result) => {
-        let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input",
-        );
+        let stateSelect = document.querySelector("#state .stdropdown-input>input");
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
             stateSelect.removeAttribute("disabled");
@@ -551,9 +517,7 @@ const handleCountryChange = (e) => {
 
 const handleStateChange = (countryId, e) => {
     GetCity(countryId, e.id).then((result) => {
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input",
-        );
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
         if (result.length > 0) {
             citySelect.setAttribute("required", true);
             citySelect.removeAttribute("disabled");

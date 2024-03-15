@@ -9,26 +9,32 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const Layout = () => {
-  const { i18n } = useTranslation();
-  const [menuOpen, setMenuOpen] = useState(false);
+    const { i18n } = useTranslation();
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  return (
-    <main className="dashboard__main">
-      <ToastContainer newestOnTop={true} />
+    return (
+        <main className="dashboard__main">
+            <ToastContainer newestOnTop={true} />
 
-      <section>
-        <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-        <Sidebar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <section>
+                <Header
+                    menuOpen={menuOpen}
+                    setMenuOpen={setMenuOpen}
+                />
+                <Sidebar
+                    menuOpen={menuOpen}
+                    setMenuOpen={setMenuOpen}
+                />
 
-        <div
-          className={`dashboard__main-container ${i18n.resolvedLanguage == 'en' ? '' : 'ar'}`}
-          onClick={() => menuOpen && setMenuOpen(false)}
-        >
-          <Outlet />
-        </div>
-      </section>
-    </main>
-  );
+                <div
+                    className={`dashboard__main-container ${i18n.resolvedLanguage == "en" ? "" : "ar"}`}
+                    onClick={() => menuOpen && setMenuOpen(false)}
+                >
+                    <Outlet />
+                </div>
+            </section>
+        </main>
+    );
 };
 
 export default Layout;

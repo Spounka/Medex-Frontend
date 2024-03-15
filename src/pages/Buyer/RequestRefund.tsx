@@ -31,15 +31,12 @@ const RequestRefund = () => {
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-        const { isValid } = validateFileExtensions(
-            selectedFiles,
-            ALLOWED_EXTENSIONS
-        );
+        const { isValid } = validateFileExtensions(selectedFiles, ALLOWED_EXTENSIONS);
         if (selectedFiles.length > MAX_FILE_COUNT) {
             toast.error(
                 `${t("buyer_pages.return_request.max_files_err", {
                     max_files: MAX_FILE_COUNT,
-                })}.`
+                })}.`,
             );
             multiFileRef.current.value = null;
             return;
@@ -57,14 +54,11 @@ const RequestRefund = () => {
         e.preventDefault();
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + `/api/order/return/${id}/`,
-                {
-                    reason: reason,
-                    description: "description",
-                    files: files,
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + `/api/order/return/${id}/`, {
+                reason: reason,
+                description: "description",
+                files: files,
+            })
             .then(() => {
                 setReason("");
                 setDescription("");
@@ -109,9 +103,7 @@ const RequestRefund = () => {
                                 onChange={(e) => setReason(e.target.value)}
                             >
                                 <option value="">
-                                    {t(
-                                        "buyer_pages.return_request.reason_placeholder"
-                                    )}
+                                    {t("buyer_pages.return_request.reason_placeholder")}
                                 </option>
                                 <option value="POO">
                                     {t("buyer_pages.return_request.poor")}
@@ -137,7 +129,7 @@ const RequestRefund = () => {
                                 rows="12"
                                 className="form-control"
                                 placeholder={`${t(
-                                    "buyer_pages.return_request.description_placeholder"
+                                    "buyer_pages.return_request.description_placeholder",
                                 )}...`}
                                 maxLength={TEXT_MAX}
                                 required
@@ -185,19 +177,13 @@ const RequestRefund = () => {
                                 </div>
                                 <ol>
                                     <li>
-                                        {t(
-                                            "buyer_pages.return_request.images_tip_1"
-                                        )}
+                                        {t("buyer_pages.return_request.images_tip_1")}
                                     </li>
                                     <li>
-                                        {t(
-                                            "buyer_pages.return_request.images_tip_2"
-                                        )}
+                                        {t("buyer_pages.return_request.images_tip_2")}
                                     </li>
                                     <li>
-                                        {t(
-                                            "buyer_pages.return_request.images_tip_3"
-                                        )}
+                                        {t("buyer_pages.return_request.images_tip_3")}
                                     </li>
                                 </ol>
                             </div>
@@ -223,11 +209,9 @@ const clearInput = () => {
 };
 
 const countLetters = () => {
-    let text_length = document.querySelector("textarea[name=description]").value
-        .length;
+    let text_length = document.querySelector("textarea[name=description]").value.length;
 
-    document.getElementById("count_message").innerHTML =
-        text_length + " / " + TEXT_MAX;
+    document.getElementById("count_message").innerHTML = text_length + " / " + TEXT_MAX;
 };
 
 export default RequestRefund;

@@ -41,7 +41,10 @@ const ReturnRequests = () => {
                     {returnRequests.length > 0 ? (
                         returnRequests.map((request) => {
                             return (
-                                <div className="col-12 mt-4" key={request.id}>
+                                <div
+                                    className="col-12 mt-4"
+                                    key={request.id}
+                                >
                                     <Link
                                         to={`/supplier/return-requests/${request.id}`}
                                         className="w-100"
@@ -53,11 +56,9 @@ const ReturnRequests = () => {
                                                         src={
                                                             request.user.profile
                                                                 .profilePicture
-                                                                ? import.meta
-                                                                      .env
+                                                                ? import.meta.env
                                                                       .VITE_BACKEND_URL +
-                                                                  request.user
-                                                                      .profile
+                                                                  request.user.profile
                                                                       .profilePicture
                                                                 : userImage
                                                         }
@@ -69,22 +70,14 @@ const ReturnRequests = () => {
 
                                                     <div className="d-flex flex-column gap-2">
                                                         <h4 className="m-0">
-                                                            {
-                                                                request.user
-                                                                    .full_name
-                                                            }
+                                                            {request.user.full_name}
                                                         </h4>
                                                         <p className="m-0">
                                                             {
-                                                                request.product
-                                                                    ?.product
+                                                                request.product?.product
                                                                     ?.name
                                                             }{" "}
-                                                            *{" "}
-                                                            {
-                                                                request?.product
-                                                                    ?.quantity
-                                                            }
+                                                            * {request?.product?.quantity}
                                                         </p>
                                                     </div>
                                                 </div>

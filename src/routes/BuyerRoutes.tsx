@@ -63,10 +63,19 @@ const BuyerRoutes = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route index element={<Home addToCart={addToCart} />} />
+            <Route
+                path="/"
+                element={<Layout />}
+            >
+                <Route
+                    index
+                    element={<Home addToCart={addToCart} />}
+                />
 
-                <Route path="brands" element={<BrandsList />} />
+                <Route
+                    path="brands"
+                    element={<BrandsList />}
+                />
 
                 <Route
                     path="products"
@@ -77,12 +86,24 @@ const BuyerRoutes = () => {
                     element={<ProductDetails addToCart={addToCart} />}
                 />
 
-                <Route path="contact-us" element={<Contact />} />
+                <Route
+                    path="contact-us"
+                    element={<Contact />}
+                />
 
-                <Route path="categories/" element={<CategoriesList />} />
+                <Route
+                    path="categories/"
+                    element={<CategoriesList />}
+                />
 
-                <Route path="account/login" element={<Login />} />
-                <Route path="account/register" element={<Register />} />
+                <Route
+                    path="account/login"
+                    element={<Login />}
+                />
+                <Route
+                    path="account/register"
+                    element={<Register />}
+                />
                 <Route
                     path="account/password/reset"
                     element={<ForgotPassword />}
@@ -105,7 +126,10 @@ const BuyerRoutes = () => {
                     path="/"
                     element={<BuyerProtectedRoutes checkPermission={false} />}
                 >
-                    <Route path="wishlist" element={<Wishlist />} />
+                    <Route
+                        path="wishlist"
+                        element={<Wishlist />}
+                    />
                 </Route>
 
                 {/* Buyer Product Manager */}
@@ -113,10 +137,7 @@ const BuyerRoutes = () => {
                     path="/"
                     element={
                         <BuyerProtectedRoutes
-                            requiredGroups={[
-                                "Buyer Product Manager",
-                                "Buyer Admin",
-                            ]}
+                            requiredGroups={["Buyer Product Manager", "Buyer Admin"]}
                         />
                     }
                 >
@@ -152,14 +173,23 @@ const BuyerRoutes = () => {
                         />
                     }
                 >
-                    <Route path="chat" element={<Chat />} />
-                    <Route path="chat/:id" element={<ChatMessagesList />} />
+                    <Route
+                        path="chat"
+                        element={<Chat />}
+                    />
+                    <Route
+                        path="chat/:id"
+                        element={<ChatMessagesList />}
+                    />
 
                     <Route
                         path="account/dashboard"
                         element={<DashboardLayout />}
                     >
-                        <Route path="chat" element={<Chat />} />
+                        <Route
+                            path="chat"
+                            element={<Chat />}
+                        />
                     </Route>
                 </Route>
 
@@ -168,10 +198,7 @@ const BuyerRoutes = () => {
                     path="/"
                     element={
                         <BuyerProtectedRoutes
-                            requiredGroups={[
-                                "Buyer Order Manager",
-                                "Buyer Admin",
-                            ]}
+                            requiredGroups={["Buyer Order Manager", "Buyer Admin"]}
                         />
                     }
                 >
@@ -192,7 +219,10 @@ const BuyerRoutes = () => {
                             element={<ReturnRequests />}
                         />
 
-                        <Route path="return/:id" element={<RequestRefund />} />
+                        <Route
+                            path="return/:id"
+                            element={<RequestRefund />}
+                        />
                     </Route>
                 </Route>
 
@@ -201,10 +231,7 @@ const BuyerRoutes = () => {
                     path="/"
                     element={
                         <BuyerProtectedRoutes
-                            requiredGroups={[
-                                "Buyer Admin",
-                                "Buyer Quote Manager",
-                            ]}
+                            requiredGroups={["Buyer Admin", "Buyer Quote Manager"]}
                         />
                     }
                 >
@@ -212,13 +239,19 @@ const BuyerRoutes = () => {
                         path="account/dashboard"
                         element={<DashboardLayout />}
                     >
-                        <Route path="quotes" element={<QuoteList />} />
+                        <Route
+                            path="quotes"
+                            element={<QuoteList />}
+                        />
                         <Route
                             path="request-for-quote"
                             element={<RequestForQuotes />}
                         />
 
-                        <Route path="quotes/:id" element={<OfferList />} />
+                        <Route
+                            path="quotes/:id"
+                            element={<OfferList />}
+                        />
                         <Route
                             path="quotes/offers/:id/invoice"
                             element={<OfferInvoice />}
@@ -229,35 +262,46 @@ const BuyerRoutes = () => {
                 {/* Buyer Admin */}
                 <Route
                     path="/"
-                    element={
-                        <BuyerProtectedRoutes
-                            requiredGroups={["Buyer Admin"]}
-                        />
-                    }
+                    element={<BuyerProtectedRoutes requiredGroups={["Buyer Admin"]} />}
                 >
                     <Route
                         path="account/dashboard"
                         element={<DashboardLayout />}
                     >
-                        <Route path="statistics" element={<Statistics />} />
+                        <Route
+                            path="statistics"
+                            element={<Statistics />}
+                        />
 
-                        <Route path="settings" element={<BuyerSettings />} />
+                        <Route
+                            path="settings"
+                            element={<BuyerSettings />}
+                        />
                         <Route
                             path="settings/permissions"
                             element={<Permissions />}
                         />
-                        <Route path="settings/profile" element={<Profile />} />
+                        <Route
+                            path="settings/profile"
+                            element={<Profile />}
+                        />
 
                         <Route
                             path="settings/password/update"
                             element={<UpdatePassword />}
                         />
-                        <Route path="settings/soon" element={<ComingSoon />} />
+                        <Route
+                            path="settings/soon"
+                            element={<ComingSoon />}
+                        />
                     </Route>
                 </Route>
             </Route>
 
-            <Route path="*" element={<NotFound />} />
+            <Route
+                path="*"
+                element={<NotFound />}
+            />
         </Routes>
     );
 };

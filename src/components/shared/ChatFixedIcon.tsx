@@ -17,7 +17,7 @@ const ChatFixedIcon = () => {
                 await api
                     .get(
                         import.meta.env.VITE_BACKEND_URL +
-                            `/api/chat/${user.user_id}/count/`
+                            `/api/chat/${user.user_id}/count/`,
                     )
                     .then((response) => {
                         setMessagesCount(response.data);
@@ -41,7 +41,10 @@ const ChatFixedIcon = () => {
                     messagesCount > 0 && "chat__fixed-icon-after"
                 }`}
             >
-                <PiChatsCircle size="2.5rem" color="white" />
+                <PiChatsCircle
+                    size="2.5rem"
+                    color="white"
+                />
             </Link>
         </div>
     );

@@ -20,9 +20,7 @@ const OfferList = () => {
 
     const getOffers = async () => {
         await api
-            .get(
-                import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/?id=${id}`
-            )
+            .get(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/?id=${id}`)
             .then((res) => {
                 setOffers(res.data);
             });
@@ -43,7 +41,10 @@ const OfferList = () => {
                     {offers.length > 0 ? (
                         offers.map((offer) => {
                             return (
-                                <div className="col-12 mt-4" key={offer.id}>
+                                <div
+                                    className="col-12 mt-4"
+                                    key={offer.id}
+                                >
                                     <Link
                                         to={`/account/dashboard/quotes/offers/${offer.id}/invoice`}
                                         className="w-100"
@@ -56,11 +57,9 @@ const OfferList = () => {
                                                         src={
                                                             offer.user.profile
                                                                 .profile_picture
-                                                                ? import.meta
-                                                                      .env
+                                                                ? import.meta.env
                                                                       .VITE_BACKEND_URL +
-                                                                  offer.user
-                                                                      .profile
+                                                                  offer.user.profile
                                                                       .profile_picture
                                                                 : userImage
                                                         }
@@ -72,16 +71,10 @@ const OfferList = () => {
 
                                                     <div className="d-flex flex-column gap-2">
                                                         <h4 className="m-0">
-                                                            {
-                                                                offer.user
-                                                                    .full_name
-                                                            }
+                                                            {offer.user.full_name}
                                                         </h4>
                                                         <p className="m-0">
-                                                            {
-                                                                offer.quote_obj
-                                                                    .product_name
-                                                            }{" "}
+                                                            {offer.quote_obj.product_name}{" "}
                                                             * {offer.quantity}
                                                         </p>
                                                     </div>
@@ -90,18 +83,14 @@ const OfferList = () => {
                                                     className={`badge p-2 fw-bold d-flex align-items-center gap-1 ${
                                                         offer.status === "P"
                                                             ? "bg-secondary"
-                                                            : offer.status ===
-                                                              "A"
-                                                            ? "bg-success"
-                                                            : "bg-danger"
+                                                            : offer.status === "A"
+                                                              ? "bg-success"
+                                                              : "bg-danger"
                                                     }`}
                                                 >
                                                     <BiSolidInfoCircle size="1rem" />
-                                                    {t(
-                                                        "buyer_pages.offers_list.status"
-                                                    )}
-                                                    : &nbsp;{" "}
-                                                    {offer.status_display}
+                                                    {t("buyer_pages.offers_list.status")}:
+                                                    &nbsp; {offer.status_display}
                                                 </div>
                                             </div>
                                         </div>

@@ -50,10 +50,19 @@ const SupplierRoutes = () => {
 
     return (
         <Routes>
-            <Route path="account/register" element={<Register />} />
+            <Route
+                path="account/register"
+                element={<Register />}
+            />
 
-            <Route path="/" element={<Layout />}>
-                <Route path="store/view" element={<ViewStore />} />
+            <Route
+                path="/"
+                element={<Layout />}
+            >
+                <Route
+                    path="store/view"
+                    element={<ViewStore />}
+                />
 
                 {/* Product Manager */}
                 <Route
@@ -67,7 +76,10 @@ const SupplierRoutes = () => {
                         />
                     }
                 >
-                    <Route path="products/create" element={<CreateProduct />} />
+                    <Route
+                        path="products/create"
+                        element={<CreateProduct />}
+                    />
                     <Route
                         path="products/excel-create"
                         element={<CreateProductExcel />}
@@ -77,9 +89,7 @@ const SupplierRoutes = () => {
                         element={
                             <ProductList
                                 buttonLink={`/supplier/products/`}
-                                buttonText={t(
-                                    "supplier_pages.product_details.view"
-                                )}
+                                buttonText={t("supplier_pages.product_details.view")}
                                 buttonIcon={<TbListDetails />}
                             />
                         }
@@ -90,9 +100,7 @@ const SupplierRoutes = () => {
                         element={
                             <ProductList
                                 buttonLink={`/supplier/products/update/`}
-                                buttonText={t(
-                                    "supplier_pages.product_details.update"
-                                )}
+                                buttonText={t("supplier_pages.product_details.update")}
                                 buttonIcon={<TbEdit />}
                             />
                         }
@@ -112,10 +120,7 @@ const SupplierRoutes = () => {
                     path="/"
                     element={
                         <SupplierProtectedRoutes
-                            requiredGroups={[
-                                "Supplier Quote Manager",
-                                "Supplier Admin",
-                            ]}
+                            requiredGroups={["Supplier Quote Manager", "Supplier Admin"]}
                         />
                     }
                 >
@@ -123,13 +128,22 @@ const SupplierRoutes = () => {
                         path="/request-for-quote"
                         element={<RequestForQuotes />}
                     />
-                    <Route path="/quotes" element={<QuoteList />} />
-                    <Route path="/quotes/:id" element={<QuoteDetails />} />
+                    <Route
+                        path="/quotes"
+                        element={<QuoteList />}
+                    />
+                    <Route
+                        path="/quotes/:id"
+                        element={<QuoteDetails />}
+                    />
                     <Route
                         path="/offer/invoice/:id"
                         element={<OfferInvoice />}
                     />
-                    <Route path="/quotes/offers" element={<OfferList />} />
+                    <Route
+                        path="/quotes/offers"
+                        element={<OfferList />}
+                    />
                 </Route>
 
                 {/* Sale Manager */}
@@ -137,18 +151,27 @@ const SupplierRoutes = () => {
                     path="/"
                     element={
                         <SupplierProtectedRoutes
-                            requiredGroups={[
-                                "Supplier Sale Manager",
-                                "Supplier Admin",
-                            ]}
+                            requiredGroups={["Supplier Sale Manager", "Supplier Admin"]}
                         />
                     }
                 >
-                    <Route path="sales" element={<SalesList />} />
-                    <Route path="sales/:id" element={<SalesDetails />} />
+                    <Route
+                        path="sales"
+                        element={<SalesList />}
+                    />
+                    <Route
+                        path="sales/:id"
+                        element={<SalesDetails />}
+                    />
 
-                    <Route path="tracking" element={<TrackingList />} />
-                    <Route path="tracking/:id" element={<TrackingDetails />} />
+                    <Route
+                        path="tracking"
+                        element={<TrackingList />}
+                    />
+                    <Route
+                        path="tracking/:id"
+                        element={<TrackingDetails />}
+                    />
 
                     <Route
                         path="return-requests"
@@ -169,41 +192,72 @@ const SupplierRoutes = () => {
                         />
                     }
                 >
-                    <Route path="chat" element={<Chat />} />
-                    <Route path="chat/:id" element={<ChatMessagesList />} />
+                    <Route
+                        path="chat"
+                        element={<Chat />}
+                    />
+                    <Route
+                        path="chat/:id"
+                        element={<ChatMessagesList />}
+                    />
                 </Route>
 
                 {/* Supplier Admin */}
                 <Route
                     path="/"
                     element={
-                        <SupplierProtectedRoutes
-                            requiredGroups={["Supplier Admin"]}
-                        />
+                        <SupplierProtectedRoutes requiredGroups={["Supplier Admin"]} />
                     }
                 >
-                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route
+                        path="dashboard"
+                        element={<Dashboard />}
+                    />
 
-                    <Route path="statistics" element={<Statistics />} />
+                    <Route
+                        path="statistics"
+                        element={<Statistics />}
+                    />
 
-                    <Route path="store/edit" element={<EditStore />} />
+                    <Route
+                        path="store/edit"
+                        element={<EditStore />}
+                    />
 
                     <Route path="settings">
-                        <Route index element={<SupplierSettings />} />
-                        <Route path="profile" element={<PersonalSettings />} />
-                        <Route path="permissions" element={<Permissions />} />
+                        <Route
+                            index
+                            element={<SupplierSettings />}
+                        />
+                        <Route
+                            path="profile"
+                            element={<PersonalSettings />}
+                        />
+                        <Route
+                            path="permissions"
+                            element={<Permissions />}
+                        />
 
                         <Route
                             path="password/update"
                             element={<UpdatePassword />}
                         />
-                        <Route path="store" element={<Store />} />
-                        <Route path="soon" element={<ComingSoon />} />
+                        <Route
+                            path="store"
+                            element={<Store />}
+                        />
+                        <Route
+                            path="soon"
+                            element={<ComingSoon />}
+                        />
                     </Route>
                 </Route>
             </Route>
 
-            <Route path="*" element={<NotFound />} />
+            <Route
+                path="*"
+                element={<NotFound />}
+            />
         </Routes>
     );
 };

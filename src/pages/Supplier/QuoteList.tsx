@@ -94,7 +94,7 @@ const QuoteList = () => {
 
     const fetchBrands = async () => {
         const response = await api.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`
+            `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`,
         );
         const brandOptions = response.data.map((brand) => ({
             value: brand.slug,
@@ -104,11 +104,9 @@ const QuoteList = () => {
     };
 
     const getQuotes = async () => {
-        await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/quote/")
-            .then((res) => {
-                setQuotes(res.data);
-            });
+        await api.get(import.meta.env.VITE_BACKEND_URL + "/api/quote/").then((res) => {
+            setQuotes(res.data);
+        });
     };
 
     useEffect(() => {
@@ -141,10 +139,7 @@ const QuoteList = () => {
         formData.append("notes", notes);
 
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + "/api/quote/offer/",
-                formData
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/offer/", formData)
             .then((res) => {
                 setShowDownloadBtn(() => !showDownloadBtn);
 
@@ -202,9 +197,7 @@ const QuoteList = () => {
                                                 className={`list-group-item list-group-item-action `}
                                                 id={`list-${quote.id}-list`}
                                                 data-bs-toggle={
-                                                    window.innerWidth < 768
-                                                        ? ""
-                                                        : "list"
+                                                    window.innerWidth < 768 ? "" : "list"
                                                 }
                                                 to={
                                                     window.innerWidth < 768
@@ -213,9 +206,7 @@ const QuoteList = () => {
                                                 }
                                                 state={{ quote: quote }}
                                                 role={
-                                                    window.innerWidth < 768
-                                                        ? ""
-                                                        : "tab"
+                                                    window.innerWidth < 768 ? "" : "tab"
                                                 }
                                                 aria-controls={
                                                     window.innerWidth < 768
@@ -223,14 +214,11 @@ const QuoteList = () => {
                                                         : `list-${quote.id}`
                                                 }
                                                 key={quote.id}
-                                                onClick={() =>
-                                                    setSelectedQuote(quote)
-                                                }
+                                                onClick={() => setSelectedQuote(quote)}
                                             >
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
-                                                        selectedQuote.id ==
-                                                        quote.id
+                                                        selectedQuote.id == quote.id
                                                             ? "bg-primary text-white"
                                                             : ""
                                                     }`}
@@ -239,14 +227,11 @@ const QuoteList = () => {
                                                         <div className="col-2 col-md-1 my-auto">
                                                             <img
                                                                 src={
-                                                                    quote.user
-                                                                        .profile
+                                                                    quote.user.profile
                                                                         .profile_picture
-                                                                        ? import.meta
-                                                                              .env
+                                                                        ? import.meta.env
                                                                               .VITE_BACKEND_URL +
-                                                                          quote
-                                                                              .user
+                                                                          quote.user
                                                                               .profile
                                                                               .profile_picture
                                                                         : userImage
@@ -260,14 +245,12 @@ const QuoteList = () => {
                                                         <div className="col-9 col-md-10 mx-2">
                                                             <div className="card-body">
                                                                 <h6 className="card-title dashboard__quote-title">
-                                                                    {
-                                                                        quote.product_name
-                                                                    }
+                                                                    {quote.product_name}
                                                                 </h6>
                                                                 <span className="card-text dashboard__quote-text">
                                                                     {quote.requirements.substring(
                                                                         0,
-                                                                        30
+                                                                        30,
                                                                     )}
                                                                 </span>
                                                             </div>
@@ -281,9 +264,7 @@ const QuoteList = () => {
                                                         </div>
                                                         <div className="d-flex align-items-center gap-2 dashboard__quote-info">
                                                             <CiTimer size=".8rem" />
-                                                            {
-                                                                quote.created_since
-                                                            }{" "}
+                                                            {quote.created_since}{" "}
                                                             {t("ago")}
                                                         </div>
                                                     </div>
@@ -301,8 +282,7 @@ const QuoteList = () => {
                                             return (
                                                 <div
                                                     className={`tab-pane fade ${
-                                                        selectedQuote.id ==
-                                                        quote.id
+                                                        selectedQuote.id == quote.id
                                                             ? "active show"
                                                             : ""
                                                     }`}
@@ -315,14 +295,11 @@ const QuoteList = () => {
                                                         <div className="d-flex align-items-center gap-4 mb-3">
                                                             <img
                                                                 src={
-                                                                    quote.user
-                                                                        .profile
+                                                                    quote.user.profile
                                                                         .profile_picture
-                                                                        ? import.meta
-                                                                              .env
+                                                                        ? import.meta.env
                                                                               .VITE_BACKEND_URL +
-                                                                          quote
-                                                                              .user
+                                                                          quote.user
                                                                               .profile
                                                                               .profile_picture
                                                                         : userImage
@@ -335,18 +312,10 @@ const QuoteList = () => {
 
                                                             <div className="d-flex flex-column gap-2">
                                                                 <h4 className="m-0">
-                                                                    {
-                                                                        quote
-                                                                            .user
-                                                                            .full_name
-                                                                    }
+                                                                    {quote.user.full_name}
                                                                 </h4>
                                                                 <p className="m-0">
-                                                                    {
-                                                                        quote
-                                                                            .user
-                                                                            .email
-                                                                    }
+                                                                    {quote.user.email}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -358,54 +327,43 @@ const QuoteList = () => {
                                                         </p>
                                                         <h5 className="fw-bold mb-3">
                                                             {t(
-                                                                "buyer_pages.quote_requests.det"
+                                                                "buyer_pages.quote_requests.det",
                                                             )}
                                                         </h5>
                                                         <ul className="list-group">
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CgMenuMotion />
                                                                 {t(
-                                                                    "buyer_pages.cart.qty"
+                                                                    "buyer_pages.cart.qty",
                                                                 )}
                                                                 : &nbsp;
-                                                                {
-                                                                    quote.quantity
-                                                                }{" "}
-                                                                {
-                                                                    quote.unit_display
-                                                                }
+                                                                {quote.quantity}{" "}
+                                                                {quote.unit_display}
                                                             </li>
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CiTimer />
                                                                 {t(
-                                                                    "buyer_pages.quote_requests.added"
+                                                                    "buyer_pages.quote_requests.added",
                                                                 )}
                                                                 : &nbsp;
-                                                                {
-                                                                    quote.created_since
-                                                                }{" "}
+                                                                {quote.created_since}{" "}
                                                                 {t("ago")}
                                                             </li>
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <BsCalendar2Date />
-                                                                {t(
-                                                                    "shared.rfq.due_date"
-                                                                )}
+                                                                {t("shared.rfq.due_date")}
                                                                 : &nbsp;
                                                                 {
                                                                     quote.due_date_display
-                                                                }{" "}
-                                                                -{" "}
-                                                                {
-                                                                    quote.due_time_display
-                                                                }
+                                                                } -{" "}
+                                                                {quote.due_time_display}
                                                             </li>
-                                                            {quote?.attachments
-                                                                .length > 0 &&
+                                                            {quote?.attachments.length >
+                                                                0 &&
                                                                 quote.attachments.map(
                                                                     (
                                                                         attachment,
-                                                                        index
+                                                                        index,
                                                                     ) => {
                                                                         return (
                                                                             <li
@@ -425,20 +383,20 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <AiOutlineFileText />
                                                                                     {t(
-                                                                                        "buyer_pages.quote_requests.att"
+                                                                                        "buyer_pages.quote_requests.att",
                                                                                     )}{" "}
                                                                                     {index +
                                                                                         1}
                                                                                 </Link>
                                                                             </li>
                                                                         );
-                                                                    }
+                                                                    },
                                                                 )}
                                                         </ul>
                                                         <hr />
                                                         <h5 className="fw-bold mb-3">
                                                             {t(
-                                                                "supplier_pages.quote_list.offer"
+                                                                "supplier_pages.quote_list.offer",
                                                             )}
                                                         </h5>
                                                         <button
@@ -449,16 +407,16 @@ const QuoteList = () => {
                                                             onClick={() =>
                                                                 document
                                                                     .querySelector(
-                                                                        "#country .stdropdown-input>input"
+                                                                        "#country .stdropdown-input>input",
                                                                     )
                                                                     .setAttribute(
                                                                         "required",
-                                                                        true
+                                                                        true,
                                                                     )
                                                             }
                                                         >
                                                             {t(
-                                                                "supplier_pages.quote_list.submit"
+                                                                "supplier_pages.quote_list.submit",
                                                             )}
                                                             <MdOutlinePostAdd size="1.2rem" />
                                                         </button>
@@ -477,7 +435,7 @@ const QuoteList = () => {
                                                                             id={`offerModalLabel${quote.id}`}
                                                                         >
                                                                             {t(
-                                                                                "supplier_pages.quote_list.submit"
+                                                                                "supplier_pages.quote_list.submit",
                                                                             )}
                                                                         </h1>
                                                                         <button
@@ -490,11 +448,11 @@ const QuoteList = () => {
                                                                     <div className="modal-body">
                                                                         <form
                                                                             onSubmit={(
-                                                                                e
+                                                                                e,
                                                                             ) =>
                                                                                 handleSubmit(
                                                                                     e,
-                                                                                    quote.id
+                                                                                    quote.id,
                                                                                 )
                                                                             }
                                                                         >
@@ -505,9 +463,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <MdOutlineGrid3X3 size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.qty"
+                                                                                        "supplier_pages.quote_list.qty",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -515,7 +472,7 @@ const QuoteList = () => {
                                                                                     id="quantity"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.qty_plc"
+                                                                                        "supplier_pages.quote_list.qty_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     min={
@@ -525,12 +482,12 @@ const QuoteList = () => {
                                                                                         quantity
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setQuantity(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -542,9 +499,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <AiOutlineSafetyCertificate size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.brand"
+                                                                                        "supplier_pages.quote_list.brand",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <CreatableSelect
@@ -553,7 +509,7 @@ const QuoteList = () => {
                                                                                         true
                                                                                     }
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.sel_brand"
+                                                                                        "supplier_pages.quote_list.sel_brand",
                                                                                     )}...`}
                                                                                     isSearchable={
                                                                                         true
@@ -569,11 +525,11 @@ const QuoteList = () => {
                                                                                         brand
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) => {
                                                                                         setBrand(
                                                                                             e?.value ||
-                                                                                                ""
+                                                                                                "",
                                                                                         );
                                                                                     }}
                                                                                 />
@@ -585,9 +541,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <BiMoneyWithdraw size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.price_one"
+                                                                                        "supplier_pages.quote_list.price_one",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -595,7 +550,7 @@ const QuoteList = () => {
                                                                                     id="product_price"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.price_one_plc"
+                                                                                        "supplier_pages.quote_list.price_one_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     min={
@@ -605,12 +560,12 @@ const QuoteList = () => {
                                                                                         productPrice
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setProductPrice(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -623,18 +578,16 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <GrMoney size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.tax"
+                                                                                        "supplier_pages.quote_list.tax",
                                                                                     )}
-
-                                                                                    %
-                                                                                    *
+                                                                                    % *
                                                                                 </label>
                                                                                 <input
                                                                                     type="number"
                                                                                     id="tax"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.tax_plc"
+                                                                                        "supplier_pages.quote_list.tax_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     min={
@@ -647,12 +600,12 @@ const QuoteList = () => {
                                                                                         tax
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setTax(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -665,9 +618,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <GrMoney size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.price_tot"
+                                                                                        "supplier_pages.quote_list.price_tot",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -677,19 +629,19 @@ const QuoteList = () => {
                                                                                     id="product_total_price"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.price_tot_plc"
+                                                                                        "supplier_pages.quote_list.price_tot_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     value={
                                                                                         totalPrice
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setTotalPrice(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -705,24 +657,23 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <BsGlobeEuropeAfrica size="1.4rem" />
                                                                                     {t(
-                                                                                        "country"
+                                                                                        "country",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <CountrySelect
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) => {
                                                                                         setCountry(
-                                                                                            e
+                                                                                            e,
                                                                                         );
                                                                                         handleCountryChange(
-                                                                                            e
+                                                                                            e,
                                                                                         );
                                                                                     }}
                                                                                     placeHolder={`${t(
-                                                                                        "select_country"
+                                                                                        "select_country",
                                                                                     )}...`}
                                                                                 />
                                                                             </div>
@@ -736,9 +687,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <TfiLocationArrow size="1.4rem" />
                                                                                     {t(
-                                                                                        "state"
+                                                                                        "state",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <StateSelect
@@ -746,18 +696,18 @@ const QuoteList = () => {
                                                                                         country?.id
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) => {
                                                                                         setState(
-                                                                                            e
+                                                                                            e,
                                                                                         );
                                                                                         handleStateChange(
                                                                                             country?.id,
-                                                                                            e
+                                                                                            e,
                                                                                         );
                                                                                     }}
                                                                                     placeHolder={`${t(
-                                                                                        "select_state"
+                                                                                        "select_state",
                                                                                     )}...`}
                                                                                 />
                                                                             </div>
@@ -771,9 +721,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <MdLocationCity size="1.4rem" />
                                                                                     {t(
-                                                                                        "city"
+                                                                                        "city",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <CitySelect
@@ -784,14 +733,14 @@ const QuoteList = () => {
                                                                                         state.id
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) => {
                                                                                         setCity(
-                                                                                            e
+                                                                                            e,
                                                                                         );
                                                                                     }}
                                                                                     placeHolder={`${t(
-                                                                                        "select_city"
+                                                                                        "select_city",
                                                                                     )}...`}
                                                                                 />
                                                                             </div>
@@ -802,9 +751,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <BsSignpost2 size="1.4rem" />
                                                                                     {t(
-                                                                                        "postal"
+                                                                                        "postal",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -812,19 +760,19 @@ const QuoteList = () => {
                                                                                     name="postalCode"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "postal"
+                                                                                        "postal",
                                                                                     )}...`}
                                                                                     required
                                                                                     value={
                                                                                         postalCode
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setPostalCode(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -836,9 +784,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <MdOutlineLocationOn size="1.4rem" />
                                                                                     {t(
-                                                                                        "address1"
+                                                                                        "address1",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -846,19 +793,19 @@ const QuoteList = () => {
                                                                                     name="address1"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "address1"
+                                                                                        "address1",
                                                                                     )}...`}
                                                                                     required
                                                                                     value={
                                                                                         address1
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setAddress1(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -870,7 +817,7 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <MdOutlineLocationOn size="1.4rem" />
                                                                                     {t(
-                                                                                        "address2"
+                                                                                        "address2",
                                                                                     )}
                                                                                 </label>
                                                                                 <input
@@ -878,18 +825,18 @@ const QuoteList = () => {
                                                                                     name="address2"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "address1"
+                                                                                        "address1",
                                                                                     )}...`}
                                                                                     value={
                                                                                         address2
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setAddress2(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -901,9 +848,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <BsCalendarDate size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.date"
+                                                                                        "supplier_pages.quote_list.date",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -911,19 +857,19 @@ const QuoteList = () => {
                                                                                     id="Delivery Date"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.date_plc"
+                                                                                        "supplier_pages.quote_list.date_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     value={
                                                                                         deliveryDate
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setDeliveryDate(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -935,9 +881,8 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <AiOutlineCreditCard size="1.4rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.pay"
+                                                                                        "supplier_pages.quote_list.pay",
                                                                                     )}
-
                                                                                     *
                                                                                 </label>
                                                                                 <input
@@ -945,19 +890,19 @@ const QuoteList = () => {
                                                                                     id="payment_type"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.pay_plc"
+                                                                                        "supplier_pages.quote_list.pay_plc",
                                                                                     )}...`}
                                                                                     required
                                                                                     value={
                                                                                         paymentType
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setPaymentType(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                 />
@@ -969,25 +914,25 @@ const QuoteList = () => {
                                                                                 >
                                                                                     <GrNote size="1.1rem" />
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.note"
+                                                                                        "supplier_pages.quote_list.note",
                                                                                     )}
                                                                                 </label>
                                                                                 <textarea
                                                                                     id="notes"
                                                                                     className="form-control"
                                                                                     placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.note_plc"
+                                                                                        "supplier_pages.quote_list.note_plc",
                                                                                     )}...`}
                                                                                     value={
                                                                                         notes
                                                                                     }
                                                                                     onChange={(
-                                                                                        e
+                                                                                        e,
                                                                                     ) =>
                                                                                         setNotes(
                                                                                             e
                                                                                                 .target
-                                                                                                .value
+                                                                                                .value,
                                                                                         )
                                                                                     }
                                                                                     rows={
@@ -1002,7 +947,7 @@ const QuoteList = () => {
                                                                                     className="btn btn-primary w-100 justify-content-center d-flex align-items-center gap-2"
                                                                                 >
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.send"
+                                                                                        "supplier_pages.quote_list.send",
                                                                                     )}
                                                                                     <RiSendPlaneLine size="1.2rem" />
                                                                                 </button>
@@ -1022,7 +967,7 @@ const QuoteList = () => {
                                                                                     }`}
                                                                                 >
                                                                                     {t(
-                                                                                        "supplier_pages.quote_list.view_pdf"
+                                                                                        "supplier_pages.quote_list.view_pdf",
                                                                                     )}
                                                                                     <AiOutlineFolderView size="1.2rem" />
                                                                                 </Link>
@@ -1053,9 +998,7 @@ const QuoteList = () => {
 
 const handleCountryChange = (e) => {
     GetState(e.id).then((result) => {
-        let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input"
-        );
+        let stateSelect = document.querySelector("#state .stdropdown-input>input");
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
             stateSelect.removeAttribute("disabled");
@@ -1070,9 +1013,7 @@ const handleCountryChange = (e) => {
 
 const handleStateChange = (countryId, e) => {
     GetCity(countryId, e.id).then((result) => {
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input"
-        );
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
         if (result.length > 0) {
             citySelect.setAttribute("required", true);
             citySelect.removeAttribute("disabled");

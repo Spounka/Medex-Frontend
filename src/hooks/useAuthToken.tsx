@@ -6,14 +6,11 @@ function useAuthToken() {
     const [localStorageToken, sessionStorageToken] = useStorageTokens();
 
     const [authTokens, setAuthTokens] = useState<ResponseToken>(() => {
-            if (localStorageToken)
-                return JSON.parse(localStorageToken);
-            if (sessionStorageToken)
-                return JSON.parse(sessionStorageToken);
-            return null;
-        },
-    );
-    return {authTokens, setAuthTokens};
+        if (localStorageToken) return JSON.parse(localStorageToken);
+        if (sessionStorageToken) return JSON.parse(sessionStorageToken);
+        return null;
+    });
+    return { authTokens, setAuthTokens };
 }
 
 export default useAuthToken;

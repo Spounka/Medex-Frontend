@@ -39,41 +39,27 @@ const OfferInvoice = () => {
 
     const approveOffer = async () => {
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`,
-                {
-                    type: "approve",
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`, {
+                type: "approve",
+            })
             .then(() => {
-                toast.success(
-                    `${t("buyer_pages.offers_invoice.approve_success")}!`
-                );
+                toast.success(`${t("buyer_pages.offers_invoice.approve_success")}!`);
             })
             .catch(() => {
-                toast.error(
-                    `${t("buyer_pages.offers_invoice.approve_error")}!`
-                );
+                toast.error(`${t("buyer_pages.offers_invoice.approve_error")}!`);
             });
     };
 
     const declineOffer = async () => {
         await api
-            .post(
-                import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`,
-                {
-                    type: "decline",
-                }
-            )
+            .post(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`, {
+                type: "decline",
+            })
             .then(() => {
-                toast.success(
-                    `${t("buyer_pages.offers_invoice.decline_success")}!`
-                );
+                toast.success(`${t("buyer_pages.offers_invoice.decline_success")}!`);
             })
             .catch(() => {
-                toast.error(
-                    `${t("buyer_pages.offers_invoice.decline_error")}!`
-                );
+                toast.error(`${t("buyer_pages.offers_invoice.decline_error")}!`);
             });
     };
 
@@ -112,14 +98,7 @@ const OfferInvoice = () => {
             const imgX = (pdfWidth - imgWidth * ratio) / 2;
             const imgY = 30;
 
-            pdf.addImage(
-                imgData,
-                "PNG",
-                imgX,
-                imgY,
-                imgWidth * ratio,
-                imgHeight * ratio
-            );
+            pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio);
 
             pdf.save(`${offer?.invoice_id}.pdf`);
         });
@@ -160,7 +139,10 @@ const OfferInvoice = () => {
                 </div>
             </div>
 
-            <div className="invoice" ref={pdfRef}>
+            <div
+                className="invoice"
+                ref={pdfRef}
+            >
                 <div className="top_line"></div>
                 <div className="header">
                     <div className="i_row">
@@ -180,37 +162,23 @@ const OfferInvoice = () => {
                         </div>
                         <div className="i_address text_right">
                             <p>{t("buyer_pages.offers_invoice.to")}</p>
-                            <p className="p_title">
-                                {offer?.quote_obj?.user?.full_name}
-                            </p>
+                            <p className="p_title">{offer?.quote_obj?.user?.full_name}</p>
                             <p>
-                                {offer?.quote_obj?.user?.shipping_address
-                                    ?.address_1 &&
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.address_1 + ", "}
-                                {offer?.quote_obj?.user?.shipping_address
-                                    ?.address_2 &&
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.address_2 + ", "}
-                                {offer?.quote_obj?.user?.shipping_address
-                                    ?.state &&
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.state + ", "}
-                                {offer?.quote_obj?.user?.shipping_address
-                                    ?.city &&
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.city + ", "}
-                                {offer?.quote_obj?.user?.shipping_address
-                                    ?.postal_code &&
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.postal_code}
+                                {offer?.quote_obj?.user?.shipping_address?.address_1 &&
+                                    offer?.quote_obj?.user?.shipping_address?.address_1 +
+                                        ", "}
+                                {offer?.quote_obj?.user?.shipping_address?.address_2 &&
+                                    offer?.quote_obj?.user?.shipping_address?.address_2 +
+                                        ", "}
+                                {offer?.quote_obj?.user?.shipping_address?.state &&
+                                    offer?.quote_obj?.user?.shipping_address?.state +
+                                        ", "}
+                                {offer?.quote_obj?.user?.shipping_address?.city &&
+                                    offer?.quote_obj?.user?.shipping_address?.city + ", "}
+                                {offer?.quote_obj?.user?.shipping_address?.postal_code &&
+                                    offer?.quote_obj?.user?.shipping_address?.postal_code}
                             </p>
-                            <p>
-                                {
-                                    offer?.quote_obj?.user?.shipping_address
-                                        ?.country
-                                }
-                            </p>
+                            <p>{offer?.quote_obj?.user?.shipping_address?.country}</p>
                         </div>
                     </div>
                 </div>
@@ -263,8 +231,7 @@ const OfferInvoice = () => {
                                 </div>
                                 <div className="i_col w_15">
                                     <p>
-                                        {offer?.product_price *
-                                            offer?.quantity +
+                                        {offer?.product_price * offer?.quantity +
                                             (offer?.product_price *
                                                 offer?.quantity *
                                                 offer?.tax) /
@@ -285,8 +252,8 @@ const OfferInvoice = () => {
                                 <div className="i_col w_15">
                                     <p>{t("buyer_pages.cart.subtotal")}</p>
                                     <p>
-                                        {t("buyer_pages.offers_invoice.tax")}{" "}
-                                        {offer?.tax} %
+                                        {t("buyer_pages.offers_invoice.tax")} {offer?.tax}{" "}
+                                        %
                                     </p>
                                 </div>
                                 <div className="i_col w_15">
@@ -308,14 +275,10 @@ const OfferInvoice = () => {
                                 <div className="i_col w_50 grand_total">
                                     <p>
                                         <span>
-                                            {t(
-                                                "buyer_pages.offers_invoice.total"
-                                            )}
-                                            :
+                                            {t("buyer_pages.offers_invoice.total")}:
                                         </span>
                                         <span>
-                                            {offer?.product_price *
-                                                offer?.quantity +
+                                            {offer?.product_price * offer?.quantity +
                                                 (offer?.product_price *
                                                     offer?.quantity *
                                                     offer?.tax) /

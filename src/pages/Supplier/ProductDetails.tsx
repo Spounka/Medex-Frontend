@@ -52,7 +52,7 @@ const ProductDetails = () => {
                 const response = await api.get(
                     `${
                         import.meta.env.VITE_BACKEND_URL
-                    }/api/product/product/${productID}`
+                    }/api/product/product/${productID}`,
                 );
                 setProduct(response.data);
             } catch (err) {
@@ -66,28 +66,26 @@ const ProductDetails = () => {
     }, []);
 
     useEffect(() => {
-        document
-            .querySelectorAll(".details__image-container")
-            .forEach((elem) => {
-                let x, y, width, height;
+        document.querySelectorAll(".details__image-container").forEach((elem) => {
+            let x, y, width, height;
 
-                elem.onmouseenter = () => {
-                    const size = elem.getBoundingClientRect();
+            elem.onmouseenter = () => {
+                const size = elem.getBoundingClientRect();
 
-                    x = size.x;
-                    y = size.y;
-                    width = size.width;
-                    height = size.height;
-                };
+                x = size.x;
+                y = size.y;
+                width = size.width;
+                height = size.height;
+            };
 
-                elem.onmousemove = (e) => {
-                    let horizontal = ((e.clientX - x) / width) * 100;
-                    let vertical = ((e.clientY - y) / height) * 100;
+            elem.onmousemove = (e) => {
+                let horizontal = ((e.clientX - x) / width) * 100;
+                let vertical = ((e.clientY - y) / height) * 100;
 
-                    elem.style.setProperty("--x", horizontal + "%");
-                    elem.style.setProperty("--y", vertical + "%");
-                };
-            });
+                elem.style.setProperty("--x", horizontal + "%");
+                elem.style.setProperty("--y", vertical + "%");
+            };
+        });
     });
 
     const deleteProductSubmit = async () => {
@@ -120,7 +118,10 @@ const ProductDetails = () => {
                     <div className="row">
                         <div className="col-12 col-md-6">
                             <div className="details__image-container shadow">
-                                <img src={product.thumbnail} alt="Product" />
+                                <img
+                                    src={product.thumbnail}
+                                    alt="Product"
+                                />
                             </div>
 
                             <div className="detail__other-images">
@@ -197,10 +198,7 @@ const ProductDetails = () => {
                                         <p className="fw-bold d-flex align-items-center gap-2">
                                             <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                                 <PiMoney size="1.4rem" />
-                                                {t(
-                                                    "buyer_pages.product_details.was"
-                                                )}
-                                                :
+                                                {t("buyer_pages.product_details.was")}:
                                             </span>
 
                                             <span className="text-decoration-line-through">
@@ -213,10 +211,7 @@ const ProductDetails = () => {
                                     <p className="fw-bold d-flex align-items-center gap-2">
                                         <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                             <PiMoney size="1.4rem" />
-                                            {t(
-                                                "buyer_pages.product_details.now"
-                                            )}
-                                            :
+                                            {t("buyer_pages.product_details.now")}:
                                         </span>
                                         {product?.price > 0 && (
                                             <span className="detail__title">
@@ -234,28 +229,23 @@ const ProductDetails = () => {
                                             </span>
                                         )}
                                         <span className="text-muted fw-normal">
-                                            {t(
-                                                "buyer_pages.product_details.incl"
-                                            )}
+                                            {t("buyer_pages.product_details.incl")}
                                         </span>
                                     </p>
 
                                     <span className="text-muted fw-normal d-flex align-items-center gap-2">
                                         <LuWarehouse size="1.3rem" />
-                                        {t("buyer_pages.product_details.avail")}
-                                        :{" "}
+                                        {t("buyer_pages.product_details.avail")}:{" "}
                                         {product?.is_available &&
                                         product?.stock_quantity > 0 ? (
                                             <>
-                                                {t(
-                                                    "buyer_pages.product_details.in"
-                                                )}{" "}
-                                                ({product?.stock_quantity} left)
+                                                {t("buyer_pages.product_details.in")} (
+                                                {product?.stock_quantity} left)
                                             </>
                                         ) : (
                                             <span>
                                                 {t(
-                                                    "buyer_pages.product_details.unavailable"
+                                                    "buyer_pages.product_details.unavailable",
                                                 )}
                                             </span>
                                         )}
@@ -270,13 +260,13 @@ const ProductDetails = () => {
                                                     "buyer_pages.product_details.return_valid",
                                                     {
                                                         days: product?.return_deadline,
-                                                    }
+                                                    },
                                                 )}
                                             </span>
                                         ) : (
                                             <span>
                                                 {t(
-                                                    "buyer_pages.product_details.unreturnable"
+                                                    "buyer_pages.product_details.unreturnable",
                                                 )}
                                             </span>
                                         )}
@@ -298,21 +288,17 @@ const ProductDetails = () => {
                                             >
                                                 <BiEditAlt />
                                                 {t(
-                                                    "supplier_pages.product_details.update"
+                                                    "supplier_pages.product_details.update",
                                                 )}
                                             </Link>
                                         </div>
                                         <div className="col-12 col-md-6">
                                             <button
                                                 className="btn btn-danger w-100 d-flex gap-2 justify-content-center align-items-center mt-3"
-                                                onClick={
-                                                    deleteProductShowOverlay
-                                                }
+                                                onClick={deleteProductShowOverlay}
                                             >
                                                 <AiOutlineDelete />
-                                                {t(
-                                                    "supplier_pages.product_details.del"
-                                                )}
+                                                {t("supplier_pages.product_details.del")}
                                             </button>
                                         </div>
                                         <div
@@ -322,7 +308,7 @@ const ProductDetails = () => {
                                             <div className="popup">
                                                 <p>
                                                     {t(
-                                                        "supplier_pages.product_details.del_msg"
+                                                        "supplier_pages.product_details.del_msg",
                                                     )}
                                                     ?
                                                 </p>
@@ -330,25 +316,17 @@ const ProductDetails = () => {
                                                     <button
                                                         className="btn btn-outline-primary px-5 d-flex align-items-center gap-2"
                                                         id="cancel"
-                                                        onClick={
-                                                            deleteProductHideOverlay
-                                                        }
+                                                        onClick={deleteProductHideOverlay}
                                                     >
-                                                        {t(
-                                                            "buyer_pages.profile.cancel"
-                                                        )}
+                                                        {t("buyer_pages.profile.cancel")}
                                                         <MdOutlineCancel size="1.4rem" />
                                                     </button>
                                                     <button
                                                         className="btn btn-danger px-5 d-flex align-items-center gap-2"
                                                         id="confirm"
-                                                        onClick={
-                                                            deleteProductSubmit
-                                                        }
+                                                        onClick={deleteProductSubmit}
                                                     >
-                                                        {t(
-                                                            "buyer_pages.profile.del"
-                                                        )}
+                                                        {t("buyer_pages.profile.del")}
                                                         <BiCheckDouble size="1.4rem" />
                                                     </button>
                                                 </div>
@@ -388,9 +366,7 @@ const shareProduct = (t) => {
 const exchangeImage = (e) => {
     let currentImage = document.querySelector(".details__image-container>img");
 
-    let currentImageSrc = document.querySelector(
-        ".details__image-container>img"
-    ).src;
+    let currentImageSrc = document.querySelector(".details__image-container>img").src;
 
     let newImageSrc = e.target.src;
 

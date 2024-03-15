@@ -5,11 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
 import { PiUserCircle } from "react-icons/pi";
-import {
-    BsPhoneVibrate,
-    BsGlobeEuropeAfrica,
-    BsSignpost2,
-} from "react-icons/bs";
+import { BsPhoneVibrate, BsGlobeEuropeAfrica, BsSignpost2 } from "react-icons/bs";
 import { TbUserSquareRounded } from "react-icons/tb";
 import { MdLocationCity, MdOutlineLocationOn } from "react-icons/md";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
@@ -40,8 +36,7 @@ import { useTranslation } from "react-i18next";
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const PASSWORD_REGEX =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const PHONE_REGEX =
     /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
@@ -148,9 +143,7 @@ const Register = () => {
             <section className="py-5">
                 <div className="container">
                     <div className="row">
-                        <BreadCrumb
-                            title={`${t("buyer_pages.register.title")}`}
-                        />
+                        <BreadCrumb title={`${t("buyer_pages.register.title")}`} />
                     </div>
                     <div className="row mt-5">
                         <div className="col-12 col-md-5">
@@ -162,7 +155,10 @@ const Register = () => {
                                 loop
                                 playsInline
                             >
-                                <source src={registerVideo} type="video/mp4" />
+                                <source
+                                    src={registerVideo}
+                                    type="video/mp4"
+                                />
                             </video>
                         </div>
                         <div className="col-12 col-md-7">
@@ -196,9 +192,7 @@ const Register = () => {
                                                         required
                                                         value={fullName}
                                                         onChange={(e) =>
-                                                            setFullName(
-                                                                e.target.value,
-                                                            )
+                                                            setFullName(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -214,15 +208,11 @@ const Register = () => {
                                                         type="email"
                                                         name="email"
                                                         className="form-control"
-                                                        placeholder={`${t(
-                                                            "email",
-                                                        )}...`}
+                                                        placeholder={`${t("email")}...`}
                                                         required
                                                         value={email}
                                                         onChange={(e) =>
-                                                            setEmail(
-                                                                e.target.value,
-                                                            )
+                                                            setEmail(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -240,9 +230,7 @@ const Register = () => {
                                                     <CountrySelect
                                                         onChange={(e) => {
                                                             setCountry(e);
-                                                            handleCountryChange(
-                                                                e,
-                                                            );
+                                                            handleCountryChange(e);
                                                         }}
                                                         placeHolder={`${t(
                                                             "select_country",
@@ -274,7 +262,10 @@ const Register = () => {
                                                         )}...`}
                                                     />
                                                 </div>
-                                                <div className="mb-3" id="city">
+                                                <div
+                                                    className="mb-3"
+                                                    id="city"
+                                                >
                                                     <label
                                                         htmlFor="city"
                                                         className="form-label d-flex align-items-center gap-2 login__form-label"
@@ -305,15 +296,11 @@ const Register = () => {
                                                         type="text"
                                                         name="postalCode"
                                                         className="form-control"
-                                                        placeholder={`${t(
-                                                            "postal",
-                                                        )}...`}
+                                                        placeholder={`${t("postal")}...`}
                                                         required
                                                         value={postalCode}
                                                         onChange={(e) =>
-                                                            setPostalCode(
-                                                                e.target.value,
-                                                            )
+                                                            setPostalCode(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -335,9 +322,7 @@ const Register = () => {
                                                         required
                                                         value={address1}
                                                         onChange={(e) =>
-                                                            setAddress1(
-                                                                e.target.value,
-                                                            )
+                                                            setAddress1(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -358,9 +343,7 @@ const Register = () => {
                                                         )}...`}
                                                         value={address2}
                                                         onChange={(e) =>
-                                                            setAddress2(
-                                                                e.target.value,
-                                                            )
+                                                            setAddress2(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -379,18 +362,14 @@ const Register = () => {
                                                                 : "sa"
                                                         }
                                                         // localization={ar}
-                                                        countryCodeEditable={
-                                                            false
-                                                        }
+                                                        countryCodeEditable={false}
                                                         name="phone"
                                                         specialLabel=""
                                                         required={true}
                                                         inputClass="w-100"
                                                         value={phone}
                                                         id="phone"
-                                                        onChange={(e) =>
-                                                            setPhone(e)
-                                                        }
+                                                        onChange={(e) => setPhone(e)}
                                                     />
                                                 </div>
                                                 <div className="mb-3">
@@ -408,8 +387,7 @@ const Register = () => {
                                                         ref={pictureRef}
                                                         onChange={(e) =>
                                                             setProfilePicture(
-                                                                e.target
-                                                                    .files[0],
+                                                                e.target.files[0],
                                                             )
                                                         }
                                                     />
@@ -430,9 +408,7 @@ const Register = () => {
                                                         required
                                                         value={password}
                                                         onChange={(e) =>
-                                                            setPassword(
-                                                                e.target.value,
-                                                            )
+                                                            setPassword(e.target.value)
                                                         }
                                                     />
                                                 </div>
@@ -469,22 +445,15 @@ const Register = () => {
                                                     </button>
                                                 </div>
                                                 <div className="text-center d-flex align-items-center gap-1">
-                                                    {t(
-                                                        "buyer_pages.register.already",
-                                                    )}{" "}
-                                                    ?{t("login")}
+                                                    {t("buyer_pages.register.already")} ?
+                                                    {t("login")}
                                                     <Link to="/account/login">
                                                         {t("here")}
                                                     </Link>
                                                 </div>
                                                 <div className="text-center d-flex align-items-center gap-1">
-                                                    {t(
-                                                        "buyer_pages.register.not",
-                                                    )}{" "}
-                                                    ?{" "}
-                                                    {t(
-                                                        "buyer_pages.register.as",
-                                                    )}
+                                                    {t("buyer_pages.register.not")} ?{" "}
+                                                    {t("buyer_pages.register.as")}
                                                     <Link to="/supplier/account/register">
                                                         {t("supplier")}
                                                     </Link>
@@ -504,9 +473,7 @@ const Register = () => {
 
 const handleCountryChange = (e) => {
     GetState(e.id).then((result) => {
-        let stateSelect = document.querySelector(
-            "#state .stdropdown-input>input",
-        );
+        let stateSelect = document.querySelector("#state .stdropdown-input>input");
         if (result.length > 0) {
             stateSelect.setAttribute("required", true);
             stateSelect.removeAttribute("disabled");
@@ -521,9 +488,7 @@ const handleCountryChange = (e) => {
 
 const handleStateChange = (countryId, e) => {
     GetCity(countryId, e.id).then((result) => {
-        let citySelect = document.querySelector(
-            "#city .stdropdown-input>input",
-        );
+        let citySelect = document.querySelector("#city .stdropdown-input>input");
         if (result.length > 0) {
             citySelect.setAttribute("required", true);
             citySelect.removeAttribute("disabled");
