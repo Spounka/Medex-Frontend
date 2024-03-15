@@ -13,8 +13,8 @@ const useWishlistHandler = () => {
 
     const api = useAxios();
 
-    const addToWishlist = (itemId) => {
-        const storedWishlist = localStorage.getItem("wishlist") || "[]";
+    const addToWishlist = (itemId: string) => {
+        const storedWishlist = localStorage.getItem("wishlist") ?? "[]";
         const wishlistItems = JSON.parse(storedWishlist);
 
         if (!wishlistItems.includes(itemId)) {
@@ -23,12 +23,12 @@ const useWishlistHandler = () => {
         }
     };
 
-    const removeFromWishlist = (itemId, wish) => {
-        if (wish === true) {
-            document.getElementById(itemId).classList.add("d-none");
+    const removeFromWishlist = (itemId: string, wish: boolean) => {
+        if (wish) {
+            document.getElementById(itemId)?.classList.add("d-none");
         }
 
-        const storedWishlist = localStorage.getItem("wishlist") || "[]";
+        const storedWishlist = localStorage.getItem("wishlist") ?? "[]";
         const wishlistItems = JSON.parse(storedWishlist);
 
         const itemIndex = wishlistItems.indexOf(itemId);
@@ -38,11 +38,11 @@ const useWishlistHandler = () => {
         }
     };
 
-    const handleWishlistClick = async (sku, wish) => {
+    return async (sku: string, wish: boolean) => {
         if (!user) {
             navigate(`/account/login`);
         } else {
-            const storedWishlist = localStorage.getItem("wishlist") || "[]";
+            const storedWishlist = localStorage.getItem("wishlist") ?? "[]";
             const wishlistItems = JSON.parse(storedWishlist);
 
             if (wishlistItems.includes(sku)) {
@@ -50,13 +50,10 @@ const useWishlistHandler = () => {
                 try {
                     await api
                         .delete(
-                            import.meta.env.VITE_BACKEND_URL +
-                                `/api/wishlist/${sku}/`
+                            import.meta.env.VITE_BACKEND_URL + `/api/wishlist/${sku}/`,
                         )
                         .then(() => {
-                            toast.success(
-                                `${t("wishlist_context.remove_success")}!`
-                            );
+                            toast.success(`${t("wishlist_context.remove_success")}!`);
                         });
                 } catch (error) {
                     toast.error(`${t("wishlist_context.remove_fail")}.`);
@@ -65,14 +62,11 @@ const useWishlistHandler = () => {
                 addToWishlist(sku);
                 try {
                     await api
-                        .post(
-                            import.meta.env.VITE_BACKEND_URL + "/api/wishlist/",
-                            { sku: sku }
-                        )
+                        .post(import.meta.env.VITE_BACKEND_URL + "/api/wishlist/", {
+                            sku: sku,
+                        })
                         .then(() => {
-                            toast.success(
-                                `${t("wishlist_context.add_success")}!`
-                            );
+                            toast.success(`${t("wishlist_context.add_success")}!`);
                         });
                 } catch (error) {
                     toast.error(`${t("wishlist_context.add_fail")}.`);
@@ -80,8 +74,6 @@ const useWishlistHandler = () => {
             }
         }
     };
-
-    return handleWishlistClick;
 };
 
 export default useWishlistHandler;
