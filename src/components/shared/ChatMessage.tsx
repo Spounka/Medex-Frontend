@@ -1,6 +1,19 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
 
-const ChatMessage = ({ text, sent, img, created }) => {
+type ChatMessageProps = {
+    text: string;
+    sent: boolean;
+    img: string;
+    created: string;
+};
+
+const ChatMessage: React.FC<ChatMessageProps> = ({
+    text,
+    sent,
+    img,
+    created,
+}): JSX.Element => {
     const { t } = useTranslation();
     return (
         <>
@@ -30,5 +43,4 @@ const ChatMessage = ({ text, sent, img, created }) => {
         </>
     );
 };
-
 export default ChatMessage;
