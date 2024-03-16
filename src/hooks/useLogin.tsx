@@ -1,5 +1,3 @@
-// import React from "react";
-
 import axios, { AxiosResponse } from "axios";
 import ResponseToken from "../types/storage-token.ts";
 import jwtDecode from "jwt-decode";
@@ -9,12 +7,7 @@ import { Product } from "../types/product.ts";
 import { NavigateFunction } from "react-router-dom";
 import { TFunction } from "i18next";
 
-export function useLogin({
-    setAuthTokens,
-    setUser,
-    navigate,
-    t,
-}: {
+interface Props {
     setAuthTokens: (
         value: ((prevState: ResponseToken) => ResponseToken) | ResponseToken,
     ) => void;
@@ -26,7 +19,9 @@ export function useLogin({
     ) => void;
     navigate: NavigateFunction;
     t: TFunction<"translation", undefined>;
-}) {
+}
+
+export function useLogin({ setAuthTokens, setUser, navigate, t }: Props) {
     const baseURL = import.meta.env.VITE_BACKEND_URL;
     return async (email: string, password: string, rememberMe: boolean) => {
         await axios
@@ -78,6 +73,7 @@ export function useLogin({
                             },
                         })
                         .then((res: AxiosResponse<{ product: Product }[]>) => {
+                            console.log(res);
                             res.data.map((item) => {
                                 wishlistArray.push(item.product);
                             });
@@ -87,7 +83,6 @@ export function useLogin({
                             );
                         });
                 }
-                return;
             });
     };
 }
