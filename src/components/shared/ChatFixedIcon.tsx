@@ -5,28 +5,23 @@ import AuthContext from "../../context/AuthContext";
 import useAxios from "../../utils/useAxios";
 
 const ChatFixedIcon = () => {
-    const [messagesCount, setMessagesCount] = useState(null);
+    const [messagesCount, setMessagesCount] = useState(0);
 
     const { user, authTokens } = useContext(AuthContext);
 
     const api = useAxios();
 
     const getMessagesCount = async () => {
-        if (user) {
-            if (!messagesCount) {
-                await api
-                    .get(
-                        import.meta.env.VITE_BACKEND_URL +
-                            `/api/chat/${user.user_id}/count/`,
-                    )
-                    .then((response) => {
-                        setMessagesCount(response.data);
-                    })
-                    .catch(() => {
-                        setMessagesCount(0);
-                    });
-            }
+        if (!user) throw new Error("No user connected");
+        if (messagesCount) return;
+        const result = await api.get(
+            import.meta.env.VITE_BACKEND_URL + `/api/chat/${user.user_id}/count/`,
+        );
+        if (result.status !== 200) {
+            setMessagesCount(0);
+            return;
         }
+        setMessagesCount(result.data);
     };
 
     useEffect(() => {
