@@ -9,7 +9,7 @@ export interface DecodedUser {
     user_id: string;
     full_name: string;
     group_names: string[];
-    parent: boolean;
+    parent: string;
     role: string;
     profile_picture?: string;
 }
