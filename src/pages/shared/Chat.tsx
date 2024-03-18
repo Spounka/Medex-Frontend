@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 
-import useAxios from "../../utils/useAxios";
 import { useContext, useEffect, useState } from "react";
+import useAxios from "../../utils/useAxios";
 
 import userImage from "../../assets/images/user.png";
 import AuthContext from "../../context/AuthContext";
 
-import { IoSearchSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
+import { IoSearchSharp } from "react-icons/io5";
+
+import { Thread } from "@domain/thread";
 
 const Chat = () => {
     const { t } = useTranslation();
@@ -16,16 +18,17 @@ const Chat = () => {
 
     const { user } = useContext(AuthContext);
 
-    const [threadsList, setThreadsList] = useState([]);
+    const [threadsList, setThreadsList] = useState<Thread[]>([]);
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [filteredThreads, setFilteredThreads] = useState([]);
+    const [filteredThreads, setFilteredThreads] = useState<Thread[]>([]);
 
     const getInboxThreads = async () => {
         await api.get(import.meta.env.VITE_BACKEND_URL + "/api/chat/").then((res) => {
             setThreadsList(res.data);
         });
     };
+    if (!user) return null;
 
     const filterThreads = () => {
         const filtered = threadsList.filter((thread) => {
