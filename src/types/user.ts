@@ -1,4 +1,5 @@
 export interface ShippingAddress {
+    id: number;
     country: string;
     state: string;
     city: string;
@@ -8,6 +9,7 @@ export interface ShippingAddress {
 }
 
 export interface User {
+    id: string;
     email: string;
     password: string;
     full_name: string;
@@ -19,6 +21,7 @@ export interface User {
 // Temporary User type during refactoring process
 // TODO: Refactor the types and remove / rename this class
 export interface TempUser {
+    id: string;
     email: string;
     full_name: string;
     phone: string;
