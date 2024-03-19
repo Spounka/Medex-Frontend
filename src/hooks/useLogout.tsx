@@ -1,18 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import useAuthToken from "./useAuthToken.tsx";
 import useDecodeUserToken from "./useDecodeUserToken.tsx";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
 
 export default function useLogout() {
-    const navigate = useNavigate();
-
     const { setAuthTokens } = useAuthToken();
     const { setUser } = useDecodeUserToken();
     const { t } = useTranslation();
 
-    return () => {
-        navigate("/");
+    let logout = () => {
         setAuthTokens({ access: "", refresh: "" });
         setUser(null);
         localStorage.removeItem("authTokens");
@@ -20,5 +17,8 @@ export default function useLogout() {
         sessionStorage.removeItem("authTokens");
         localStorage.removeItem("wishlist");
         toast.info(`${t("auth_context.logout_message")}!`);
+        return redirect("/account/login/");
     };
+
+    return logout;
 }
