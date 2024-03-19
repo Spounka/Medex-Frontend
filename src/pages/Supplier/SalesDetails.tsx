@@ -257,8 +257,9 @@ const OrderDetails = () => {
                                         </p>
                                         <p className="text-xs d-flex align-items-center gap-2">
                                             <CiLocationOn size="1.3rem" />
-                                            {t("supplier_pages.order_details.ship_add")}:{" "}
-                                            {country} {state != "" && `, ${state}`}
+                                            {t(
+                                                "supplier_pages.order_details.ship_add",
+                                            )}: {country} {state != "" && `, ${state}`}
                                             {order?.user?.shipping_address?.postal_code}
                                             {city != "" && `, ${city}`},{" "}
                                             {order?.user?.shipping_address?.address_1}
