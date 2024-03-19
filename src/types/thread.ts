@@ -1,7 +1,7 @@
 import { Group } from "@domain/groups.ts";
 import { ShippingAddress } from "@domain/user.ts";
 
-interface ThreadUser {
+export interface ThreadUser {
     id: string;
     full_name: string;
     is_buyer: boolean;
@@ -28,4 +28,13 @@ export interface Thread {
 
     created: string;
     updated: string;
+}
+
+export interface Message {
+    id: number;
+    message: string;
+    created: string;
+    is_read: boolean;
+    thread: number;
+    user: ThreadUser;
 }
