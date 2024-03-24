@@ -1,18 +1,17 @@
-import { useState } from "react";
-import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
-import { TbPasswordFingerprint } from "react-icons/tb";
-import { MdOutlineLockReset } from "react-icons/md";
+import { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-    AiOutlineUnlock,
-    AiOutlineLock,
     AiOutlineArrowLeft,
     AiOutlineArrowRight,
+    AiOutlineLock,
+    AiOutlineUnlock,
 } from "react-icons/ai";
-import { TbLockCog } from "react-icons/tb";
-import { useTranslation } from "react-i18next";
-import useAxios from "../../utils/useAxios";
-import { toast } from "react-toastify";
+import { MdOutlineLockReset } from "react-icons/md";
+import { TbLockCog, TbPasswordFingerprint } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
+import useAxios from "../../utils/useAxios";
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -25,7 +24,7 @@ const UpdatePassword = () => {
 
     const api = useAxios();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const validatePassword = PASSWORD_REGEX.test(newPassword1);
