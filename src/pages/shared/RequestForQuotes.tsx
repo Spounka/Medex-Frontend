@@ -1,16 +1,19 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-import { RiMailSendLine } from "react-icons/ri";
 import { MdOutlineClear, MdOutlineRequestQuote } from "react-icons/md";
+import { RiMailSendLine } from "react-icons/ri";
 
-import useAxios from "../../utils/useAxios";
-import { toast } from "react-toastify";
+import { Product } from "@domain/product";
+import { ThreadUser } from "@domain/thread";
+import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
-import AuthContext from "../../context/AuthContext";
+import { redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import useAxios from "../../utils/useAxios";
 
 const TEXT_MAX = 8000;
 
@@ -19,22 +22,23 @@ const RequestForQuotes = () => {
 
     const api = useAxios();
 
-    const { authTokens } = useContext(AuthContext);
-
-    const [productNameOptions, setProductNameOptions] = useState([]);
-    const [supplierNameOptions, setSupplierNameOptions] = useState([]);
+    // TODO: Add better typing when refactoring
+    const [productNameOptions, setProductNameOptions] = useState<any>([]);
+    const [supplierNameOptions, setSupplierNameOptions] = useState<any>([]);
 
     const [selectedProduct, setSelectedProduct] = useState("");
     const [selectedSupplier, setSelectedSupplier] = useState("");
 
-    const fileRef = useRef(null);
-    const creatableSelectInputRef = useRef(null);
-    const selectInputRef = useRef(null);
+    const fileRef = useRef<HTMLInputElement | null>(null);
+
+    // TODO: Add better typing when refactoring
+    const creatableSelectInputRef = useRef<any>(null);
+    const selectInputRef = useRef<any>(null);
 
     const getProducts = async () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product")
-            .then((res) => {
+            .then((res: AxiosResponse<Product[]>) => {
                 const nameOptions = res.data.map((product) => ({
                     value: product.slug,
                     label: product.name,
@@ -47,7 +51,7 @@ const RequestForQuotes = () => {
     const getSuppliers = async () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + "/api/account/supplier/list/")
-            .then((res) => {
+            .then((res: AxiosResponse<ThreadUser[]>) => {
                 const nameOptions = res.data.map((supplier) => ({
                     value: supplier.id,
                     label: supplier.full_name,
@@ -58,7 +62,8 @@ const RequestForQuotes = () => {
     };
 
     useEffect(() => {
-        document.getElementById("count_message").innerHTML = "0 / " + TEXT_MAX;
+        const countMessage = document.getElementById("count_message");
+        if (countMessage) countMessage.innerHTML = "0 / " + TEXT_MAX;
 
         getProducts();
         getSuppliers();
@@ -77,17 +82,17 @@ const RequestForQuotes = () => {
         creatableSelectInputRef.current.clearValue();
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("product", e.target.product.value);
-        formData.append("supplier", e.target.supplier.value);
-        formData.append("quantity", e.target.quantity.value);
-        formData.append("unit", e.target.unit.value);
-        formData.append("due_date", e.target.due_date.value);
-        formData.append("requirements", e.target.requirements.value);
-        const fileInput = e.target.attachments;
+        formData.append("product", e.currentTarget.product.value);
+        formData.append("supplier", e.currentTarget.supplier.value);
+        formData.append("quantity", e.currentTarget.quantity.value);
+        formData.append("unit", e.currentTarget.unit.value);
+        formData.append("due_date", e.currentTarget.due_date.value);
+        formData.append("requirements", e.currentTarget.requirements.value);
+        const fileInput = e.currentTarget.attachments;
         for (let i = 0; i < fileInput.files.length; i++) {
             formData.append("attachments", fileInput.files[i]);
         }
@@ -101,11 +106,11 @@ const RequestForQuotes = () => {
                 setSelectedProduct("");
                 setSelectedSupplier("");
 
-                e.target.unit.value = "piece";
-                e.target.quantity.value = "";
-                e.target.requirements.value = "";
-                e.target.due_date.value = "";
-                e.target.agree.checked = false;
+                e.currentTarget.unit.value = "piece";
+                e.currentTarget.quantity.value = "";
+                e.currentTarget.requirements.value = "";
+                e.currentTarget.due_date.value = "";
+                e.currentTarget.agree.checked = false;
                 handleReset();
                 onClear();
             })
@@ -160,7 +165,7 @@ const RequestForQuotes = () => {
                                         name="product"
                                         defaultValue={selectedProduct}
                                         onChange={(e) => {
-                                            setSelectedProduct(e?.value);
+                                            if (e) setSelectedProduct(e);
                                         }}
                                         ref={creatableSelectInputRef}
                                     />
@@ -185,7 +190,7 @@ const RequestForQuotes = () => {
                                         options={supplierNameOptions}
                                         defaultValue={selectedSupplier}
                                         onChange={(e) => {
-                                            setSelectedSupplier(e?.value);
+                                            if (e) setSelectedSupplier(e);
                                         }}
                                         ref={selectInputRef}
                                     />
@@ -293,7 +298,7 @@ const RequestForQuotes = () => {
                                     </label>
                                     <textarea
                                         name="requirements"
-                                        rows="12"
+                                        rows={12}
                                         className="form-control"
                                         placeholder={`${t("shared.rfq.look")}`}
                                         maxLength={TEXT_MAX}
@@ -367,6 +372,9 @@ const RequestForQuotes = () => {
                                     <button
                                         type="submit"
                                         className="gradient-bg-color w-100 py-2 text-white rounded shadow fw-bold login__btn d-flex align-items-center gap-2 justify-content-center"
+                                        onClick={() => {
+                                            return redirect("/account/dashboard/quotes");
+                                        }}
                                     >
                                         {t("shared.rfq.submit")}
                                         <RiMailSendLine size="1.4rem" />
@@ -382,13 +390,18 @@ const RequestForQuotes = () => {
 };
 
 const clearInput = () => {
-    document.querySelector("textarea[name=requirements]").value = "";
+    const textarea = document.querySelector(
+        "textarea[name=requirements]",
+    ) as HTMLTextAreaElement;
+    if (textarea) textarea.value = "";
 };
 
 const countLetters = () => {
-    let text_length = document.querySelector("textarea[name=requirements]").value.length;
-
-    document.getElementById("count_message").innerHTML = text_length + " / " + TEXT_MAX;
+    let text_length = (
+        document.querySelector("textarea[name=requirements]") as HTMLTextAreaElement
+    ).value.length;
+    const count_message = document.getElementById("count_message");
+    if (count_message) count_message.innerHTML = text_length + " / " + TEXT_MAX;
 };
 
 export default RequestForQuotes;
