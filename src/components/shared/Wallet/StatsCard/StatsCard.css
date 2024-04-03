@@ -1,0 +1,30 @@
+.wallet__status-card {
+    background-color: rgb(241 245 249);
+}
+
+.wallet__status-card-icon-color1 {
+    background-color: #f5365c;
+}
+
+.wallet__status-card-icon-color2 {
+    background-color: #fb6340;
+}
+
+.wallet__status-card-icon-color3 {
+    background-color: #ffd600;
+}
+
+.wallet__status-card-icon-color4 {
+    background-color: #2dce89;
+}
+
+.wallet__stats-card-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.wallet__stats-card-number {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: rgb(109, 109, 109);
+}

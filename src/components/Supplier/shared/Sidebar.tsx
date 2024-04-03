@@ -15,6 +15,7 @@ import {
     MdRequestQuote,
     MdShop2,
     MdSpaceDashboard,
+    MdWallet,
 } from "react-icons/md";
 import {
     TbDatabaseEdit,
@@ -329,7 +330,7 @@ const Sidebar = (props) => {
 
                     <li
                         style={
-                            li == 7
+                            li == 6
                                 ? {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
@@ -344,8 +345,8 @@ const Sidebar = (props) => {
                                   }
                                 : {}
                         }
-                        className={li == 7 ? "px-3" : ""}
-                        onClick={() => setLi(7)}
+                        className={li == 6 ? "px-3" : ""}
+                        onClick={() => setLi(6)}
                     >
                         <Link
                             to="#store"
@@ -386,6 +387,35 @@ const Sidebar = (props) => {
 
                     <li
                         style={
+                            li == 7
+                                ? {
+                                      backgroundColor: "rgb(250, 250, 251)",
+                                      borderLeft:
+                                          i18n.resolvedLanguage == "en"
+                                              ? "2px solid #8e65c1"
+                                              : "",
+                                      borderRight:
+                                          i18n.resolvedLanguage == "ar"
+                                              ? "2px solid #8e65c1"
+                                              : "",
+                                      width: "100%",
+                                  }
+                                : {}
+                        }
+                        className={li == 7 ? "px-3" : ""}
+                        onClick={() => setLi(7)}
+                    >
+                        <Link
+                            to="/supplier/chat"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <BiSolidMessageAltDetail size="1.5rem" />
+                            <span className="ms-1">{t("buyer_sidebar.messages")}</span>
+                        </Link>
+                    </li>
+
+                    <li
+                        style={
                             li == 8
                                 ? {
                                       backgroundColor: "rgb(250, 250, 251)",
@@ -405,11 +435,11 @@ const Sidebar = (props) => {
                         onClick={() => setLi(8)}
                     >
                         <Link
-                            to="/supplier/chat"
+                            to="/supplier/wallet"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
-                            <BiSolidMessageAltDetail size="1.5rem" />
-                            <span className="ms-1">{t("buyer_sidebar.messages")}</span>
+                            <MdWallet size="1.5rem" />
+                            <span className="ms-1">{t("buyer_sidebar.wallet")}</span>
                         </Link>
                     </li>
 

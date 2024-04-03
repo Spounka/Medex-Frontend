@@ -44,6 +44,7 @@ import ComingSoon from "../pages/Supplier/ComingSoon";
 import { useTranslation } from "react-i18next";
 import Store from "../pages/Supplier/Store";
 import Permissions from "../pages/Supplier/Permissions";
+import Wallet from "../pages/shared/Wallet";
 
 const SupplierRoutes = () => {
     const { t } = useTranslation();
@@ -222,6 +223,11 @@ const SupplierRoutes = () => {
                     <Route
                         path="store/edit"
                         element={<EditStore />}
+                    />
+
+                    <Route
+                        path="wallet"
+                        element={<Wallet />}
                     />
 
                     <Route path="settings">

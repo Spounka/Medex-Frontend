@@ -44,6 +44,7 @@ import UpdatePassword from "../pages/shared/UpdatePassword";
 import BuyerSettings from "../pages/Buyer/BuyerSettings";
 import ComingSoon from "../pages/Supplier/ComingSoon";
 import Permissions from "../pages/Buyer/Permissions";
+import Wallet from "../pages/shared/Wallet";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -222,6 +223,10 @@ const BuyerRoutes = () => {
                         <Route
                             path="return/:id"
                             element={<RequestRefund />}
+                        />
+                        <Route
+                            path="wallet"
+                            element={<Wallet />}
                         />
                     </Route>
                 </Route>

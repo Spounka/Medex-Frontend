@@ -72,7 +72,8 @@
         "messages": "Messages",
         "settings": "Settings",
         "my_profile": "My Profile",
-        "stats": "My Statistics"
+        "stats": "My Statistics",
+        "wallet": "Wallet"
     },
     "product_form": {
         "category": "Product Category",
@@ -413,6 +414,31 @@
             "success": "You have successfully changed your password",
             "all_fail": "There was an error changing your password, please try again later",
             "current_fail": "There was an error changing your password because the old password you provided is incorrect"
+        },
+        "wallet": {
+            "stats": "Transactions Statistics",
+            "total": "Total Transactions",
+            "withdrawal": "Total Withdrawal Amount",
+            "pending": "Pending Transactions",
+            "accepted": "Accepted Transactions",
+            "recent": "Recent Transactions",
+            "id": "ID",
+            "user": "User",
+            "amount": "Amount",
+            "type": "Type",
+            "status": "Status",
+            "empty": "No transactions available",
+            "request": "Request Withdrawal",
+            "withdraw_description": "Users can request a transfer of funds from their digital account balance to their bank accounts. By initiating a withdrawal request, users specify the desired amount of money they wish to transfer, enabling them to manage their finances efficiently and maintain control over their transactions",
+            "apply": "Apply",
+            "error": "The value of the transaction amount must be greater than 0",
+            "success": "The withdrawal request has been successfully submitted",
+            "p": "Pending",
+            "d": "Denied",
+            "a": "Approved",
+            "w": "Withdrawal",
+            "pr": "Purchase",
+            "r": "Item Return"
         }
     },
     "supplier_pages": {

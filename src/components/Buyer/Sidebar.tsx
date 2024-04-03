@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { MdRequestQuote, MdListAlt, MdList } from "react-icons/md";
+import { MdRequestQuote, MdListAlt, MdList, MdWallet } from "react-icons/md";
 import { BiSolidDownArrow, BiSolidMessageAltDetail } from "react-icons/bi";
 import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
@@ -132,6 +132,16 @@ const Sidebar = (props) => {
                         >
                             <BiSolidMessageAltDetail size="1.5rem" />
                             <span className="ms-1">{t("buyer_sidebar.messages")}</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            to="/account/dashboard/wallet"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <MdWallet size="1.5rem" />
+                            <span className="ms-1">{t("buyer_sidebar.wallet")}</span>
                         </Link>
                     </li>
 
