@@ -18,6 +18,7 @@ import { PiBankBold } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 import { WalletResponseData } from "../../types/wallet";
+import MobileBalanceCard from "../../components/shared/Wallet/MobileBalanceCard/MobileBalanceCard";
 
 const monthNames: Array<string> = [
     "Jan",
@@ -114,6 +115,36 @@ const Wallet: React.FC = () => {
 
     return (
         <main className="container">
+            <section className="py-1 d-block d-md-none">
+                <div className="row">
+                    <div className="col-12">
+                        <MobileBalanceCard
+                            company={responseData?.results?.wallet?.user?.full_name}
+                            balance={responseData?.results?.wallet?.balance}
+                        />
+                    </div>
+
+                    <div className="col-12 mt-5">
+                        <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
+                            <IoStatsChartOutline size="2.5rem" />
+                            {t("shared.wallet.stats")}
+                        </h2>
+                        <TransactionChart
+                            months={monthNames}
+                            approvedTransactions={
+                                responseData?.results?.stats
+                                    ?.monthly_accepted_transactions
+                            }
+                            deniedTransactions={
+                                responseData?.results?.stats?.monthly_denied_transactions
+                            }
+                            pendingTransactions={
+                                responseData?.results?.stats?.monthly_pending_transactions
+                            }
+                        />
+                    </div>
+                </div>
+            </section>
             <section className="py-5">
                 <div className="w-100 d-flex flex-column flex-md-row justify-content-between gap-3">
                     <StatsCard
@@ -166,7 +197,7 @@ const Wallet: React.FC = () => {
                     />
                 </div>
             </section>
-            <section className="py-1">
+            <section className="py-1 d-none d-md-block">
                 <div className="row">
                     <div className="col-12 col-md-5 mt-0 mt-lg-3 d-flex align-items-center">
                         <BalanceCard

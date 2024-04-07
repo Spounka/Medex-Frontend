@@ -337,7 +337,22 @@
             "categories": "Ordered Categories"
         },
         "settings": {
-            "update_password_text": "Update your password"
+            "update_password_text": "Update your password",
+            "company": "Company",
+            "companyD": "Managing company",
+            "companyDetails": "Company details",
+            "companyName": "Company name",
+            "companyWebsite": "Company website",
+            "companyPhone": "Company phone number",
+            "editCompany": "Save changes",
+            "companyEmail": "Company email",
+            "shipping": "Shipping and delivery",
+            "branch": "Branches",
+            "billing": "Billing",
+            "change": "Change language",
+            "bio": "Company Bio",
+            "created": "Company Opening Date",
+            "companyRegister": "Company Commercial Register Number"
         },
         "permissions": {
             "p_man": "Product Manager",

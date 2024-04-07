@@ -337,7 +337,22 @@
             "categories": "الفئات المُطلَبة"
         },
         "settings": {
-            "update_password_text": "تعديل كلمة المرور"
+            "update_password_text": "تعديل كلمة المرور",
+            "company": "الشركة",
+            "companyD": "إدارة الشركة",
+            "companyDetails": "تفاصيل الشركة",
+            "companyName": "اسم الشركة",
+            "companyWebsite": "موقع الشركة على الإنترنت",
+            "companyPhone": "رقم هاتف الشركة",
+            "editCompany": "حفظ التغييرات",
+            "companyEmail": "بريد الشركة الإلكتروني",
+            "shipping": "الشحن والتسليم",
+            "branch": "الفروع",
+            "billing": "الفواتير",
+            "change": "تغيير اللغة",
+            "bio": "نبذة عن الشركة",
+            "created": "تاريخ افتتاح الشركة",
+            "companyRegister": "رقم السجل التجاري للشركة"
         },
         "permissions": {
             "p_man": "مدير المنتجات",

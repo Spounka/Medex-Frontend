@@ -50,37 +50,43 @@ const Statistics = () => {
                     <IoStatsChart size="2rem" />
                     {t("buyer_pages.statistics.title")}
                 </h2>
-                <div className="d-flex as flex-wrap">
-                    <div className="mt-3">
-                        <div className="p-4 dashboard__stats-card">
-                            <div className="row">
-                                <div className="col-9">
-                                    <div className="mb-4">
-                                        <h5 className="card-title mb-0 dashboard__stats-card-title">
-                                            {t("buyer_pages.statistics.return_request")}
-                                        </h5>
+                <div className="row">
+                    <div className="col-6 col-md-3">
+                        <div className="mt-3">
+                            <div className="p-4 dashboard__stats-card">
+                                <div className="row">
+                                    <div className="col-9">
+                                        <div className="mb-4">
+                                            <h5 className="card-title mb-0 dashboard__stats-card-title">
+                                                {t(
+                                                    "buyer_pages.statistics.return_request",
+                                                )}
+                                            </h5>
+                                        </div>
+                                        <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
+                                            {monthlyReturnRequests > 0
+                                                ? monthlyReturnRequests
+                                                : 0}
+                                        </h2>
                                     </div>
-                                    <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                        {monthlyReturnRequests > 0
-                                            ? monthlyReturnRequests
-                                            : 0}
-                                    </h2>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <div className="p-4 dashboard__stats-card">
-                            <div className="row">
-                                <div className="col-9">
-                                    <div className="mb-4">
-                                        <h5 className="card-title mb-0 dashboard__stats-card-title text-wrap">
-                                            {t("buyer_pages.statistics.rfq")}
-                                        </h5>
+                    <div className="col-6 col-md-3">
+                        <div className="mt-3">
+                            <div className="p-4 dashboard__stats-card">
+                                <div className="row">
+                                    <div className="col-9">
+                                        <div className="mb-4">
+                                            <h5 className="card-title mb-0 dashboard__stats-card-title text-wrap">
+                                                {t("buyer_pages.statistics.rfq")}
+                                            </h5>
+                                        </div>
+                                        <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
+                                            {monthlyRFQ > 0 ? monthlyRFQ : 0}
+                                        </h2>
                                     </div>
-                                    <h2 className="d-flex align-items-center mb-0 dashboard__stats-card-text">
-                                        {monthlyRFQ > 0 ? monthlyRFQ : 0}
-                                    </h2>
                                 </div>
                             </div>
                         </div>

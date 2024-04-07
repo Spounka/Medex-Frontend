@@ -40,7 +40,7 @@ import EditStore from "../pages/Supplier/EditStore";
 import UpdatePassword from "../pages/shared/UpdatePassword";
 import SupplierSettings from "../pages/Supplier/SupplierSettings";
 import PersonalSettings from "../pages/Supplier/PersonalSettings";
-import ComingSoon from "../pages/Supplier/ComingSoon";
+import ComingSoon from "../pages/shared/ComingSoon";
 import { useTranslation } from "react-i18next";
 import Store from "../pages/Supplier/Store";
 import Permissions from "../pages/Supplier/Permissions";

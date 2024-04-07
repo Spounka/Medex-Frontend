@@ -19,13 +19,13 @@ import { BiEditAlt } from "react-icons/bi";
 import { BsGlobeEuropeAfrica, BsPhoneVibrate, BsSignpost2 } from "react-icons/bs";
 import { CiLink, CiCalendarDate } from "react-icons/ci";
 import { FaRegBuilding } from "react-icons/fa";
+import { TbReportMedical } from "react-icons/tb";
 import {
     MdLocationCity,
     MdOutlineLocationOn,
     MdOutlineDescription,
 } from "react-icons/md";
 import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
-import { TbReportMedical } from "react-icons/tb";
 
 import useAxios from "../../utils/useAxios";
 
@@ -41,7 +41,7 @@ const EMAIL_REGEX =
 const PHONE_REGEX =
     /^\+?[0-9]{1,3}\s?[-.()]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,5}\s?[-.]?\s?[0-9]{1,9}$/;
 
-const Store = () => {
+const Company = () => {
     const { t, i18n } = useTranslation();
 
     const { user } = useContext(AuthContext);
@@ -113,6 +113,9 @@ const Store = () => {
             )
             .then(() => {
                 toast.success(`${t("buyer_pages.profile.updated")}!`);
+            })
+            .catch((err) => {
+                console.log(err);
             });
     };
 
@@ -219,9 +222,9 @@ const Store = () => {
     }, []);
 
     return (
-        <main className="px-0 px-md-3">
+        <main className="pt-3 pb-5 w-100">
             <section>
-                <div className="container-xxl">
+                <div className="container">
                     <Link
                         to="../../settings"
                         className="d-flex align-items-center"
@@ -236,16 +239,12 @@ const Store = () => {
                     </Link>
                     <div className="main-body">
                         <div className="row">
-                            <div className="col-lg-12 mt-3">
+                            <div className="col-12 ">
                                 <div
                                     className="card"
                                     style={{ border: "none" }}
                                 >
-                                    <div className="card-title p-4 pb-0 profile__title">
-                                        <h3>
-                                            {t("supplier_pages.settings.storeDetails")}
-                                        </h3>
-                                    </div>
+                                    <h2>{t("buyer_pages.settings.companyDetails")}</h2>
                                     <div className="card-body">
                                         {userId == user.user_id && (
                                             <form
@@ -257,7 +256,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <FaRegBuilding size="1.5rem" />
                                                             {t(
-                                                                "supplier_pages.settings.storeName",
+                                                                "buyer_pages.settings.companyName",
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -308,7 +307,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <CiLink size="1.8rem" />
                                                             {t(
-                                                                "supplier_pages.settings.storeWebsite",
+                                                                "buyer_pages.settings.companyWebsite",
                                                             )}
                                                         </h6>
                                                     </div>
@@ -319,7 +318,7 @@ const Store = () => {
                                                             value={website}
                                                             placeholder={
                                                                 t(
-                                                                    "supplier_pages.settings.storeWebsite",
+                                                                    "buyer_pages.settings.companyWebsite",
                                                                 ) + "..."
                                                             }
                                                             onChange={(e) =>
@@ -333,7 +332,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <TfiEmail size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.settings.storeEmail",
+                                                                "buyer_pages.settings.companyEmail",
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -355,7 +354,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <MdOutlineDescription size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.settings.bio",
+                                                                "buyer_pages.settings.bio",
                                                             )}
                                                         </h6>
                                                     </div>
@@ -378,7 +377,7 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <CiCalendarDate size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.settings.created",
+                                                                "buyer_pages.settings.created",
                                                             )}{" "}
                                                             *
                                                         </h6>
@@ -537,21 +536,21 @@ const Store = () => {
                                                         <h6 className="mb-0 d-flex align-items-center gap-2">
                                                             <BsPhoneVibrate size="1.4rem" />
                                                             {t(
-                                                                "supplier_pages.settings.storePhone",
+                                                                "buyer_pages.settings.companyPhone",
                                                             )}{" "}
                                                             *
                                                         </h6>
                                                     </div>
                                                     <div className="col-sm-8 text-secondary">
                                                         <PhoneInput
-                                                            countryCodeEditable={false}
-                                                            name="phone"
                                                             specialLabel=""
-                                                            required={true}
                                                             inputClass="w-100"
                                                             value={phone}
-                                                            id="phone"
                                                             onChange={(e) => setPhone(e)}
+                                                            inputProps={{
+                                                                name: "phone",
+                                                                required: true,
+                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -566,7 +565,7 @@ const Store = () => {
                                                             }}
                                                         >
                                                             {t(
-                                                                "supplier_pages.settings.editStore",
+                                                                "buyer_pages.settings.editCompany",
                                                             )}
 
                                                             <BiEditAlt size="1.4rem" />
@@ -615,4 +614,4 @@ const handleStateChange = (countryId, e) => {
     });
 };
 
-export default Store;
+export default Company;

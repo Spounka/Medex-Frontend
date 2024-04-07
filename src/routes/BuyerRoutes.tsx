@@ -42,9 +42,10 @@ import TrackingList from "../pages/Buyer/TrackingList";
 import ReturnRequests from "../pages/Buyer/ReturnRequests";
 import UpdatePassword from "../pages/shared/UpdatePassword";
 import BuyerSettings from "../pages/Buyer/BuyerSettings";
-import ComingSoon from "../pages/Supplier/ComingSoon";
+import ComingSoon from "../pages/shared/ComingSoon";
 import Permissions from "../pages/Buyer/Permissions";
 import Wallet from "../pages/shared/Wallet";
+import Company from "../pages/Buyer/Company";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -298,6 +299,10 @@ const BuyerRoutes = () => {
                         <Route
                             path="settings/soon"
                             element={<ComingSoon />}
+                        />
+                        <Route
+                            path="settings/company"
+                            element={<Company />}
                         />
                     </Route>
                 </Route>

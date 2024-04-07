@@ -10,10 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@emotion/styled": "^11.11.0",
-        "@mui/material": "^5.15.4",
-        "@mui/styles": "^5.15.6",
-        "@tinymce/tinymce-react": "^4.3.2",
+        "@tinymce/tinymce-react": "^5.0.1",
         "@types/websocket": "^1.0.10",
         "axios": "^1.6.5",
         "chart.js": "^4.4.1",
@@ -41,7 +38,7 @@
         "react-toastify": "^10.0.1",
         "react-widgets": "^5.8.4",
         "slick-carousel": "^1.8.1",
-        "tinymce": "^6.8.2",
+        "tinymce": "^7.0.0",
         "websocket": "^1.0.34"
     },
     "devDependencies": {

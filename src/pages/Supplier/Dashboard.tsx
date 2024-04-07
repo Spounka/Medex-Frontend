@@ -7,7 +7,6 @@ import userImage from "../../assets/images/user.png";
 import MonthlyBarChart from "../../components/Supplier/Charts/MonthlyBarChart";
 import IncomeBarChart from "../../components/Supplier/Charts/IncomeBarChart";
 
-import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useAxios from "../../utils/useAxios";
@@ -277,23 +276,20 @@ const Dashboard = () => {
                                 <h2 className="d-flex align-items-center gap-2 dashboard__title">
                                     {t("supplier_pages.dashboard.report")}
                                 </h2>
-                                <div>
-                                    <Button
-                                        size="medium"
+                                <div className="d-flex gap-2">
+                                    <button
+                                        className={`${slot === "month" ? "btn btn-outline-primary" : "btn btn-outline-secondary"}`}
                                         onClick={() => setSlot("month")}
-                                        color={slot === "month" ? "primary" : "inherit"}
-                                        variant={slot === "month" ? "outlined" : "text"}
                                     >
                                         {t("supplier_pages.dashboard.month")}
-                                    </Button>
-                                    <Button
-                                        size="medium"
+                                    </button>
+
+                                    <button
+                                        className={`${slot === "week" ? "btn btn-outline-primary" : "btn btn-outline-secondary"}`}
                                         onClick={() => setSlot("week")}
-                                        color={slot === "week" ? "primary" : "inherit"}
-                                        variant={slot === "week" ? "outlined" : "text"}
                                     >
                                         {t("supplier_pages.dashboard.week")}
-                                    </Button>
+                                    </button>
                                 </div>
                             </div>
                             <div className="col-12 mt-3">

@@ -1,4 +1,3 @@
-import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { GetCity, GetCountries, GetState } from "react-country-state-city";
@@ -54,7 +53,7 @@ const ViewStore = () => {
 
                 console.log(data);
 
-                if (user_id == data.company.supplier) {
+                if (user_id == data.company.user) {
                     GetCountries()
                         .then((res) => {
                             let c = res.find(
@@ -145,14 +144,10 @@ const ViewStore = () => {
     };
     useEffect(() => {
         if (user) {
-            if (user.role === "supplier") {
-                if (user.parent !== null) {
-                    getUserData(user.parent);
-                } else {
-                    getUserData(user.user_id);
-                }
+            if (user.parent !== null) {
+                getUserData(user.parent);
             } else {
-                getUserData(id);
+                getUserData(user.user_id);
             }
         } else {
             getUserData(id);
@@ -232,39 +227,6 @@ const ViewStore = () => {
             },
         ],
     };
-    const useStyles = makeStyles({
-        Background: {
-            width: "100%",
-            height: "30vw",
-            backgroundImage: `url(${
-                companyCoverPicture ? companyCoverPicture : coverPic
-            })`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "50% 50%",
-        },
-    });
-    const useStyles2 = makeStyles({
-        Background: {
-            width: "20vw",
-            height: "20vw",
-            backgroundImage: `url(${
-                companyProfilePicture ? companyProfilePicture : profilePic
-            })`,
-            backgroundColor: "white",
-            borderRadius: "50%",
-            border: "5px solid white",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "50% 50%",
-            marginLeft: "20px",
-            marginTop: "-5vw",
-            marginRight: "20px",
-        },
-    });
-
-    const classes = useStyles();
-    const classes2 = useStyles2();
 
     return (
         <main
@@ -275,11 +237,27 @@ const ViewStore = () => {
                 <div className="container-xxl">
                     <h1>{t("supplier_pages.settings.store")}</h1>
                     <div style={{ backgroundColor: "white" }}>
-                        <div className={classes.Background} />
+                        <div
+                            className="company__cover"
+                            style={{
+                                backgroundImage: `url("${
+                                    companyCoverPicture ? companyCoverPicture : coverPic
+                                }")`,
+                            }}
+                        ></div>
                         <div className="p-2">
                             <div className="d-flex justify-content-start">
                                 <div className="d-flex flex-column align-items-center gap-0 gap-md-3">
-                                    <div className={classes2.Background} />
+                                    <div
+                                        className="company__photo"
+                                        style={{
+                                            backgroundImage: `url("${
+                                                companyProfilePicture
+                                                    ? companyProfilePicture
+                                                    : profilePic
+                                            }")`,
+                                        }}
+                                    ></div>
                                     <h2>{companyName}</h2>
                                 </div>
                             </div>

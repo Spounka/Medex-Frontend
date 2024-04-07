@@ -1870,3 +1870,25 @@ footer {
 .desc {
     color: rgb(118, 118, 118);
 }
+
+.company__cover {
+    width: 100%;
+    height: 30dvh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.company__photo {
+    width: 20vw;
+    height: 20vw;
+    background-color: white;
+    border-radius: 50%;
+    border: 5px solid white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    margin-left: 20px;
+    margin-top: -5vw;
+    margin-right: 20px;
+}

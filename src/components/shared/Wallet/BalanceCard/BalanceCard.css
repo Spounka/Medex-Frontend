@@ -26,6 +26,8 @@
     mix-blend-mode: color-dodge;
     filter: brightness(2) contrast(0.8);
 
+    border-radius: 3.5% 3.5% 3.5% 3.5% / 5% 5% 5% 5%;
+
     animation: bg var(--duration) ease infinite;
 }
 
