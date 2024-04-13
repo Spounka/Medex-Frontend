@@ -4,5 +4,6 @@
     "printWidth": 90,
     "trailingComma": "all",
     "singleAttributePerLine": true,
-    "arrowParens": "always"
+    "arrowParens": "always",
+    "plugins": ["prettier-plugin-tailwindcss"]
 }

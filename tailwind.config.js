@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
@@ -8,20 +8,23 @@ export default {
                     DEFAULT: "#7f56da",
                 },
                 green: {
-                    default: "#1e6b49",
+                    DEFAULT: "#1e6b49",
                 },
                 remy: {
-                    default: "#f5dcd4",
+                    DEFAULT: "#f5dcd4",
                 },
                 arsenic: {
-                    default: "#3a3e49",
+                    DEFAULT: "#3a3e49",
                 },
                 grey: {
                     storm: "#7a808c",
                 },
             },
+            fontFamily: {
+                title: ["Montserrat", "sans-serif"],
+            },
         },
     },
-    prefix: 'tw-',
+    prefix: "tw-",
     plugins: [],
 };
