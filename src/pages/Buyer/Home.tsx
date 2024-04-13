@@ -66,8 +66,6 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
-            console.log(products);
-
             if (products?.products) {
                 setSale(products?.products);
                 setAds(products?.ads);
