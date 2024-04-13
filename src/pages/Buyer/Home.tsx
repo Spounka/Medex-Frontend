@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 
 import { Link } from "react-router-dom";
 
@@ -16,19 +16,18 @@ import { FaBriefcaseMedical } from "react-icons/fa";
 import { FaPumpMedical } from "react-icons/fa";
 import { ImLab } from "react-icons/im";
 import { GiChemicalTank } from "react-icons/gi";
+import { Brand, Product } from "@domain/product";
 
-const Home = (props) => {
+const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
 
-    const { addToCart } = props;
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<{ id: number, thumbnail: string }[]>([]);
 
-    const [featuredCategories, setFeaturedCategories] = useState([]);
-    const [sale, setSale] = useState([]);
-    const [recent, setRecent] = useState([]);
-    const [bestSupplier, setBestSupplier] = useState([]);
+    const [sale, setSale] = useState<Product[]>([]);
+    const [recent, setRecent] = useState<Product[]>([]);
+    const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
-    const [brands, setBrands] = useState([]);
+    const [brands, setBrands] = useState<Brand[]>([]);
 
     const fetchBrands = async () => {
         await axios
@@ -41,31 +40,18 @@ const Home = (props) => {
             });
     };
 
-    const fetchCategories = async () => {
-        await axios
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/category?featured=${true}`,
-            )
-            .then((res) => {
-                setFeaturedCategories(res.data);
-            });
-    };
-
-    const fetchProductsByQuery = async (query) => {
+    const fetchProductsByQuery = async (query: string) => {
         try {
             let response = null;
 
             if (query != "on_sale") {
                 response = await axios.get(
-                    `${
-                        import.meta.env.VITE_BACKEND_URL
+                    `${import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?order=${query}&ads=${true}`,
                 );
             } else {
                 response = await axios.get(
-                    `${
-                        import.meta.env.VITE_BACKEND_URL
+                    `${import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?on_sale=true&ads=${true}`,
                 );
             }
@@ -79,6 +65,8 @@ const Home = (props) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
+            console.log(products)
+
             if (products?.products) {
                 setSale(products?.products);
                 setAds(products?.ads);
@@ -102,18 +90,18 @@ const Home = (props) => {
         };
 
         fetchBrands();
-        fetchCategories();
+        // fetchCategories();
         fetchProductsOnSale();
         fetchRecentlyAddedProducts();
         fetchBestSellingProducts();
     }, []);
-    const settings = {
+    const settings: Settings = {
         infinite: true,
         speed: 350,
         slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: true,
-        lazyLoad: true,
+        lazyLoad: "ondemand",
         className: "center",
         autoplaySpeed: 2500,
         responsive: [
@@ -136,8 +124,7 @@ const Home = (props) => {
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3,
-                    centerMode: true,
+                    slidesToShow: 3, centerMode: true,
                     arrows: false,
                 },
             },
@@ -178,9 +165,8 @@ const Home = (props) => {
                             action="/products"
                         >
                             <div
-                                className={`w-100 ${
-                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                }`}
+                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                                    }`}
                             >
                                 <div className="nav-link">
                                     <div
@@ -393,36 +379,6 @@ const Home = (props) => {
                                         </p>
                                     </Link>
                                 </div>
-                                {/* {featuredCategories.length > 0 ? (
-                  <Slider {...settings2}>
-                    {featuredCategories.map((category) => (
-                      <Link
-                        key={category.id}
-                        to={`/products?category=${category.slug}`}
-                      >
-                        <div className="card home__featured-card position-relative h-100">
-                          <div className=" w-100 h-100">
-                            <img
-                              src={
-                                import.meta.env.VITE_BACKEND_URL +
-                                category.image
-                              }
-                              alt="Category"
-                              className="home__featured-card-img"
-                            />
-                          </div>
-                        </div>
-                        <h5 className="home__featured-card-content-title text-center">
-                          {category.name}
-                        </h5>
-                      </Link>
-                    ))}
-                  </Slider>
-                ) : (
-                  <p className="text-center">
-                    {t("buyer_pages.home.no_featured")}!
-                  </p>
-                )}*/}
                             </div>
                         </div>
                     </div>
