@@ -1,13 +1,15 @@
+import { Product } from "@domain/product";
+import { City, Country, State } from "@domain/react-country";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { GetCity, GetCountries, GetState } from "react-country-state-city";
 import { useTranslation } from "react-i18next";
+import { CiCalendarDate } from "react-icons/ci";
 import { FaRegEnvelope } from "react-icons/fa";
 import { IoEarthSharp, IoLocationOutline } from "react-icons/io5";
-import { MdPhoneIphone, MdOutlineDescription } from "react-icons/md";
+import { MdOutlineDescription, MdPhoneIphone } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 import { useParams } from "react-router-dom";
-import { CiCalendarDate } from "react-icons/ci";
 import Slider from "react-slick";
 import coverPic from "../../assets/images/cover.jpg";
 import profilePic from "../../assets/images/user.png";
@@ -24,7 +26,14 @@ const ViewStore = () => {
 
     const { id } = useParams();
 
-    const [privateCategories, setPrivateCategories] = useState([]);
+    const [privateCategories, setPrivateCategories] = useState<
+        {
+            id: number;
+            name: string;
+            products: Product[];
+            supplier: string;
+        }[]
+    >([]);
 
     const [companyProfilePicture, setCompanyProfilePicture] = useState(profilePic);
     const [companyCoverPicture, setCompanyCoverPicture] = useState(coverPic);
@@ -36,14 +45,17 @@ const ViewStore = () => {
     const [bio, setBio] = useState("");
     const [created, setCreated] = useState("");
 
-    const [country, setCountry] = useState("");
-    const [state, setState] = useState("");
-    const [city, setCity] = useState("");
+    const [country, setCountry] = useState<Country | null>(null);
+    const [state, setState] = useState<State | null>();
+    const [city, setCity] = useState<City | null>();
     const [postal, setPostal] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
 
-    const getUserData = async (user_id) => {
+    // This is for typescript only
+    if (!id) return;
+
+    const getUserData = async (user_id: string) => {
         await axios
             .get(
                 import.meta.env.VITE_BACKEND_URL + `/api/company/${user_id}/?cat=${true}`,
@@ -55,15 +67,15 @@ const ViewStore = () => {
 
                 if (user_id == data.company.user) {
                     GetCountries()
-                        .then((res) => {
+                        .then((res: Country[]) => {
                             let c = res.find(
                                 (x) => x.id == parseInt(data?.company.address.country),
                             );
-                            setCountry(c);
+                            if (c) setCountry(c);
                         })
                         .then(() => {
                             return GetState(parseInt(data?.company.address.country)).then(
-                                (res) => {
+                                (res: State[]) => {
                                     if (res.length > 0) {
                                         let s = res.find(
                                             (x) =>
@@ -79,7 +91,7 @@ const ViewStore = () => {
                             return GetCity(
                                 parseInt(data?.company.address.country),
                                 parseInt(data?.company.address.state),
-                            ).then((res) => {
+                            ).then((res: City[]) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
@@ -91,22 +103,22 @@ const ViewStore = () => {
                         });
                 } else {
                     GetCountries()
-                        .then((res) => {
+                        .then((res: Country[]) => {
                             let c = res.find(
                                 (x) => x.id == parseInt(data?.company.address.country),
                             );
-                            setCountry(c.name);
+                            if (c) setCountry(c);
                         })
                         .then(() => {
                             return GetState(parseInt(data?.company.address.country)).then(
-                                (res) => {
+                                (res: State[]) => {
                                     if (res.length > 0) {
                                         let s = res.find(
                                             (x) =>
                                                 x.id ==
                                                 parseInt(data?.company.address.state),
                                         );
-                                        setState(s.name);
+                                        setState(s);
                                     }
                                 },
                             );
@@ -115,13 +127,13 @@ const ViewStore = () => {
                             return GetCity(
                                 parseInt(data?.company.address.country),
                                 parseInt(data?.company.address.state),
-                            ).then((res) => {
+                            ).then((res: City[]) => {
                                 if (res.length > 0) {
                                     let c = res.find(
                                         (x) =>
                                             x.id == parseInt(data?.company.address.city),
                                     );
-                                    setCity(c.name);
+                                    setCity(c);
                                 }
                             });
                         });
@@ -324,7 +336,7 @@ const ViewStore = () => {
                             <IoLocationOutline size="1.2rem" />
                             <div className="d-flex flex-column">
                                 <h5 style={{ margin: "0" }}>{t("location")}</h5>
-                                {country.name && country.name}
+                                {country && country.name}
                                 {state && `, ${state.name}`}
                                 {city && `, ${city.name}`}
                                 {postal && ` ${postal}`}
@@ -333,7 +345,7 @@ const ViewStore = () => {
                             </div>
                         </div>
                     </div>
-                    {privateCategories.map(
+                    {privateCategories?.map(
                         (category) =>
                             category.products.length > 0 && (
                                 <div

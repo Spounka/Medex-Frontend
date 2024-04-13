@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import ChatMessage from "../../components/shared/ChatMessage";
-import useAxios from "../../utils/useAxios";
-import { MdSend } from "react-icons/md";
-import userImage from "../../assets/images/user.png";
-import AuthContext from "../../context/AuthContext";
-import { w3cwebsocket as W3CWebSocket } from "websocket";
-import axios from "axios";
+import { Message, ThreadUser } from "@domain/thread";
+import axios, { AxiosResponse } from "axios";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { MdSend } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+import userImage from "../../assets/images/user.png";
+import ChatMessage from "../../components/shared/ChatMessage";
+import AuthContext from "../../context/AuthContext";
+import useAxios from "../../utils/useAxios";
 
 const ChatMessagesList = () => {
     const { t } = useTranslation();
@@ -16,9 +17,9 @@ const ChatMessagesList = () => {
     const api = useAxios();
 
     const [inputValue, setInputValue] = useState("");
-    const [chatMessages, setChatMessages] = useState([]);
-    const [otherUser, setOtherUser] = useState("");
-    const [client, setClient] = useState(null);
+    const [chatMessages, setChatMessages] = useState<Message[]>([]);
+    const [otherUser, setOtherUser] = useState<ThreadUser | null>(null);
+    const [client, setClient] = useState<W3CWebSocket | null>(null);
     const [latestReceivedMessage, setLatestReceivedMessage] = useState(null);
     const [rows, setRows] = useState(1);
 
@@ -31,12 +32,12 @@ const ChatMessagesList = () => {
 
         await axios
             .get(import.meta.env.VITE_BACKEND_URL + `/api/account/profile/${id}/`)
-            .then((res) => {
+            .then((res: AxiosResponse<ThreadUser>) => {
                 setOtherUser(res.data);
             });
     };
 
-    const handleWebSocketMessage = (message) => {
+    const handleWebSocketMessage = (message: any) => {
         setLatestReceivedMessage(message.data);
         getChatMessages();
     };
@@ -46,39 +47,44 @@ const ChatMessagesList = () => {
     }, [latestReceivedMessage]);
 
     useEffect(() => {
-        if (id) {
-            let newClient;
-            if (user.role === "supplier") {
-                if (user.parent !== null) {
-                    newClient = new W3CWebSocket(
-                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.parent}/`,
-                    );
-                } else {
-                    newClient = new W3CWebSocket(
-                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.user_id}/`,
-                    );
-                }
+        if (!user) return;
+        if (!id) return;
+
+        let newClient: W3CWebSocket;
+        if (user.role === "supplier") {
+            if (user.parent !== null) {
+                newClient = new W3CWebSocket(
+                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                        `/ws/chat/${id}/${user.parent}/`,
+                );
             } else {
-                if (user.parent !== null) {
-                    newClient = new W3CWebSocket(
-                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.parent}/`,
-                    );
-                } else {
-                    newClient = new W3CWebSocket(
-                        import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
-                            `/ws/chat/${id}/${user.user_id}/`,
-                    );
-                }
+                newClient = new W3CWebSocket(
+                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                        `/ws/chat/${id}/${user.user_id}/`,
+                );
             }
-            newClient.onmessage = handleWebSocketMessage;
-            setClient(newClient);
+        } else {
+            if (user.parent !== null) {
+                newClient = new W3CWebSocket(
+                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                        `/ws/chat/${id}/${user.parent}/`,
+                );
+            } else {
+                newClient = new W3CWebSocket(
+                    import.meta.env.VITE_BACKEND_WEBSOCKET_URL +
+                        `/ws/chat/${id}/${user.user_id}/`,
+                );
+            }
         }
+        newClient.onmessage = handleWebSocketMessage;
+        setClient(newClient);
+
+        () => {
+            newClient.close();
+        };
     }, [id]);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(e.target.value);
 
         const textareaLineHeight = 24;
@@ -113,6 +119,11 @@ const ChatMessagesList = () => {
         setInputValue("");
     };
 
+    // These should never be null
+    // It's simply to tell typescript it won't happen in the UI
+    if (!user) return;
+    if (!otherUser) return;
+
     return (
         <main>
             <section
@@ -124,7 +135,7 @@ const ChatMessagesList = () => {
                             <img
                                 className="rounded-circle border p-1 shadow border-primary object-fit-contain"
                                 src={
-                                    otherUser.profile?.profile_picture
+                                    otherUser.profile.profile_picture
                                         ? import.meta.env.VITE_BACKEND_URL +
                                           otherUser.profile.profile_picture
                                         : userImage

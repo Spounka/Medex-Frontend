@@ -17,11 +17,13 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
+        "baseUrl": "./src",
         "paths": {
-            "@types": ["./src/types/*"]
+            "@domain/*": ["types/*"]
         }
     },
-    "include": ["src"],
+    "include": ["next-env.d.ts", "src", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules", "dist", "build"],
     "references": [
         {
             "path": "./tsconfig.node.json"

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
-import { RiLockPasswordLine } from "react-icons/ri";
 import { MdOutlineLockReset } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 import { toast } from "react-toastify";
 
@@ -24,7 +24,7 @@ const ResetPassword = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const validatePassword = PASSWORD_REGEX.test(password);
@@ -46,7 +46,7 @@ const ResetPassword = () => {
                         "token",
                     )}`,
                 { password },
-                { "Content-Type": "application/json" },
+                { headers: { "Content-Type": "application/json" } },
             )
             .then(() => {
                 navigate("/account/login");

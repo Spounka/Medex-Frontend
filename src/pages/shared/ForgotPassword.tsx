@@ -1,34 +1,37 @@
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
-import { TfiEmail } from "react-icons/tfi";
-import { RiMailSendLine } from "react-icons/ri";
 import axios from "axios";
+import { RiMailSendLine } from "react-icons/ri";
+import { TfiEmail } from "react-icons/tfi";
 
-import { useContext } from "react";
+import { FormEvent, useContext, useRef } from "react";
 import AuthContext from "../../context/AuthContext";
 
 import { toast } from "react-toastify";
 
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
     const { t } = useTranslation();
 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const emailRef = useRef<HTMLInputElement | null>(null);
 
     if (user) {
         navigate("/");
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!emailRef.current) return;
+
         await axios
             .post(
                 import.meta.env.VITE_BACKEND_URL + "/api/account/password/reset/",
-                { email: e.target.email.value },
-                { "Content-Type": "application/json" },
+                { email: emailRef.current.value },
+                { headers: { "Content-Type": "application/json" } },
             )
             .then(() => {
                 toast.success(`${t("shared.forgot.success")}!`);
@@ -37,7 +40,7 @@ const ForgotPassword = () => {
                 toast.error(err);
             });
 
-        e.target.email.value = "";
+        emailRef.current.value = "";
     };
 
     return (
@@ -75,6 +78,7 @@ const ForgotPassword = () => {
                                                         type="email"
                                                         name="email"
                                                         className="form-control"
+                                                        ref={emailRef}
                                                         placeholder={`${t("email")}...`}
                                                         required
                                                     />
