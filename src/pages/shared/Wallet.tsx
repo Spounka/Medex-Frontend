@@ -18,7 +18,6 @@ import { PiBankBold } from "react-icons/pi";
 import { toast } from "react-toastify";
 
 import { WalletResponseData } from "../../types/wallet";
-import MobileBalanceCard from "../../components/shared/Wallet/MobileBalanceCard/MobileBalanceCard";
 
 const monthNames: Array<string> = [
     "Jan",
@@ -118,7 +117,7 @@ const Wallet: React.FC = () => {
             <section className="py-1 d-block d-md-none">
                 <div className="row">
                     <div className="col-12">
-                        <MobileBalanceCard
+                        <BalanceCard
                             company={responseData?.results?.wallet?.user?.full_name}
                             balance={responseData?.results?.wallet?.balance}
                         />
