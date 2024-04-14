@@ -1,14 +1,14 @@
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { CiSearch } from "react-icons/ci";
-import { BiHomeAlt, BiCategoryAlt, BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
+import { BiCategoryAlt, BiHomeAlt, BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
-import { MdOutlineSpaceDashboard, MdStorefront } from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
 import { IoSearchSharp } from "react-icons/io5";
+import { MdOutlineSpaceDashboard, MdStorefront } from "react-icons/md";
 
-import AuthContext from "../../../context/AuthContext";
 import { useContext, useDeferredValue, useEffect, useState } from "react";
+import AuthContext from "../../../context/AuthContext";
 
 import axios from "axios";
 
@@ -246,7 +246,7 @@ const Header = () => {
                                                         <CiSearch
                                                             className="fs-5"
                                                             style={{
-                                                                color: "#8e65c1",
+                                                                color: "var(--theme-color-primary)",
                                                             }}
                                                         />
                                                     </button>

@@ -157,8 +157,8 @@ const OurStore = (props) => {
                                     className="w-75 mx-auto py-1 mb-1 fw-bold text-center d-flex justify-content-center align-items-center gap-2"
                                     style={{
                                         backgroundColor: "white",
-                                        border: "1px solid #8e65c1",
-                                        color: "#8e65c1",
+                                        border: "1px solid var(--theme-color-primary)",
+                                        color: "var(--theme-color-primary)",
                                         borderRadius: "5px",
                                     }}
                                 >

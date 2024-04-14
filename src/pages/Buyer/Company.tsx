@@ -228,7 +228,7 @@ const Company = () => {
                     <Link
                         to="../../settings"
                         className="d-flex align-items-center"
-                        style={{ color: "#8e65c1" }}
+                        style={{ color: "var(--theme-color-primary)" }}
                     >
                         {i18n.resolvedLanguage == "en" ? (
                             <AiOutlineArrowLeft className="mb-2" />

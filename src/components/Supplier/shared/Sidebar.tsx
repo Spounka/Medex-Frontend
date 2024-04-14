@@ -53,11 +53,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -82,11 +82,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -111,11 +111,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -203,11 +203,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -271,11 +271,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -335,11 +335,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -392,11 +392,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -421,11 +421,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }
@@ -450,11 +450,11 @@ const Sidebar = (props) => {
                                       backgroundColor: "rgb(250, 250, 251)",
                                       borderLeft:
                                           i18n.resolvedLanguage == "en"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       borderRight:
                                           i18n.resolvedLanguage == "ar"
-                                              ? "2px solid #8e65c1"
+                                              ? "2px solid var(--theme-color-primary)"
                                               : "",
                                       width: "100%",
                                   }

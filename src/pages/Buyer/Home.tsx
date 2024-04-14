@@ -9,19 +9,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 
+import { Brand, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
+import { FaBriefcaseMedical, FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
-import { FaBriefcaseMedical } from "react-icons/fa";
-import { FaPumpMedical } from "react-icons/fa";
-import { ImLab } from "react-icons/im";
 import { GiChemicalTank } from "react-icons/gi";
-import { Brand, Product } from "@domain/product";
+import { ImLab } from "react-icons/im";
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
 
-    const [ads, setAds] = useState<{ id: number, thumbnail: string }[]>([]);
+    const [ads, setAds] = useState<{ id: number; thumbnail: string }[]>([]);
 
     const [sale, setSale] = useState<Product[]>([]);
     const [recent, setRecent] = useState<Product[]>([]);
@@ -46,12 +45,14 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
             if (query != "on_sale") {
                 response = await axios.get(
-                    `${import.meta.env.VITE_BACKEND_URL
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?order=${query}&ads=${true}`,
                 );
             } else {
                 response = await axios.get(
-                    `${import.meta.env.VITE_BACKEND_URL
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?on_sale=true&ads=${true}`,
                 );
             }
@@ -65,7 +66,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
-            console.log(products)
+            console.log(products);
 
             if (products?.products) {
                 setSale(products?.products);
@@ -124,7 +125,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3, centerMode: true,
+                    slidesToShow: 3,
+                    centerMode: true,
                     arrows: false,
                 },
             },
@@ -150,9 +152,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        cssEase: "ease-in",
+        cssEase: "ease-in-out",
         dots: true,
-        arrows: false,
+        arrows: true,
     };
 
     return (
@@ -165,8 +167,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             action="/products"
                         >
                             <div
-                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                    }`}
+                                className={`w-100 ${
+                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                                }`}
                             >
                                 <div className="nav-link">
                                     <div
@@ -204,7 +207,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         >
                                             <CiSearch
                                                 className="fs-5"
-                                                style={{ color: "#8e65c1" }}
+                                                style={{
+                                                    color: "var(--theme-color-primary)",
+                                                }}
                                             />
                                         </button>
                                     </div>
@@ -216,9 +221,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <Slider {...settings3}>
                             {ads.map((ad) => (
                                 <img
-                                    className="imgg"
-                                    key={ad.id}
+                                    className="imgg tw-rounded-xl tw-object-contain"
                                     src={ad.thumbnail}
+                                    key={ad.id}
                                 />
                             ))}
                         </Slider>

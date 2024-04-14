@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
-import useWishlistHandler from "../../../utils/useWishlistHandler";
 import AuthContext from "../../../context/AuthContext";
+import useWishlistHandler from "../../../utils/useWishlistHandler";
 
 import { useTranslation } from "react-i18next";
 
@@ -168,7 +168,7 @@ const ProductCard = (props) => {
                             <button
                                 className="bttn text-nowrap"
                                 style={{
-                                    backgroundColor: "#8e65c1",
+                                    backgroundColor: "var(--theme-color-primary)",
                                     border: "none",
                                     borderRadius: "7px",
                                 }}
@@ -189,7 +189,7 @@ const ProductCard = (props) => {
                             to="/account/login"
                             className="btn bttn text-nowrap"
                             style={{
-                                backgroundColor: "#8e65c1",
+                                backgroundColor: "var(--theme-color-primary)",
                                 border: "none",
                                 borderRadius: "7px",
                             }}
