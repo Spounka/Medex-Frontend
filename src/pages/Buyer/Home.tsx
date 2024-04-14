@@ -45,14 +45,12 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
             if (query != "on_sale") {
                 response = await axios.get(
-                    `${
-                        import.meta.env.VITE_BACKEND_URL
+                    `${import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?order=${query}&ads=${true}`,
                 );
             } else {
                 response = await axios.get(
-                    `${
-                        import.meta.env.VITE_BACKEND_URL
+                    `${import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?on_sale=true&ads=${true}`,
                 );
             }
@@ -125,8 +123,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3,
-                    centerMode: true,
+                    slidesToShow: 3, centerMode: true,
                     arrows: false,
                 },
             },
@@ -167,9 +164,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             action="/products"
                         >
                             <div
-                                className={`w-100 ${
-                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                }`}
+                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                                    }`}
                             >
                                 <div className="nav-link">
                                     <div
