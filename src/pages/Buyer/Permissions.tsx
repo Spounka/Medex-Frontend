@@ -154,7 +154,7 @@ const Permissions = () => {
             <section>
                 <div className="container">
                     <Link
-                        to="../../settings"
+                        to="../settings"
                         className="d-flex align-items-center"
                         style={{ color: "#8e65c1" }}
                     >
