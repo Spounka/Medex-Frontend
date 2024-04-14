@@ -16,7 +16,6 @@ import { FaBriefcaseMedical, FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
 import { GiChemicalTank } from "react-icons/gi";
 import { ImLab } from "react-icons/im";
-import Container from "../../components/shared/Container.tsx";
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -97,46 +96,45 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         fetchRecentlyAddedProducts();
         fetchBestSellingProducts();
     }, []);
-
-    // TODO: re-enable autoplay
     const settings: Settings = {
         infinite: true,
         speed: 350,
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         lazyLoad: "ondemand",
         className: "center",
-        arrows: false,
         autoplaySpeed: 2500,
         responsive: [
             {
                 breakpoint: 1300,
                 settings: {
-                    slidesToShow: 4,
-                    arrows: true,
+                    slidesToShow: 5,
+                    centerPadding: "30px",
+                    centerMode: true,
                 },
             },
             {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
+                    centerMode: true,
                     arrows: false,
-                    centerMode: false,
                 },
             },
             {
                 breakpoint: 1000,
                 settings: {
                     slidesToShow: 3,
+                    centerMode: true,
                     arrows: false,
                 },
             },
             {
                 breakpoint: 768,
                 settings: {
-                    arrows: false,
                     slidesToShow: 3,
+                    arrows: false,
                 },
             },
             {
@@ -160,13 +158,10 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     };
 
     return (
-        <main className={"tw-flex tw-flex-col tw-gap-4 md:tw-gap-8"}>
-            <Container<HTMLDivElement>
-                node={"section"}
-                className="tw-relative tw-h-auto tw-w-dvw xl:tw-h-dvh"
-            >
-                <div className="tw-pt-4 md:tw-hidden">
-                    <div className="two">
+        <main>
+            <section className="container">
+                <div className="pb-5 pt-2">
+                    <div className="p-3 two">
                         <form
                             method="get"
                             action="/products"
@@ -222,20 +217,24 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             </div>
                         </form>
                     </div>
+                    {ads && ads.length > 0 ? (
+                        <Slider {...settings3}>
+                            {ads.map((ad) => (
+                                <img
+                                    className="imgg tw-rounded-xl tw-object-contain"
+                                    src={ad.thumbnail}
+                                    key={ad.id}
+                                />
+                            ))}
+                        </Slider>
+                    ) : (
+                        ""
+                    )}
                 </div>
-            </Container>
-            {ads && ads.length > 0
-                ? ads.map((ad) => (
-                      <img
-                          className="imgg tw-inset-0 tw-h-auto tw-w-screen tw-object-contain xl:tw-absolute xl:tw-h-screen xl:tw-object-cover"
-                          src={ad.thumbnail}
-                          key={ad.id}
-                      />
-                  ))
-                : null}
+            </section>
 
-            <section className="pb-5 tw-px-4">
-                <div className="">
+            <section className="pb-5">
+                <div className="container">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -250,7 +249,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         borderRadius: "8px",
                                     }}
                                     to="/categories"
-                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap hover:tw-text-purple"
+                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -263,7 +262,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex flex-wrap tw-w-full">
+                                <div className="gs d-flex flex-wrap">
                                     <Link
                                         to="/products?category=X-Ray"
                                         className="cat d-flex flex-column gap-1 align-items-center"
@@ -391,7 +390,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-2">
-                <div className="tw-px-4">
+                <div className="container">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -401,7 +400,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -413,7 +412,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                     </div>
                     <div className="row py-4">
-                        <div className="col-14 p-0 p-md-2 padded-track">
+                        <div className="col-14 p-0 p-md-2">
                             {bestSupplier && bestSupplier.length > 0 ? (
                                 <Slider {...settings}>
                                     {bestSupplier.map((product) => (
@@ -435,7 +434,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="tw-px-4">
+                <div className="container">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -446,7 +445,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             <div className="col-4 d-flex justify-content-end">
                                 <Link
                                     to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -457,16 +456,13 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="pt-2 gg tw-grid tw-grid-cols-3 md:tw-grid-cols-4 lg:tw-grid-cols-6">
+                        <div className="pt-2 gg">
                             {brands && brands.length > 0 ? (
                                 brands.map((brand) => {
                                     return (
                                         <Link
                                             to={`/products?brand=${brand.slug}`}
                                             key={brand.id}
-                                            className={
-                                                "tw-aspect-square tw-w-full tw-flex-[1_1_30%] md:tw-flex-[1_1_20%]"
-                                            }
                                         >
                                             <div
                                                 className="card d-flex align-items-center justify-content-center home__brand-card"
@@ -491,7 +487,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-2">
-                <div className="tw-px-4">
+                <div className="container">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -501,7 +497,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -535,7 +531,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="tw-px-4">
+                <div className="container">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -546,7 +542,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             <Link
                                 to="/products"
                                 state={{ products: sale, type: "On Sale" }}
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (

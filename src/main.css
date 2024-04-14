@@ -11,19 +11,13 @@
 
     /*TODO: Remove the old colors and refactor to use primary - secondary notations*/
     --theme-color-darkblue: #7f56da;
-    /*--theme-color-blue: #1e6b49;*/
+    --theme-color-blue: #1e6b49;
     --theme-color-lightblue: #7a808c;
-
-    --theme-color-white: #f5f5fc;
-    --theme-color-blue: #90d7ee;
-    --theme-color-gold: #ffcf4b;
-    --theme-color-purple: #754f9d;
 
     --theme-color-primary: var(--theme-color-darkblue);
     --theme-color-secondary: var(--theme-color-blue);
     --theme-color-tertiary: #f5dcd4;
-    /*--theme-color-white: #ffffff;*/
+    --theme-color-white: #ffffff;
     --theme-color-arsenic: #3a3e49;
     --theme-color-grey: #7a808c;
-    --theme-color-white-powder: #fdfcfa;
 }
