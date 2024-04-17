@@ -28,7 +28,7 @@ export interface Product {
     name: string;
     description: string;
     slug: string;
-    price: string;
+    price: number;
     qty: number;
     sale_price: string;
     price_range_min: string;
