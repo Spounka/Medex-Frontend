@@ -9,10 +9,10 @@ import { Product } from "@domain/product.ts";
 
 const ProductCard = (props: {
     product: Product;
-    wish: any;
     cart: boolean;
-    key: string;
     addToCart: any;
+    wish?: any;
+    key?: string;
 }) => {
     const { t } = useTranslation();
     const { user } = useContext(AuthContext);

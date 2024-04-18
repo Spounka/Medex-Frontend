@@ -174,6 +174,45 @@ const OurStore = (props) => {
                                     border: "1px solid rgb(210, 210, 208)",
                                 }}
                             >
+                                <div
+                                    className="store__sorting-menu py-2"
+                                    style={{ border: "1px solid #d2d2d0" }}
+                                >
+                                    <div className="d-flex align-items-center gap-5">
+                                        <p className="mb-0 d-flex align-items-center gap-2 tw-text-nowrap">
+                                            <BsSortUpAlt size="1.25rem" />
+                                            {t("buyer_pages.products_list.sort")}
+                                        </p>
+                                        <select
+                                            name="sort"
+                                            className="form-control form-select store__sorting-select"
+                                            defaultValue="alphabet_ascending"
+                                            style={{ borderRight: "1px solid #bbbbbb" }}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                        >
+                                            <option value="name">
+                                                {t("buyer_pages.products_list.al_az")}
+                                            </option>
+                                            <option value="-name">
+                                                {t("buyer_pages.products_list.al_za")}
+                                            </option>
+                                            <option value="blended_price">
+                                                {t("buyer_pages.products_list.pr_a")}
+                                            </option>
+                                            <option value="-blended_price">
+                                                {t("buyer_pages.products_list.pr_d")}
+                                            </option>
+                                            <option value="created">
+                                                {t("buyer_pages.products_list.da_a")}
+                                            </option>
+                                            <option value="-created">
+                                                {t("buyer_pages.products_list.da_d")}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr className="my-2" />
+
                                 <div className="row mt-3 d-block d-md-none">
                                     <div className="col-12 text-end">
                                         <AiOutlineCloseCircle
@@ -201,7 +240,7 @@ const OurStore = (props) => {
                                         setKeywordFilter(e.target.value);
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <BiCategoryAlt size="1.6rem" />
                                     {t("buyer_pages.products_list.cat")}
@@ -226,7 +265,7 @@ const OurStore = (props) => {
                                         fetchSubCategories(e?.value);
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <BiCategoryAlt size="1.6rem" />
                                     {t("buyer_pages.products_list.subcategory")}
@@ -251,7 +290,7 @@ const OurStore = (props) => {
                                         }
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <AiOutlineSafetyCertificate size="1.6rem" />
                                     {t("buyer_pages.products_list.brand")}
@@ -273,12 +312,12 @@ const OurStore = (props) => {
                                         setBrandFilter(e?.value || "");
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <TbZoomMoney size="1.6rem" />
                                     {t("buyer_pages.products_list.range")}
                                 </p>
-                                <div className="position-relative my-4">
+                                <div className="position-relative my-2">
                                     <Slider
                                         className={"slider"}
                                         value={priceValues}
@@ -321,49 +360,12 @@ const OurStore = (props) => {
                             </div>
                         </div>
                         <div className="col-12 col-md-9">
-                            <div
-                                className="store__sorting-menu py-2"
-                                style={{ border: "1px solid #d2d2d0" }}
-                            >
-                                <div className="d-flex align-items-center gap-5">
-                                    <p className="mb-0 d-flex align-items-center gap-2">
-                                        <BsSortUpAlt size="1.5rem" />
-                                        {t("buyer_pages.products_list.sort")}
-                                    </p>
-                                    <select
-                                        name="sort"
-                                        className="form-control form-select store__sorting-select"
-                                        defaultValue="alphabet_ascending"
-                                        style={{ borderRight: "1px solid #bbbbbb" }}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    >
-                                        <option value="name">
-                                            {t("buyer_pages.products_list.al_az")}
-                                        </option>
-                                        <option value="-name">
-                                            {t("buyer_pages.products_list.al_za")}
-                                        </option>
-                                        <option value="blended_price">
-                                            {t("buyer_pages.products_list.pr_a")}
-                                        </option>
-                                        <option value="-blended_price">
-                                            {t("buyer_pages.products_list.pr_d")}
-                                        </option>
-                                        <option value="created">
-                                            {t("buyer_pages.products_list.da_a")}
-                                        </option>
-                                        <option value="-created">
-                                            {t("buyer_pages.products_list.da_d")}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
                             <div className="gg">
                                 {productsList.length > 0 ? (
                                     productsList.map((product) => {
                                         return (
                                             <div
-                                                className="py-3"
+                                                className=""
                                                 key={product.sku}
                                             >
                                                 <ProductCart
