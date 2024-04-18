@@ -45,12 +45,14 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
             if (query != "on_sale") {
                 response = await axios.get(
-                    `${import.meta.env.VITE_BACKEND_URL
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?order=${query}&ads=${true}`,
                 );
             } else {
                 response = await axios.get(
-                    `${import.meta.env.VITE_BACKEND_URL
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
                     }/api/product/product?on_sale=true&ads=${true}`,
                 );
             }
@@ -94,12 +96,14 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         fetchRecentlyAddedProducts();
         fetchBestSellingProducts();
     }, []);
+
+    // TODO: re-enable autoplay
     const settings: Settings = {
         infinite: true,
         speed: 350,
-        slidesToShow: 6,
+        slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         lazyLoad: "ondemand",
         className: "center",
         autoplaySpeed: 2500,
@@ -123,7 +127,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3, centerMode: true,
+                    slidesToShow: 3,
+                    centerMode: true,
                     arrows: false,
                 },
             },
@@ -164,8 +169,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             action="/products"
                         >
                             <div
-                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                    }`}
+                                className={`w-100 ${
+                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                                }`}
                             >
                                 <div className="nav-link">
                                     <div
@@ -245,7 +251,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         borderRadius: "8px",
                                     }}
                                     to="/categories"
-                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
+                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap hover:tw-text-purple"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -258,7 +264,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex flex-wrap">
+                                <div className="gs d-flex flex-wrap tw-w-full">
                                     <Link
                                         to="/products?category=X-Ray"
                                         className="cat d-flex flex-column gap-1 align-items-center"
@@ -396,7 +402,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -441,7 +447,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             <div className="col-4 d-flex justify-content-end">
                                 <Link
                                     to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -452,13 +458,16 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="pt-2 gg">
+                        <div className="pt-2 gg tw-grid tw-grid-cols-3 md:tw-grid-cols-4 lg:tw-grid-cols-6">
                             {brands && brands.length > 0 ? (
                                 brands.map((brand) => {
                                     return (
                                         <Link
                                             to={`/products?brand=${brand.slug}`}
                                             key={brand.id}
+                                            className={
+                                                "tw-aspect-square tw-w-full tw-flex-[1_1_30%] md:tw-flex-[1_1_20%]"
+                                            }
                                         >
                                             <div
                                                 className="card d-flex align-items-center justify-content-center home__brand-card"
@@ -493,7 +502,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -538,7 +547,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             <Link
                                 to="/products"
                                 state={{ products: sale, type: "On Sale" }}
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (

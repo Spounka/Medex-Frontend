@@ -16,6 +16,7 @@ import ProductCart from "../../components/Buyer/shared/ProductCard";
 
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Product } from "@domain/product.ts";
 
 const MIN = 0;
 const MAX = 100000;
@@ -27,7 +28,7 @@ const OurStore = (props) => {
 
     const [queryParameters, setQueryParameters] = useSearchParams();
 
-    const [productsList, setProductsList] = useState({});
+    const [productsList, setProductsList] = useState<Product[]>([]);
 
     const [query, setQuery] = useState("name");
 
@@ -149,7 +150,7 @@ const OurStore = (props) => {
                     <div className="row mb-3">
                         <BreadCrumb title={`${t("all_products")}`} />
                     </div>
-                    <div className="row mt-2 mt-md-3 ">
+                    <div className="row mt-2 mt-md-3">
                         <div className="col-12 col-md-3">
                             <div className="d-md-none">
                                 <button
@@ -167,7 +168,7 @@ const OurStore = (props) => {
                                 </button>
                             </div>
                             <div
-                                className="store__filter-card mb-3 store__filter-menu"
+                                className="store__filter-card mb-3 store__filter-menu tw-flex tw-flex-col tw-gap-1.5"
                                 style={{
                                     boxShadow: "none",
                                     border: "1px solid rgb(210, 210, 208)",
@@ -390,12 +391,12 @@ const OurStore = (props) => {
 };
 
 const showFilterMenu = () => {
-    const menu = document.querySelector(".store__filter-menu");
+    const menu = document.querySelector(".store__filter-menu")! as HTMLElement;
     menu.style.display = "block";
 };
 
 const closeFilterMenu = () => {
-    const menu = document.querySelector(".store__filter-menu");
+    const menu = document.querySelector(".store__filter-menu")! as HTMLElement;
     menu.style.display = "none";
 };
 

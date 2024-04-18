@@ -492,12 +492,12 @@ const Header = () => {
                                         <NavLink
                                             to="/categories"
                                             className="d-flex gap-2 align-items-center"
-                                            onMouseEnter={(e) => {
-                                                let elm = document.querySelector(
-                                                    ".navbar__bottom-menu-dropdown",
-                                                );
-                                                elm.classList.add("visible");
-                                            }}
+                                            // onMouseEnter={(e) => {
+                                            //     let elm = document.querySelector(
+                                            //         ".navbar__bottom-menu-dropdown",
+                                            //     );
+                                            //     elm.classList.add("visible");
+                                            // }}
                                         >
                                             <BiCategoryAlt size="1.1rem" />
                                             {t("all_categories")}

@@ -8,7 +8,7 @@ import useAxios from "../../utils/useAxios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-import { Offer } from "@domain/quotes";
+import { Offer } from "@domain/quote.ts";
 import { useTranslation } from "react-i18next";
 import { BiCloudDownload } from "react-icons/bi";
 import { BsClipboard2CheckFill } from "react-icons/bs";
