@@ -69,7 +69,7 @@ const ProductCard = (props: {
 
     return (
         <div
-            className="cardd card home__card tw-flex tw-min-h-[300px] tw-flex-col tw-gap-1"
+            className="cardd card home__card tw-flex tw-aspect-[1/7] tw-min-h-[300px] tw-w-full tw-flex-col tw-gap-1"
             style={{ borderRadius: "5px" }}
         >
             <Link

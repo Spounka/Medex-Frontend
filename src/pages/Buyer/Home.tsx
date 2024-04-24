@@ -16,6 +16,7 @@ import { FaBriefcaseMedical, FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
 import { GiChemicalTank } from "react-icons/gi";
 import { ImLab } from "react-icons/im";
+import Container from "../../components/shared/Container.tsx";
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -106,37 +107,36 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         autoplay: false,
         lazyLoad: "ondemand",
         className: "center",
+        arrows: false,
         autoplaySpeed: 2500,
         responsive: [
             {
                 breakpoint: 1300,
                 settings: {
-                    slidesToShow: 5,
-                    centerPadding: "30px",
-                    centerMode: true,
+                    slidesToShow: 4,
+                    arrows: true,
                 },
             },
             {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
-                    centerMode: true,
                     arrows: false,
+                    centerMode: false,
                 },
             },
             {
                 breakpoint: 1000,
                 settings: {
                     slidesToShow: 3,
-                    centerMode: true,
                     arrows: false,
                 },
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 3,
                     arrows: false,
+                    slidesToShow: 3,
                 },
             },
             {
@@ -160,10 +160,13 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     };
 
     return (
-        <main>
-            <section className="container">
-                <div className="pb-5 pt-2">
-                    <div className="p-3 two">
+        <main className={"tw-flex tw-flex-col tw-gap-4 md:tw-gap-8"}>
+            <Container<HTMLDivElement>
+                node={"section"}
+                className="tw-relative tw-h-auto tw-w-dvw xl:tw-h-dvh"
+            >
+                <div className="tw-pt-4 md:tw-hidden">
+                    <div className="two">
                         <form
                             method="get"
                             action="/products"
@@ -219,24 +222,20 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             </div>
                         </form>
                     </div>
-                    {ads && ads.length > 0 ? (
-                        <Slider {...settings3}>
-                            {ads.map((ad) => (
-                                <img
-                                    className="imgg tw-rounded-xl tw-object-contain"
-                                    src={ad.thumbnail}
-                                    key={ad.id}
-                                />
-                            ))}
-                        </Slider>
-                    ) : (
-                        ""
-                    )}
                 </div>
-            </section>
+            </Container>
+            {ads && ads.length > 0
+                ? ads.map((ad) => (
+                      <img
+                          className="imgg tw-inset-0 tw-h-auto tw-w-screen tw-object-contain xl:tw-absolute xl:tw-h-screen xl:tw-object-cover"
+                          src={ad.thumbnail}
+                          key={ad.id}
+                      />
+                  ))
+                : null}
 
-            <section className="pb-5">
-                <div className="container">
+            <section className="pb-5 tw-px-4">
+                <div className="">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -392,7 +391,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-2">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -414,7 +413,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                     </div>
                     <div className="row py-4">
-                        <div className="col-14 p-0 p-md-2">
+                        <div className="col-14 p-0 p-md-2 padded-track">
                             {bestSupplier && bestSupplier.length > 0 ? (
                                 <Slider {...settings}>
                                     {bestSupplier.map((product) => (
@@ -436,7 +435,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="container">
+                <div className="tw-px-4">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -492,7 +491,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-2">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -536,7 +535,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">

@@ -63,7 +63,12 @@ const TrackingList = () => {
                                         {orderItems.map((order) => {
                                             return (
                                                 <>
-                                                    <tr key={order?.id}>
+                                                    <tr
+                                                        className={
+                                                            "[&&]:hover:tw-bg-blue"
+                                                        }
+                                                        key={order?.id}
+                                                    >
                                                         <td className="text-nowrap">
                                                             {order?.id}
                                                         </td>
@@ -81,8 +86,8 @@ const TrackingList = () => {
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-primary btn-sm d-flex align-items-center gap-2"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target={`#orderModal-${order.id}`}
+                                                                // data-bs-toggle="modal"
+                                                                // data-bs-target={`#orderModal-${order.id}`}
                                                             >
                                                                 <BsTruck size="1.2rem" />
                                                                 {t(
@@ -92,117 +97,117 @@ const TrackingList = () => {
                                                         </td>
                                                     </tr>
 
-                                                    <div
-                                                        className="modal fade"
-                                                        id={`orderModal-${order.id}`}
-                                                        tabIndex="-1"
-                                                        aria-labelledby={`orderModal-${order.id}`}
-                                                        aria-hidden="true"
-                                                    >
-                                                        <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
-                                                            <div className="modal-content">
-                                                                <div className="modal-body px-5 pt-4">
-                                                                    <div className="step-indicator mb-5">
-                                                                        <div className="step step1 active">
-                                                                            <div className="step-icon">
-                                                                                1
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.or",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ===
-                                                                                    "P" ||
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step2 ${
-                                                                                order?.shipping_status ===
-                                                                                    "P" ||
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                2
-                                                                            </div>
-                                                                            <p className="stepper__text-2">
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.p",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step3 ${
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                3
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.otw",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ==
-                                                                                    "DE" &&
-                                                                                "active"
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step4 ${
-                                                                                order?.shipping_status ==
-                                                                                    "DE" &&
-                                                                                "active"
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                4
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.de",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {/*<div*/}
+                                                    {/*    className="modal fade"*/}
+                                                    {/*    id={`orderModal-${order.id}`}*/}
+                                                    {/*    tabIndex="-1"*/}
+                                                    {/*    aria-labelledby={`orderModal-${order.id}`}*/}
+                                                    {/*    aria-hidden="true"*/}
+                                                    {/*>*/}
+                                                    {/*    <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">*/}
+                                                    {/*        <div className="modal-content">*/}
+                                                    {/*            <div className="modal-body px-5 pt-4">*/}
+                                                    {/*                <div className="step-indicator mb-5">*/}
+                                                    {/*                    <div className="step step1 active">*/}
+                                                    {/*                        <div className="step-icon">*/}
+                                                    {/*                            1*/}
+                                                    {/*                        </div>*/}
+                                                    {/*                        <p>*/}
+                                                    {/*                            {t(*/}
+                                                    {/*                                "supplier_pages.order_details.or",*/}
+                                                    {/*                            )}*/}
+                                                    {/*                        </p>*/}
+                                                    {/*                    </div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`indicator-line ${*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "P" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "OTW" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "DE"*/}
+                                                    {/*                                ? "active"*/}
+                                                    {/*                                : ""*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    ></div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`step step2 ${*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "P" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "OTW" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "DE"*/}
+                                                    {/*                                ? "active"*/}
+                                                    {/*                                : ""*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    >*/}
+                                                    {/*                        <div className="step-icon">*/}
+                                                    {/*                            2*/}
+                                                    {/*                        </div>*/}
+                                                    {/*                        <p className="stepper__text-2">*/}
+                                                    {/*                            {t(*/}
+                                                    {/*                                "supplier_pages.order_details.p",*/}
+                                                    {/*                            )}*/}
+                                                    {/*                        </p>*/}
+                                                    {/*                    </div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`indicator-line ${*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "OTW" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "DE"*/}
+                                                    {/*                                ? "active"*/}
+                                                    {/*                                : ""*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    ></div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`step step3 ${*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "OTW" ||*/}
+                                                    {/*                            order?.shipping_status ===*/}
+                                                    {/*                                "DE"*/}
+                                                    {/*                                ? "active"*/}
+                                                    {/*                                : ""*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    >*/}
+                                                    {/*                        <div className="step-icon">*/}
+                                                    {/*                            3*/}
+                                                    {/*                        </div>*/}
+                                                    {/*                        <p>*/}
+                                                    {/*                            {t(*/}
+                                                    {/*                                "supplier_pages.order_details.otw",*/}
+                                                    {/*                            )}*/}
+                                                    {/*                        </p>*/}
+                                                    {/*                    </div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`indicator-line ${*/}
+                                                    {/*                            order?.shipping_status ==*/}
+                                                    {/*                                "DE" &&*/}
+                                                    {/*                            "active"*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    ></div>*/}
+                                                    {/*                    <div*/}
+                                                    {/*                        className={`step step4 ${*/}
+                                                    {/*                            order?.shipping_status ==*/}
+                                                    {/*                                "DE" &&*/}
+                                                    {/*                            "active"*/}
+                                                    {/*                        }`}*/}
+                                                    {/*                    >*/}
+                                                    {/*                        <div className="step-icon">*/}
+                                                    {/*                            4*/}
+                                                    {/*                        </div>*/}
+                                                    {/*                        <p>*/}
+                                                    {/*                            {t(*/}
+                                                    {/*                                "supplier_pages.order_details.de",*/}
+                                                    {/*                            )}*/}
+                                                    {/*                        </p>*/}
+                                                    {/*                    </div>*/}
+                                                    {/*                </div>*/}
+                                                    {/*            </div>*/}
+                                                    {/*        </div>*/}
+                                                    {/*    </div>*/}
+                                                    {/*</div>*/}
                                                 </>
                                             );
                                         })}
