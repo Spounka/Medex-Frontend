@@ -106,20 +106,20 @@ a {
 }
 
 .navbar-brand {
-    color: var(--theme-color-primary);
+    /*color: var(--theme-color-primary);*/
+    color: #0c0404;
     transition: color 100ms ease-in-out;
 }
 
 .navbar-brand:hover {
-    /* color: var(--theme-color-primary); */
-    color: var(--theme-color-secondary);
+    color: var(--theme-color-primary);
 }
 
 .navbar-brand:focus,
 .navbar-brand:active {
     transition: all 0.3s ease-in-out;
-    /* color: var(--theme-color-primary); */
-    color: var(--theme-color-secondary);
+    color: var(--theme-color-primary);
+    /*color: var(--theme-color-secondary);*/
 }
 
 .link__active {
@@ -308,12 +308,12 @@ nav {
 
 footer {
     z-index: 0;
-    background-color: var(--theme-color-primary);
-    color: #fff;
+    background-color: var(--theme-color-white-powder);
+    color: black;
 }
 
 .footer__top-link:hover {
-    color: var(--theme-color-white) !important;
+    color: var(--theme-color-primary) !important;
 }
 
 .footer__bottom {
@@ -420,7 +420,7 @@ footer {
 }
 
 .slick-slide > div {
-    padding: 10px;
+    padding: 5px;
 }
 
 .ds .slick-list .slick-track {
@@ -479,7 +479,7 @@ footer {
 }
 
 .home__card-button-fav:hover {
-    background-color: var(--theme-color-secondary);
+    background-color: var(--theme-color-white-powder);
     border: none;
 }
 
@@ -678,6 +678,11 @@ footer {
     }
 }
 
+.cardd {
+    max-width: calc(100vw / 4 - 64px);
+    aspect-ratio: 9/16;
+}
+
 @media screen and (max-width: 400px) {
     .home__card {
         max-width: 220px;
@@ -687,7 +692,7 @@ footer {
 
 @media screen and (max-width: 765px) {
     .cardd {
-        max-width: 170px;
+        /*max-width: 170px;*/
         min-height: max-content;
     }
 
@@ -1435,7 +1440,8 @@ footer {
 }
 
 .dashboard__orders-list tr:hover td {
-    background-color: var(--theme-color-secondary) !important;
+    background-color: var(--theme-color-white-powder) !important;
+    color: black !important;
 }
 
 .dashboard__orders-list tbody tr:hover td,
