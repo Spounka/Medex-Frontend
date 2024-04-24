@@ -71,7 +71,7 @@ const Header = () => {
                 }}
             >
                 <div
-                    className="container-xxl"
+                    className="tw-flex tw-w-full"
                     style={{ padding: "0 25px", flexWrap: "nowrap" }}
                 >
                     <Link

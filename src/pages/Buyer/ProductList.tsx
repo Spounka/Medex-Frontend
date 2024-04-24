@@ -89,7 +89,7 @@ const OurStore = (props) => {
             });
     };
 
-    const fetchFilteredProducts = async (catLoad = null) => {
+    const fetchFilteredProducts = async (catLoad: string | null = null) => {
         const url = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/product/product?name=${keywordFilter}&on_sale=${onSaleFilter}&category=${
