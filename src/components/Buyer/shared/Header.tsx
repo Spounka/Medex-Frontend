@@ -1,14 +1,14 @@
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { CiSearch } from "react-icons/ci";
-import { BiHomeAlt, BiCategoryAlt, BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
+import { BiCategoryAlt, BiHomeAlt, BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
-import { MdOutlineSpaceDashboard, MdStorefront } from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
 import { IoSearchSharp } from "react-icons/io5";
+import { MdOutlineSpaceDashboard, MdStorefront } from "react-icons/md";
 
-import AuthContext from "../../../context/AuthContext";
 import { useContext, useDeferredValue, useEffect, useState } from "react";
+import AuthContext from "../../../context/AuthContext";
 
 import axios from "axios";
 
@@ -71,7 +71,7 @@ const Header = () => {
                 }}
             >
                 <div
-                    className="container-xxl"
+                    className="tw-flex tw-w-full"
                     style={{ padding: "0 25px", flexWrap: "nowrap" }}
                 >
                     <Link
@@ -246,7 +246,7 @@ const Header = () => {
                                                         <CiSearch
                                                             className="fs-5"
                                                             style={{
-                                                                color: "#8e65c1",
+                                                                color: "var(--theme-color-primary)",
                                                             }}
                                                         />
                                                     </button>
@@ -492,12 +492,12 @@ const Header = () => {
                                         <NavLink
                                             to="/categories"
                                             className="d-flex gap-2 align-items-center"
-                                            onMouseEnter={(e) => {
-                                                let elm = document.querySelector(
-                                                    ".navbar__bottom-menu-dropdown",
-                                                );
-                                                elm.classList.add("visible");
-                                            }}
+                                            // onMouseEnter={(e) => {
+                                            //     let elm = document.querySelector(
+                                            //         ".navbar__bottom-menu-dropdown",
+                                            //     );
+                                            //     elm.classList.add("visible");
+                                            // }}
                                         >
                                             <BiCategoryAlt size="1.1rem" />
                                             {t("all_categories")}

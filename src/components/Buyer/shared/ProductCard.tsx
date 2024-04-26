@@ -1,12 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
-import useWishlistHandler from "../../../utils/useWishlistHandler";
 import AuthContext from "../../../context/AuthContext";
+import useWishlistHandler from "../../../utils/useWishlistHandler";
 
 import { useTranslation } from "react-i18next";
+import { Product } from "@domain/product.ts";
 
-const ProductCard = (props) => {
+const ProductCard = (props: {
+    product: Product;
+    cart: boolean;
+    addToCart: any;
+    wish?: any;
+    key?: string;
+}) => {
     const { t } = useTranslation();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -42,9 +49,7 @@ const ProductCard = (props) => {
     }, [product.sku]);
 
     useEffect(() => {
-        let cartItems = localStorage.getItem("cartItems")
-            ? JSON.parse(localStorage.getItem("cartItems"))
-            : [];
+        let cartItems: Product[] = JSON.parse(localStorage.getItem("cartItems") ?? "[]");
 
         cartItems.forEach((item) => {
             let buttons = document.querySelectorAll(`#item-cart-button-${item.sku}`);
@@ -64,7 +69,7 @@ const ProductCard = (props) => {
 
     return (
         <div
-            className="cardd card home__card"
+            className="cardd card home__card tw-flex tw-aspect-[1/7] tw-min-h-[300px] tw-w-full tw-flex-col tw-gap-1"
             style={{ borderRadius: "5px" }}
         >
             <Link
@@ -80,20 +85,70 @@ const ProductCard = (props) => {
                                 : import.meta.env.VITE_BACKEND_URL + product.thumbnail
                             : product.thumbnail
                     }
-                    className="card-img-top home__card-img"
+                    className="card-img-top home__card-img tw-min-h-[200px] tw-object-cover tw-object-center"
                     width="100%"
                     alt="product"
                 />
-                <div className="card-title pt-3 px-3">
-                    <h5 className="home__card-title text-dark text-hover">
-                        {product.name}
-                    </h5>
+                <div className="tw-flex tw-items-center tw-justify-between tw-px-2 tw-text-center tw-align-middle">
+                    <div className="card-title tw-m-0 tw-text-center tw-align-middle">
+                        <h5 className="home__card-title text-dark text-hover">
+                            {product.name}
+                        </h5>
+                    </div>
+                    {user ? (
+                        user.role == "buyer" ? (
+                            <button
+                                role="button"
+                                className="border-0 bg-transparent tw-items-center"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    handleWishButtonClick();
+                                }}
+                            >
+                                <div className="home__card-button-fav">
+                                    {isInWishlist ? (
+                                        <MdFavorite
+                                            className="home__card-button-fav-icon"
+                                            style={{ color: "red" }}
+                                        />
+                                    ) : (
+                                        <MdFavoriteBorder className="home__card-button-fav-icon" />
+                                    )}
+                                </div>
+                            </button>
+                        ) : (
+                            <br />
+                        )
+                    ) : (
+                        <button
+                            role="button"
+                            className="border-0 bg-transparent tw-items-center tw-align-middle"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleWishButtonClick();
+                            }}
+                        >
+                            <div className="home__card-button-fav tw-items-center">
+                                {isInWishlist ? (
+                                    <MdFavorite
+                                        className="home__card-button-fav-icon"
+                                        style={{ color: "red" }}
+                                    />
+                                ) : (
+                                    <MdFavoriteBorder className="home__card-button-fav-icon" />
+                                )}
+                            </div>
+                        </button>
+                    )}
                 </div>
             </Link>
-            <div className="d-flex flex-column justify-content-between align-items-center">
+
+            <div className="d-flex flex-column justify-content-between align-items-center tw-w-full tw-px-2 tw-text-left">
                 <span
-                    className="fw-bold home__card-price d-flex align-items-center justify-content-around"
-                    style={{ width: "100%", gap: "10px" }}
+                    className="fw-bold home__card-price d-flex tw-flex tw-flex-col tw-items-start tw-text-left"
+                    style={{ width: "100%" }}
                 >
                     {product.price > 0 && (
                         <span
@@ -119,61 +174,25 @@ const ProductCard = (props) => {
                             {product.price_range_max}&nbsp; {t("sar")}
                         </span>
                     )}
-                    {user ? (
-                        user.role == "buyer" ? (
-                            <button
-                                role="button"
-                                className="border-0 bg-transparent"
-                                onClick={handleWishButtonClick}
-                            >
-                                <div className="home__card-button-fav">
-                                    {isInWishlist ? (
-                                        <MdFavorite
-                                            className="home__card-button-fav-icon"
-                                            style={{ color: "red" }}
-                                        />
-                                    ) : (
-                                        <MdFavoriteBorder className="home__card-button-fav-icon" />
-                                    )}
-                                </div>
-                            </button>
-                        ) : (
-                            <br />
-                        )
-                    ) : (
-                        <button
-                            role="button"
-                            className="border-0 bg-transparent"
-                            onClick={handleWishButtonClick}
-                        >
-                            <div className="home__card-button-fav">
-                                {isInWishlist ? (
-                                    <MdFavorite
-                                        className="home__card-button-fav-icon"
-                                        style={{ color: "red" }}
-                                    />
-                                ) : (
-                                    <MdFavoriteBorder className="home__card-button-fav-icon" />
-                                )}
-                            </div>
-                        </button>
-                    )}
                 </span>
             </div>
             {user ? (
                 user.group_names.indexOf("Buyer Admin") > -1 ||
                 user.group_names.indexOf("Buyer Product Manager") > -1 ? (
-                    <div className="d-flex flex-column justify-content-center align-items-center py-2">
-                        {product.price > 0 && cart !== false && (
+                    <div className="d-flex flex-column justify-content-center align-items-center tw-px-2 tw-pb-2">
+                        {product.price > 0 && cart && (
                             <button
-                                className="bttn text-nowrap"
+                                className={`bttn text-nowrap tw-rounded-[4px] tw-bg-purple tw-transition-colors tw-duration-200 
+                                hover:tw-border hover:tw-border-purple hover:tw-bg-white hover:tw-text-purple`}
                                 style={{
-                                    backgroundColor: "#8e65c1",
-                                    border: "none",
-                                    borderRadius: "7px",
+                                    width: "100%",
                                 }}
                                 id={`item-cart-button-${product.sku}`}
-                                onClick={() => addToCart(product, 1)}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    addToCart(product, 1);
+                                }}
                             >
                                 {t("buyer_pages.product_details.add")}
                             </button>
@@ -183,16 +202,14 @@ const ProductCard = (props) => {
                     <br />
                 )
             ) : (
-                <div className="d-flex flex-column justify-content-center align-items-center py-2">
-                    {product.price > 0 && cart !== false && (
+                <div className="d-flex flex-column justify-content-center align-items-center tw-px-2 tw-pb-2">
+                    {product.price > 0 && cart && (
                         <Link
                             to="/account/login"
-                            className="btn bttn text-nowrap"
-                            style={{
-                                backgroundColor: "#8e65c1",
-                                border: "none",
-                                borderRadius: "7px",
-                            }}
+                            className={`btn bttn text-nowrap tw-w-full tw-rounded-[4px] 
+                            tw-bg-purple tw-transition-colors tw-duration-200 
+                            hover:tw-border hover:tw-border-purple hover:tw-bg-white hover:tw-text-purple`}
+                            style={{}}
                             id={`item-cart-button-${product.sku}`}
                         >
                             {t("buyer_pages.product_details.add")}

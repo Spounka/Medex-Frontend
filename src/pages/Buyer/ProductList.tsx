@@ -16,6 +16,7 @@ import ProductCart from "../../components/Buyer/shared/ProductCard";
 
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Product } from "@domain/product.ts";
 
 const MIN = 0;
 const MAX = 100000;
@@ -27,7 +28,7 @@ const OurStore = (props) => {
 
     const [queryParameters, setQueryParameters] = useSearchParams();
 
-    const [productsList, setProductsList] = useState({});
+    const [productsList, setProductsList] = useState<Product[]>([]);
 
     const [query, setQuery] = useState("name");
 
@@ -88,7 +89,7 @@ const OurStore = (props) => {
             });
     };
 
-    const fetchFilteredProducts = async (catLoad = null) => {
+    const fetchFilteredProducts = async (catLoad: string | null = null) => {
         const url = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/product/product?name=${keywordFilter}&on_sale=${onSaleFilter}&category=${
@@ -149,7 +150,7 @@ const OurStore = (props) => {
                     <div className="row mb-3">
                         <BreadCrumb title={`${t("all_products")}`} />
                     </div>
-                    <div className="row mt-2 mt-md-3 ">
+                    <div className="row mt-2 mt-md-3">
                         <div className="col-12 col-md-3">
                             <div className="d-md-none">
                                 <button
@@ -157,8 +158,8 @@ const OurStore = (props) => {
                                     className="w-75 mx-auto py-1 mb-1 fw-bold text-center d-flex justify-content-center align-items-center gap-2"
                                     style={{
                                         backgroundColor: "white",
-                                        border: "1px solid #8e65c1",
-                                        color: "#8e65c1",
+                                        border: "1px solid var(--theme-color-primary)",
+                                        color: "var(--theme-color-primary)",
                                         borderRadius: "5px",
                                     }}
                                 >
@@ -167,12 +168,51 @@ const OurStore = (props) => {
                                 </button>
                             </div>
                             <div
-                                className="store__filter-card mb-3 store__filter-menu"
+                                className="store__filter-card mb-3 store__filter-menu tw-flex tw-flex-col tw-gap-1.5"
                                 style={{
                                     boxShadow: "none",
                                     border: "1px solid rgb(210, 210, 208)",
                                 }}
                             >
+                                <div
+                                    className="store__sorting-menu py-2"
+                                    style={{ border: "1px solid #d2d2d0" }}
+                                >
+                                    <div className="d-flex align-items-center gap-5">
+                                        <p className="mb-0 d-flex align-items-center gap-2 tw-text-nowrap">
+                                            <BsSortUpAlt size="1.25rem" />
+                                            {t("buyer_pages.products_list.sort")}
+                                        </p>
+                                        <select
+                                            name="sort"
+                                            className="form-control form-select store__sorting-select"
+                                            defaultValue="alphabet_ascending"
+                                            style={{ borderRight: "1px solid #bbbbbb" }}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                        >
+                                            <option value="name">
+                                                {t("buyer_pages.products_list.al_az")}
+                                            </option>
+                                            <option value="-name">
+                                                {t("buyer_pages.products_list.al_za")}
+                                            </option>
+                                            <option value="blended_price">
+                                                {t("buyer_pages.products_list.pr_a")}
+                                            </option>
+                                            <option value="-blended_price">
+                                                {t("buyer_pages.products_list.pr_d")}
+                                            </option>
+                                            <option value="created">
+                                                {t("buyer_pages.products_list.da_a")}
+                                            </option>
+                                            <option value="-created">
+                                                {t("buyer_pages.products_list.da_d")}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr className="my-2" />
+
                                 <div className="row mt-3 d-block d-md-none">
                                     <div className="col-12 text-end">
                                         <AiOutlineCloseCircle
@@ -200,7 +240,7 @@ const OurStore = (props) => {
                                         setKeywordFilter(e.target.value);
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <BiCategoryAlt size="1.6rem" />
                                     {t("buyer_pages.products_list.cat")}
@@ -225,7 +265,7 @@ const OurStore = (props) => {
                                         fetchSubCategories(e?.value);
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <BiCategoryAlt size="1.6rem" />
                                     {t("buyer_pages.products_list.subcategory")}
@@ -250,7 +290,7 @@ const OurStore = (props) => {
                                         }
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <AiOutlineSafetyCertificate size="1.6rem" />
                                     {t("buyer_pages.products_list.brand")}
@@ -272,12 +312,12 @@ const OurStore = (props) => {
                                         setBrandFilter(e?.value || "");
                                     }}
                                 />
-                                <hr className="my-4" />
+                                <hr className="my-2" />
                                 <p className="store__filter-title d-flex align-items-center gap-1">
                                     <TbZoomMoney size="1.6rem" />
                                     {t("buyer_pages.products_list.range")}
                                 </p>
-                                <div className="position-relative my-4">
+                                <div className="position-relative my-2">
                                     <Slider
                                         className={"slider"}
                                         value={priceValues}
@@ -320,49 +360,12 @@ const OurStore = (props) => {
                             </div>
                         </div>
                         <div className="col-12 col-md-9">
-                            <div
-                                className="store__sorting-menu py-2"
-                                style={{ border: "1px solid #d2d2d0" }}
-                            >
-                                <div className="d-flex align-items-center gap-5">
-                                    <p className="mb-0 d-flex align-items-center gap-2">
-                                        <BsSortUpAlt size="1.5rem" />
-                                        {t("buyer_pages.products_list.sort")}
-                                    </p>
-                                    <select
-                                        name="sort"
-                                        className="form-control form-select store__sorting-select"
-                                        defaultValue="alphabet_ascending"
-                                        style={{ borderRight: "1px solid #bbbbbb" }}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    >
-                                        <option value="name">
-                                            {t("buyer_pages.products_list.al_az")}
-                                        </option>
-                                        <option value="-name">
-                                            {t("buyer_pages.products_list.al_za")}
-                                        </option>
-                                        <option value="blended_price">
-                                            {t("buyer_pages.products_list.pr_a")}
-                                        </option>
-                                        <option value="-blended_price">
-                                            {t("buyer_pages.products_list.pr_d")}
-                                        </option>
-                                        <option value="created">
-                                            {t("buyer_pages.products_list.da_a")}
-                                        </option>
-                                        <option value="-created">
-                                            {t("buyer_pages.products_list.da_d")}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
                             <div className="gg">
                                 {productsList.length > 0 ? (
                                     productsList.map((product) => {
                                         return (
                                             <div
-                                                className="py-3"
+                                                className=""
                                                 key={product.sku}
                                             >
                                                 <ProductCart
@@ -390,12 +393,12 @@ const OurStore = (props) => {
 };
 
 const showFilterMenu = () => {
-    const menu = document.querySelector(".store__filter-menu");
+    const menu = document.querySelector(".store__filter-menu")! as HTMLElement;
     menu.style.display = "block";
 };
 
 const closeFilterMenu = () => {
-    const menu = document.querySelector(".store__filter-menu");
+    const menu = document.querySelector(".store__filter-menu")! as HTMLElement;
     menu.style.display = "none";
 };
 

@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import {
     CitySelect,
     CountrySelect,
-    StateSelect,
-    GetState,
     GetCity,
     GetCountries,
+    GetState,
+    StateSelect,
 } from "react-country-state-city";
 
 import "react-country-state-city/dist/react-country-state-city.css";
@@ -17,30 +17,30 @@ import PhoneInput from "react-phone-input-2";
 // import ar from "react-phone-input-2/lang/ar.json";
 import "react-phone-input-2/lib/material.css";
 
+import { BiCheckDouble, BiEditAlt } from "react-icons/bi";
+import { BsGlobeEuropeAfrica, BsPhoneVibrate, BsSignpost2 } from "react-icons/bs";
 import {
     MdDeleteOutline,
-    MdOutlineRequestQuote,
     MdLocationCity,
-    MdOutlineLocationOn,
-    MdOutlineFolderDelete,
     MdOutlineCancel,
+    MdOutlineFolderDelete,
+    MdOutlineLocationOn,
+    MdOutlineRequestQuote,
 } from "react-icons/md";
 import { PiUserCircle } from "react-icons/pi";
-import { TfiEmail, TfiLocationArrow, TfiSave } from "react-icons/tfi";
-import { BsPhoneVibrate, BsGlobeEuropeAfrica, BsSignpost2 } from "react-icons/bs";
-import { BiEditAlt, BiCheckDouble } from "react-icons/bi";
 import { TbPhotoEdit } from "react-icons/tb";
+import { TfiEmail, TfiLocationArrow, TfiSave } from "react-icons/tfi";
 
-import userImage from "../../assets/images/user.png";
 import { useState } from "react";
+import userImage from "../../assets/images/user.png";
 
 import useAxios from "../../utils/useAxios";
 
+import { useTranslation } from "react-i18next";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
-import { useTranslation } from "react-i18next";
 import { validateFileExtensions } from "../../utils/ValidateFiles";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 const EMAIL_REGEX =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -294,7 +294,7 @@ const Profile = () => {
                 <Link
                     to="../../account/dashboard/settings"
                     className="d-flex align-items-center"
-                    style={{ color: "#8e65c1" }}
+                    style={{ color: "var(--theme-color-primary)" }}
                 >
                     {i18n.resolvedLanguage == "en" ? (
                         <AiOutlineArrowLeft className="mb-2" />

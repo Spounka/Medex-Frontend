@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { PiUserCircle } from "react-icons/pi";
-import { TfiEmail } from "react-icons/tfi";
-import { FaUserTie } from "react-icons/fa";
 import { BsPhoneVibrate } from "react-icons/bs";
+import { FaUserTie } from "react-icons/fa";
+import { PiUserCircle } from "react-icons/pi";
 import { RiLockPasswordLine, RiUserAddLine } from "react-icons/ri";
+import { TfiEmail } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import useAxios from "../../utils/useAxios";
 
@@ -157,7 +157,7 @@ const Permissions = () => {
                     <Link
                         to="../../settings"
                         className="d-flex align-items-center"
-                        style={{ color: "#8e65c1" }}
+                        style={{ color: "var(--theme-color-primary)" }}
                     >
                         {i18n.resolvedLanguage == "en" ? (
                             <AiOutlineArrowLeft className="mb-2" />

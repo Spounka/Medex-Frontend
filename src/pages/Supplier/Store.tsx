@@ -17,15 +17,15 @@ import "react-phone-input-2/lib/material.css";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import { BsGlobeEuropeAfrica, BsPhoneVibrate, BsSignpost2 } from "react-icons/bs";
-import { CiLink, CiCalendarDate } from "react-icons/ci";
+import { CiCalendarDate, CiLink } from "react-icons/ci";
 import { FaRegBuilding } from "react-icons/fa";
 import {
     MdLocationCity,
-    MdOutlineLocationOn,
     MdOutlineDescription,
+    MdOutlineLocationOn,
 } from "react-icons/md";
-import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
 import { TbReportMedical } from "react-icons/tb";
+import { TfiEmail, TfiLocationArrow } from "react-icons/tfi";
 
 import useAxios from "../../utils/useAxios";
 
@@ -225,7 +225,7 @@ const Store = () => {
                     <Link
                         to="../../settings"
                         className="d-flex align-items-center"
-                        style={{ color: "#8e65c1" }}
+                        style={{ color: "var(--theme-color-primary)" }}
                     >
                         {i18n.resolvedLanguage == "en" ? (
                             <AiOutlineArrowLeft className="mb-2" />

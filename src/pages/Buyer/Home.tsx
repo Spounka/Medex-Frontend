@@ -2,33 +2,32 @@ import { useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 
 import { Link } from "react-router-dom";
 
 import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 
+import { Brand, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
+import { FaBriefcaseMedical, FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
-import { FaBriefcaseMedical } from "react-icons/fa";
-import { FaPumpMedical } from "react-icons/fa";
-import { ImLab } from "react-icons/im";
 import { GiChemicalTank } from "react-icons/gi";
+import { ImLab } from "react-icons/im";
+import Container from "../../components/shared/Container.tsx";
 
-const Home = (props) => {
+const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
 
-    const { addToCart } = props;
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<{ id: number; thumbnail: string }[]>([]);
 
-    const [featuredCategories, setFeaturedCategories] = useState([]);
-    const [sale, setSale] = useState([]);
-    const [recent, setRecent] = useState([]);
-    const [bestSupplier, setBestSupplier] = useState([]);
+    const [sale, setSale] = useState<Product[]>([]);
+    const [recent, setRecent] = useState<Product[]>([]);
+    const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
-    const [brands, setBrands] = useState([]);
+    const [brands, setBrands] = useState<Brand[]>([]);
 
     const fetchBrands = async () => {
         await axios
@@ -41,18 +40,7 @@ const Home = (props) => {
             });
     };
 
-    const fetchCategories = async () => {
-        await axios
-            .get(
-                import.meta.env.VITE_BACKEND_URL +
-                    `/api/product/category?featured=${true}`,
-            )
-            .then((res) => {
-                setFeaturedCategories(res.data);
-            });
-    };
-
-    const fetchProductsByQuery = async (query) => {
+    const fetchProductsByQuery = async (query: string) => {
         try {
             let response = null;
 
@@ -79,6 +67,8 @@ const Home = (props) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
+            console.log(products);
+
             if (products?.products) {
                 setSale(products?.products);
                 setAds(products?.ads);
@@ -102,50 +92,51 @@ const Home = (props) => {
         };
 
         fetchBrands();
-        fetchCategories();
+        // fetchCategories();
         fetchProductsOnSale();
         fetchRecentlyAddedProducts();
         fetchBestSellingProducts();
     }, []);
-    const settings = {
+
+    // TODO: re-enable autoplay
+    const settings: Settings = {
         infinite: true,
         speed: 350,
-        slidesToShow: 6,
+        slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
-        lazyLoad: true,
+        autoplay: false,
+        lazyLoad: "ondemand",
         className: "center",
+        arrows: false,
         autoplaySpeed: 2500,
         responsive: [
             {
                 breakpoint: 1300,
                 settings: {
-                    slidesToShow: 5,
-                    centerPadding: "30px",
-                    centerMode: true,
+                    slidesToShow: 4,
+                    arrows: true,
                 },
             },
             {
                 breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
-                    centerMode: true,
                     arrows: false,
+                    centerMode: false,
                 },
             },
             {
                 breakpoint: 1000,
                 settings: {
                     slidesToShow: 3,
-                    centerMode: true,
                     arrows: false,
                 },
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 3,
                     arrows: false,
+                    slidesToShow: 3,
                 },
             },
             {
@@ -163,16 +154,19 @@ const Home = (props) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        cssEase: "ease-in",
+        cssEase: "ease-in-out",
         dots: true,
-        arrows: false,
+        arrows: true,
     };
 
     return (
-        <main>
-            <section className="container">
-                <div className="pb-5 pt-2">
-                    <div className="p-3 two">
+        <main className={"tw-flex tw-flex-col tw-gap-4 md:tw-gap-8"}>
+            <Container<HTMLDivElement>
+                node={"section"}
+                className="tw-relative tw-h-auto tw-w-dvw xl:tw-h-dvh"
+            >
+                <div className="tw-pt-4 md:tw-hidden">
+                    <div className="two">
                         <form
                             method="get"
                             action="/products"
@@ -218,7 +212,9 @@ const Home = (props) => {
                                         >
                                             <CiSearch
                                                 className="fs-5"
-                                                style={{ color: "#8e65c1" }}
+                                                style={{
+                                                    color: "var(--theme-color-primary)",
+                                                }}
                                             />
                                         </button>
                                     </div>
@@ -226,24 +222,20 @@ const Home = (props) => {
                             </div>
                         </form>
                     </div>
-                    {ads && ads.length > 0 ? (
-                        <Slider {...settings3}>
-                            {ads.map((ad) => (
-                                <img
-                                    className="imgg"
-                                    key={ad.id}
-                                    src={ad.thumbnail}
-                                />
-                            ))}
-                        </Slider>
-                    ) : (
-                        ""
-                    )}
                 </div>
-            </section>
+            </Container>
+            {ads && ads.length > 0
+                ? ads.map((ad) => (
+                      <img
+                          className="imgg tw-inset-0 tw-h-auto tw-w-screen tw-object-contain xl:tw-absolute xl:tw-h-screen xl:tw-object-cover"
+                          src={ad.thumbnail}
+                          key={ad.id}
+                      />
+                  ))
+                : null}
 
-            <section className="pb-5">
-                <div className="container">
+            <section className="pb-5 tw-px-4">
+                <div className="">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -258,7 +250,7 @@ const Home = (props) => {
                                         borderRadius: "8px",
                                     }}
                                     to="/categories"
-                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
+                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap hover:tw-text-purple"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -271,7 +263,7 @@ const Home = (props) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex flex-wrap">
+                                <div className="gs d-flex flex-wrap tw-w-full">
                                     <Link
                                         to="/products?category=X-Ray"
                                         className="cat d-flex flex-column gap-1 align-items-center"
@@ -393,43 +385,13 @@ const Home = (props) => {
                                         </p>
                                     </Link>
                                 </div>
-                                {/* {featuredCategories.length > 0 ? (
-                  <Slider {...settings2}>
-                    {featuredCategories.map((category) => (
-                      <Link
-                        key={category.id}
-                        to={`/products?category=${category.slug}`}
-                      >
-                        <div className="card home__featured-card position-relative h-100">
-                          <div className=" w-100 h-100">
-                            <img
-                              src={
-                                import.meta.env.VITE_BACKEND_URL +
-                                category.image
-                              }
-                              alt="Category"
-                              className="home__featured-card-img"
-                            />
-                          </div>
-                        </div>
-                        <h5 className="home__featured-card-content-title text-center">
-                          {category.name}
-                        </h5>
-                      </Link>
-                    ))}
-                  </Slider>
-                ) : (
-                  <p className="text-center">
-                    {t("buyer_pages.home.no_featured")}!
-                  </p>
-                )}*/}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             <section className="py-2">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -439,7 +401,7 @@ const Home = (props) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -451,7 +413,7 @@ const Home = (props) => {
                         </div>
                     </div>
                     <div className="row py-4">
-                        <div className="col-14 p-0 p-md-2">
+                        <div className="col-14 p-0 p-md-2 padded-track">
                             {bestSupplier && bestSupplier.length > 0 ? (
                                 <Slider {...settings}>
                                     {bestSupplier.map((product) => (
@@ -473,7 +435,7 @@ const Home = (props) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="container">
+                <div className="tw-px-4">
                     <div>
                         <div className="row d-flex align-items-center">
                             <div className="col-8">
@@ -484,7 +446,7 @@ const Home = (props) => {
                             <div className="col-4 d-flex justify-content-end">
                                 <Link
                                     to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -495,13 +457,16 @@ const Home = (props) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="pt-2 gg">
+                        <div className="pt-2 gg tw-grid tw-grid-cols-3 md:tw-grid-cols-4 lg:tw-grid-cols-6">
                             {brands && brands.length > 0 ? (
                                 brands.map((brand) => {
                                     return (
                                         <Link
                                             to={`/products?brand=${brand.slug}`}
                                             key={brand.id}
+                                            className={
+                                                "tw-aspect-square tw-w-full tw-flex-[1_1_30%] md:tw-flex-[1_1_20%]"
+                                            }
                                         >
                                             <div
                                                 className="card d-flex align-items-center justify-content-center home__brand-card"
@@ -526,7 +491,7 @@ const Home = (props) => {
                 </div>
             </section>
             <section className="py-2">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -536,7 +501,7 @@ const Home = (props) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -570,7 +535,7 @@ const Home = (props) => {
                 </div>
             </section>
             <section className="py-5">
-                <div className="container">
+                <div className="tw-px-4">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -581,7 +546,7 @@ const Home = (props) => {
                             <Link
                                 to="/products"
                                 state={{ products: sale, type: "On Sale" }}
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
