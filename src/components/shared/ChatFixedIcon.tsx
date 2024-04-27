@@ -3,6 +3,7 @@ import { PiChatsCircle } from "react-icons/pi";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import useAxios from "../../utils/useAxios";
+import { UilComments } from "@iconscout/react-unicons";
 
 const ChatFixedIcon = () => {
     const [messagesCount, setMessagesCount] = useState(0);
@@ -34,12 +35,17 @@ const ChatFixedIcon = () => {
                 to="/chat"
                 className={`chat__fixed-icon d-none d-md-block ${
                     messagesCount > 0 && "chat__fixed-icon-after"
-                }`}
+                } tw-bg-purple`}
             >
-                <PiChatsCircle
-                    size="2.5rem"
-                    color="white"
+                <UilComments
+                    width={"2.5rem"}
+                    height={"2.5rem"}
+                    color={"white"}
                 />
+                {/*<PiChatsCircle*/}
+                {/*    size="2.5rem"*/}
+                {/*    color="white"*/}
+                {/*/>*/}
             </Link>
         </div>
     );

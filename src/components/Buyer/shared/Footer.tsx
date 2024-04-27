@@ -7,14 +7,19 @@ import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 
 import { useTranslation } from "react-i18next";
-import Container from "../../shared/Container.tsx";
+import Container from "../../ui/container/Container.tsx";
+import { UilMapMarker, UilPhone, UilEnvelope } from "@iconscout/react-unicons";
 
 const Footer = () => {
     const { t, i18n } = useTranslation();
     const { user, logoutUser } = useContext(AuthContext);
 
     return (
-        <footer>
+        <footer
+            className={
+                "tw-mt-6 tw-border-t tw-border-gray-200 tw-pt-6 lg:tw-mt-12 lg:tw-pt-12"
+            }
+        >
             <div className="py-4">
                 <Container
                     node={"footer"}
@@ -25,7 +30,7 @@ const Footer = () => {
                             <h4 className="mb-4">{t("contact_us")}</h4>
                             <div className="d-flex flex-column">
                                 <address className="d-flex align-items-center gap-2">
-                                    <FiMapPin />
+                                    <UilMapMarker />
                                     {t("footer.company_address")}
                                     <br />
                                     {t("footer.company_city_country")}
@@ -35,7 +40,7 @@ const Footer = () => {
                                         href="tel:+966 072222297"
                                         className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                     >
-                                        <BsTelephone />
+                                        <UilPhone />
                                         +966 072222297
                                     </a>
                                 ) : (
@@ -43,7 +48,7 @@ const Footer = () => {
                                         href="tel:+966 072222297"
                                         className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                     >
-                                        <BsTelephone />
+                                        <UilPhone />
                                         ٩٦٦٠٧٢٢٢٢٢٩٧+
                                     </a>
                                 )}
@@ -52,7 +57,7 @@ const Footer = () => {
                                     href="mailto:test@test.com"
                                     className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                 >
-                                    <BsEnvelopeAt />
+                                    <UilEnvelope />
                                     test@test.com
                                 </a>
                             </div>
