@@ -318,9 +318,8 @@ const Profile = () => {
                                             }
                                             alt="Picture"
                                             id="userProfilePicture"
-                                            className="rounded-circle shadow border-2 object-fit-cover"
-                                            width={150}
-                                            height={150}
+                                            className="rounded-circle shadow border-2"
+                                            style={{ height: "150px", width: "150px" }}
                                         />
                                         <div className="mt-3">
                                             <h4>{fullName}</h4>
