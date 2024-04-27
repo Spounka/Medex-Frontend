@@ -220,14 +220,17 @@
             "none": "There are no offers made yet"
         },
         "order_history": {
-            "none": "There are no orders yet",
+            "id": "Product ID",
+            "date": "Order Date",
+            "time": "Order Time",
             "return": "Return Product",
             "return_status": "Return Status",
             "applied": "Applied",
             "declined": "Declined by Supplier",
             "approved": "Approved by Supplier",
             "returned": "Return Completed",
-            "decline_reason": "Reason for decline"
+            "decline_reason": "Reason for decline",
+            "pagination": "Page {{c}} of {{m}}"
         },
         "product_details": {
             "was": "Price Was",

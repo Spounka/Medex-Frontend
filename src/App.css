@@ -419,7 +419,6 @@ footer {
     padding-right: 3rem;
 }
 
-
 .slick-slide > div {
     padding: 5px;
 }
@@ -1454,11 +1453,10 @@ footer {
     border-bottom: 2px solid #000424;
 }
 
-.dashboard__pagination-disabled,
-.dashboard__pagination-disabled:hover {
+.dashboard__pagination-disabled:disabled {
     cursor: not-allowed;
-    color: gray;
-    background: none;
+    pointer-events: all !important;
+    border: none;
 }
 
 .dashboard__stats-card-text {
