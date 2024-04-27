@@ -1,24 +1,15 @@
 /** @type {import("tailwindcss").Config} */
 export default {
-    /*
-    --theme-color-white: #f5f5fc;
-    --theme-color-blue: #90d7ee;
-    --theme-color-gold: #ffcf4b;
-    --theme-color-purple: #754f9d;
-
-    --theme-color-primary: var(--theme-color-darkblue);
-    --theme-color-secondary: var(--theme-color-blue);
-    --theme-color-tertiary: #f5dcd4;
-    --theme-color-white: #ffffff;
-    --theme-color-arsenic: #3a3e49;
-    --theme-color-grey: #7a808c;
-    --theme-color-white-powder: #fdfcfa;
-    */
-
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
             colors: {
+                primary: {
+                    DEFAULT: "#008ECC",
+                },
+                secondary: {},
+                tertiary: {},
+
                 white: {
                     quartz: "#f5f5fc",
                     DEFAULT: "#f5f5fc",
@@ -50,6 +41,10 @@ export default {
             },
             fontFamily: {
                 title: ["Montserrat", "sans-serif"],
+                algreya: ["Alegreya Sans", "sans-serif"],
+                poppins: ["Poppins", "sans-serif"],
+                tajawal: ["Tajawal", "sans-serif"],
+                cairo: ["Cairo", "sans-serif"],
             },
         },
     },

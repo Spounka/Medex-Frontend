@@ -13,7 +13,10 @@ function Container<T extends HTMLElement>({
 }: ContainerProps<T>) {
     const Tag = node;
     return (
-        <Tag className={clsx("tw-px-4 md:tw-px-8 lg:tw-px-12", rest.className)}>
+        <Tag
+            {...rest}
+            className={clsx("tw-px-4 md:tw-px-8 lg:tw-px-16", rest.className)}
+        >
             {children}
         </Tag>
     );

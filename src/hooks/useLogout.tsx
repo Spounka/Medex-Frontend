@@ -17,7 +17,8 @@ export default function useLogout() {
         sessionStorage.removeItem("authTokens");
         localStorage.removeItem("wishlist");
         toast.info(`${t("auth_context.logout_message")}!`);
-        return redirect("/account/login/");
+        // return redirect("/account/login/");
+        window.location.href = "/";
     };
 
     return logout;
