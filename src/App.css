@@ -155,15 +155,14 @@ a {
 }
 
 .navbar__bottom {
-    background: var(--theme-color-primary);
+    background: #0c0404;
 }
 
 .navbar__bottom-links a {
     color: white;
     font-size: 14px;
     text-transform: uppercase;
-    line-height: 18px;
-    letter-spacing: 0.3;
+    /*line-height: 18px;*/
     font-weight: 400;
 }
 
@@ -446,7 +445,7 @@ footer {
 .home__card {
     overflow: hidden;
     width: 100%;
-    max-height: 320px;
+    /*max-height: 320px;*/
 }
 
 .home__card,
@@ -454,7 +453,9 @@ footer {
     transition: all 0.3s ease-in-out;
 }
 
-.home__card:hover,
+.home__card:hover {
+}
+
 .ca:hover {
     box-shadow: 0px 1px 6px 5px #00000012;
 }
@@ -552,13 +553,13 @@ footer {
     object-fit: contain;
 }
 
-.gg {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    column-gap: 12px;
-    row-gap: 10px;
-}
+/*.gg {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: flex-start;*/
+/*    column-gap: 12px;*/
+/*    row-gap: 10px;*/
+/*}*/
 
 .cat:hover {
     color: var(--theme-color-primary);
@@ -650,7 +651,7 @@ footer {
 
     .home__card {
         min-height: 295px;
-        height: max-content;
+        /*height: max-content;*/
         margin: auto;
     }
 
@@ -680,20 +681,18 @@ footer {
 
 .cardd {
     max-width: calc(100vw / 4 - 64px);
-    aspect-ratio: 9/16;
 }
 
 @media screen and (max-width: 400px) {
     .home__card {
         max-width: 220px;
-        min-height: max-content;
+        /*min-height: max-content;*/
     }
 }
 
 @media screen and (max-width: 765px) {
     .cardd {
         /*max-width: 170px;*/
-        min-height: max-content;
     }
 
     .home__card-img {
