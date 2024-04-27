@@ -329,7 +329,23 @@
             "max_files_err": "You can upload a maximum of {{max_files}} files",
             "file_type_err": "Invalid file extension. Only JPG, JPEG, PNG, MP4, AVI, and WAV files are allowed",
             "success": "You have successfully requested to return this product. Please wait for the supplier approval / denial",
-            "exists": "You can only request returning a product once"
+            "created": "Return Request Date",
+            "exists": "You can only request returning a product once",
+            "date": "Return Request Date",
+            "details": "View Request Details"
+        },
+        "return_request_details": {
+            "title": "Return Request Details",
+            "customer_join": "Customer since {{date}}",
+            "comment": "Comment",
+            "return_requested": "Return Requested",
+            "reason": "Reason",
+            "summary": "Summary",
+            "app": "Applied",
+            "apr": "Approved",
+            "dec": "Declined",
+            "cmp": "Completed",
+            "order": "Order"
         },
         "statistics": {
             "title": "My Statistics",
