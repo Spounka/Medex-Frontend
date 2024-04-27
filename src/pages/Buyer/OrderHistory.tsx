@@ -181,7 +181,7 @@ const OrderHistory = () => {
             filter: "agTextColumnFilter",
             floatingFilter: true,
             minWidth: 135,
-            flex: 3,
+            flex: 1,
         };
     }, []);
 
