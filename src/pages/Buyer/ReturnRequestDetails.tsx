@@ -56,7 +56,7 @@ const ReturnRequestDetails: React.FC = () => {
 
                 <div className="row mt-3 mb-5">
                     <div className="col-12 col-md-8">
-                        <div className="card shadow rounded-lg">
+                        <div className="card shadow-sm rounded-lg">
                             <div className="card-body">
                                 <div className="d-flex align-items-center gap-3">
                                     <div>
@@ -70,7 +70,7 @@ const ReturnRequestDetails: React.FC = () => {
                                             }
                                             alt="Picture"
                                             id="userProfilePicture"
-                                            className="rounded-circle shadow border-2 object-fit-contain"
+                                            className="rounded-circle shadow-sm border-2 object-fit-contain"
                                             style={{ height: "90px" }}
                                             width={90}
                                         />
@@ -107,7 +107,7 @@ const ReturnRequestDetails: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="card shadow rounded-lg mt-3">
+                        <div className="card shadow-sm rounded-lg mt-3">
                             <div className="card-body">
                                 <div className="d-flex align-items-center gap-2">
                                     <FcInfo size="1.5rem" />
@@ -193,7 +193,7 @@ const ReturnRequestDetails: React.FC = () => {
                         </div>
                     </div>
                     <div className="col-12 col-md-4 mt-3 mt-md-0">
-                        <div className="card shadow rounded-lg">
+                        <div className="card shadow-sm rounded-lg">
                             <div className="card-body">
                                 <h6 className="fw-bold">
                                     {t("buyer_pages.return_request_details.summary")}
