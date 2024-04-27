@@ -1,21 +1,189 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 
 import useAxios from "../../utils/useAxios";
 
-import { MdListAlt, MdOutlineCalendarMonth, MdAccessTime } from "react-icons/md";
-import { BsTruck } from "react-icons/bs";
+import { MdListAlt } from "react-icons/md";
 import { GiReturnArrow } from "react-icons/gi";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { FcCancel } from "react-icons/fc";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const OrderHistory = () => {
-    const { t } = useTranslation();
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-material.css";
 
-    const [orderItems, setOrderItems] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
+import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.js";
+import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.js";
+
+const OrderHistory = () => {
+    const { t, i18n } = useTranslation();
+
+    const gridRef = useRef();
+
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const [rowData, setRowData] = useState([]);
+
+    const columnDefs = [
+        {
+            field: "product.sku",
+            headerName: "# " + t("buyer_pages.order_history.id"),
+            cellRenderer: (params) => {
+                return (
+                    <Link
+                        to={`/products/${params.data.product.sku}`}
+                        state={{
+                            product: params.data.product,
+                        }}
+                    >
+                        {params.data.product.sku}
+                    </Link>
+                );
+            },
+            checkboxSelection: true,
+            headerCheckboxSelection: true,
+        },
+        {
+            field: "product.name",
+            headerName: t("buyer_pages.cart.product"),
+            cellRenderer: (params) => {
+                const url = params.data.product.thumbnail;
+                const productName = params.data.product.name;
+
+                return (
+                    <Link
+                        to={`/products/${params.data.product.sku}`}
+                        state={{
+                            product: params.data.product,
+                        }}
+                    >
+                        <div className="d-flex align-items-center">
+                            <img
+                                src={url}
+                                alt="Product Picture"
+                                width={35}
+                                height={35}
+                                className={`rounded-circle object-contain ${i18n.language === "ar" ? "ms-2" : "me-2"}`}
+                            />
+                            <span className="text-truncate">{productName}</span>
+                        </div>
+                    </Link>
+                );
+            },
+        },
+        {
+            field: "quantity",
+            headerName: t("buyer_pages.cart.qty"),
+            filter: "agNumberColumnFilter",
+        },
+        {
+            field: "total_price",
+            headerName: t("buyer_pages.cart.total"),
+            filter: "agNumberColumnFilter",
+            valueFormatter: (params) => `${params.data.total_price} ${t("sar")}`,
+        },
+        {
+            field: "shipping_status",
+            headerName: t("supplier_pages.order_details.status"),
+            cellRenderer: (params) => {
+                const choices = {
+                    OR: t("supplier_pages.order_details.ordered"),
+                    P: t("supplier_pages.order_details.p"),
+                    OTW: t("supplier_pages.order_details.otw"),
+                    DE: t("supplier_pages.order_details.de"),
+                };
+                return (
+                    <div
+                        className={`badge ${params.data.shipping_status !== "DE" ? "bg-warning" : "bg-success"}`}
+                        style={{ fontSize: ".8rem" }}
+                    >
+                        {choices[params.data.shipping_status]}
+                    </div>
+                );
+            },
+        },
+        {
+            field: "created_date",
+            headerName: t("buyer_pages.order_history.date"),
+            valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+            filter: "agDateColumnFilter",
+        },
+        {
+            field: "created_time",
+            headerName: t("buyer_pages.order_history.time"),
+            valueFormatter: (params) => {
+                return params.value.substr(0, 5);
+            },
+            filter: null,
+        },
+        {
+            field: "status",
+            headerName: t("buyer_pages.order_history.return"),
+            cellRenderer: (params) => {
+                if (params.data.is_return_requested === false) {
+                    if (params.data.is_returnable) {
+                        return (
+                            <div className="d-flex align-items-center h-100">
+                                <Link
+                                    to={`/account/dashboard/return/${params.data.id}`}
+                                    className="btn btn-outline-primary btn-sm d-flex align-items-center gap-2"
+                                >
+                                    <GiReturnArrow size="1.2rem" />
+                                    {t("buyer_pages.order_history.return")}
+                                </Link>
+                            </div>
+                        );
+                    } else {
+                        return (
+                            <div className="d-flex align-items-center h-100">
+                                <FcCancel size="1.5rem" />
+                            </div>
+                        );
+                    }
+                } else {
+                    const choices = {
+                        AP: t("buyer_pages.order_history.applied"),
+                        DEC: t("buyer_pages.order_history.declined"),
+                        APR: t("buyer_pages.order_history.approved"),
+                        OTW: t("supplier_pages.order_details.otw"),
+                        CMP: t("buyer_pages.order_history.returned"),
+                    };
+                    return (
+                        <div className="d-flex align-items-center h-100">
+                            <div
+                                className={`badge ${
+                                    params.data.status === "CMP" ||
+                                    params.data.status === "APR"
+                                        ? "bg-success"
+                                        : params.data.status === "DEC"
+                                          ? "bg-danger"
+                                          : "bg-warning"
+                                }`}
+                                style={{ fontSize: ".8rem" }}
+                            >
+                                {choices[params.data.status]}
+                            </div>
+                        </div>
+                    );
+                }
+            },
+            tooltipValueGetter: (p) =>
+                p.data.decline_reason ? p.data.decline_reason : null,
+        },
+    ];
+
+    const defaultColDef = useMemo(() => {
+        return {
+            filter: "agTextColumnFilter",
+            floatingFilter: true,
+            minWidth: 250,
+            flex: 3,
+        };
+    }, []);
 
     const api = useAxios();
 
@@ -23,11 +191,11 @@ const OrderHistory = () => {
         await api
             .get(
                 import.meta.env.VITE_BACKEND_URL +
-                    `/api/order/orders/?p=${currentPage}&l=20`,
+                    `/api/order/orders/?p=${currentPage}&l=10`,
             )
             .then((res) => {
-                setOrderItems(res.data.results.results);
-                setTotalPages(Math.ceil(res.data.count / 20));
+                setTotalPages(Math.ceil(res.data.count / 10));
+                setRowData(res.data.results.results);
             });
     };
 
@@ -43,371 +211,68 @@ const OrderHistory = () => {
                     {t("buyer_sidebar.order_history")}
                 </h2>
 
-                {orderItems.length > 0 ? (
-                    <>
-                        {orderItems.map((order) => {
-                            return (
-                                <div
-                                    className="card mt-4"
-                                    key={order.id}
-                                >
-                                    <div className="card-body">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center gap-2 gap-md-5">
-                                                <div>
-                                                    <img
-                                                        src={order.product.thumbnail}
-                                                        className="object-fit-cover img-fluid order__history-img"
-                                                        alt="Product Image"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <div className="card-title d-flex gap-1 gap-md-3">
-                                                        <Link
-                                                            className="h5 order__history-product-title"
-                                                            to={`/products/${order.product.sku}`}
-                                                            state={{
-                                                                product: order.product,
-                                                            }}
-                                                        >
-                                                            {order.product.name}
-                                                        </Link>
-                                                        <small className="text-muted pt-0 pt-md-1">
-                                                            x {order.quantity}
-                                                        </small>
-                                                    </div>
-                                                    <div className="d-flex align-items-center card-text gap-1 gap-md-4">
-                                                        <small className="d-flex align-items-center gap-1 order__history-product-text">
-                                                            <MdOutlineCalendarMonth size="1.1rem" />
-                                                            {order.created_date}
-                                                        </small>
-                                                        <small className="d-flex align-items-center gap-1 order__history-product-text">
-                                                            <MdAccessTime size="1.1rem" />
-                                                            {order.created_time.substring(
-                                                                0,
-                                                                5,
-                                                            )}
-                                                        </small>
-                                                    </div>
-
-                                                    <div className="d-flex align-items-center gap-4">
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-primary btn-sm mt-3 d-flex align-items-center gap-2"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target={`#orderModal-${order.id}`}
-                                                        >
-                                                            <BsTruck size="1.2rem" />
-                                                            {t(
-                                                                "supplier_pages.order_details.status",
-                                                            )}
-                                                        </button>
-
-                                                        {order.is_return_requested ? (
-                                                            <button
-                                                                type="button"
-                                                                className="btn btn-outline-primary btn-sm mt-3 d-flex align-items-center gap-2"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target={`#returnOrderModal-${order.id}`}
-                                                            >
-                                                                <GiReturnArrow size="1.2rem" />
-                                                                {t(
-                                                                    "buyer_pages.order_history.return_status",
-                                                                )}
-                                                            </button>
-                                                        ) : (
-                                                            order.is_returnable && (
-                                                                <Link
-                                                                    to={`/account/dashboard/return/${order.id}`}
-                                                                    className="btn btn-outline-primary btn-sm mt-3 d-flex align-items-center gap-2"
-                                                                >
-                                                                    <GiReturnArrow size="1.2rem" />
-                                                                    {t(
-                                                                        "buyer_pages.order_history.return",
-                                                                    )}
-                                                                </Link>
-                                                            )
-                                                        )}
-                                                    </div>
-
-                                                    <div
-                                                        className="modal fade"
-                                                        id={`orderModal-${order.id}`}
-                                                        tabIndex="-1"
-                                                        aria-labelledby={`orderModal-${order.id}`}
-                                                        aria-hidden="true"
-                                                    >
-                                                        <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
-                                                            <div className="modal-content">
-                                                                <div className="modal-body px-5 pt-4">
-                                                                    <div className="step-indicator mb-5">
-                                                                        <div className="step step1 active">
-                                                                            <div className="step-icon">
-                                                                                1
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.or",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ===
-                                                                                    "P" ||
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step2 ${
-                                                                                order?.shipping_status ===
-                                                                                    "P" ||
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                2
-                                                                            </div>
-                                                                            <p className="stepper__text-2">
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.p",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step3 ${
-                                                                                order?.shipping_status ===
-                                                                                    "OTW" ||
-                                                                                order?.shipping_status ===
-                                                                                    "DE"
-                                                                                    ? "active"
-                                                                                    : ""
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                3
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.otw",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            className={`indicator-line ${
-                                                                                order?.shipping_status ==
-                                                                                    "DE" &&
-                                                                                "active"
-                                                                            }`}
-                                                                        ></div>
-                                                                        <div
-                                                                            className={`step step4 ${
-                                                                                order?.shipping_status ==
-                                                                                    "DE" &&
-                                                                                "active"
-                                                                            }`}
-                                                                        >
-                                                                            <div className="step-icon">
-                                                                                4
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "supplier_pages.order_details.de",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div
-                                                        className="modal fade"
-                                                        id={`returnOrderModal-${order.id}`}
-                                                        tabIndex="-1"
-                                                        aria-labelledby={`returnOrderModal-${order.id}`}
-                                                        aria-hidden="true"
-                                                    >
-                                                        <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
-                                                            <div className="modal-content">
-                                                                <div className="modal-body px-5 pt-4">
-                                                                    <div className="step-indicator mb-5">
-                                                                        <div className="step step1 active">
-                                                                            <div className="step-icon">
-                                                                                1
-                                                                            </div>
-                                                                            <p>
-                                                                                {t(
-                                                                                    "buyer_pages.order_history.applied",
-                                                                                )}
-                                                                            </p>
-                                                                        </div>
-
-                                                                        {order?.status !==
-                                                                        "DEC" ? (
-                                                                            <>
-                                                                                <div
-                                                                                    className={`indicator-line ${
-                                                                                        order?.status ===
-                                                                                            "APR" ||
-                                                                                        order?.status ===
-                                                                                            "OTW" ||
-                                                                                        order?.status ===
-                                                                                            "CMP"
-                                                                                            ? "active"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                ></div>
-                                                                                <div
-                                                                                    className={`step step2 ${
-                                                                                        order?.status ===
-                                                                                            "APR" ||
-                                                                                        order?.status ===
-                                                                                            "OTW" ||
-                                                                                        order?.status ===
-                                                                                            "CMP"
-                                                                                            ? "active"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                >
-                                                                                    <div className="step-icon">
-                                                                                        2
-                                                                                    </div>
-                                                                                    <p className="stepper__text-2">
-                                                                                        {t(
-                                                                                            "buyer_pages.order_history.approved",
-                                                                                        )}
-                                                                                    </p>
-                                                                                </div>
-                                                                            </>
-                                                                        ) : (
-                                                                            <>
-                                                                                <div
-                                                                                    className={`indicator-line ${
-                                                                                        order?.status ===
-                                                                                        "DEC"
-                                                                                            ? "bg-danger"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                ></div>
-                                                                                <div className="step step2">
-                                                                                    <div
-                                                                                        className={`step-icon ${
-                                                                                            order?.status ===
-                                                                                            "DEC"
-                                                                                                ? "bg-danger"
-                                                                                                : ""
-                                                                                        }`}
-                                                                                    >
-                                                                                        2
-                                                                                    </div>
-                                                                                    <p className="stepper__text-2 text-danger">
-                                                                                        {t(
-                                                                                            "buyer_pages.order_history.declined",
-                                                                                        )}
-                                                                                    </p>
-                                                                                </div>
-                                                                            </>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                                {order?.status ===
-                                                                    "DEC" && (
-                                                                    <div className="modal-footer align-items-start flex-column">
-                                                                        <h6 className="d-flex gap-2 align-items-center">
-                                                                            <FaExclamationTriangle />
-                                                                            {t(
-                                                                                "buyer_pages.order_history.decline_reason",
-                                                                            )}
-                                                                        </h6>
-                                                                        <p>
-                                                                            {
-                                                                                order?.decline_reason
-                                                                            }
-                                                                        </p>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <h5 className="order__history-product-price">
-                                                    {order.final_price} {t("sar")}
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-
-                        <ul className="pagination justify-content-center mt-5 mx-auto">
-                            <li className="page-item">
-                                <button
-                                    disabled={currentPage === 1}
-                                    className={`page-link ${
-                                        currentPage === 1 &&
-                                        "dashboard__pagination-disabled"
-                                    }`}
-                                    onClick={() => setCurrentPage(() => currentPage - 1)}
-                                >
-                                    {t("previous")}
-                                </button>
-                            </li>
-
-                            {Array.from(Array(totalPages).keys()).map((num) => (
-                                <li
-                                    className="page-item"
-                                    key={num}
-                                >
-                                    <button
-                                        onClick={() => setCurrentPage(num + 1)}
-                                        className="page-link"
-                                    >
-                                        {num + 1}
-                                    </button>
-                                </li>
-                            ))}
-                            <li className="page-item">
-                                <button
-                                    disabled={currentPage === totalPages}
-                                    className={`page-link ${
-                                        currentPage === totalPages &&
-                                        "dashboard__pagination-disabled"
-                                    }`}
-                                    onClick={() => setCurrentPage(() => currentPage + 1)}
-                                >
-                                    {t("next")}
-                                </button>
-                            </li>
-                        </ul>
-                    </>
-                ) : (
-                    <p className="mt-3">{t("buyer_pages.order_history.none")}!</p>
-                )}
+                <div
+                    className="ag-theme-material my-5"
+                    style={{ height: 500 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={columnDefs}
+                        defaultColDef={defaultColDef}
+                        rowSelection="multiple"
+                        suppressRowClickSelection={true}
+                        localeText={
+                            i18n.language === "ar" ? AG_GRID_LOCALE_AR : AG_GRID_LOCALE_EN
+                        }
+                        enableRtl={i18n.language === "ar" ? true : false}
+                        pagination={true}
+                        paginationPageSize={10}
+                        suppressPaginationPanel={true}
+                        tooltipShowDelay={100}
+                    />
+                    <div className="d-flex align-items-center justify-content-end py-2">
+                        <div className="d-flex align-items-center justify-content-center gap-2">
+                            <button
+                                className={`btn`}
+                                onClick={() => setCurrentPage(1)}
+                            >
+                                <TbChevronLeftPipe size=".9rem" />
+                            </button>
+                            <button
+                                className={`btn ${
+                                    currentPage === 1 && "dashboard__pagination-disabled"
+                                }`}
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage(() => currentPage - 1)}
+                            >
+                                <IoIosArrowBack size=".9rem" />
+                            </button>
+                            <span className="text-muted">
+                                {t("buyer_pages.order_history.pagination", {
+                                    c: currentPage,
+                                    m: totalPages,
+                                })}
+                            </span>
+                            <button
+                                className={`btn ${
+                                    currentPage === totalPages &&
+                                    "dashboard__pagination-disabled"
+                                }`}
+                                disabled={currentPage === totalPages}
+                                onClick={() => setCurrentPage(() => currentPage + 1)}
+                            >
+                                <IoIosArrowForward size=".9rem" />
+                            </button>
+                            <button
+                                className="btn"
+                                onClick={() => setCurrentPage(totalPages)}
+                            >
+                                <TbChevronRightPipe size=".9rem" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     );
