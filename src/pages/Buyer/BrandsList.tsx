@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, HTMLProps } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,34 @@ import axios from "axios";
 
 import { useTranslation } from "react-i18next";
 import { Brand } from "@domain/product.ts";
+import clsx from "clsx";
+
+type BrandsListProps = {
+    brand: Brand;
+} & HTMLProps<HTMLDivElement>;
+
+export function BrandCard({ brand, className }: BrandsListProps) {
+    return (
+        <Link
+            to={`/products?brand=${brand.slug}`}
+            className={clsx(
+                "tw-flex tw-flex-1 tw-flex-col tw-items-center tw-justify-center tw-gap-4 tw-overflow-hidden tw-rounded-xl tw-border tw-border-gray-200 tw-pb-2.5",
+                className,
+            )}
+        >
+            <div className="tw-w-full tw-border-b tw-border-gray-200">
+                <img
+                    src={brand.image}
+                    alt="Brand"
+                    className="tw-h-auto tw-max-h-[120px] tw-w-full tw-object-cover tw-px-2"
+                />
+            </div>
+            <p className="tw-font-tajawal tw-text-4xl tw-font-semibold tw-text-black">
+                {brand.name.toLowerCase()}
+            </p>
+        </Link>
+    );
+}
 
 const BrandsList = () => {
     const { t } = useTranslation();
@@ -34,24 +62,14 @@ const BrandsList = () => {
                         <AiOutlineSafetyCertificate size="2rem" />
                         {t("buyer_pages.brands_list.all")}
                     </h3>
-                    <div className="row mt-3 d-flex flex-wrap gap-2">
+                    <div className="row gap-2 tw-flex tw-flex-wrap">
                         {brands.length > 0 ? (
                             brands.map((brand) => {
                                 return (
-                                    <Link
-                                        to={`/products?brand=${brand.slug}`}
-                                        className="tw-flex-[0_1_45%] md:tw-flex-[0_1_32%] lg:tw-flex-[0_1_18%]"
-                                        style={{ width: "fit-content" }}
+                                    <BrandCard
                                         key={brand.id}
-                                    >
-                                        <div className="card d-flex align-items-center justify-content-center home__brand-card tw-h-full">
-                                            <img
-                                                src={brand.image}
-                                                alt="Brand"
-                                                className="img-fluid px-4 tw-h-full"
-                                            />
-                                        </div>
-                                    </Link>
+                                        brand={brand}
+                                    />
                                 );
                             })
                         ) : (
