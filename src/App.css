@@ -1985,3 +1985,25 @@ footer {
         max-width: calc(100vw / 2 - 26px);
     }
 }
+
+.table__badge-pending {
+    background-color: #fff9c2;
+    color: #eec43e;
+}
+
+.table__badge-success {
+    background-color: #c2fbd7;
+    color: green;
+}
+
+.table__badge-error {
+    background-color: #ffe7e7;
+    color: red;
+}
+
+.ag-theme-material {
+    --ag-background-color: #fafafa !important;
+    --ag-header-background-color: #fafafa !important;
+    --ag-row-hover-color: #f1f1f1 !important;
+    --ag-border-radius: 7px 7px 0 0 !important;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 import useAxios from "../../utils/useAxios";
 
@@ -44,8 +44,6 @@ const OrderHistory = () => {
                     </Link>
                 );
             },
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
         },
         {
             field: "product.name",
@@ -65,8 +63,8 @@ const OrderHistory = () => {
                             <img
                                 src={url}
                                 alt="Product Picture"
-                                width={35}
-                                height={35}
+                                width={30}
+                                height={30}
                                 className={`rounded-circle object-contain ${i18n.language === "ar" ? "ms-2" : "me-2"}`}
                             />
                             <span className="text-truncate">{productName}</span>
@@ -97,11 +95,13 @@ const OrderHistory = () => {
                     DE: t("supplier_pages.order_details.de"),
                 };
                 return (
-                    <div
-                        className={`badge ${params.data.shipping_status !== "DE" ? "bg-warning" : "bg-success"}`}
-                        style={{ fontSize: ".8rem" }}
-                    >
-                        {choices[params.data.shipping_status]}
+                    <div className="h-100 d-flex align-items-center">
+                        <div
+                            className={`badge ${params.data.shipping_status !== "DE" ? "table__badge-pending" : "table__badge-success"}`}
+                            style={{ fontSize: ".63rem" }}
+                        >
+                            {choices[params.data.shipping_status]}
+                        </div>
                     </div>
                 );
             },
@@ -130,9 +130,9 @@ const OrderHistory = () => {
                             <div className="d-flex align-items-center h-100">
                                 <Link
                                     to={`/account/dashboard/return/${params.data.id}`}
-                                    className="btn btn-outline-primary btn-sm d-flex align-items-center gap-2"
+                                    className="btn btn-outline-primary btn-sm"
+                                    style={{ fontSize: ".63rem" }}
                                 >
-                                    <GiReturnArrow size="1.2rem" />
                                     {t("buyer_pages.order_history.return")}
                                 </Link>
                             </div>
@@ -140,7 +140,7 @@ const OrderHistory = () => {
                     } else {
                         return (
                             <div className="d-flex align-items-center h-100">
-                                <FcCancel size="1.5rem" />
+                                <FcCancel size="1.2rem" />
                             </div>
                         );
                     }
@@ -158,12 +158,12 @@ const OrderHistory = () => {
                                 className={`badge ${
                                     params.data.status === "CMP" ||
                                     params.data.status === "APR"
-                                        ? "bg-success"
+                                        ? "table__badge-success"
                                         : params.data.status === "DEC"
-                                          ? "bg-danger"
-                                          : "bg-warning"
+                                          ? "table__badge-error"
+                                          : "table__badge-pending"
                                 }`}
-                                style={{ fontSize: ".8rem" }}
+                                style={{ fontSize: ".63rem" }}
                             >
                                 {choices[params.data.status]}
                             </div>
@@ -180,7 +180,7 @@ const OrderHistory = () => {
         return {
             filter: "agTextColumnFilter",
             floatingFilter: true,
-            minWidth: 250,
+            minWidth: 135,
             flex: 3,
         };
     }, []);
@@ -212,7 +212,7 @@ const OrderHistory = () => {
                 </h2>
 
                 <div
-                    className="ag-theme-material my-5"
+                    className="ag-theme-material mt-3 mb-5"
                     style={{ height: 500 }}
                 >
                     <AgGridReact
