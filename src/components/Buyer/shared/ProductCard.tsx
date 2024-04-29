@@ -178,7 +178,7 @@ const ProductCard = (props: {
                     {product.price > 0 && (
                         <span
                             className={
-                                product.sale_price > 0
+                                product.sale_price >= 0
                                     ? "text-decoration-line-through"
                                     : ""
                             }
@@ -192,7 +192,7 @@ const ProductCard = (props: {
                         </span>
                     )}
 
-                    {product.price_range_min > 0 && (
+                    {product.price_range_min >= 0 && (
                         <span>
                             {product.price_range_min}&nbsp; {t("sar")} -
                             <br />
