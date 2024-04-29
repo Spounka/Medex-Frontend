@@ -93,7 +93,7 @@ const ProductCard = (props: {
                     alt="product"
                 />
             </Link>
-            <div className="tw-flex tw-cursor-pointer tw-items-center tw-justify-between tw-px-2 tw-text-center tw-align-middle hover:tw-text-purple">
+            <div className="tw-flex tw-cursor-pointer tw-items-center tw-justify-between tw-px-2 tw-text-center tw-align-middle hover:tw-text-black">
                 <div className="card-title tw-m-0 tw-text-center tw-align-middle">
                     <h5 className="home__card-title text-dark text-hover">
                         {product.name}
@@ -133,7 +133,7 @@ const ProductCard = (props: {
                     {product.price > 0 && (
                         <span
                             className={
-                                product.sale_price > 0
+                                product.sale_price >= 0
                                     ? "text-decoration-line-through"
                                     : ""
                             }
@@ -141,13 +141,13 @@ const ProductCard = (props: {
                             {product.price}&nbsp; {t("sar")}
                         </span>
                     )}
-                    {product.sale_price > 0 && (
-                        <span className="d-block">
+                    {product.sale_price >= 0 && (
+                        <span className="d-block tw-text-red-600">
                             {product.sale_price}&nbsp; {t("sar")}
                         </span>
                     )}
 
-                    {product.price_range_min > 0 && (
+                    {product.price_range_min >= 0 && (
                         <span>
                             {product.price_range_min}&nbsp; {t("sar")} -
                             <br />
@@ -185,13 +185,12 @@ const ProductCard = (props: {
                     {product.price > 0 && cart && (
                         <Link
                             to="/account/login"
-                            className={`btn bttn text-nowrap tw-w-full tw-rounded-[4px] 
-                            tw-bg-purple tw-transition-colors tw-duration-200 
-                            hover:tw-border hover:tw-border-purple hover:tw-bg-white hover:tw-text-purple`}
+                            className={`btn bttn text-nowrap tw-font-poppins tw-w-full tw-rounded-[4px] 
+                            tw-border-t tw-border-t-gray-200 tw-bg-none tw-py-3 tw-text-purple hover:tw-bg-none hover:tw-text-black`}
                             style={{}}
                             id={`item-cart-button-${product.sku}`}
                         >
-                            {t("buyer_pages.product_details.add")}
+                            {t("buyer_pages.product_details.add")}+
                         </Link>
                     )}
                 </div>
