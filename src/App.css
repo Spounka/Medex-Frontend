@@ -891,18 +891,18 @@ footer {
 }
 
 .details__image-container {
-    position: relative;
-    width: 100%;
-    height: 420px;
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 20, 0.25);
+    /*position: relative;*/
+    /*width: 100%;*/
+    /*height: 420px;*/
+    /*overflow: hidden;*/
+    /*border-radius: 8px;*/
+    /*border: 1px solid rgba(0, 0, 20, 0.25);*/
 }
 
 .details__image-container img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    /*position: absolute;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
     object-fit: cover;
     -o-object-fit: cover;
     transform: scale(var(--zoom, 1));

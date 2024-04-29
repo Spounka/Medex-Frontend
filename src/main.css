@@ -33,3 +33,7 @@
     --theme-color-grey: #7a808c;
     --theme-color-white-powder: #fdfcfa;
 }
+
+body {
+    background-color: var(--theme-color-white-powder);
+}

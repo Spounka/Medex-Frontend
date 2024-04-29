@@ -76,13 +76,14 @@ const Header = () => {
             >
                 <Link
                     to="/"
-                    className="navbar-brand tw-font-algreya tw-text-5xl tw-font-extrabold"
+                    className="tw-font-algreya tw-text-5xl tw-font-extrabold"
                 >
                     Medex
                 </Link>
                 <div className="d-flex justify-content-center align-items-center gap-4 d-md-none">
                     <div className="dropdown navbar__lang">
                         <Link
+                            to={"#"}
                             role="button"
                             className="dropdown-toggle bg-transparent d-flex align-items-center text-color-darkblue"
                             type="button"
@@ -238,7 +239,7 @@ const Header = () => {
                                             className="nav-link d-flex justify-content-center align-items-center gap-2"
                                         >
                                             <UilHeart
-                                                width={"2.5rem"}
+                                                width={"2.2rem"}
                                                 height={"auto"}
                                                 fill={"black"}
                                             />
@@ -256,7 +257,7 @@ const Header = () => {
                                         >
                                             <UilUser
                                                 fill={"black"}
-                                                width={"2.5rem"}
+                                                width={"2.2rem"}
                                                 height={"auto"}
                                             />
                                             <span className="header__link">
