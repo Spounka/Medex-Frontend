@@ -24,10 +24,14 @@ import { BrandCard } from "./BrandsList.tsx";
 
 function CategoryLink({ to, icon, text }: { to: string; text: string; icon: ReactNode }) {
     return (
-        <div className={"tw-flex tw-h-full tw-flex-1 tw-justify-center"}>
+        <div
+            className={
+                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black "
+            }
+        >
             <Link
                 to={to}
-                className="tw-flex tw-w-min tw-flex-col tw-items-center tw-justify-center tw-gap-4 hover:tw-fill-purple hover:tw-text-purple"
+                className="tw-flex tw-w-min tw-flex-col tw-items-center tw-justify-center tw-gap-4"
             >
                 <div
                     className={
@@ -143,6 +147,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1300,
                 settings: {
+                    slidesToScroll: 3,
                     slidesToShow: 4,
                     arrows: true,
                 },
@@ -150,6 +155,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1200,
                 settings: {
+                    slidesToScroll: 3,
                     slidesToShow: 4,
                     arrows: false,
                     centerMode: false,
@@ -159,6 +165,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 breakpoint: 1000,
                 settings: {
                     slidesToShow: 3,
+                    slidesToScroll: 2,
                     arrows: false,
                 },
             },
@@ -167,12 +174,14 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 settings: {
                     arrows: false,
                     slidesToShow: 3,
+                    slidesToScroll: 2,
                 },
             },
             {
                 breakpoint: 500,
                 settings: {
                     slidesToShow: 2,
+                    slidesToScroll: 1,
                     arrows: false,
                 },
             },
@@ -237,7 +246,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                 "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-3 lg:tw-px-4",
                                 i === activeCategory
                                     ? "tw-font-algreya tw-bg-purple tw-fill-white tw-text-white"
-                                    : "tw-font-algreya tw-bg-gray-200 tw-font-normal tw-text-black",
+                                    : "tw-font-algreya tw-bg-slate-50 tw-font-normal tw-text-black",
                             )}
                             onClick={() => setActiveCategory(i)}
                         >
@@ -288,13 +297,13 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 tw-px-32 lg:tw-gap-0">
+                                <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 tw-px-32 lg:tw-gap-0">
                                     <CategoryLink
                                         to={"/products?category=X-Ray"}
                                         icon={
                                             <FaXRay
                                                 className={
-                                                    "tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16"
+                                                    "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-11"
                                                 }
                                             />
                                         }
@@ -352,51 +361,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     </div>
                 </div>
             </Container>
-            <Container node={"section"}>
-                <div className="">
-                    <div className="tw-flex tw-flex-col tw-gap-8">
-                        <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300 tw-pb-4">
-                            <div className="col-8">
-                                <h3 className="m-0 home__sections-title fw-bolder">
-                                    {t("buyer_pages.home.by_brand")}
-                                </h3>
-                            </div>
-                            <div className="col-4 d-flex justify-content-end">
-                                <Link
-                                    to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
-                                >
-                                    {t("buyer_pages.home.all")}
-                                    {i18n.resolvedLanguage == "en" ? (
-                                        <AiOutlineArrowRight />
-                                    ) : (
-                                        <AiOutlineArrowLeft />
-                                    )}
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="tw-flex tw-h-max tw-flex-wrap tw-justify-between tw-gap-3.5 lg:tw-justify-start">
-                            {brands && brands.length > 0 ? (
-                                brands.slice(1).map((brand) => {
-                                    return (
-                                        <BrandCard
-                                            brand={brand}
-                                            key={brand.id}
-                                            className={
-                                                "tw-flex-[0_0_30%] lg:tw-flex-[0_0_18%] xl:tw-flex-[0_0_15%]"
-                                            }
-                                        />
-                                    );
-                                })
-                            ) : (
-                                <p className="text-center">
-                                    {t("buyer_pages.brands_list.none")}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </Container>
+
             <Container
                 node={"section"}
                 className="py-5"
@@ -533,6 +498,51 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             ) : (
                                 <p className="text-center">
                                     {t("buyer_pages.home.none")}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </Container>
+            <Container node={"section"}>
+                <div className="">
+                    <div className="tw-flex tw-flex-col tw-gap-8">
+                        <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300 tw-pb-4">
+                            <div className="col-8">
+                                <h3 className="m-0 home__sections-title fw-bolder">
+                                    {t("buyer_pages.home.by_brand")}
+                                </h3>
+                            </div>
+                            <div className="col-4 d-flex justify-content-end">
+                                <Link
+                                    to="brands"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                >
+                                    {t("buyer_pages.home.all")}
+                                    {i18n.resolvedLanguage == "en" ? (
+                                        <AiOutlineArrowRight />
+                                    ) : (
+                                        <AiOutlineArrowLeft />
+                                    )}
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="tw-flex tw-h-max tw-flex-wrap tw-justify-between tw-gap-3.5 lg:tw-justify-start">
+                            {brands && brands.length > 0 ? (
+                                brands.slice(1).map((brand) => {
+                                    return (
+                                        <BrandCard
+                                            brand={brand}
+                                            key={brand.id}
+                                            className={
+                                                "tw-flex-[0_0_30%] lg:tw-flex-[0_0_18%] xl:tw-flex-[0_0_15%]"
+                                            }
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <p className="text-center">
+                                    {t("buyer_pages.brands_list.none")}
                                 </p>
                             )}
                         </div>
