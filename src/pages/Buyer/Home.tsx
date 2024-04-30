@@ -26,7 +26,7 @@ function CategoryLink({ to, icon, text }: { to: string; text: string; icon: Reac
     return (
         <div
             className={
-                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black "
+                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black lg:tw-flex-1 "
             }
         >
             <Link
@@ -245,8 +245,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             className={clsx(
                                 "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-3 lg:tw-px-4",
                                 i === activeCategory
-                                    ? "tw-font-algreya tw-bg-purple tw-fill-white tw-text-white"
-                                    : "tw-font-algreya tw-bg-slate-50 tw-font-normal tw-text-black",
+                                    ? "tw-bg-purple tw-fill-white tw-font-algreya tw-text-white"
+                                    : "tw-bg-slate-50 tw-font-algreya tw-font-normal tw-text-black",
                             )}
                             onClick={() => setActiveCategory(i)}
                         >
@@ -297,24 +297,13 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 tw-px-32 lg:tw-gap-0">
+                                <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 lg:tw-gap-0 xl:tw-px-32">
                                     <CategoryLink
                                         to={"/products?category=X-Ray"}
                                         icon={
                                             <FaXRay
                                                 className={
-                                                    "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-11"
-                                                }
-                                            />
-                                        }
-                                        text={"XRay"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=X-Ray"}
-                                        icon={
-                                            <FaXRay
-                                                className={
-                                                    "tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16"
+                                                    "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
                                                 }
                                             />
                                         }
@@ -323,35 +312,35 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                     <CategoryLink
                                         to={"/products?category=medex"}
                                         icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16" />
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medll"}
                                         icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16" />
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medll"}
                                         icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16" />
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medx"}
                                         icon={
-                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16" />
+                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Labs"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=XxMed"}
                                         icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-8 tw-fill-inherit md:tw-min-w-12 lg:tw-min-w-16" />
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Chemicals"}
                                     />

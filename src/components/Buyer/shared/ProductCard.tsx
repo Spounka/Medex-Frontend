@@ -1,6 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { UilHeart } from "@iconscout/react-unicons";
+import {
+    IoHeart as HeartIcon,
+    IoHeartOutline as HeartEmpty,
+    IoCartOutline as CartEmpty,
+    IoCart as CartIcon,
+} from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
 
@@ -8,6 +12,10 @@ import useWishlistHandler from "../../../utils/useWishlistHandler";
 
 import { useTranslation } from "react-i18next";
 import { Product } from "@domain/product.ts";
+import { ThreadUser } from "@domain/thread.ts";
+import axios, { AxiosError } from "axios";
+import clsx from "clsx";
+import { CartContext } from "../../../context/CartContext.tsx";
 
 const ProductCard = (props: {
     product: Product;
@@ -22,9 +30,13 @@ const ProductCard = (props: {
 
     const handleWishlist = useWishlistHandler();
 
-    const { product, cart, wish, addToCart } = props;
+    const { product, cart, wish } = props;
+    const { addToCart, removeFromCart } = useContext(CartContext);
 
     const [isInWishlist, setIsInWishlist] = useState(false);
+    const [isInCart, setIsInCart] = useState(false);
+
+    const [supplier, setSupplier] = useState<ThreadUser | null>(null);
 
     const handleWishButtonClick = () => {
         if (user) {
@@ -41,43 +53,52 @@ const ProductCard = (props: {
     };
 
     useEffect(() => {
+        if (product.supplier) {
+            (async () => {
+                return await axios
+                    .get<ThreadUser>(
+                        `${
+                            import.meta.env.VITE_BACKEND_URL
+                        }/api/account/profile/${product.supplier}`,
+                    )
+                    .then((r) => {
+                        setSupplier(r.data);
+                    })
+                    .catch((e: AxiosError) => {
+                        console.error(e.response?.data);
+                        setSupplier(null);
+                    });
+            })();
+        }
+    }, [product.supplier]);
+
+    useEffect(() => {
         let wishlistArray = [];
 
         if (localStorage.getItem("wishlist")) {
-            wishlistArray = JSON.parse(localStorage.getItem("wishlist"));
+            wishlistArray = JSON.parse(localStorage.getItem("wishlist") ?? "[]");
         }
 
         setIsInWishlist(wishlistArray.includes(product.sku));
     }, [product.sku]);
 
-    useEffect(() => {
+    const checkCart = () => {
         let cartItems: Product[] = JSON.parse(localStorage.getItem("cartItems") ?? "[]");
-
-        cartItems.forEach((item) => {
-            let buttons = document.querySelectorAll(`#item-cart-button-${item.sku}`);
-
-            if (item.qty < item.stock_quantity) {
-                buttons.forEach((btn) => {
-                    btn.classList.remove("disabled");
-                });
-            } else {
-                buttons.forEach((btn) => {
-                    btn.classList.add("disabled");
-                    btn.setAttribute("disabled", true);
-                });
-            }
-        });
-    }, []);
+        setIsInCart(cartItems.some((item) => item.sku === product.sku));
+    };
+    useEffect(() => {
+        checkCart();
+    }, [isInCart, product.sku]);
 
     return (
         <div
-            className="cardd card home__card tw-flex tw-w-full tw-flex-col tw-gap-3"
+            className="cardd card home__card tw-flex tw-w-full tw-flex-col tw-gap-3 tw-pb-2"
             style={{ borderRadius: "8px" }}
         >
             <Link
                 to={`/products/${product.sku}`}
                 state={{ product: product }}
-                className="card-link tw-border-b tw-border-gray-200 tw-pb-1"
+                className="card-link tw-relative tw-border-b tw-border-gray-200 tw-pb-1"
                 onMouseMoveCapture={(e) => {}}
             >
                 <img
@@ -92,37 +113,67 @@ const ProductCard = (props: {
                     width="100%"
                     alt="product"
                 />
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleWishButtonClick();
+                    }}
+                    className={"tw-p-2"}
+                >
+                    {isInWishlist ? (
+                        <HeartIcon
+                            className={clsx(
+                                `tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-min-h-6 tw-w-auto`,
+                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
+                            )}
+                        />
+                    ) : (
+                        <HeartEmpty
+                            className={clsx(
+                                `tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-min-h-6 tw-w-auto`,
+                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
+                            )}
+                        />
+                    )}
+                </button>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addToCart(product, 1);
+                        setIsInCart((v) => !v);
+                        checkCart();
+                    }}
+                    className={"tw-p-2"}
+                >
+                    {isInCart ? (
+                        <CartIcon
+                            className={`tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-min-h-6 tw-w-auto tw-fill-purple`}
+                        />
+                    ) : (
+                        <CartEmpty
+                            className={clsx(
+                                `tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-min-h-6 tw-w-auto`,
+                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
+                            )}
+                        />
+                    )}
+                </button>
             </Link>
             <div className="tw-flex tw-cursor-pointer tw-items-center tw-justify-between tw-px-2 tw-text-center tw-align-middle hover:tw-text-black">
-                <div className="card-title tw-m-0 tw-text-center tw-align-middle">
+                <div className="card-title tw-m-0 tw-flex tw-flex-col tw-gap-1.5 tw-text-center tw-align-middle">
+                    <h6
+                        className={
+                            "tw-text-start tw-font-algreya tw-font-medium tw-text-gray-400"
+                        }
+                    >
+                        {supplier?.full_name}
+                    </h6>
                     <h5 className="home__card-title text-dark text-hover">
                         {product.name}
                     </h5>
                 </div>
-                {user?.role == "buyer" ? (
-                    <button
-                        role="button"
-                        className="border-0 bg-transparent tw-items-center"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleWishButtonClick();
-                        }}
-                    >
-                        <div className="home__card-button-fav">
-                            {isInWishlist ? (
-                                <MdFavorite
-                                    className="home__card-button-fav-icon"
-                                    style={{ color: "red" }}
-                                />
-                            ) : (
-                                <MdFavoriteBorder className="home__card-button-fav-icon" />
-                            )}
-                        </div>
-                    </button>
-                ) : (
-                    <br />
-                )}
             </div>
 
             <div className="d-flex flex-column justify-content-between align-items-center tw-w-full tw-px-2 tw-text-left">
@@ -133,7 +184,7 @@ const ProductCard = (props: {
                     {product.price > 0 && (
                         <span
                             className={
-                                product.sale_price >= 0
+                                product.sale_price > 0
                                     ? "text-decoration-line-through"
                                     : ""
                             }
@@ -141,13 +192,13 @@ const ProductCard = (props: {
                             {product.price}&nbsp; {t("sar")}
                         </span>
                     )}
-                    {product.sale_price >= 0 && (
+                    {product.sale_price > 0 && (
                         <span className="d-block tw-text-red-600">
                             {product.sale_price}&nbsp; {t("sar")}
                         </span>
                     )}
 
-                    {product.price_range_min >= 0 && (
+                    {product.price_range_min > 0 && (
                         <span>
                             {product.price_range_min}&nbsp; {t("sar")} -
                             <br />
@@ -156,45 +207,6 @@ const ProductCard = (props: {
                     )}
                 </span>
             </div>
-            {user ? (
-                user.group_names.indexOf("Buyer Admin") > -1 ||
-                user.group_names.indexOf("Buyer Product Manager") > -1 ? (
-                    <div className="d-flex flex-column justify-content-center align-items-center tw-px-2 tw-pb-2">
-                        {product.price > 0 && cart && (
-                            <button
-                                className={`bttn text-nowrap tw-rounded-[4px] tw-border tw-border-purple tw-text-purple tw-transition-colors tw-duration-200 hover:tw-text-purple`}
-                                style={{
-                                    width: "100%",
-                                }}
-                                id={`item-cart-button-${product.sku}`}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    addToCart(product, 1);
-                                }}
-                            >
-                                {t("buyer_pages.product_details.add")}
-                            </button>
-                        )}
-                    </div>
-                ) : (
-                    <br />
-                )
-            ) : (
-                <div className="d-flex flex-column justify-content-center align-items-center tw-px-2 tw-pb-2">
-                    {product.price > 0 && cart && (
-                        <Link
-                            to="/account/login"
-                            className={`btn bttn text-nowrap tw-font-poppins tw-w-full tw-rounded-[4px] 
-                            tw-border-t tw-border-t-gray-200 tw-bg-none tw-py-3 tw-text-purple hover:tw-bg-none hover:tw-text-black`}
-                            style={{}}
-                            id={`item-cart-button-${product.sku}`}
-                        >
-                            {t("buyer_pages.product_details.add")}+
-                        </Link>
-                    )}
-                </div>
-            )}
         </div>
     );
 };
