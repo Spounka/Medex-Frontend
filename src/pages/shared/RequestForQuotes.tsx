@@ -30,6 +30,7 @@ const RequestForQuotes = () => {
     const [selectedSupplier, setSelectedSupplier] = useState("");
 
     const fileRef = useRef<HTMLInputElement | null>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     // TODO: Add better typing when refactoring
     const creatableSelectInputRef = useRef<any>(null);
@@ -110,11 +111,7 @@ const RequestForQuotes = () => {
                 setSelectedProduct("");
                 setSelectedSupplier("");
 
-                e.currentTarget.unit.value = "piece";
-                e.currentTarget.quantity.value = "";
-                e.currentTarget.requirements.value = "";
-                e.currentTarget.due_date.value = "";
-                e.currentTarget.agree.checked = false;
+                formRef.current.reset();
                 handleReset();
                 onClear();
             })
@@ -155,6 +152,7 @@ const RequestForQuotes = () => {
                                 method="post"
                                 encType="multipart/form-data"
                                 onSubmit={handleSubmit}
+                                ref={formRef}
                             >
                                 <div className="mb-4">
                                     <label
