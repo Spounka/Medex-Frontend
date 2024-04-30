@@ -37,8 +37,6 @@ const ReturnRequestDetails: React.FC = () => {
                 navigate("/not-found/");
             }
         }
-
-        console.log(request);
     };
 
     useEffect(() => {
@@ -171,7 +169,7 @@ const ReturnRequestDetails: React.FC = () => {
                                         {t("buyer_pages.return_request.evidence")}
                                     </h6>
                                     <div className="d-flex align-items-center gap-1">
-                                        {request?.evidence_files?.map((file) => {
+                                        {request?.evidence_files?.map((file, index) => {
                                             return (
                                                 <Link
                                                     to={
@@ -179,7 +177,7 @@ const ReturnRequestDetails: React.FC = () => {
                                                         file.evidence_file
                                                     }
                                                     target="_blank"
-                                                    key={file.evidence_files}
+                                                    key={index}
                                                 >
                                                     <RiFileImageLine size="1.5rem" />
                                                 </Link>

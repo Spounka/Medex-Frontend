@@ -86,12 +86,16 @@ const RequestForQuotes = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("product", e.currentTarget.product.value);
+        const products = [
+            { name: "test1", quantity: 5, unit: "ton" },
+            { name: "test2", quantity: 10, unit: "kg" },
+        ];
+        formData.append("products", JSON.stringify(products));
+
         formData.append("supplier", e.currentTarget.supplier.value);
-        formData.append("quantity", e.currentTarget.quantity.value);
-        formData.append("unit", e.currentTarget.unit.value);
         formData.append("due_date", e.currentTarget.due_date.value);
         formData.append("requirements", e.currentTarget.requirements.value);
+
         const fileInput = e.currentTarget.attachments;
         for (let i = 0; i < fileInput.files.length; i++) {
             formData.append("attachments", fileInput.files[i]);
@@ -114,8 +118,9 @@ const RequestForQuotes = () => {
                 handleReset();
                 onClear();
             })
-            .catch(() => {
+            .catch((err) => {
                 toast.error(`${t("shared.rfq.err")}!`);
+                console.log(err);
             });
     };
 
