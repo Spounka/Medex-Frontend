@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
@@ -8,14 +8,48 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
+import { UilAngleRight } from "@iconscout/react-unicons";
 
 import { Brand, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
-import { CiSearch } from "react-icons/ci";
-import { FaBriefcaseMedical, FaPumpMedical } from "react-icons/fa";
+import { FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
 import { GiChemicalTank } from "react-icons/gi";
 import { ImLab } from "react-icons/im";
+import { default as Container } from "../../components/ui/container";
+import clsx from "clsx";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { BrandCard } from "./BrandsList.tsx";
+
+function CategoryLink({ to, icon, text }: { to: string; text: string; icon: ReactNode }) {
+    return (
+        <div
+            className={
+                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black lg:tw-flex-1 "
+            }
+        >
+            <Link
+                to={to}
+                className="tw-flex tw-w-min tw-flex-col tw-items-center tw-justify-center tw-gap-4"
+            >
+                <div
+                    className={
+                        "tw-cursor-pointer tw-rounded-full tw-bg-[#FAFAFAFF] tw-p-8 tw-transition-all tw-duration-300"
+                    }
+                >
+                    {icon}
+                </div>
+                <p
+                    className="tw-m-0 tw-text-center tw-duration-300"
+                    style={{ transition: "0.3s" }}
+                >
+                    {text}
+                </p>
+            </Link>
+        </div>
+    );
+}
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -27,6 +61,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
     const [brands, setBrands] = useState<Brand[]>([]);
+    const [activeCategory, setActiveCategory] = useState(0);
 
     const fetchBrands = async () => {
         await axios
@@ -66,6 +101,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
+            console.log(products);
+
             if (products?.products) {
                 setSale(products?.products);
                 setAds(products?.ads);
@@ -99,62 +136,55 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const settings: Settings = {
         infinite: true,
         speed: 350,
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         lazyLoad: "ondemand",
         className: "center",
+        arrows: false,
         autoplaySpeed: 2500,
         responsive: [
             {
                 breakpoint: 1300,
                 settings: {
-                    slidesToShow: 5,
-                    centerPadding: "30px",
-                    centerMode: true,
+                    slidesToScroll: 3,
+                    slidesToShow: 4,
+                    arrows: true,
                 },
             },
             {
                 breakpoint: 1200,
                 settings: {
+                    slidesToScroll: 3,
                     slidesToShow: 4,
-                    centerMode: true,
                     arrows: false,
+                    centerMode: false,
                 },
             },
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3,
-                    centerMode: true,
+                    slidesToShow: 3, centerMode: true,
                     arrows: false,
                 },
             },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 3,
                     arrows: false,
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
                 },
             },
             {
                 breakpoint: 500,
                 settings: {
                     slidesToShow: 2,
+                    slidesToScroll: 1,
                     arrows: false,
                 },
             },
         ],
-    };
-    const settings3 = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        cssEase: "ease-in-out",
-        dots: true,
-        arrows: true,
     };
 
     return (
@@ -167,9 +197,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             action="/products"
                         >
                             <div
-                                className={`w-100 ${
-                                    i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                }`}
+                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
+                                    }`}
                             >
                                 <div className="nav-link">
                                     <div
@@ -236,7 +265,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             <section className="pb-5">
                 <div className="container">
                     <div>
-                        <div className="row d-flex align-items-center">
+                        <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300">
                             <div className="col-8">
                                 <h3 className="m-0 home__sections-title fw-bolder">
                                     {t("buyer_pages.home.featured_cat")}
@@ -249,20 +278,20 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         borderRadius: "8px",
                                     }}
                                     to="/categories"
-                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap hover:tw-text-purple"
+                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
-                                        <AiOutlineArrowRight />
+                                        <UilAngleRight />
                                     ) : (
-                                        <AiOutlineArrowLeft />
+                                        <UilAngleRight className={"tw-rotate-180"} />
                                     )}
                                 </Link>
                             </div>
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex flex-wrap tw-w-full">
+                                <div className="gs d-flex flex-wrap">
                                     <Link
                                         to="/products?category=X-Ray"
                                         className="cat d-flex flex-column gap-1 align-items-center"
@@ -276,265 +305,60 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                             }}
                                         >
                                             <FaXRay
-                                                className="p-3"
-                                                size={65}
+                                                className={
+                                                    "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
+                                                }
                                             />
-                                        </div>
-                                        <p
-                                            className="text-center m-0"
-                                            style={{ transition: "0.3s" }}
-                                        >
-                                            XRay
-                                        </p>
-                                    </Link>
-                                    <Link
-                                        to="/products?category=medex"
-                                        className="cat d-flex flex-column gap-1 align-items-center"
-                                    >
-                                        <div
-                                            style={{
-                                                backgroundColor: "rgb(250 250 250)",
-                                                borderRadius: "50%",
-                                                cursor: "pointer",
-                                                transition: "0.3s",
-                                            }}
-                                        >
-                                            <FaBriefcaseMedical
-                                                className="p-3"
-                                                size={65}
-                                            />
-                                        </div>
-                                        <p
-                                            className="text-center m-0"
-                                            style={{ transition: "0.3s" }}
-                                        >
-                                            Medical
-                                        </p>
-                                    </Link>
-                                    <Link
-                                        to="/products?category=Medll"
-                                        className="cat d-flex flex-column gap-1 align-items-center"
-                                    >
-                                        <div
-                                            style={{
-                                                backgroundColor: "rgb(250 250 250)",
-                                                borderRadius: "50%",
-                                                cursor: "pointer",
-                                                transition: "0.3s",
-                                            }}
-                                        >
-                                            <FaPumpMedical
-                                                className="p-3"
-                                                size={65}
-                                            />
-                                        </div>
-                                        <p
-                                            className="text-center m-0"
-                                            style={{ transition: "0.3s" }}
-                                        >
-                                            MedicalL
-                                        </p>
-                                    </Link>
-                                    <Link
-                                        to="/products?category=Medx"
-                                        className="cat d-flex flex-column gap-1 align-items-center"
-                                    >
-                                        <div
-                                            style={{
-                                                backgroundColor: "rgb(250 250 250)",
-                                                borderRadius: "50%",
-                                                cursor: "pointer",
-                                                transition: "0.3s",
-                                            }}
-                                        >
-                                            <ImLab
-                                                className="p-3"
-                                                size={65}
-                                            />
-                                        </div>
-                                        <p
-                                            className="text-center m-0"
-                                            style={{ transition: "0.3s" }}
-                                        >
-                                            Labs
-                                        </p>
-                                    </Link>
-                                    <Link
-                                        to="/products?category=XxMed"
-                                        className="cat d-flex flex-column gap-1 align-items-center"
-                                    >
-                                        <div
-                                            style={{
-                                                backgroundColor: "rgb(250 250 250)",
-                                                borderRadius: "50%",
-                                                cursor: "pointer",
-                                                transition: "0.3s",
-                                            }}
-                                        >
-                                            <GiChemicalTank
-                                                className="p-3"
-                                                size={65}
-                                            />
-                                        </div>
-                                        <p
-                                            className="text-center m-0"
-                                            style={{ transition: "0.3s" }}
-                                        >
-                                            Chemicals
-                                        </p>
-                                    </Link>
+                                        }
+                                        text={"XRay"}
+                                    />
+                                    <CategoryLink
+                                        to={"/products?category=medex"}
+                                        icon={
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                        }
+                                        text={"Medical"}
+                                    />
+                                    <CategoryLink
+                                        to={"/products?category=Medll"}
+                                        icon={
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                        }
+                                        text={"Medical"}
+                                    />
+                                    <CategoryLink
+                                        to={"/products?category=Medll"}
+                                        icon={
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                        }
+                                        text={"Medical"}
+                                    />
+                                    <CategoryLink
+                                        to={"/products?category=Medx"}
+                                        icon={
+                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                        }
+                                        text={"Labs"}
+                                    />
+                                    <CategoryLink
+                                        to={"/products?category=XxMed"}
+                                        icon={
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                        }
+                                        text={"Chemicals"}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section className="py-2">
-                <div className="container">
-                    <div className="row d-flex align-items-center">
-                        <div className="col-8">
-                            <h3 className="m-0 home__sections-title fw-bolder">
-                                {t("buyer_pages.home.best_sell")}
-                            </h3>
-                        </div>
-                        <div className="col-4 d-flex justify-content-end">
-                            <Link
-                                to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
-                            >
-                                {t("buyer_pages.home.all")}
-                                {i18n.resolvedLanguage == "en" ? (
-                                    <AiOutlineArrowRight />
-                                ) : (
-                                    <AiOutlineArrowLeft />
-                                )}
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="row py-4">
-                        <div className="col-14 p-0 p-md-2">
-                            {bestSupplier && bestSupplier.length > 0 ? (
-                                <Slider {...settings}>
-                                    {bestSupplier.map((product) => (
-                                        <ProductCard
-                                            product={product}
-                                            cart={true}
-                                            key={product.sku}
-                                            addToCart={addToCart}
-                                        />
-                                    ))}
-                                </Slider>
-                            ) : (
-                                <p className="text-center">
-                                    {t("buyer_pages.home.none")}!
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className="py-5">
-                <div className="container">
-                    <div>
-                        <div className="row d-flex align-items-center">
-                            <div className="col-8">
-                                <h3 className="m-0 home__sections-title fw-bolder">
-                                    {t("buyer_pages.home.by_brand")}
-                                </h3>
-                            </div>
-                            <div className="col-4 d-flex justify-content-end">
-                                <Link
-                                    to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
-                                >
-                                    {t("buyer_pages.home.all")}
-                                    {i18n.resolvedLanguage == "en" ? (
-                                        <AiOutlineArrowRight />
-                                    ) : (
-                                        <AiOutlineArrowLeft />
-                                    )}
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="pt-2 gg tw-grid tw-grid-cols-3 md:tw-grid-cols-4 lg:tw-grid-cols-6">
-                            {brands && brands.length > 0 ? (
-                                brands.map((brand) => {
-                                    return (
-                                        <Link
-                                            to={`/products?brand=${brand.slug}`}
-                                            key={brand.id}
-                                            className={
-                                                "tw-aspect-square tw-w-full tw-flex-[1_1_30%] md:tw-flex-[1_1_20%]"
-                                            }
-                                        >
-                                            <div
-                                                className="card d-flex align-items-center justify-content-center home__brand-card"
-                                                style={{ borderRadius: "10px" }}
-                                            >
-                                                <img
-                                                    src={brand.image}
-                                                    alt="Brand"
-                                                    className="img-fluid px-4"
-                                                />
-                                            </div>
-                                        </Link>
-                                    );
-                                })
-                            ) : (
-                                <p className="text-center">
-                                    {t("buyer_pages.brands_list.none")}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className="py-2">
-                <div className="container">
-                    <div className="row d-flex align-items-center">
-                        <div className="col-8">
-                            <h3 className="m-0 home__sections-title fw-bolder">
-                                {t("buyer_pages.home.recent")}
-                            </h3>
-                        </div>
-                        <div className="col-4 d-flex justify-content-end">
-                            <Link
-                                to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
-                            >
-                                {t("buyer_pages.home.all")}
-                                {i18n.resolvedLanguage == "en" ? (
-                                    <AiOutlineArrowRight />
-                                ) : (
-                                    <AiOutlineArrowLeft />
-                                )}
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="row py-4">
-                        <div className="col-12 p-0 p-md-0">
-                            {recent && recent.length > 0 ? (
-                                <Slider {...settings}>
-                                    {recent.map((product) => (
-                                        <ProductCard
-                                            product={product}
-                                            cart={true}
-                                            key={product.sku}
-                                            addToCart={addToCart}
-                                        />
-                                    ))}
-                                </Slider>
-                            ) : (
-                                <p className="text-center">
-                                    {t("buyer_pages.home.none")}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className="py-5">
-                <div className="container">
+            </Container>
+
+            <Container
+                node={"section"}
+                className="py-5"
+            >
+                <div className="">
                     <div className="row d-flex align-items-center">
                         <div className="col-8">
                             <h3 className="m-0 home__sections-title fw-bolder">
@@ -544,8 +368,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                state={{ products: sale, type: "On Sale" }}
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -578,6 +401,151 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     </div>
                 </div>
             </section>
+            <section className="py-5">
+                <div className="container">
+                    <div>
+                        <div className="row d-flex align-items-center">
+                            <div className="col-8">
+                                <h3 className="m-0 home__sections-title fw-bolder">
+                                    {t("buyer_pages.home.by_brand")}
+                                </h3>
+                            </div>
+                            <div className="col-4 d-flex justify-content-end">
+                                <Link
+                                    to="brands"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                >
+                                    {t("buyer_pages.home.all")}
+                                    {i18n.resolvedLanguage == "en" ? (
+                                        <AiOutlineArrowRight />
+                                    ) : (
+                                        <AiOutlineArrowLeft />
+                                    )}
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="pt-2 gg">
+                            {brands && brands.length > 0 ? (
+                                brands.map((brand) => {
+                                    return (
+                                        <Link
+                                            to={`/products?brand=${brand.slug}`}
+                                            key={brand.id}
+                                        >
+                                            <div
+                                                className="card d-flex align-items-center justify-content-center home__brand-card"
+                                                style={{ borderRadius: "10px" }}
+                                            >
+                                                <img
+                                                    src={brand.image}
+                                                    alt="Brand"
+                                                    className="img-fluid px-4"
+                                                />
+                                            </div>
+                                        </Link>
+                                    );
+                                })
+                            ) : (
+                                <p className="text-center">
+                                    {t("buyer_pages.home.none")}!
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </Container>
+            <Container
+                node={"section"}
+                className="py-2"
+            >
+                <div className="">
+                    <div className="row d-flex align-items-center">
+                        <div className="col-8">
+                            <h3 className="m-0 home__sections-title fw-bolder">
+                                {t("buyer_pages.home.recent")}
+                            </h3>
+                        </div>
+                        <div className="col-4 d-flex justify-content-end">
+                            <Link
+                                to="/products"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                            >
+                                {t("buyer_pages.home.all")}
+                                {i18n.resolvedLanguage == "en" ? (
+                                    <AiOutlineArrowRight />
+                                ) : (
+                                    <AiOutlineArrowLeft />
+                                )}
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="row py-4">
+                        <div className="col-12">
+                            {recent && recent.length > 0 ? (
+                                <Slider {...settings}>
+                                    {recent.map((product) => (
+                                        <ProductCard
+                                            product={product}
+                                            cart={true}
+                                            key={product.sku}
+                                            addToCart={addToCart}
+                                        />
+                                    ))}
+                                </Slider>
+                            ) : (
+                                <p className="text-center">
+                                    {t("buyer_pages.home.none")}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className="py-5">
+                <div className="container">
+                    <div className="row d-flex align-items-center">
+                        <div className="col-8">
+                            <h3 className="m-0 home__sections-title fw-bolder">
+                                {t("buyer_pages.home.sale")}
+                            </h3>
+                        </div>
+                        <div className="col-4 d-flex justify-content-end">
+                            <Link
+                                to="/products"
+                                state={{ products: sale, type: "On Sale" }}
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                            >
+                                {t("buyer_pages.home.all")}
+                                {i18n.resolvedLanguage == "en" ? (
+                                    <AiOutlineArrowRight />
+                                ) : (
+                                    <AiOutlineArrowLeft />
+                                )}
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="row py-4">
+                        <div className="col-14 p-0 p-md-1">
+                            {sale && sale.length > 0 ? (
+                                <Slider {...settings}>
+                                    {sale.map((product) => (
+                                        <ProductCard
+                                            product={product}
+                                            cart={true}
+                                            key={product.sku}
+                                            addToCart={addToCart}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <p className="text-center">
+                                    {t("buyer_pages.brands_list.none")}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </Container>
         </main>
     );
 };

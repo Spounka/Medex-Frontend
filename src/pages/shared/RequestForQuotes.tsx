@@ -9,7 +9,7 @@ import { RiMailSendLine } from "react-icons/ri";
 
 import { Product } from "@domain/product";
 import { ThreadUser } from "@domain/thread";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -86,7 +86,7 @@ const RequestForQuotes = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("product", e.currentTarget.product.value);
+        formData.append("products", JSON.stringify(Array(e.currentTarget.product.value)));
         formData.append("supplier", e.currentTarget.supplier.value);
         formData.append("quantity", e.currentTarget.quantity.value);
         formData.append("unit", e.currentTarget.unit.value);
@@ -114,8 +114,9 @@ const RequestForQuotes = () => {
                 handleReset();
                 onClear();
             })
-            .catch(() => {
+            .catch((e: AxiosError) => {
                 toast.error(`${t("shared.rfq.err")}!`);
+                console.error(e.response?.data);
             });
     };
 

@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useLocation, Link, useParams, useNavigate } from "react-router-dom";
 
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
-import { PiMoney } from "react-icons/pi";
-import { IoTicketOutline } from "react-icons/io5";
-import { IoIosArrowForward } from "react-icons/io";
-import { BiCategoryAlt, BiSolidCategoryAlt } from "react-icons/bi";
-import { BsCart3, BsShare } from "react-icons/bs";
-import { MdFavoriteBorder, MdFavorite, MdOutlineContactMail } from "react-icons/md";
-import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { LuWarehouse } from "react-icons/lu";
-import { TbTruckReturn } from "react-icons/tb";
+import {
+    IoCartOutline as CartIcon,
+    IoHeartOutline as HeartIcon,
+    IoRepeat as RepeatIcon,
+} from "react-icons/io5";
 
 import { toast } from "react-toastify";
 
@@ -23,16 +19,35 @@ import userImage from "../../assets/images/user.png";
 import useWishlistHandler from "../../utils/useWishlistHandler";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import Container from "../../components/ui/container";
+import { Product } from "@domain/product.ts";
+import Cart from "./Cart.tsx";
+import ProductCard from "../../components/Buyer/shared/ProductCard.tsx";
+import { CartContext } from "../../context/CartContext.tsx";
+
+function ProductThumbnail(props: { url: string }) {
+    return (
+        <div className={""}>
+            <img
+                src={props.url}
+                alt="Product Image"
+                className="tw-h-auto tw-w-full tw-max-w-32 tw-cursor-pointer tw-border"
+            />
+        </div>
+    );
+}
 
 const ProductDetails = (props) => {
     const { t } = useTranslation();
+    const { addToCart } = useContext(CartContext);
 
-    const { addToCart } = props;
+    const [currentCount, setCurrentCount] = useState(1);
 
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState<Product>();
+    const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
     const params = useParams();
 
@@ -56,9 +71,40 @@ const ProductDetails = (props) => {
             }
         }
     };
+    const fetchProductsByQuery = async (query: string) => {
+        try {
+            let response = null;
+
+            if (query != "on_sale") {
+                response = await axios.get(
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
+                    }/api/product/product?order=${query}&ads=${true}`,
+                );
+            } else {
+                response = await axios.get(
+                    `${
+                        import.meta.env.VITE_BACKEND_URL
+                    }/api/product/product?on_sale=true&ads=${true}`,
+                );
+            }
+
+            return response.data;
+        } catch (error) {
+            return null;
+        }
+    };
 
     useEffect(() => {
         getProduct();
+
+        const fetchBestSellingProducts = async () => {
+            const products = await fetchProductsByQuery("best_selling");
+            if (products?.products) {
+                setBestSupplier(products?.products);
+            }
+        };
+        fetchBestSellingProducts();
     }, []);
 
     useEffect(() => {
@@ -99,327 +145,168 @@ const ProductDetails = (props) => {
         setIsInWishlist(wishlistArray.includes(product?.sku));
     }, [product?.sku]);
 
+    if (!product) {
+        return null;
+    }
+
     return (
-        <main>
-            <section className="py-5">
-                <div className="container">
-                    <div className="row mb-5">
-                        <BreadCrumb title={product?.name} />
+        <Container
+            node={"main"}
+            className={"tw-flex tw-flex-col tw-gap-16 tw-py-6"}
+        >
+            <BreadCrumb title={product?.name} />
+            <div className="tw-flex tw-flex-col tw-justify-between tw-gap-8 tw-py-4 lg:tw-flex-row lg:tw-gap-12">
+                <div className="tw-flex tw-flex-col-reverse tw-gap-3 lg:tw-max-w-[calc(10rem*4)] lg:tw-flex-row">
+                    <div className="tw-flex tw-max-w-64 tw-flex-row tw-gap-1.5 lg:tw-max-w-none lg:tw-flex-col lg:tw-gap-4">
+                        <ProductThumbnail url={product.thumbnail} />
+                        {product.image1 !== null ? (
+                            <ProductThumbnail url={product.image1} />
+                        ) : null}
+                        {product.image2 !== null ? (
+                            <ProductThumbnail url={product.image2} />
+                        ) : null}
+                        {product.image3 !== null ? (
+                            <ProductThumbnail url={product.image3} />
+                        ) : null}
+                        {product.image4 !== null ? (
+                            <ProductThumbnail url={product.image4} />
+                        ) : null}
                     </div>
-                    <div className="row">
-                        <div className="col-12 col-md-6">
-                            <div className="details__image-container shadow">
-                                <img
-                                    src={product?.thumbnail}
-                                    alt="Product"
-                                />
-                            </div>
+                    <div className="details__image-container tw-w-full tw-flex-1 tw-border">
+                        <img
+                            src={product.thumbnail}
+                            alt="Product Thumbnail"
+                            className="tw-h-auto tw-w-full"
+                        />
+                    </div>
+                </div>
+                <div className="tw-flex tw-h-auto tw-w-full tw-flex-1 tw-flex-col tw-gap-6">
+                    <div className={"tw-flex tw-flex-col tw-gap-2"}>
+                        <h1 className="tw-font-algreya tw-text-xl tw-font-bold lg:tw-text-4xl">
+                            {product.name}
+                        </h1>
+                        {product.is_available ? (
+                            <h4 className="tw-font-poppins tw-text-lg tw-text-green-400">
+                                {t("buyer_pages.product_details.in")}
+                            </h4>
+                        ) : null}
+                    </div>
+                    <div className="tw-flex tw-w-fit tw-items-center tw-justify-between tw-gap-6 tw-align-middle">
+                        <h3 className="tw-font-poppins tw-text-lg tw-font-normal lg:tw-text-xl">
+                            {`${product.price} S.A.R`}
+                        </h3>
+                    </div>
+                    <p className="tw-font-poppins tw-text-lg tw-font-normal tw-text-black">
+                        {product.description}
+                    </p>
+                    <div
+                        className={"tw-w-full tw-border-b-2 tw-border-b-gray-500 tw-py-4"}
+                    />
 
-                            <div className="detail__other-images">
-                                {product?.image1 && (
-                                    <div className="shadow mt-3">
-                                        <img
-                                            onClick={exchangeImage}
-                                            src={product?.image1}
-                                            alt="Image"
-                                            className="img-fluid"
-                                        />
-                                    </div>
-                                )}
-                                {product?.image2 && (
-                                    <div className="shadow mt-3">
-                                        <img
-                                            src={product?.image2}
-                                            alt="Image"
-                                            className="img-fluid"
-                                            onClick={exchangeImage}
-                                        />
-                                    </div>
-                                )}
-                                {product?.image3 && (
-                                    <div className="shadow mt-3">
-                                        <img
-                                            src={product?.image3}
-                                            alt="Image"
-                                            className="img-fluid"
-                                            onClick={exchangeImage}
-                                        />
-                                    </div>
-                                )}
-                                {product?.image4 && (
-                                    <div className="shadow mt-3">
-                                        <img
-                                            src={product?.image4}
-                                            alt="Image"
-                                            className="img-fluid"
-                                            onClick={exchangeImage}
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                    <div className="tw-flex tw-w-fit tw-flex-wrap tw-gap-4 lg:tw-w-full">
+                        <div className="tw-flex tw-w-full tw-overflow-hidden tw-rounded-md tw-border tw-border-gray-600 lg:tw-w-fit">
+                            <button
+                                onClick={() => {
+                                    setCurrentCount((v) => (v > 1 ? v - 1 : 1));
+                                }}
+                                className={
+                                    "tw-border-r tw-border-r-gray-400 tw-bg-none tw-px-4 tw-py-1.5"
+                                }
+                            >
+                                -
+                            </button>
+                            <p className="tw-h-full tw-w-full tw-content-center tw-px-8 tw-text-center tw-font-poppins tw-text-lg lg:tw-w-fit">
+                                {currentCount}
+                            </p>
+                            <button
+                                onClick={() => {
+                                    setCurrentCount((v) => v + 1);
+                                }}
+                                className={
+                                    "tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
+                                }
+                            >
+                                +
+                            </button>
                         </div>
-                        <div className="col-12 col-md-6 mt-4 mt-md-0">
-                            <div className="card shadow">
-                                <div className="card-body">
-                                    <p className="text-muted d-flex align-items-center gap-2">
-                                        <AiOutlineSafetyCertificate size="1.1rem" />
-                                        {product?.brand?.name}
-                                    </p>
-                                    <div className="text-muted w-100 d-flex justify-content-between align-items-center">
-                                        <div className="d-flex align-items-center gap-2">
-                                            <BiCategoryAlt size="1.1rem" />
-                                            {product?.category?.parent_name}
-                                        </div>
-                                        <div className="d-flex align-items-center gap-2">
-                                            <BiSolidCategoryAlt size="1.1rem" />
-                                            {product?.category?.name}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <h4 className="detail__title m-0 py-2">
-                                        {product?.name}
-                                    </h4>
-                                    <hr />
-                                    <p className="text-muted text-xs d-flex align-items-center gap-2">
-                                        <IoTicketOutline size=".9rem" />
-                                        SKU: {product?.sku}
-                                    </p>
-                                    {product?.sale_price > 0 && (
-                                        <p className="fw-bold d-flex align-items-center gap-2">
-                                            <span className="text-muted fw-normal d-flex align-items-center gap-2">
-                                                <PiMoney size="1.4rem" />
-                                                {t("buyer_pages.product_details.was")}:
-                                            </span>
-
-                                            <span className="text-decoration-line-through">
-                                                {product?.price}
-                                                &nbsp; {t("sar")}
-                                            </span>
-                                        </p>
-                                    )}
-
-                                    <p className="fw-bold d-flex align-items-center gap-2">
-                                        <span className="text-muted fw-normal d-flex align-items-center gap-2">
-                                            <PiMoney size="1.4rem" />
-                                            {t("buyer_pages.product_details.now")}:
-                                        </span>
-                                        {product?.price > 0 && (
-                                            <span className="detail__title">
-                                                {product?.sale_price > 0
-                                                    ? product?.sale_price
-                                                    : product?.price}
-                                                &nbsp; {t("sar")}
-                                            </span>
-                                        )}
-                                        {product?.price_range_max > 0 && (
-                                            <span className="detail__title">
-                                                {product?.price_range_min}-
-                                                {product?.price_range_max}
-                                                &nbsp; {t("sar")}
-                                            </span>
-                                        )}
-                                        <span className="text-muted fw-normal">
-                                            {t("buyer_pages.product_details.incl")}
-                                        </span>
-                                    </p>
-
-                                    <span className="text-muted fw-normal d-flex align-items-center gap-2">
-                                        <LuWarehouse size="1.3rem" />
-                                        {t("buyer_pages.product_details.avail")}:{" "}
-                                        {product?.is_available &&
-                                        product?.stock_quantity > 0 ? (
-                                            <>
-                                                {t("buyer_pages.product_details.in")} (
-                                                {product?.stock_quantity} left)
-                                            </>
-                                        ) : (
-                                            <span>
-                                                {t(
-                                                    "buyer_pages.product_details.unavailable",
-                                                )}
-                                            </span>
-                                        )}
-                                    </span>
-
-                                    <span className="text-muted fw-normal mt-3 d-flex align-items-center gap-2">
-                                        <TbTruckReturn size="1.3rem" />
-                                        {t("product_form.returnable")}:
-                                        {product?.is_returnable ? (
-                                            <span>
-                                                {t(
-                                                    "buyer_pages.product_details.return_valid",
-                                                    {
-                                                        days: product?.return_deadline,
-                                                    },
-                                                )}
-                                            </span>
-                                        ) : (
-                                            <span>
-                                                {t(
-                                                    "buyer_pages.product_details.unreturnable",
-                                                )}
-                                            </span>
-                                        )}
-                                    </span>
-
-                                    <div className="mt-4 row text-muted">
-                                        <div className="col-12 col-md-6">
-                                            {product?.price > 0 ? (
-                                                <button
-                                                    className={`gradient-bg-color w-100 py-2 text-white rounded border-0 d-flex align-items-center gap-2 justify-content-center ${
-                                                        product?.is_available &&
-                                                        product?.stock_quantity > 0
-                                                            ? ""
-                                                            : "disabled"
-                                                    }`}
-                                                    onClick={() => addToCart(product)}
-                                                    disabled={
-                                                        !product?.is_available ||
-                                                        !product?.stock_quantity
-                                                    }
-                                                    id={`item-cart-button-${product?.sku}`}
-                                                >
-                                                    {t("buyer_pages.product_details.add")}
-                                                    <BsCart3
-                                                        style={{
-                                                            fontSize: "1.5rem",
-                                                        }}
-                                                    />
-                                                </button>
-                                            ) : (
-                                                <Link
-                                                    to={`/chat/${product?.supplier?.id}`}
-                                                    className="gradient-bg-color w-100 py-2 text-white rounded border-0 d-flex align-items-center gap-2 justify-content-center"
-                                                >
-                                                    {t(
-                                                        "buyer_pages.product_details.contact",
-                                                    )}
-                                                    <MdOutlineContactMail
-                                                        style={{
-                                                            fontSize: "1.5rem",
-                                                        }}
-                                                    />
-                                                </Link>
-                                            )}
-                                        </div>
-                                        <div className="col-12 col-md-6">
-                                            {!isInWishlist ? (
-                                                <button
-                                                    className="btn detail__wish border d-flex align-items-center py-2 gap-2 w-100 mt-3 mt-md-0 justify-content-center"
-                                                    onClick={handleWishButtonClick}
-                                                >
-                                                    <MdFavoriteBorder
-                                                        size="1.5rem"
-                                                        className="home__card-button-fav-icon"
-                                                        style={{ color: "red" }}
-                                                    />
-                                                    {t(
-                                                        "buyer_pages.product_details.wish",
-                                                    )}
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={handleWishButtonClick}
-                                                    className="btn detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
-                                                >
-                                                    <MdFavorite
-                                                        size="1.5rem"
-                                                        className="detail__wish-fav"
-                                                    />
-                                                    {t(
-                                                        "buyer_pages.product_details.unwish",
-                                                    )}
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={shareProduct}
-                                        className="btn shadow mt-4 detail__wish border d-flex align-items-center py-2 gap-2 justify-content-center"
+                        <button
+                            className={
+                                "tw-flex-[0_0_50%] tw-rounded-md tw-border tw-border-purple tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-purple lg:tw-basis-auto"
+                            }
+                        >
+                            Request For Quotation
+                        </button>
+                        <button
+                            className={
+                                "tw-rounded-md tw-bg-purple tw-px-8 tw-py-1.5 tw-font-poppins tw-text-white"
+                            }
+                        >
+                            Buy Now
+                        </button>
+                        <button
+                            className={
+                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-stroke-purple tw-px-2 tw-py-1.5 tw-font-poppins tw-text-white"
+                            }
+                        >
+                            <CartIcon className={"tw-h-auto tw-w-8 tw-stroke-inherit"} />
+                        </button>
+                        <button
+                            className={
+                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-stroke-purple tw-px-2 tw-py-1.5 tw-font-poppins tw-text-white"
+                            }
+                        >
+                            <HeartIcon className={"tw-h-auto tw-w-8 tw-stroke-inherit"} />
+                        </button>
+                    </div>
+                    <div className="tw-flex tw-w-fit tw-flex-col tw-rounded-md tw-border tw-border-gray-600 tw-p-4">
+                        {!product.is_returnable ? (
+                            <div className="tw-flex tw-items-center tw-justify-center tw-gap-3">
+                                <RepeatIcon
+                                    className={"tw-h-auto tw-w-8 tw-stroke-black"}
+                                />
+                                <div className="tw-h-full tw-border-r tw-border-r-gray-600" />
+                                <div className="tw-flex tw-flex-col tw-gap-2.5">
+                                    <p
+                                        className={
+                                            "tw-font-poppins tw-text-xl tw-font-normal tw-text-black"
+                                        }
                                     >
-                                        <BsShare size="1.3rem" />
-                                        {t("buyer_pages.product_details.share")}
-                                    </button>
+                                        Returnable product!
+                                    </p>
+                                    <p
+                                        className={
+                                            "tw-font-poppins tw-text-sm tw-font-normal tw-text-grey-storm tw-underline"
+                                        }
+                                    >
+                                        Link policy for returning products
+                                    </p>
                                 </div>
                             </div>
-                        </div>
+                        ) : null}
                     </div>
                 </div>
-            </section>
-            <section>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <h3 className="fw-bold product__description">
-                                {t("supplier")}
-                            </h3>
-                            <div className="row mt-4">
-                                <Link
-                                    to={`/company/${product?.supplier?.id}`}
-                                    className="card shadow border col-12 col-md-3"
-                                >
-                                    <div className="card-body py-2 px-1 d-flex align-items-center justify-content-between gap-3">
-                                        <div className="d-flex align-items-center gap-2">
-                                            <img
-                                                src={
-                                                    product?.supplier?.profile
-                                                        ?.profile_picture
-                                                        ? import.meta.env
-                                                              .VITE_BACKEND_URL +
-                                                          product?.supplier?.profile
-                                                              ?.profile_picture
-                                                        : userImage
-                                                }
-                                                alt="Supplier"
-                                                className="rounded-circle object-fit-cover"
-                                                width={50}
-                                                height={50}
-                                            />
-                                            {product?.supplier?.full_name}
-                                        </div>
-                                        <div>
-                                            <IoIosArrowForward size="1.5rem" />
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div className="tw-flex tw-flex-col tw-gap-8 tw-py-8">
+                <div className="tw-flex tw-items-center tw-justify-start tw-gap-4">
+                    <span className="tw-aspect-[9/16] tw-rounded-md tw-bg-purple tw-p-3 " />
+                    <h3 className="tw-font-algreya tw-text-2xl tw-font-medium tw-text-purple">
+                        Related Items
+                    </h3>
                 </div>
-            </section>
-            <section className="py-5">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <h3 className="fw-bold product__description">
-                                {t("product_form.description")}
-                            </h3>
-                            <div>{parse(String(product?.description))}</div>
-                        </div>
-                    </div>
+                <div className="tw-flex tw-flex-wrap tw-gap-4">
+                    {bestSupplier?.slice(0, 4).map((product) => (
+                        <ProductCard
+                            product={product}
+                            cart={true}
+                            key={product.sku}
+                            addToCart={addToCart}
+                            isBestSelling
+                        />
+                    ))}
                 </div>
-            </section>
-        </main>
+            </div>
+        </Container>
     );
-};
-
-const shareProduct = () => {
-    const link = window.location.href;
-
-    navigator.clipboard.writeText(link);
-
-    toast.success(`${t("buyer_pages.product_details.share_success")}!`);
-};
-
-const exchangeImage = (e) => {
-    let currentImage = document.querySelector(".details__image-container>img");
-
-    let currentImageSrc = document.querySelector(".details__image-container>img").src;
-
-    let newImageSrc = e.target.src;
-
-    currentImage.src = newImageSrc;
-    e.target.src = currentImageSrc;
 };
 
 export default ProductDetails;
