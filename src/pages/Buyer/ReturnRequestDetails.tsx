@@ -4,7 +4,6 @@ import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 
 import useAxios from "../../utils/useAxios";
 
-import { TbTruckReturn } from "react-icons/tb";
 import { FcInfo } from "react-icons/fc";
 import { RiFileImageLine } from "react-icons/ri";
 
@@ -50,7 +49,6 @@ const ReturnRequestDetails: React.FC = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <TbTruckReturn size="2.5rem" />
                     {t("buyer_pages.return_request_details.title")}
                 </h2>
 

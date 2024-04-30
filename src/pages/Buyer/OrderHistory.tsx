@@ -2,8 +2,6 @@ import { useState, useEffect, useMemo, useRef } from "react";
 
 import useAxios from "../../utils/useAxios";
 
-import { MdListAlt } from "react-icons/md";
-import { GiReturnArrow } from "react-icons/gi";
 import { FcCancel } from "react-icons/fc";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
@@ -207,7 +205,6 @@ const OrderHistory = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <MdListAlt size="2.5rem" />
                     {t("buyer_sidebar.order_history")}
                 </h2>
 

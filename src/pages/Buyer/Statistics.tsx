@@ -47,7 +47,6 @@ const Statistics = () => {
         >
             <section className="px-3 py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <IoStatsChart size="2rem" />
                     {t("buyer_pages.statistics.title")}
                 </h2>
                 <div className="row">

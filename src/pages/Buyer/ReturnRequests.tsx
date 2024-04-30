@@ -142,7 +142,6 @@ const ReturnRequests = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <TbTruckReturn size="2.5rem" />
                     {t("buyer_sidebar.return")}
                 </h2>
 
