@@ -434,6 +434,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                             cart={true}
                                             key={product.sku}
                                             addToCart={addToCart}
+                                            isBestSelling
                                         />
                                     ))}
                                 </Slider>
