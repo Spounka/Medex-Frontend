@@ -21,6 +21,7 @@ const ProductCard = (props: {
     product: Product;
     cart: boolean;
     addToCart: any;
+    isBestSelling?: boolean;
     wish?: any;
     key?: string;
 }) => {
@@ -119,21 +120,19 @@ const ProductCard = (props: {
                         e.stopPropagation();
                         handleWishButtonClick();
                     }}
-                    className={"tw-p-2"}
+                    className={
+                        "tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-h-10 tw-w-auto tw-p-2"
+                    }
                 >
                     {isInWishlist ? (
                         <HeartIcon
                             className={clsx(
-                                `tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-min-h-6 tw-w-auto`,
-                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
+                                `tw-h-full tw-w-full tw-rounded-full tw-fill-purple`,
                             )}
                         />
                     ) : (
                         <HeartEmpty
-                            className={clsx(
-                                `tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-min-h-6 tw-w-auto`,
-                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
-                            )}
+                            className={clsx(`tw-h-full tw-w-full tw-stroke-purple`)}
                         />
                     )}
                 </button>
@@ -145,19 +144,14 @@ const ProductCard = (props: {
                         setIsInCart((v) => !v);
                         checkCart();
                     }}
-                    className={"tw-p-2"}
+                    className={
+                        "tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-h-10 tw-w-auto tw-rounded-full tw-bg-[#754f9d23] tw-p-2"
+                    }
                 >
                     {isInCart ? (
-                        <CartIcon
-                            className={`tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-min-h-6 tw-w-auto tw-fill-purple`}
-                        />
+                        <CartIcon className={`tw-h-full tw-w-full tw-fill-purple`} />
                     ) : (
-                        <CartEmpty
-                            className={clsx(
-                                `tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-min-h-6 tw-w-auto`,
-                                isInWishlist ? "tw-fill-purple" : "tw-fill-none",
-                            )}
-                        />
+                        <CartEmpty className={`tw-h-full tw-w-full tw-stroke-purple`} />
                     )}
                 </button>
             </Link>
@@ -176,9 +170,9 @@ const ProductCard = (props: {
                 </div>
             </div>
 
-            <div className="d-flex flex-column justify-content-between align-items-center tw-w-full tw-px-2 tw-text-left">
+            <div className="d-flex justify-content-between align-items-center tw-w-full tw-px-2 tw-text-left">
                 <span
-                    className="fw-bold home__card-price d-flex tw-flex tw-flex-col tw-items-start tw-text-left"
+                    className="fw-bold home__card-price d-flex tw-flex tw-flex-1 tw-flex-col tw-items-start tw-text-left"
                     style={{ width: "100%" }}
                 >
                     {product.price > 0 && (
@@ -206,6 +200,11 @@ const ProductCard = (props: {
                         </span>
                     )}
                 </span>
+                {props.isBestSelling ? (
+                    <div className="tw-rounded-full tw-bg-purple tw-px-2 tw-text-center tw-text-sm tw-text-white lg:tw-text-lg xl:tw-text-sm">
+                        Best Selling
+                    </div>
+                ) : null}
             </div>
         </div>
     );

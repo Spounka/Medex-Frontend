@@ -3,7 +3,7 @@ import { PiChatsCircle } from "react-icons/pi";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import useAxios from "../../utils/useAxios";
-import { UilComments } from "@iconscout/react-unicons";
+import { IoChatbubblesOutline as UilComments } from "react-icons/io5";
 
 const ChatFixedIcon = () => {
     const [messagesCount, setMessagesCount] = useState(0);
@@ -41,6 +41,7 @@ const ChatFixedIcon = () => {
                     width={"2.5rem"}
                     height={"2.5rem"}
                     color={"white"}
+                    className={"tw-h-auto tw-w-10 tw-stroke-[#fff]"}
                 />
                 {/*<PiChatsCircle*/}
                 {/*    size="2.5rem"*/}
