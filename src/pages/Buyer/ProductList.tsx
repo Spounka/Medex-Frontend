@@ -361,12 +361,12 @@ const OurStore = (props) => {
                         </div>
                     </div>
                     <div className="col-12 col-md-9">
-                        <div className="gg">
+                        <div className="tw-flex tw-flex-wrap tw-gap-2">
                             {productsList.length > 0 ? (
                                 productsList.map((product) => {
                                     return (
                                         <div
-                                            className=""
+                                            className="tw-flex-[0_0_20%]  tw-overflow-hidden"
                                             key={product.sku}
                                         >
                                             <ProductCart

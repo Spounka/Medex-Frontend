@@ -12,7 +12,12 @@ import enFlag from "../../../assets/images/us-flag.png";
 
 import { useTranslation } from "react-i18next";
 import Container from "../../ui/container";
-import { UilShoppingCart, UilHeart, UilSearch, UilUser } from "@iconscout/react-unicons";
+import {
+    IoCartOutline as UilShoppingCart,
+    IoHeartOutline as UilHeart,
+    IoSearchOutline as UilSearch,
+    IoPersonOutline as UilUser,
+} from "react-icons/io5";
 import clsx from "clsx";
 
 const Header = () => {
@@ -76,7 +81,7 @@ const Header = () => {
             >
                 <Link
                     to="/"
-                    className="tw-font-algreya tw-text-5xl tw-font-extrabold"
+                    className="tw-content-center tw-font-algreya tw-text-5xl tw-font-extrabold"
                 >
                     Medex
                 </Link>
@@ -209,7 +214,7 @@ const Header = () => {
                                                     }}
                                                 >
                                                     <UilSearch
-                                                        width={"1.2rem"}
+                                                        width={"2.2rem"}
                                                         height={"auto"}
                                                         fill={"black"}
                                                     />
@@ -232,16 +237,16 @@ const Header = () => {
                                 </form>
                             </div>
                             <div className="d-flex flex-column justify-content align-items-center navbar__top-section">
-                                <div className="d-flex w-100 navbar__top-links tw-w-full tw-flex-grow tw-justify-end">
+                                <div className="d-flex w-100 navbar__top-links tw-w-full tw-flex-grow tw-items-center tw-justify-end">
                                     <li className="nav-item">
                                         <Link
                                             to="/wishlist"
                                             className="nav-link d-flex justify-content-center align-items-center gap-2"
                                         >
                                             <UilHeart
-                                                width={"2.2rem"}
-                                                height={"auto"}
-                                                fill={"black"}
+                                                className={
+                                                    "tw-h-auto tw-w-8 tw-stroke-black"
+                                                }
                                             />
                                             <p className="m-0 header__link">
                                                 {t("header.favorite")}
@@ -256,9 +261,9 @@ const Header = () => {
                                             className="nav-link d-flex justify-content-center align-items-center gap-2 header__account-dropdown"
                                         >
                                             <UilUser
-                                                fill={"black"}
-                                                width={"2.2rem"}
-                                                height={"auto"}
+                                                className={
+                                                    "tw-h-auto tw-w-8 tw-stroke-black"
+                                                }
                                             />
                                             <span className="header__link">
                                                 {t("header.your")} <br />{" "}
@@ -323,9 +328,9 @@ const Header = () => {
                                             className="nav-link d-flex justify-content-center align-items-center gap-2 text-color-darkblue position-relative"
                                         >
                                             <UilShoppingCart
-                                                width={"2.5rem"}
-                                                height={"auto"}
-                                                fill={"black"}
+                                                className={
+                                                    "tw-h-auto tw-w-9 tw-stroke-black"
+                                                }
                                             />
                                             <span
                                                 id="header-cart-count"
