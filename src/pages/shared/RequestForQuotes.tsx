@@ -4,7 +4,7 @@ import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-import { MdOutlineClear, MdOutlineRequestQuote } from "react-icons/md";
+import { MdOutlineClear } from "react-icons/md";
 import { RiMailSendLine } from "react-icons/ri";
 
 import { Product } from "@domain/product";
@@ -130,7 +130,6 @@ const RequestForQuotes = () => {
                     {window.location.href.indexOf("supplier") > -1 ||
                     window.location.href.indexOf("dashboard") > -1 ? (
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                            <MdOutlineRequestQuote size="2.5rem" />
                             {t("rfq")}
                         </h2>
                     ) : (

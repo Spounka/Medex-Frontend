@@ -4,8 +4,6 @@ import useAxios from "../../utils/useAxios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { TbTruckReturn } from "react-icons/tb";
-
 import userImage from "../../assets/images/user.png";
 
 const ReturnRequests = () => {
@@ -32,8 +30,7 @@ const ReturnRequests = () => {
         <main className="px-0 px-md-3">
             <section>
                 <div className="container-fluid">
-                    <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                        <TbTruckReturn size="2.5rem" />
+                    <h2 className="fw-bold dashboard__title">
                         {t("supplier_sidebar.return_requests")}
                     </h2>
                 </div>

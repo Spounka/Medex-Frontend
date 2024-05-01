@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
-    MdList,
     MdOutlinePostAdd,
     MdOutlineGrid3X3,
     MdLocationCity,
@@ -178,12 +177,11 @@ const QuoteList = () => {
             <section>
                 <div className="container">
                     <div className="row">
-                        <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                            <MdList size="2.5rem" />
+                        <h2 className="fw-bold dashboard__title">
                             {t("supplier_pages.quote_list.title")}
                         </h2>
                     </div>
-                    <div className="row mt-3">
+                    {/* <div className="row mt-3">
                         {quotes.length > 0 ? (
                             <>
                                 <div
@@ -248,7 +246,7 @@ const QuoteList = () => {
                                                                     {quote.product_name}
                                                                 </h6>
                                                                 <span className="card-text dashboard__quote-text">
-                                                                    {quote.requirements.substring(
+                                                                    {quote?.requirements?.substring(
                                                                         0,
                                                                         30,
                                                                     )}
@@ -989,7 +987,7 @@ const QuoteList = () => {
                                 {t("buyer_pages.quote_requests.none")}!
                             </p>
                         )}
-                    </div>
+                    </div> */}
                 </div>
             </section>
         </main>

@@ -6,8 +6,6 @@ import useAxios from "../../utils/useAxios";
 
 import userImage from "../../assets/images/user.png";
 
-import { FcCancel } from "react-icons/fc";
-import { AiOutlineFieldTime } from "react-icons/ai";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
 
@@ -174,8 +172,6 @@ const OrderList = () => {
                     `/api/order/orders/?p=${currentPage}&l=10`,
             )
             .then((res) => {
-                console.log(res.data.results.results);
-
                 setRowData(res.data.results.results);
                 setTotalPages(Math.ceil(res.data.count / 10));
             });
@@ -190,7 +186,6 @@ const OrderList = () => {
             <section>
                 <div className="container-fluid">
                     <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                        <AiOutlineFieldTime size="2.5rem" />
                         {t("supplier_pages.sales_list.title")}
                     </h2>
 

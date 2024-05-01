@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { BsTruck } from "react-icons/bs";
 
 import { useState, useEffect } from "react";
 
@@ -39,8 +38,7 @@ const TrackingList = () => {
             <section>
                 <div className="container">
                     <div className="row">
-                        <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                            <BsTruck size="2.5rem" />
+                        <h2 className="fw-bold dashboard__title">
                             {t("supplier_sidebar.tracking")}
                         </h2>
                     </div>
