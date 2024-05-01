@@ -67,7 +67,6 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
-            console.log(products);
 
             if (products?.products) {
                 setSale(products?.products);
@@ -77,6 +76,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
         const fetchRecentlyAddedProducts = async () => {
             const products = await fetchProductsByQuery("-created");
+
             if (products?.products) {
                 setRecent(products?.products);
                 setAds(products?.ads);

@@ -1,17 +1,11 @@
-import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { PiMoney } from "react-icons/pi";
 import { IoTicketOutline } from "react-icons/io5";
-import {
-    BiCategoryAlt,
-    BiSolidCategoryAlt,
-    BiEditAlt,
-    BiCheckDouble,
-} from "react-icons/bi";
+import { BiCategoryAlt, BiSolidCategoryAlt } from "react-icons/bi";
 import { BsShare } from "react-icons/bs";
-import { AiOutlineSafetyCertificate, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { LuWarehouse } from "react-icons/lu";
-import { MdOutlineCancel } from "react-icons/md";
 import { TbTruckReturn } from "react-icons/tb";
 
 import { toast } from "react-toastify";
@@ -19,22 +13,17 @@ import { toast } from "react-toastify";
 import parse from "html-react-parser";
 
 import useAxios from "../../utils/useAxios";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
     const { t } = useTranslation();
-
-    const { user } = useContext(AuthContext);
 
     const location = useLocation();
 
     const [product, setProduct] = useState({});
 
     const params = useParams();
-
-    const [isDeleted, setIsDeleted] = useState(false);
 
     const navigate = useNavigate();
 
@@ -87,29 +76,6 @@ const ProductDetails = () => {
             };
         });
     });
-
-    const deleteProductSubmit = async () => {
-        await api
-            .delete(import.meta.env.VITE_BACKEND_URL + "/api/product/delete", {
-                data: {
-                    user: user.user_id,
-                    sku: product.sku,
-                },
-            })
-            .then(() => {
-                setIsDeleted(true);
-                toast.success(`${t("supplier_pages.product_details.del_ok")}!`);
-            })
-            .catch((err) => {
-                toast.error(`${t("supplier_pages.product_details.del_err")}!`);
-            });
-    };
-
-    useEffect(() => {
-        if (isDeleted) {
-            navigate("/supplier/products/list");
-        }
-    }, [isDeleted]);
 
     return (
         <main className="px-0 px-md-3">
@@ -279,60 +245,6 @@ const ProductDetails = () => {
                                         <BsShare size="1.3rem" />
                                         {t("buyer_pages.product_details.share")}
                                     </button>
-
-                                    <div className="mt-4 row text-muted">
-                                        <div className="col-12 col-md-6">
-                                            <Link
-                                                to={`/supplier/products/update/${product.sku}`}
-                                                className="btn btn-primary d-flex w-100 gap-2 justify-content-center align-items-center mt-3"
-                                            >
-                                                <BiEditAlt />
-                                                {t(
-                                                    "supplier_pages.product_details.update",
-                                                )}
-                                            </Link>
-                                        </div>
-                                        <div className="col-12 col-md-6">
-                                            <button
-                                                className="btn btn-danger w-100 d-flex gap-2 justify-content-center align-items-center mt-3"
-                                                onClick={deleteProductShowOverlay}
-                                            >
-                                                <AiOutlineDelete />
-                                                {t("supplier_pages.product_details.del")}
-                                            </button>
-                                        </div>
-                                        <div
-                                            className="overlay d-none justify-content-center align-items-center"
-                                            id="dialog-container"
-                                        >
-                                            <div className="popup">
-                                                <p>
-                                                    {t(
-                                                        "supplier_pages.product_details.del_msg",
-                                                    )}
-                                                    ?
-                                                </p>
-                                                <div className="d-flex justify-content-center gap-5 align-items-center">
-                                                    <button
-                                                        className="btn btn-outline-primary px-5 d-flex align-items-center gap-2"
-                                                        id="cancel"
-                                                        onClick={deleteProductHideOverlay}
-                                                    >
-                                                        {t("buyer_pages.profile.cancel")}
-                                                        <MdOutlineCancel size="1.4rem" />
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-danger px-5 d-flex align-items-center gap-2"
-                                                        id="confirm"
-                                                        onClick={deleteProductSubmit}
-                                                    >
-                                                        {t("buyer_pages.profile.del")}
-                                                        <BiCheckDouble size="1.4rem" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -372,18 +284,6 @@ const exchangeImage = (e) => {
 
     currentImage.src = newImageSrc;
     e.target.src = currentImageSrc;
-};
-
-const deleteProductShowOverlay = () => {
-    const overlay = document.getElementById("dialog-container");
-    overlay.classList.add("d-flex");
-    overlay.classList.remove("d-none");
-};
-
-const deleteProductHideOverlay = () => {
-    const overlay = document.getElementById("dialog-container");
-    overlay.classList.remove("d-flex");
-    overlay.classList.add("d-none");
 };
 
 export default ProductDetails;

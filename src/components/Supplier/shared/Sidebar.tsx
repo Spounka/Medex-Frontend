@@ -125,75 +125,12 @@ const Sidebar = (props) => {
                         onClick={() => setLi(3)}
                     >
                         <Link
-                            to="#products"
-                            data-bs-toggle="collapse"
+                            to="/supplier/products/list"
                             className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                         >
                             <MdShop2 size="1.5rem" />
                             <span className="ms-1">{t("supplier_sidebar.products")}</span>
-                            <IoIosArrowDown size="0.8rem" />
                         </Link>
-                        <ul
-                            className="collapse nav flex-column mx-3"
-                            id="products"
-                            data-bs-parent="#menu"
-                        >
-                            <li className="w-100">
-                                <Link
-                                    to="/supplier/products/list"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbDatabaseSearch size="1.5rem" />
-                                    {t("supplier_sidebar.products_list")}
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                    to="/supplier/products/update"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbDatabaseEdit size="1.5rem" />
-                                    {t("supplier_sidebar.update_product")}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="#createProduct"
-                                    data-bs-toggle="collapse"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbDatabasePlus size="1.5rem" />
-                                    <span className="ms-1">
-                                        {t("supplier_sidebar.create_product")}
-                                    </span>
-                                    <IoIosArrowDown size="0.8rem" />
-                                </Link>
-                                <ul
-                                    className="collapse nav flex-column mx-3"
-                                    id="createProduct"
-                                    data-bs-parent="#products"
-                                >
-                                    <li>
-                                        <Link
-                                            to="/supplier/products/create"
-                                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                        >
-                                            <MdAddToQueue size="1.5rem" />
-                                            {t("supplier_sidebar.create_product_form")}
-                                        </Link>
-
-                                        <Link
-                                            to="/supplier/products/excel-create"
-                                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                        >
-                                            <FaRegFileExcel size="1.5rem" />
-                                            {t("supplier_sidebar.create_product_excel")}
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
 
                     <li
