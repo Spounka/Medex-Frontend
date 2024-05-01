@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 
 import useAxios from "../../utils/useAxios";
 
@@ -16,7 +16,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.js";
 import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.js";
 
-const OrderHistory = () => {
+const OrderHistory: React.FC = () => {
     const { t, i18n } = useTranslation();
 
     const gridRef = useRef();
@@ -80,7 +80,12 @@ const OrderHistory = () => {
             field: "total_price",
             headerName: t("buyer_pages.cart.total"),
             filter: "agNumberColumnFilter",
-            valueFormatter: (params) => `${params.data.total_price} ${t("sar")}`,
+            valueGetter: (params) => parseFloat(params.data.total_price),
+            cellRenderer: (params) => {
+                const formattedPrice = `${params.value.toFixed(2)} ${t("sar")}`;
+                return formattedPrice;
+            },
+            floatingFilter: true,
         },
         {
             field: "shipping_status",

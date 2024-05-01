@@ -84,7 +84,12 @@ const ReturnRequests = () => {
             field: "product.total_price",
             headerName: t("buyer_pages.cart.total"),
             filter: "agNumberColumnFilter",
-            valueFormatter: (params) => `${params.data.product.total_price} ${t("sar")}`,
+            valueGetter: (params) => parseFloat(params.data.product.total_price),
+            cellRenderer: (params) => {
+                const formattedPrice = `${params.value.toFixed(2)} ${t("sar")}`;
+                return formattedPrice;
+            },
+            floatingFilter: true,
         },
         {
             field: "product.created_date",
