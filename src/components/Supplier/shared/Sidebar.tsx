@@ -1,29 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { BiSolidMessageAltDetail, BiSolidOffer } from "react-icons/bi";
-import { BsGearFill, BsTruck } from "react-icons/bs";
-import { FaRegFileExcel } from "react-icons/fa";
+import { BiSolidMessageAltDetail } from "react-icons/bi";
+import { BsGearFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoStatsChart, IoStorefrontOutline } from "react-icons/io5";
 import { LuTextQuote } from "react-icons/lu";
-import {
-    MdAddToQueue,
-    MdList,
-    MdListAlt,
-    MdOutlinePointOfSale,
-    MdOutlinePreview,
-    MdRequestQuote,
-    MdShop2,
-    MdSpaceDashboard,
-    MdWallet,
-} from "react-icons/md";
-import {
-    TbDatabaseEdit,
-    TbDatabasePlus,
-    TbDatabaseSearch,
-    TbHomeEdit,
-    TbTruckReturn,
-} from "react-icons/tb";
+import { CgShapeCircle } from "react-icons/cg";
+import { MdListAlt, MdShop2, MdSpaceDashboard, MdWallet } from "react-icons/md";
 
 import { useTranslation } from "react-i18next";
 
@@ -172,7 +155,7 @@ const Sidebar = (props) => {
                                     to="/supplier/sales"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdOutlinePointOfSale size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     {t("supplier_sidebar.all_sales")}
                                 </Link>
                             </li>
@@ -181,7 +164,7 @@ const Sidebar = (props) => {
                                     to="/supplier/tracking"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <BsTruck size="1.5rem" />
+                                    <CgShapeCircle size=".9rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.tracking")}
                                     </span>
@@ -192,7 +175,7 @@ const Sidebar = (props) => {
                                     to="/supplier/return-requests"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbTruckReturn size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.return_requests")}
                                     </span>
@@ -240,7 +223,7 @@ const Sidebar = (props) => {
                                     to="/supplier/quotes"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdList size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.quote_requests")}
                                     </span>
@@ -249,14 +232,14 @@ const Sidebar = (props) => {
                                     to="/supplier/request-for-quote"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdRequestQuote size="1.5rem" />
+                                    <CgShapeCircle size=".9rem" />
                                     <span className="ms-1">{t("rfq")}</span>
                                 </Link>
                                 <Link
                                     to="/supplier/quotes/offers"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <BiSolidOffer size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.offers_list")}{" "}
                                     </span>
@@ -304,7 +287,7 @@ const Sidebar = (props) => {
                                     to="/supplier/store/edit"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbHomeEdit size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.edit_store")}
                                     </span>
@@ -313,7 +296,7 @@ const Sidebar = (props) => {
                                     to="/supplier/store/view"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdOutlinePreview size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("supplier_sidebar.view_store")}
                                     </span>
