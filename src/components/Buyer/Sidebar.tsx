@@ -6,9 +6,7 @@ import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { IoStatsChart } from "react-icons/io5";
-import { FaHistory } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
-import { GiReturnArrow } from "react-icons/gi";
+import { CgShapeCircle } from "react-icons/cg";
 
 const Sidebar = (props) => {
     const { t } = useTranslation();
@@ -48,7 +46,7 @@ const Sidebar = (props) => {
                                     to="/account/dashboard/order-history"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <FaHistory size="1.3rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("buyer_sidebar.order_history")}
                                     </span>
@@ -59,7 +57,7 @@ const Sidebar = (props) => {
                                     to="/account/dashboard/order-tracking"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <TbTruckDelivery size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("buyer_sidebar.tracking")}
                                     </span>
@@ -70,7 +68,7 @@ const Sidebar = (props) => {
                                     to="/account/dashboard/return-requests"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <GiReturnArrow size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("buyer_sidebar.return")}
                                     </span>
@@ -99,7 +97,7 @@ const Sidebar = (props) => {
                                     to="/account/dashboard/quotes"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdList size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">
                                         {t("buyer_sidebar.my_quotes")}
                                     </span>
@@ -108,7 +106,7 @@ const Sidebar = (props) => {
                                     to="/account/dashboard/request-for-quote"
                                     className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
                                 >
-                                    <MdRequestQuote size="1.5rem" />
+                                    <CgShapeCircle size=".8rem" />
                                     <span className="ms-1">{t("rfq")}</span>
                                 </Link>
                             </li>
