@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { MdRequestQuote, MdListAlt, MdList, MdWallet } from "react-icons/md";
+import { MdListAlt, MdWallet } from "react-icons/md";
 import { BiSolidDownArrow, BiSolidMessageAltDetail } from "react-icons/bi";
 import { LuTextQuote } from "react-icons/lu";
 import { BsGearFill } from "react-icons/bs";
