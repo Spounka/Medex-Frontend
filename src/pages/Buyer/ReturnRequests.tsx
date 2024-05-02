@@ -4,8 +4,6 @@ import useAxios from "../../utils/useAxios";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import { TbTruckReturn } from "react-icons/tb";
-
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
 
@@ -44,8 +42,6 @@ const ReturnRequests = () => {
                     </Link>
                 );
             },
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
         },
         {
             field: "product.product.name",
@@ -106,6 +102,7 @@ const ReturnRequests = () => {
         {
             field: "details",
             headerName: t("buyer_pages.return_request.details"),
+            minWidth: 170,
             cellRenderer: (params) => {
                 return (
                     <Link

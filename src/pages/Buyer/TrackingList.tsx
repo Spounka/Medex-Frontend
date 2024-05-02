@@ -41,8 +41,6 @@ const TrackingList = () => {
                     </Link>
                 );
             },
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
         },
         {
             field: "product.name",

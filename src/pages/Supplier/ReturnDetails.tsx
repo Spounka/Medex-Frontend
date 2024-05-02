@@ -152,7 +152,8 @@ const ReturnDetails = () => {
                                         <img
                                             src={
                                                 request?.user?.profile?.profile_picture
-                                                    ? request?.user?.profile
+                                                    ? import.meta.env.VITE_BACKEND_URL +
+                                                      request?.user?.profile
                                                           ?.profile_picture
                                                     : userImage
                                             }

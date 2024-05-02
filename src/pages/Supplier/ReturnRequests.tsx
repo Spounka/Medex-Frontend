@@ -1,30 +1,171 @@
 import { useTranslation } from "react-i18next";
 
 import useAxios from "../../utils/useAxios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import userImage from "../../assets/images/user.png";
 
-const ReturnRequests = () => {
-    const { t } = useTranslation();
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
 
-    const [returnRequests, setReturnRequests] = useState({});
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-material.css";
+
+import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.js";
+import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.js";
+
+const ReturnRequests = () => {
+    const { t, i18n } = useTranslation();
+
+    const gridRef = useRef();
+
+    const [totalPages, setTotalPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const api = useAxios();
+
+    const [rowData, setRowData] = useState([]);
+
+    const columnDefs = [
+        {
+            field: "product.product.sku",
+            headerName: "# " + t("buyer_pages.order_history.id"),
+            cellRenderer: (params) => {
+                return (
+                    <Link
+                        to={`/products/${params.data.product.product.sku}`}
+                        state={{
+                            product: params.data.product.product,
+                        }}
+                    >
+                        {params.data.product.product.sku}
+                    </Link>
+                );
+            },
+        },
+        {
+            field: "user.full_name",
+            headerName: t("supplier_pages.update_product.buyer"),
+            cellRenderer: (params) => {
+                const url = params.data.user.profile.profile_picture
+                    ? import.meta.env.VITE_BACKEND_URL +
+                      params.data.user.profile.profile_picture
+                    : userImage;
+                const userName = params.data.user.full_name;
+
+                return (
+                    <div className="d-flex align-items-center">
+                        <img
+                            src={url}
+                            alt="User Picture"
+                            width={30}
+                            height={30}
+                            className={`rounded-circle object-contain ${i18n.language === "ar" ? "ms-2" : "me-2"}`}
+                        />
+                        <span className="text-truncate">{userName}</span>
+                    </div>
+                );
+            },
+        },
+        {
+            field: "product.product.name",
+            headerName: t("buyer_pages.cart.product"),
+            cellRenderer: (params) => {
+                const url = params.data.product.product.thumbnail;
+                const productName = params.data.product.product.name;
+
+                return (
+                    <Link
+                        to={`/products/${params.data.product.product.sku}`}
+                        state={{
+                            product: params.data.product.product,
+                        }}
+                    >
+                        <div className="d-flex align-items-center">
+                            <img
+                                src={url}
+                                alt="Product Picture"
+                                width={30}
+                                height={30}
+                                className={`rounded-circle object-contain ${i18n.language === "ar" ? "ms-2" : "me-2"}`}
+                            />
+                            <span className="text-truncate">{productName}</span>
+                        </div>
+                    </Link>
+                );
+            },
+        },
+        {
+            field: "product.quantity",
+            headerName: t("buyer_pages.cart.qty"),
+            filter: "agNumberColumnFilter",
+        },
+        {
+            field: "product.total_price",
+            headerName: t("buyer_pages.cart.total"),
+            filter: "agNumberColumnFilter",
+            valueGetter: (params) => parseFloat(params.data.product.total_price),
+            cellRenderer: (params) => {
+                const formattedPrice = `${params.value.toFixed(2)} ${t("sar")}`;
+                return formattedPrice;
+            },
+            floatingFilter: true,
+        },
+        {
+            field: "product.created_date",
+            headerName: t("buyer_pages.order_history.date"),
+            valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+            filter: "agDateColumnFilter",
+        },
+        {
+            field: "created_date",
+            headerName: t("buyer_pages.return_request.date"),
+            valueFormatter: (params) => new Date(params.value).toLocaleDateString(),
+            filter: "agDateColumnFilter",
+        },
+        {
+            field: "details",
+            headerName: t("buyer_pages.return_request.details"),
+            minWidth: 170,
+            filter: null,
+            cellRenderer: (params) => {
+                return (
+                    <Link
+                        className="btn btn-primary"
+                        to={`/supplier/return-requests/${params.data.id}`}
+                        state={params.data}
+                        style={{ fontSize: ".63rem" }}
+                    >
+                        {t("buyer_pages.return_request.details")}
+                    </Link>
+                );
+            },
+        },
+    ];
+
+    const defaultColDef = useMemo(() => {
+        return {
+            filter: "agTextColumnFilter",
+            floatingFilter: true,
+            minWidth: 135,
+            flex: 1,
+        };
+    }, []);
 
     const getReturnRequests = async () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + "/api/order/return/list/")
             .then((res) => {
-                setReturnRequests(res.data);
-                console.log(res.data);
+                setTotalPages(Math.ceil(res.data.count / 10));
+                setRowData(res.data.results);
             });
     };
 
     useEffect(() => {
         getReturnRequests();
-    }, []);
+    }, [currentPage]);
 
     return (
         <main className="px-0 px-md-3">
@@ -33,65 +174,72 @@ const ReturnRequests = () => {
                     <h2 className="fw-bold dashboard__title">
                         {t("supplier_sidebar.return_requests")}
                     </h2>
-                </div>
-                <div className="row">
-                    {returnRequests.length > 0 ? (
-                        returnRequests.map((request) => {
-                            return (
-                                <div
-                                    className="col-12 mt-4"
-                                    key={request.id}
-                                >
-                                    <Link
-                                        to={`/supplier/return-requests/${request.id}`}
-                                        className="w-100"
-                                    >
-                                        <div className="card p-3 shadow">
-                                            <div className="d-flex align-items-center justify-content-between">
-                                                <div className="d-flex align-items-center gap-4">
-                                                    <img
-                                                        src={
-                                                            request.user.profile
-                                                                .profilePicture
-                                                                ? import.meta.env
-                                                                      .VITE_BACKEND_URL +
-                                                                  request.user.profile
-                                                                      .profilePicture
-                                                                : userImage
-                                                        }
-                                                        alt="User"
-                                                        className=" rounded-circle border"
-                                                        width={60}
-                                                        height={60}
-                                                    />
 
-                                                    <div className="d-flex flex-column gap-2">
-                                                        <h4 className="m-0">
-                                                            {request.user.full_name}
-                                                        </h4>
-                                                        <p className="m-0">
-                                                            {
-                                                                request.product?.product
-                                                                    ?.name
-                                                            }{" "}
-                                                            * {request?.product?.quantity}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="badge bg-primary p-2 fw-bold d-flex align-items-center gap-1">
-                                                    {request?.created_date}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <p className="mt-3 text-center">
-                            {t("supplier_pages.return_list.none")}!
-                        </p>
-                    )}
+                    <div
+                        className="ag-theme-material mt-3 mb-5"
+                        style={{ height: 500 }}
+                    >
+                        <AgGridReact
+                            ref={gridRef}
+                            rowData={rowData}
+                            columnDefs={columnDefs}
+                            defaultColDef={defaultColDef}
+                            rowSelection="multiple"
+                            suppressRowClickSelection={true}
+                            localeText={
+                                i18n.language === "ar"
+                                    ? AG_GRID_LOCALE_AR
+                                    : AG_GRID_LOCALE_EN
+                            }
+                            enableRtl={i18n.language === "ar" ? true : false}
+                            pagination={true}
+                            paginationPageSize={10}
+                            suppressPaginationPanel={true}
+                            tooltipShowDelay={100}
+                        />
+                        <div className="d-flex align-items-center justify-content-end py-2">
+                            <div className="d-flex align-items-center justify-content-center gap-2">
+                                <button
+                                    className={`btn`}
+                                    onClick={() => setCurrentPage(1)}
+                                >
+                                    <TbChevronLeftPipe size=".9rem" />
+                                </button>
+                                <button
+                                    className={`btn ${
+                                        currentPage === 1 &&
+                                        "dashboard__pagination-disabled"
+                                    }`}
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage(() => currentPage - 1)}
+                                >
+                                    <IoIosArrowBack size=".9rem" />
+                                </button>
+                                <span className="text-muted">
+                                    {t("buyer_pages.order_history.pagination", {
+                                        c: currentPage,
+                                        m: totalPages,
+                                    })}
+                                </span>
+                                <button
+                                    className={`btn ${
+                                        currentPage === totalPages &&
+                                        "dashboard__pagination-disabled"
+                                    }`}
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage(() => currentPage + 1)}
+                                >
+                                    <IoIosArrowForward size=".9rem" />
+                                </button>
+                                <button
+                                    className="btn"
+                                    onClick={() => setCurrentPage(totalPages)}
+                                >
+                                    <TbChevronRightPipe size=".9rem" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
