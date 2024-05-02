@@ -104,11 +104,11 @@ const ProductCard = (props: {
             >
                 <img
                     src={
-                        user
-                            ? user.role == "buyer"
-                                ? product.thumbnail
-                                : import.meta.env.VITE_BACKEND_URL + product.thumbnail
-                            : product.thumbnail
+                        product.thumbnail.startsWith("http")
+                            ? product.thumbnail
+                            : import.meta.env.VITE_BACKEND_URL +
+                              "/uploads/" +
+                              product.thumbnail
                     }
                     className="tw-min-h-[200px] tw-object-cover tw-object-center"
                     width="100%"
@@ -121,7 +121,7 @@ const ProductCard = (props: {
                         handleWishButtonClick();
                     }}
                     className={
-                        "tw-absolute tw-right-4 tw-top-4 tw-z-10 tw-h-10 tw-w-auto tw-p-2"
+                        "tw-absolute tw-right-1 tw-top-1 tw-z-10 tw-h-10 tw-w-auto tw-p-2 lg:tw-right-4 lg:tw-top-4"
                     }
                 >
                     {isInWishlist ? (
@@ -145,7 +145,7 @@ const ProductCard = (props: {
                         checkCart();
                     }}
                     className={
-                        "tw-absolute tw-bottom-4 tw-right-4 tw-z-10 tw-h-10 tw-w-auto tw-rounded-full tw-bg-[#754f9d23] tw-p-2"
+                        "tw-absolute tw-bottom-1 tw-right-1 tw-z-10 tw-h-10 tw-w-auto tw-rounded-full tw-bg-[#754f9d23] tw-p-2 lg:tw-bottom-4 lg:tw-right-4"
                     }
                 >
                     {isInCart ? (
@@ -172,7 +172,7 @@ const ProductCard = (props: {
 
             <div className="d-flex justify-content-between align-items-center tw-w-full tw-px-2 tw-text-left">
                 <span
-                    className="fw-bold home__card-price d-flex tw-flex tw-flex-1 tw-flex-col tw-items-start tw-text-left"
+                    className="fw-bold home__card-price d-flex tw-flex tw-flex-1 tw-flex-col tw-content-center tw-items-start tw-text-left"
                     style={{ width: "100%" }}
                 >
                     {product.price > 0 && (
@@ -201,11 +201,16 @@ const ProductCard = (props: {
                     )}
                 </span>
                 {props.isBestSelling ? (
-                    <div className="tw-rounded-full tw-bg-purple tw-px-2 tw-text-center tw-text-sm tw-text-white lg:tw-text-lg xl:tw-text-sm">
+                    <h6 className="tw-hidden tw-w-fit tw-self-end tw-rounded-full tw-bg-purple tw-px-2 tw-py-0.5 tw-text-center tw-text-white xl:tw-block">
                         Best Selling
-                    </div>
+                    </h6>
                 ) : null}
             </div>
+            {props.isBestSelling ? (
+                <h6 className="tw-mx-2 tw-w-fit tw-self-end tw-rounded-full tw-bg-purple tw-px-2 tw-py-0.5 tw-text-center tw-text-white xl:tw-hidden ">
+                    Best Selling
+                </h6>
+            ) : null}
         </div>
     );
 };
