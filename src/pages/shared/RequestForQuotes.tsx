@@ -38,9 +38,9 @@ const RequestForQuotes = () => {
 
     const getProducts = async () => {
         await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product")
-            .then((res: AxiosResponse<Product[]>) => {
-                const nameOptions = res.data.map((product) => ({
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product/")
+            .then((res: AxiosResponse<{ products: Product[] }>) => {
+                const nameOptions = res.data.products.map((product) => ({
                     value: product.slug,
                     label: product.name,
                 }));

@@ -289,27 +289,32 @@ const ProductDetails = (props) => {
                         className={"tw-w-full tw-border-b-2 tw-border-b-gray-500 tw-py-4"}
                     />
 
-                    <div className="tw-flex tw-w-fit tw-flex-wrap tw-gap-4 lg:tw-w-full">
-                        <div className="tw-flex tw-w-full tw-overflow-hidden tw-rounded-md tw-border tw-border-gray-600 lg:tw-w-fit">
+                    <div className="tw-flex tw-w-min tw-flex-wrap tw-gap-4 lg:tw-w-full">
+                        <div className="tw-flex  tw-w-full tw-overflow-hidden tw-rounded-md tw-border tw-border-gray-600 lg:tw-w-fit">
                             <button
                                 onClick={() => {
                                     setCurrentCount((v) => (v > 1 ? v - 1 : 1));
                                 }}
                                 className={
-                                    "tw-border-r tw-border-r-gray-400 tw-bg-none tw-px-4 tw-py-1.5"
+                                    "tw-flex-1 tw-border-r tw-border-r-gray-400 tw-bg-none tw-px-4 tw-py-1.5"
                                 }
                             >
                                 -
                             </button>
-                            <p className="tw-h-full tw-w-full tw-content-center tw-px-8 tw-text-center tw-font-poppins tw-text-lg lg:tw-w-fit">
-                                {currentCount}
-                            </p>
+                            <input
+                                type={"number"}
+                                onChange={(e) => {
+                                    setCurrentCount(parseInt(e.target.value));
+                                }}
+                                className="tw-h-full tw-w-full tw-flex-1 tw-content-center tw-px-8 tw-text-center tw-font-poppins tw-text-lg focus:tw-outline-none lg:tw-w-min lg:tw-flex-1"
+                                value={currentCount}
+                            />
                             <button
                                 onClick={() => {
                                     setCurrentCount((v) => v + 1);
                                 }}
                                 className={
-                                    "tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
+                                    "tw-flex-1 tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
                                 }
                             >
                                 +
