@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
-import { BiLogIn, BiLogOut, BiUserPlus } from "react-icons/bi";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
+import {
+    IoLogInOutline as BiLogIn,
+    IoLogOutOutline as BiLogOut,
+    IoPersonAddOutline as BiUserPlus,
+} from "react-icons/io5";
+import { RxDashboard as MdOutlineSpaceDashboard } from "react-icons/rx";
 
 import { useContext, useDeferredValue, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext";
@@ -317,11 +321,12 @@ const Header = () => {
                                                         </li>
                                                         <li>
                                                             <Link
+                                                                to={"#"}
                                                                 className="dropdown-item navbar__category-link d-flex align-items-center gap-2"
                                                                 role="button"
                                                                 onClick={logoutUser}
                                                             >
-                                                                <BiLogOut size="1.5rem" />
+                                                                <BiLogOut size="1.8rem" />
                                                                 {t("logout")}
                                                             </Link>
                                                         </li>
