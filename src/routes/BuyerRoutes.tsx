@@ -47,6 +47,7 @@ import Permissions from "../pages/Buyer/Permissions";
 import Wallet from "../pages/shared/Wallet";
 import Company from "../pages/Buyer/Company";
 import ReturnRequestDetails from "../pages/Buyer/ReturnRequestDetails";
+import Opportunities from "../pages/Buyer/Opportunities.tsx";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -97,6 +98,10 @@ const BuyerRoutes = () => {
                 <Route
                     path="categories/"
                     element={<CategoriesList />}
+                />
+                <Route
+                    path="opportunities/"
+                    element={<Opportunities />}
                 />
 
                 <Route
