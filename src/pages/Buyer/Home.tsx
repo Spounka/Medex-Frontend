@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
@@ -10,7 +10,7 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 import { UilAngleRight } from "@iconscout/react-unicons";
 
-import { Brand, Product } from "@domain/product";
+import { Brand, Category, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
 import { FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
@@ -21,35 +21,7 @@ import clsx from "clsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BrandCard } from "./BrandsList.tsx";
-
-function CategoryLink({ to, icon, text }: { to: string; text: string; icon: ReactNode }) {
-    return (
-        <div
-            className={
-                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black lg:tw-flex-1 "
-            }
-        >
-            <Link
-                to={to}
-                className="tw-flex tw-w-min tw-flex-col tw-items-center tw-justify-center tw-gap-4"
-            >
-                <div
-                    className={
-                        "tw-cursor-pointer tw-rounded-full tw-bg-[#FAFAFAFF] tw-p-8 tw-transition-all tw-duration-300"
-                    }
-                >
-                    {icon}
-                </div>
-                <p
-                    className="tw-m-0 tw-text-center tw-duration-300"
-                    style={{ transition: "0.3s" }}
-                >
-                    {text}
-                </p>
-            </Link>
-        </div>
-    );
-}
+import { CategoryLink } from "./CategoryLink";
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -62,6 +34,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
     const [brands, setBrands] = useState<Brand[]>([]);
     const [activeCategory, setActiveCategory] = useState(0);
+    const [randomCategories, setRandomCategories] = useState<{
+        [key: string]: Product[];
+    } | null>(null);
 
     const fetchBrands = async () => {
         await axios
@@ -122,6 +97,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             if (products?.products) {
                 setBestSupplier(products?.products);
                 setAds(products?.ads);
+                setRandomCategories(products?.random_categories_products);
             }
         };
 
@@ -494,6 +470,80 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     </div>
                 </div>
             </Container>
+            {randomCategories &&
+                Object.keys(randomCategories).map((u) => {
+                    if (randomCategories[u].length == 0) return null;
+                    return (
+                        <Container
+                            node={"section"}
+                            className="py-2"
+                            key={u}
+                        >
+                            <div className="">
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-8">
+                                        <h3 className="m-0 home__sections-title fw-bolder">
+                                            {u}
+                                        </h3>
+                                    </div>
+                                    <div className="col-4 d-flex justify-content-end">
+                                        <Link
+                                            to="/products"
+                                            className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                        >
+                                            {t("buyer_pages.home.all")}
+                                            {i18n.resolvedLanguage == "en" ? (
+                                                <AiOutlineArrowRight />
+                                            ) : (
+                                                <AiOutlineArrowLeft />
+                                            )}
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="row py-4">
+                                    <div className="col-12">
+                                        <Swiper
+                                            slidesPerView={2}
+                                            spaceBetween={10}
+                                            breakpoints={{
+                                                320: {
+                                                    slidesPerView: 2,
+                                                },
+                                                425: {
+                                                    slidesPerView: 3,
+                                                },
+                                                768: {
+                                                    slidesPerView: 4,
+                                                },
+                                                1000: {
+                                                    slidesPerView: 5,
+                                                },
+                                                1440: {
+                                                    slidesPerView: 6,
+                                                },
+                                            }}
+                                            className={"tw-p-0"}
+                                        >
+                                            {randomCategories[u].map((product) => {
+                                                console.log(product);
+                                                return (
+                                                    <SwiperSlide key={product.sku}>
+                                                        <ProductCard
+                                                            product={product}
+                                                            cart={true}
+                                                            addToCart={addToCart}
+                                                            key={product.sku}
+                                                        />
+                                                    </SwiperSlide>
+                                                );
+                                            })}
+                                        </Swiper>
+                                    </div>
+                                </div>
+                            </div>
+                        </Container>
+                    );
+                })}
             <Container node={"section"}>
                 <div className="">
                     <div className="tw-flex tw-flex-col tw-gap-8">

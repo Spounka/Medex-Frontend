@@ -20,6 +20,103 @@ import {
 } from "react-icons/io5";
 import clsx from "clsx";
 
+function LanguageDropDown() {
+    const { t, i18n } = useTranslation();
+    return (
+        <div className="">
+            <Link
+                to={"#"}
+                role="button"
+                className="dropdown-toggle bg-transparent d-flex align-items-center text-color-darkblue"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                {i18n.language === "en" ? (
+                    <img
+                        src={enFlag}
+                        alt="EN"
+                        width="25"
+                    />
+                ) : (
+                    <img
+                        src={arFlag}
+                        alt="AR"
+                        width="25"
+                    />
+                )}
+            </Link>
+            {i18n.language === "en" ? (
+                <ul className="dropdown-menu dropdown-menu-end shadow">
+                    <li className="text-center">
+                        <Link
+                            to={"#"}
+                            className="dropdown-item d-flex justify-content-around text-center"
+                            role="button"
+                            onClick={() => i18n.changeLanguage("ar")}
+                        >
+                            <img
+                                src={arFlag}
+                                alt="AR"
+                                width="25"
+                            />
+                            AR
+                        </Link>
+                    </li>
+                    <li className="text-center">
+                        <Link
+                            to={"#"}
+                            className="dropdown-item d-flex justify-content-around"
+                            role="button"
+                            onClick={() => i18n.changeLanguage("en")}
+                        >
+                            <img
+                                src={enFlag}
+                                alt="EN"
+                                width="25"
+                            />
+                            EN
+                        </Link>
+                    </li>
+                </ul>
+            ) : (
+                <ul className="dropdown-menu shadow">
+                    <li className="text-center">
+                        <Link
+                            to={""}
+                            className="dropdown-item d-flex justify-content-around text-center"
+                            role="button"
+                            onClick={() => i18n.changeLanguage("ar")}
+                        >
+                            <img
+                                src={arFlag}
+                                alt="AR"
+                                width="25"
+                            />
+                            AR
+                        </Link>
+                    </li>
+                    <li className="text-center">
+                        <Link
+                            to={""}
+                            className="dropdown-item d-flex justify-content-around"
+                            role="button"
+                            onClick={() => i18n.changeLanguage("en")}
+                        >
+                            <img
+                                src={enFlag}
+                                alt="EN"
+                                width="25"
+                            />
+                            EN
+                        </Link>
+                    </li>
+                </ul>
+            )}
+        </div>
+    );
+}
+
 const Header = () => {
     const { t, i18n } = useTranslation();
 
@@ -76,7 +173,7 @@ const Header = () => {
             }}
         >
             <div
-                className="tw-flex tw-w-full"
+                className="tw-flex tw-w-full tw-justify-between"
                 style={{ flexWrap: "nowrap" }}
             >
                 <Link
@@ -85,96 +182,8 @@ const Header = () => {
                 >
                     Medex
                 </Link>
-                <div className="d-flex justify-content-center align-items-center gap-4 d-md-none">
-                    <div className="dropdown navbar__lang">
-                        <Link
-                            to={"#"}
-                            role="button"
-                            className="dropdown-toggle bg-transparent d-flex align-items-center text-color-darkblue"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            {i18n.language === "en" ? (
-                                <img
-                                    src={enFlag}
-                                    alt="EN"
-                                    width="25"
-                                />
-                            ) : (
-                                <img
-                                    src={arFlag}
-                                    alt="AR"
-                                    width="25"
-                                />
-                            )}
-                        </Link>
-                        {i18n.language === "en" ? (
-                            <ul className="dropdown-menu dropdown-menu-end shadow">
-                                <li className="text-center">
-                                    <Link
-                                        className="dropdown-item d-flex justify-content-around text-center"
-                                        role="button"
-                                        onClick={() => i18n.changeLanguage("ar")}
-                                    >
-                                        <img
-                                            src={arFlag}
-                                            alt="AR"
-                                            width="25"
-                                        />
-                                        AR
-                                    </Link>
-                                </li>
-                                <li className="text-center">
-                                    <Link
-                                        className="dropdown-item d-flex justify-content-around"
-                                        role="button"
-                                        onClick={() => i18n.changeLanguage("en")}
-                                    >
-                                        <img
-                                            src={enFlag}
-                                            alt="EN"
-                                            width="25"
-                                        />
-                                        EN
-                                    </Link>
-                                </li>
-                            </ul>
-                        ) : (
-                            <ul className="dropdown-menu shadow">
-                                <li className="text-center">
-                                    <Link
-                                        to={""}
-                                        className="dropdown-item d-flex justify-content-around text-center"
-                                        role="button"
-                                        onClick={() => i18n.changeLanguage("ar")}
-                                    >
-                                        <img
-                                            src={arFlag}
-                                            alt="AR"
-                                            width="25"
-                                        />
-                                        AR
-                                    </Link>
-                                </li>
-                                <li className="text-center">
-                                    <Link
-                                        to={""}
-                                        className="dropdown-item d-flex justify-content-around"
-                                        role="button"
-                                        onClick={() => i18n.changeLanguage("en")}
-                                    >
-                                        <img
-                                            src={enFlag}
-                                            alt="EN"
-                                            width="25"
-                                        />
-                                        EN
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
-                    </div>
+                <div className={"tw-flex tw-items-center md:tw-hidden"}>
+                    <LanguageDropDown />
                 </div>
 
                 <div className="collapse navbar-collapse d-none d-md-block">
@@ -205,10 +214,9 @@ const Header = () => {
                                             >
                                                 <button
                                                     type="submit"
-                                                    className="input-group-text"
+                                                    className="input-group-text tw-border-l-[rgb(187_187_187)]"
                                                     id="header-search-bar"
                                                     style={{
-                                                        borderLeft: "none",
                                                         borderColor: "#bbbbbb",
                                                         backgroundColor: "white",
                                                     }}
@@ -341,6 +349,16 @@ const Header = () => {
                                         </Link>
                                     </li>
                                 </div>
+                            </div>
+                            <div
+                                className={clsx(
+                                    "tw-hidden",
+                                    i18n.resolvedLanguage === "en"
+                                        ? "lg:tw-flex"
+                                        : "lg:tw-flex",
+                                )}
+                            >
+                                <LanguageDropDown />
                             </div>
                         </div>
                     </ul>

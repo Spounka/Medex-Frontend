@@ -21,17 +21,28 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Container from "../../components/ui/container";
 import { Product } from "@domain/product.ts";
-import Cart from "./Cart.tsx";
 import ProductCard from "../../components/Buyer/shared/ProductCard.tsx";
 import { CartContext } from "../../context/CartContext.tsx";
+import { Swiper, SwiperSlide } from "swiper/react";
+import clsx from "clsx";
 
-function ProductThumbnail(props: { url: string }) {
+function ProductThumbnail(props: {
+    url: string;
+    fullWidth?: boolean;
+    onClick?: () => void;
+}) {
     return (
-        <div className={""}>
+        <div
+            className={""}
+            onClick={props.onClick}
+        >
             <img
                 src={props.url}
                 alt="Product Image"
-                className="tw-h-auto tw-w-full tw-max-w-32 tw-cursor-pointer tw-border"
+                className={clsx(
+                    "tw-h-auto tw-w-full tw-cursor-pointer",
+                    props.fullWidth ? "" : " tw-max-w-32 tw-border",
+                )}
             />
         </div>
     );
@@ -42,6 +53,7 @@ const ProductDetails = (props) => {
     const { addToCart } = useContext(CartContext);
 
     const [currentCount, setCurrentCount] = useState(1);
+    const [selectedImage, setSelectedImage] = useState(0);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -149,6 +161,23 @@ const ProductDetails = (props) => {
         return null;
     }
 
+    function getSelectedImage() {
+        switch (selectedImage) {
+            case 0:
+                return product?.thumbnail;
+            case 1:
+                return product?.image1;
+            case 2:
+                return product?.image2;
+            case 3:
+                return product?.image3;
+            case 4:
+                return product?.image4;
+            default:
+                return product?.thumbnail;
+        }
+    }
+
     return (
         <Container
             node={"main"}
@@ -156,31 +185,88 @@ const ProductDetails = (props) => {
         >
             <BreadCrumb title={product?.name} />
             <div className="tw-flex tw-flex-col tw-justify-between tw-gap-8 tw-py-4 lg:tw-flex-row lg:tw-gap-12">
-                <div className="tw-flex tw-flex-col-reverse tw-gap-3 lg:tw-max-w-[calc(10rem*4)] lg:tw-flex-row">
+                <div className="tw-hidden tw-flex-[0_0_50%] tw-flex-col-reverse tw-gap-3 md:tw-flex lg:tw-max-w-[calc(10rem*4)] lg:tw-flex-row">
                     <div className="tw-flex tw-max-w-64 tw-flex-row tw-gap-1.5 lg:tw-max-w-none lg:tw-flex-col lg:tw-gap-4">
-                        <ProductThumbnail url={product.thumbnail} />
+                        <ProductThumbnail
+                            onClick={() => setSelectedImage(0)}
+                            url={product.thumbnail}
+                        />
                         {product.image1 !== null ? (
-                            <ProductThumbnail url={product.image1} />
+                            <ProductThumbnail
+                                onClick={() => setSelectedImage(1)}
+                                url={product.image1}
+                            />
                         ) : null}
                         {product.image2 !== null ? (
-                            <ProductThumbnail url={product.image2} />
+                            <ProductThumbnail
+                                onClick={() => setSelectedImage(2)}
+                                url={product.image2}
+                            />
                         ) : null}
                         {product.image3 !== null ? (
-                            <ProductThumbnail url={product.image3} />
+                            <ProductThumbnail
+                                onClick={() => setSelectedImage(3)}
+                                url={product.image3}
+                            />
                         ) : null}
                         {product.image4 !== null ? (
-                            <ProductThumbnail url={product.image4} />
+                            <ProductThumbnail
+                                onClick={() => setSelectedImage(3)}
+                                url={product.image4}
+                            />
                         ) : null}
                     </div>
-                    <div className="details__image-container tw-w-full tw-flex-1 tw-border">
+                    <div className="tw-w-full tw-flex-1">
                         <img
-                            src={product.thumbnail}
+                            src={getSelectedImage() ?? product.thumbnail}
                             alt="Product Thumbnail"
                             className="tw-h-auto tw-w-full"
                         />
                     </div>
                 </div>
-                <div className="tw-flex tw-h-auto tw-w-full tw-flex-1 tw-flex-col tw-gap-6">
+                <div className="tw-flex md:tw-hidden">
+                    <Swiper>
+                        <SwiperSlide>
+                            <ProductThumbnail
+                                fullWidth
+                                url={product.thumbnail}
+                            />
+                        </SwiperSlide>
+                        {product.image1 && (
+                            <SwiperSlide>
+                                <ProductThumbnail
+                                    fullWidth
+                                    url={product.image1 ?? ""}
+                                />
+                            </SwiperSlide>
+                        )}
+                        {product.image2 && (
+                            <SwiperSlide>
+                                <ProductThumbnail
+                                    fullWidth
+                                    url={product.image2 ?? ""}
+                                />
+                            </SwiperSlide>
+                        )}
+                        {product.image3 && (
+                            <SwiperSlide>
+                                <ProductThumbnail
+                                    fullWidth
+                                    url={product.image3 ?? ""}
+                                />
+                            </SwiperSlide>
+                        )}
+                        {product.image4 && (
+                            <SwiperSlide>
+                                <ProductThumbnail
+                                    fullWidth
+                                    url={product.image4 ?? ""}
+                                />
+                            </SwiperSlide>
+                        )}
+                    </Swiper>
+                </div>
+                <div className="tw-flex tw-h-auto tw-w-full tw-flex-[0_0_50%] tw-flex-col tw-gap-6">
                     <div className={"tw-flex tw-flex-col tw-gap-2"}>
                         <h1 className="tw-font-algreya tw-text-xl tw-font-bold lg:tw-text-4xl">
                             {product.name}
@@ -196,9 +282,9 @@ const ProductDetails = (props) => {
                             {`${product.price} S.A.R`}
                         </h3>
                     </div>
-                    <p className="tw-font-poppins tw-text-lg tw-font-normal tw-text-black">
-                        {product.description}
-                    </p>
+                    <div className="tw-font-poppins tw-text-lg tw-font-normal tw-text-black">
+                        {parse(product.description)}
+                    </div>
                     <div
                         className={"tw-w-full tw-border-b-2 tw-border-b-gray-500 tw-py-4"}
                     />
