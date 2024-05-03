@@ -7,13 +7,17 @@ import { useTranslation } from "react-i18next";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Container from "../../ui/container";
 
 const Layout = () => {
     const { i18n } = useTranslation();
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <main className="dashboard__main">
+        <Container
+            node={"main"}
+            className="[&&]:tw-p-0"
+        >
             <ToastContainer newestOnTop={true} />
 
             <section>
@@ -33,7 +37,7 @@ const Layout = () => {
                     <Outlet />
                 </div>
             </section>
-        </main>
+        </Container>
     );
 };
 
