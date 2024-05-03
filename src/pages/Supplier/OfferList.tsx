@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 
 import userImage from "../../assets/images/user.png";
 import { useTranslation } from "react-i18next";
+import { Quote } from "@domain/quote.ts";
 
 const OfferList = () => {
     const { t } = useTranslation();
 
     const api = useAxios();
 
-    const [offers, setOffers] = useState([]);
+    const [offers, setOffers] = useState<Quote[]>([]);
 
     const getOffers = async () => {
         await api
@@ -49,13 +50,12 @@ const OfferList = () => {
                                                 <div className="d-flex align-items-center gap-4">
                                                     <img
                                                         src={
-                                                            offer.quote_obj.user.profile
-                                                                .profilePicture
+                                                            offer.user.profile
+                                                                .profile_picture
                                                                 ? import.meta.env
                                                                       .VITE_BACKEND_URL +
-                                                                  offer.quote_obj.user
-                                                                      .profile
-                                                                      .profilePicture
+                                                                  offer.user.profile
+                                                                      .profile_picture
                                                                 : userImage
                                                         }
                                                         alt="User"
@@ -64,32 +64,32 @@ const OfferList = () => {
                                                         height={60}
                                                     />
 
-                                                    <div className="d-flex flex-column gap-2">
-                                                        <h4 className="m-0">
-                                                            {
-                                                                offer.quote_obj.user
-                                                                    .full_name
-                                                            }
-                                                        </h4>
-                                                        <p className="m-0">
-                                                            {offer.quote_obj.product_name}{" "}
-                                                            * {offer.quantity}
-                                                        </p>
-                                                    </div>
+                                                    {/*<div className="d-flex flex-column gap-2">*/}
+                                                    {/*    <h4 className="m-0">*/}
+                                                    {/*        {*/}
+                                                    {/*            offer.quote_obj.user*/}
+                                                    {/*                .full_name*/}
+                                                    {/*        }*/}
+                                                    {/*    </h4>*/}
+                                                    {/*    <p className="m-0">*/}
+                                                    {/*        {offer.quote_obj.product_name}{" "}*/}
+                                                    {/*        * {offer.quantity}*/}
+                                                    {/*    </p>*/}
+                                                    {/*</div>*/}
                                                 </div>
-                                                <div
-                                                    className={`badge p-2 fw-bold d-flex align-items-center gap-1 ${
-                                                        offer.status === "P"
-                                                            ? "bg-secondary"
-                                                            : offer.status === "A"
-                                                              ? "bg-success"
-                                                              : "bg-danger"
-                                                    }`}
-                                                >
-                                                    <BiSolidInfoCircle size="1rem" />
-                                                    {t("buyer_pages.offers_list.status")}:
-                                                    &nbsp; {offer.status_display}
-                                                </div>
+                                                {/*<div*/}
+                                                {/*    className={`badge p-2 fw-bold d-flex align-items-center gap-1 ${*/}
+                                                {/*        offer.status === "P"*/}
+                                                {/*            ? "bg-secondary"*/}
+                                                {/*            : offer.status === "A"*/}
+                                                {/*              ? "bg-success"*/}
+                                                {/*              : "bg-danger"*/}
+                                                {/*    }`}*/}
+                                                {/*>*/}
+                                                {/*    <BiSolidInfoCircle size="1rem" />*/}
+                                                {/*    {t("buyer_pages.offers_list.status")}:*/}
+                                                {/*    &nbsp; {offer.requirements}*/}
+                                                {/*</div>*/}
                                             </div>
                                         </div>
                                     </Link>

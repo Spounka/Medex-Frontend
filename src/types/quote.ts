@@ -4,6 +4,7 @@ interface QuoteAttachment {
     id: number;
     attachment: string;
 }
+
 export interface Quote {
     id: number;
     user: ThreadUser;
@@ -13,15 +14,11 @@ export interface Quote {
     created: string;
     created_since: string;
 
-    product: string;
-    product_name: string;
-    quantity: number;
-    unit: string;
-    unit_display: string;
+    products: number[];
 
     due_date: string;
     due_date_display: string;
-    due_time_diplay: string;
+    due_time_display: string;
 
     requirements: string;
     supplier: string;
