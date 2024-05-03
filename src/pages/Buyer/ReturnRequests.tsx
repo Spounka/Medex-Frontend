@@ -4,9 +4,6 @@ import useAxios from "../../utils/useAxios";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import { TbTruckReturn } from "react-icons/tb";
-import { FaExclamationTriangle } from "react-icons/fa";
-
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
 
@@ -45,8 +42,6 @@ const ReturnRequests = () => {
                     </Link>
                 );
             },
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
         },
         {
             field: "product.product.name",
@@ -85,7 +80,12 @@ const ReturnRequests = () => {
             field: "product.total_price",
             headerName: t("buyer_pages.cart.total"),
             filter: "agNumberColumnFilter",
-            valueFormatter: (params) => `${params.data.product.total_price} ${t("sar")}`,
+            valueGetter: (params) => parseFloat(params.data.product.total_price),
+            cellRenderer: (params) => {
+                const formattedPrice = `${params.value.toFixed(2)} ${t("sar")}`;
+                return formattedPrice;
+            },
+            floatingFilter: true,
         },
         {
             field: "product.created_date",
@@ -102,6 +102,7 @@ const ReturnRequests = () => {
         {
             field: "details",
             headerName: t("buyer_pages.return_request.details"),
+            minWidth: 170,
             cellRenderer: (params) => {
                 return (
                     <Link
@@ -122,7 +123,7 @@ const ReturnRequests = () => {
             filter: "agTextColumnFilter",
             floatingFilter: true,
             minWidth: 135,
-            flex: 3,
+            flex: 1,
         };
     }, []);
 
@@ -143,7 +144,6 @@ const ReturnRequests = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <TbTruckReturn size="2.5rem" />
                     {t("buyer_sidebar.return")}
                 </h2>
 

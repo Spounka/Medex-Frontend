@@ -1,9 +1,7 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 
 import useAxios from "../../utils/useAxios";
 
-import { MdListAlt } from "react-icons/md";
-import { GiReturnArrow } from "react-icons/gi";
 import { FcCancel } from "react-icons/fc";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbChevronLeftPipe, TbChevronRightPipe } from "react-icons/tb";
@@ -18,7 +16,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.js";
 import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.js";
 
-const OrderHistory = () => {
+const OrderHistory: React.FC = () => {
     const { t, i18n } = useTranslation();
 
     const gridRef = useRef();
@@ -82,7 +80,12 @@ const OrderHistory = () => {
             field: "total_price",
             headerName: t("buyer_pages.cart.total"),
             filter: "agNumberColumnFilter",
-            valueFormatter: (params) => `${params.data.total_price} ${t("sar")}`,
+            valueGetter: (params) => parseFloat(params.data.total_price),
+            cellRenderer: (params) => {
+                const formattedPrice = `${params.value.toFixed(2)} ${t("sar")}`;
+                return formattedPrice;
+            },
+            floatingFilter: true,
         },
         {
             field: "shipping_status",
@@ -181,7 +184,7 @@ const OrderHistory = () => {
             filter: "agTextColumnFilter",
             floatingFilter: true,
             minWidth: 135,
-            flex: 3,
+            flex: 1,
         };
     }, []);
 
@@ -207,7 +210,6 @@ const OrderHistory = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <MdListAlt size="2.5rem" />
                     {t("buyer_sidebar.order_history")}
                 </h2>
 

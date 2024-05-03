@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { MdList } from "react-icons/md";
 import { CiTimer } from "react-icons/ci";
 import { CgMenuMotion } from "react-icons/cg";
 import { AiOutlineFileText } from "react-icons/ai";
@@ -38,7 +37,6 @@ const QuoteList = () => {
                 <div className="container">
                     <div className="row">
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                            <MdList size="2.5rem" />
                             {t("buyer_pages.quote_requests.all")}
                         </h2>
                     </div>

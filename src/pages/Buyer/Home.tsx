@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
@@ -10,7 +10,7 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 import { UilAngleRight } from "@iconscout/react-unicons";
 
-import { Brand, Product } from "@domain/product";
+import { Brand, Category, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
 import { FaPumpMedical } from "react-icons/fa";
 import { FaXRay } from "react-icons/fa6";
@@ -21,35 +21,7 @@ import clsx from "clsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BrandCard } from "./BrandsList.tsx";
-
-function CategoryLink({ to, icon, text }: { to: string; text: string; icon: ReactNode }) {
-    return (
-        <div
-            className={
-                "tw-flex tw-h-full tw-flex-[0_0_30%] tw-justify-center tw-fill-purple tw-text-black lg:tw-flex-1 "
-            }
-        >
-            <Link
-                to={to}
-                className="tw-flex tw-w-min tw-flex-col tw-items-center tw-justify-center tw-gap-4"
-            >
-                <div
-                    className={
-                        "tw-cursor-pointer tw-rounded-full tw-bg-[#FAFAFAFF] tw-p-8 tw-transition-all tw-duration-300"
-                    }
-                >
-                    {icon}
-                </div>
-                <p
-                    className="tw-m-0 tw-text-center tw-duration-300"
-                    style={{ transition: "0.3s" }}
-                >
-                    {text}
-                </p>
-            </Link>
-        </div>
-    );
-}
+import { CategoryLink } from "./CategoryLink";
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -62,6 +34,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
     const [brands, setBrands] = useState<Brand[]>([]);
     const [activeCategory, setActiveCategory] = useState(0);
+    const [randomCategories, setRandomCategories] = useState<{
+        [key: string]: Product[];
+    } | null>(null);
 
     const fetchBrands = async () => {
         await axios
@@ -101,7 +76,6 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     useEffect(() => {
         const fetchProductsOnSale = async () => {
             const products = await fetchProductsByQuery("on_sale");
-            console.log(products);
 
             if (products?.products) {
                 setSale(products?.products);
@@ -111,6 +85,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
 
         const fetchRecentlyAddedProducts = async () => {
             const products = await fetchProductsByQuery("-created");
+
             if (products?.products) {
                 setRecent(products?.products);
                 setAds(products?.ads);
@@ -122,6 +97,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             if (products?.products) {
                 setBestSupplier(products?.products);
                 setAds(products?.ads);
+                setRandomCategories(products?.random_categories_products);
             }
         };
 
@@ -137,8 +113,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         infinite: true,
         speed: 350,
         slidesToShow: 6,
-        slidesToScroll: 1,
-        autoplay: true,
+        slidesToScroll: 5,
+        autoplay: false,
         lazyLoad: "ondemand",
         className: "center",
         arrows: false,
@@ -164,7 +140,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             {
                 breakpoint: 1000,
                 settings: {
-                    slidesToShow: 3, centerMode: true,
+                    slidesToShow: 3,
+                    slidesToScroll: 2,
                     arrows: false,
                 },
             },
@@ -188,82 +165,87 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     };
 
     return (
-        <main>
-            <section className="container">
-                <div className="pb-5 pt-2">
-                    <div className="p-3 two">
-                        <form
-                            method="get"
-                            action="/products"
+        <main className={"tw-flex tw-flex-col tw-gap-4 md:tw-gap-8"}>
+            <Container node={"section"}>
+                <Swiper
+                    spaceBetween={30}
+                    slidesPerView={2}
+                    breakpointsBase={"window"}
+                    breakpoints={{
+                        320: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        425: {
+                            slidesPerView: 3,
+                            spaceBetween: 15,
+                        },
+                        768: {
+                            slidesPerView: 4,
+                            spaceBetween: 15,
+                        },
+                        1000: {
+                            slidesPerView: 5,
+                            spaceBetween: 20,
+                        },
+                        1440: {
+                            slidesPerView: 6,
+                            spaceBetween: 25,
+                        },
+                        1650: {
+                            slidesPerView: 7,
+                        },
+                        1920: {
+                            slidesPerView: 8,
+                            spaceBetween: 30,
+                        },
+                    }}
+                    className={
+                        "tw-flex tw-flex-wrap tw-gap-2 tw-border-b tw-border-b-gray-300 tw-px-2.5 tw-py-4 md:tw-gap-6"
+                    }
+                >
+                    {[
+                        "Category 1",
+                        "Category 2",
+                        "Category 3",
+                        "Category 4",
+                        "Category 5",
+                        "Category 6",
+                        "Category 7",
+                        "Category 8",
+                        "Category 9",
+                        "Category 10",
+                    ].map((category, i) => (
+                        <SwiperSlide
+                            key={category}
+                            className={clsx(
+                                "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-3 lg:tw-px-4",
+                                i === activeCategory
+                                    ? "tw-bg-purple tw-fill-white tw-font-algreya tw-text-white"
+                                    : "tw-bg-slate-50 tw-font-algreya tw-font-normal tw-text-black",
+                            )}
+                            onClick={() => setActiveCategory(i)}
                         >
-                            <div
-                                className={`w-100 ${i18n.resolvedLanguage == "en" ? "me-lg-5" : "ms-lg-5"
-                                    }`}
-                            >
-                                <div className="nav-link">
-                                    <div
-                                        className="input-group m-0"
-                                        style={{
-                                            direction: "ltr",
-                                        }}
-                                    >
-                                        <input
-                                            type="text"
-                                            name="keyword"
-                                            className="form-control py-2"
-                                            placeholder={`${t(
-                                                "header.search_product",
-                                            )}...`}
-                                            aria-label={`${t(
-                                                "header.search_product",
-                                            )}...`}
-                                            aria-describedby="header-search-bar"
-                                            style={{
-                                                borderRight: "none",
-                                                height: "35px",
-                                            }}
-                                        />
-
-                                        <button
-                                            type="submit"
-                                            className="input-group-text "
-                                            id="header-search-bar"
-                                            style={{
-                                                borderLeft: "none",
-                                                borderColor: "#bbbbbb",
-                                                backgroundColor: "#ffffff",
-                                            }}
-                                        >
-                                            <CiSearch
-                                                className="fs-5"
-                                                style={{
-                                                    color: "var(--theme-color-primary)",
-                                                }}
-                                            />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    {ads && ads.length > 0 ? (
-                        <Slider {...settings3}>
-                            {ads.map((ad) => (
-                                <img
-                                    className="imgg tw-rounded-xl tw-object-contain"
-                                    src={ad.thumbnail}
-                                    key={ad.id}
-                                />
-                            ))}
-                        </Slider>
-                    ) : (
-                        ""
-                    )}
-                </div>
-            </section>
-
-            <section className="pb-5">
-                <div className="container">
+                            <span className="tw-font-bold">{category}</span>
+                            <UilAngleRight className={"tw-rotate-90 tw-fill-inherit"} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </Container>
+            <Container node={"section"}>
+                {ads?.length > 0 ? (
+                    <img
+                        className="tw-mx-auto tw-max-h-[300px] tw-w-screen tw-rounded-3xl tw-object-cover"
+                        src={ads[ads.length - 1].thumbnail}
+                        key={ads[ads.length - 1].id}
+                    />
+                ) : null}
+            </Container>
+            <Container
+                node={"section"}
+                className=""
+            >
+                <div className="">
                     <div>
                         <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300">
                             <div className="col-8">
@@ -278,7 +260,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         borderRadius: "8px",
                                     }}
                                     to="/categories"
-                                    className="p-1 px-2 d-flex align-items-center justify-content-center gap-1 home__sections-link text-nowrap"
+                                    className="p-1 px-2 d-flex align-items-center justify-content-center home__sections-link text-nowrap tw-gap-1.5 hover:tw-text-purple"
                                 >
                                     {t("buyer_pages.home.all")}
                                     {i18n.resolvedLanguage == "en" ? (
@@ -291,19 +273,10 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                         <div className="row pt-4">
                             <div className="col-12">
-                                <div className="gs d-flex flex-wrap">
-                                    <Link
-                                        to="/products?category=X-Ray"
-                                        className="cat d-flex flex-column gap-1 align-items-center"
-                                    >
-                                        <div
-                                            style={{
-                                                backgroundColor: "rgb(250 250 250)",
-                                                borderRadius: "50%",
-                                                cursor: "pointer",
-                                                transition: "0.3s",
-                                            }}
-                                        >
+                                <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 lg:tw-gap-0 xl:tw-px-32">
+                                    <CategoryLink
+                                        to={"/products?category=X-Ray"}
+                                        icon={
                                             <FaXRay
                                                 className={
                                                     "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
@@ -368,7 +341,8 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-4 d-flex justify-content-end">
                             <Link
                                 to="/products"
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
+                                state={{ products: sale, type: "On Sale" }}
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
                             >
                                 {t("buyer_pages.home.all")}
                                 {i18n.resolvedLanguage == "en" ? (
@@ -400,51 +374,46 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                     </div>
                 </div>
-            </section>
-            <section className="py-5">
-                <div className="container">
-                    <div>
-                        <div className="row d-flex align-items-center">
-                            <div className="col-8">
-                                <h3 className="m-0 home__sections-title fw-bolder">
-                                    {t("buyer_pages.home.by_brand")}
-                                </h3>
-                            </div>
-                            <div className="col-4 d-flex justify-content-end">
-                                <Link
-                                    to="brands"
-                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
-                                >
-                                    {t("buyer_pages.home.all")}
-                                    {i18n.resolvedLanguage == "en" ? (
-                                        <AiOutlineArrowRight />
-                                    ) : (
-                                        <AiOutlineArrowLeft />
-                                    )}
-                                </Link>
-                            </div>
+            </Container>
+            <Container
+                node={"section"}
+                className=""
+            >
+                <div className="">
+                    <div className="row d-flex align-items-center">
+                        <div className="col-8">
+                            <h3 className="m-0 home__sections-title fw-bolder">
+                                {t("buyer_pages.home.best_sell")}
+                            </h3>
                         </div>
-                        <div className="pt-2 gg">
-                            {brands && brands.length > 0 ? (
-                                brands.map((brand) => {
-                                    return (
-                                        <Link
-                                            to={`/products?brand=${brand.slug}`}
-                                            key={brand.id}
-                                        >
-                                            <div
-                                                className="card d-flex align-items-center justify-content-center home__brand-card"
-                                                style={{ borderRadius: "10px" }}
-                                            >
-                                                <img
-                                                    src={brand.image}
-                                                    alt="Brand"
-                                                    className="img-fluid px-4"
-                                                />
-                                            </div>
-                                        </Link>
-                                    );
-                                })
+                        <div className="col-4 d-flex justify-content-end">
+                            <Link
+                                to="/products"
+                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                            >
+                                {t("buyer_pages.home.all")}
+                                {i18n.resolvedLanguage == "en" ? (
+                                    <AiOutlineArrowRight />
+                                ) : (
+                                    <AiOutlineArrowLeft />
+                                )}
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="row py-4">
+                        <div className="col-14 p-0 p-md-2">
+                            {bestSupplier && bestSupplier.length > 0 ? (
+                                <Slider {...settings}>
+                                    {bestSupplier.map((product) => (
+                                        <ProductCard
+                                            product={product}
+                                            cart={true}
+                                            key={product.sku}
+                                            addToCart={addToCart}
+                                            isBestSelling
+                                        />
+                                    ))}
+                                </Slider>
                             ) : (
                                 <p className="text-center">
                                     {t("buyer_pages.home.none")}!
@@ -500,40 +469,114 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         </div>
                     </div>
                 </div>
-            </section>
-            <section className="py-5">
-                <div className="container">
-                    <div className="row d-flex align-items-center">
-                        <div className="col-8">
-                            <h3 className="m-0 home__sections-title fw-bolder">
-                                {t("buyer_pages.home.sale")}
-                            </h3>
+            </Container>
+            {randomCategories &&
+                Object.keys(randomCategories).map((u) => {
+                    if (randomCategories[u].length == 0) return null;
+                    return (
+                        <Container
+                            node={"section"}
+                            className="py-2"
+                            key={u}
+                        >
+                            <div className="">
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-8">
+                                        <h3 className="m-0 home__sections-title fw-bolder">
+                                            {u}
+                                        </h3>
+                                    </div>
+                                    <div className="col-4 d-flex justify-content-end">
+                                        <Link
+                                            to="/products"
+                                            className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                        >
+                                            {t("buyer_pages.home.all")}
+                                            {i18n.resolvedLanguage == "en" ? (
+                                                <AiOutlineArrowRight />
+                                            ) : (
+                                                <AiOutlineArrowLeft />
+                                            )}
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="row py-4">
+                                    <div className="col-12">
+                                        <Swiper
+                                            slidesPerView={2}
+                                            spaceBetween={10}
+                                            breakpoints={{
+                                                320: {
+                                                    slidesPerView: 2,
+                                                },
+                                                425: {
+                                                    slidesPerView: 3,
+                                                },
+                                                768: {
+                                                    slidesPerView: 4,
+                                                },
+                                                1000: {
+                                                    slidesPerView: 5,
+                                                },
+                                                1440: {
+                                                    slidesPerView: 6,
+                                                },
+                                            }}
+                                            className={"tw-p-0"}
+                                        >
+                                            {randomCategories[u].map((product) => {
+                                                console.log(product);
+                                                return (
+                                                    <SwiperSlide key={product.sku}>
+                                                        <ProductCard
+                                                            product={product}
+                                                            cart={true}
+                                                            addToCart={addToCart}
+                                                            key={product.sku}
+                                                        />
+                                                    </SwiperSlide>
+                                                );
+                                            })}
+                                        </Swiper>
+                                    </div>
+                                </div>
+                            </div>
+                        </Container>
+                    );
+                })}
+            <Container node={"section"}>
+                <div className="">
+                    <div className="tw-flex tw-flex-col tw-gap-8">
+                        <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300 tw-pb-4">
+                            <div className="col-8">
+                                <h3 className="m-0 home__sections-title fw-bolder">
+                                    {t("buyer_pages.home.by_brand")}
+                                </h3>
+                            </div>
+                            <div className="col-4 d-flex justify-content-end">
+                                <Link
+                                    to="brands"
+                                    className="d-flex align-items-center justify-content-center gap-1 home__sections-link hover:tw-text-purple"
+                                >
+                                    {t("buyer_pages.home.all")}
+                                    {i18n.resolvedLanguage == "en" ? (
+                                        <AiOutlineArrowRight />
+                                    ) : (
+                                        <AiOutlineArrowLeft />
+                                    )}
+                                </Link>
+                            </div>
                         </div>
-                        <div className="col-4 d-flex justify-content-end">
-                            <Link
-                                to="/products"
-                                state={{ products: sale, type: "On Sale" }}
-                                className="d-flex align-items-center justify-content-center gap-1 home__sections-link"
-                            >
-                                {t("buyer_pages.home.all")}
-                                {i18n.resolvedLanguage == "en" ? (
-                                    <AiOutlineArrowRight />
-                                ) : (
-                                    <AiOutlineArrowLeft />
-                                )}
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="row py-4">
-                        <div className="col-14 p-0 p-md-1">
-                            {sale && sale.length > 0 ? (
-                                <Slider {...settings}>
-                                    {sale.map((product) => (
-                                        <ProductCard
-                                            product={product}
-                                            cart={true}
-                                            key={product.sku}
-                                            addToCart={addToCart}
+                        <div className="tw-flex tw-h-max tw-flex-wrap tw-justify-between tw-gap-3.5 lg:tw-justify-start">
+                            {brands && brands.length > 0 ? (
+                                brands.slice(1).map((brand) => {
+                                    return (
+                                        <BrandCard
+                                            brand={brand}
+                                            key={brand.id}
+                                            className={
+                                                "tw-flex-[0_0_30%] lg:tw-flex-[0_0_18%] xl:tw-flex-[0_0_15%]"
+                                            }
                                         />
                                     );
                                 })

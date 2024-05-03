@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { BsTruck } from "react-icons/bs";
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -42,8 +41,6 @@ const TrackingList = () => {
                     </Link>
                 );
             },
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
         },
         {
             field: "product.name",
@@ -111,7 +108,7 @@ const TrackingList = () => {
             filter: "agTextColumnFilter",
             floatingFilter: true,
             minWidth: 135,
-            flex: 3,
+            flex: 1,
         };
     }, []);
 
@@ -137,7 +134,6 @@ const TrackingList = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <BsTruck size="2.5rem" />
                     {t("buyer_sidebar.tracking")}
                 </h2>
 

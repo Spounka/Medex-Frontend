@@ -4,7 +4,6 @@ import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 
 import useAxios from "../../utils/useAxios";
 
-import { TbTruckReturn } from "react-icons/tb";
 import { FcInfo } from "react-icons/fc";
 import { RiFileImageLine } from "react-icons/ri";
 
@@ -38,8 +37,6 @@ const ReturnRequestDetails: React.FC = () => {
                 navigate("/not-found/");
             }
         }
-
-        console.log(request);
     };
 
     useEffect(() => {
@@ -50,7 +47,6 @@ const ReturnRequestDetails: React.FC = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <TbTruckReturn size="2.5rem" />
                     {t("buyer_pages.return_request_details.title")}
                 </h2>
 
@@ -173,7 +169,7 @@ const ReturnRequestDetails: React.FC = () => {
                                         {t("buyer_pages.return_request.evidence")}
                                     </h6>
                                     <div className="d-flex align-items-center gap-1">
-                                        {request?.evidence_files?.map((file) => {
+                                        {request?.evidence_files?.map((file, index) => {
                                             return (
                                                 <Link
                                                     to={
@@ -181,7 +177,7 @@ const ReturnRequestDetails: React.FC = () => {
                                                         file.evidence_file
                                                     }
                                                     target="_blank"
-                                                    key={file.evidence_files}
+                                                    key={index}
                                                 >
                                                     <RiFileImageLine size="1.5rem" />
                                                 </Link>

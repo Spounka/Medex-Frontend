@@ -68,15 +68,8 @@ const BrandsList = () => {
                                 return (
                                     <BrandCard
                                         key={brand.id}
-                                    >
-                                        <div className="card d-flex align-items-center justify-content-center home__brand-card">
-                                            <img
-                                                src={brand.image}
-                                                alt="Brand"
-                                                className="img-fluid px-4"
-                                            />
-                                        </div>
-                                    </Link>
+                                        brand={brand}
+                                    />
                                 );
                             })
                         ) : (

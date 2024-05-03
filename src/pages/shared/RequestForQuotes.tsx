@@ -4,12 +4,12 @@ import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-import { MdOutlineClear, MdOutlineRequestQuote } from "react-icons/md";
+import { MdOutlineClear } from "react-icons/md";
 import { RiMailSendLine } from "react-icons/ri";
 
 import { Product } from "@domain/product";
 import { ThreadUser } from "@domain/thread";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -30,6 +30,7 @@ const RequestForQuotes = () => {
     const [selectedSupplier, setSelectedSupplier] = useState("");
 
     const fileRef = useRef<HTMLInputElement | null>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     // TODO: Add better typing when refactoring
     const creatableSelectInputRef = useRef<any>(null);
@@ -37,9 +38,9 @@ const RequestForQuotes = () => {
 
     const getProducts = async () => {
         await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product")
-            .then((res: AxiosResponse<Product[]>) => {
-                const nameOptions = res.data.map((product) => ({
+            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product/")
+            .then((res: AxiosResponse<{ products: Product[] }>) => {
+                const nameOptions = res.data.products.map((product) => ({
                     value: product.slug,
                     label: product.name,
                 }));
@@ -86,12 +87,16 @@ const RequestForQuotes = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("products", JSON.stringify(Array(e.currentTarget.product.value)));
+        const products = [
+            { name: "test1", quantity: 5, unit: "ton" },
+            { name: "test2", quantity: 10, unit: "kg" },
+        ];
+        formData.append("products", JSON.stringify(products));
+
         formData.append("supplier", e.currentTarget.supplier.value);
-        formData.append("quantity", e.currentTarget.quantity.value);
-        formData.append("unit", e.currentTarget.unit.value);
         formData.append("due_date", e.currentTarget.due_date.value);
         formData.append("requirements", e.currentTarget.requirements.value);
+
         const fileInput = e.currentTarget.attachments;
         for (let i = 0; i < fileInput.files.length; i++) {
             formData.append("attachments", fileInput.files[i]);
@@ -106,17 +111,13 @@ const RequestForQuotes = () => {
                 setSelectedProduct("");
                 setSelectedSupplier("");
 
-                e.currentTarget.unit.value = "piece";
-                e.currentTarget.quantity.value = "";
-                e.currentTarget.requirements.value = "";
-                e.currentTarget.due_date.value = "";
-                e.currentTarget.agree.checked = false;
+                formRef.current.reset();
                 handleReset();
                 onClear();
             })
-            .catch((e: AxiosError) => {
+            .catch((err) => {
                 toast.error(`${t("shared.rfq.err")}!`);
-                console.error(e.response?.data);
+                console.log(err);
             });
     };
 
@@ -129,7 +130,6 @@ const RequestForQuotes = () => {
                     {window.location.href.indexOf("supplier") > -1 ||
                     window.location.href.indexOf("dashboard") > -1 ? (
                         <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                            <MdOutlineRequestQuote size="2.5rem" />
                             {t("rfq")}
                         </h2>
                     ) : (
@@ -151,6 +151,7 @@ const RequestForQuotes = () => {
                                 method="post"
                                 encType="multipart/form-data"
                                 onSubmit={handleSubmit}
+                                ref={formRef}
                             >
                                 <div className="mb-4">
                                     <label

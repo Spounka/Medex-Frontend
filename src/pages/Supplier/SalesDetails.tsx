@@ -174,10 +174,7 @@ const OrderDetails = () => {
                 <div className="row row-flex">
                     <div className="col-12 col-md-5">
                         <img
-                            src={
-                                import.meta.env.VITE_BACKEND_URL +
-                                order?.product?.thumbnail
-                            }
+                            src={order?.product?.thumbnail}
                             alt="Product"
                             className="img-fluid border shadow rounded content"
                         />

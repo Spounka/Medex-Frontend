@@ -1321,6 +1321,18 @@ footer {
     display: none;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 @media screen and (max-width: 768px) {
     .chat__user-name {
         font-size: 0.9rem;
@@ -1986,23 +1998,23 @@ footer {
 }
 
 .table__badge-pending {
-    background-color: #fff9c2;
-    color: #eec43e;
+    background-color: #fff6e8;
+    color: #ed9b22;
 }
 
 .table__badge-success {
-    background-color: #c2fbd7;
-    color: green;
+    background-color: #f2fff7;
+    color: #00b448;
 }
 
 .table__badge-error {
-    background-color: #ffe7e7;
-    color: red;
+    background-color: #fff0f0;
+    color: #ff4747;
 }
 
 .ag-theme-material {
-    --ag-background-color: #fafafa !important;
-    --ag-header-background-color: #fafafa !important;
-    --ag-row-hover-color: #f1f1f1 !important;
+    --ag-background-color: #fefefe !important;
+    --ag-header-background-color: #fefefe !important;
+    --ag-row-hover-color: #f5f5f5 !important;
     --ag-border-radius: 7px 7px 0 0 !important;
 }

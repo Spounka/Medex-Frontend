@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BiSolidOffer, BiSolidInfoCircle } from "react-icons/bi";
+import { BiSolidInfoCircle } from "react-icons/bi";
 import useAxios from "../../utils/useAxios";
 
 import { Link } from "react-router-dom";
@@ -29,8 +29,7 @@ const OfferList = () => {
     return (
         <main className="px-0 px-md-3">
             <section className="container">
-                <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <BiSolidOffer size="2.5rem" />
+                <h2 className="fw-bold dashboard__title">
                     {t("supplier_sidebar.offers_list")}
                 </h2>
                 <div className="row">

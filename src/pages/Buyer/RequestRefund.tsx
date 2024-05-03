@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { GiReturnArrow } from "react-icons/gi";
 import { BsImages, BsPatchQuestion } from "react-icons/bs";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { MdOutlineClear, MdOutlineTextSnippet } from "react-icons/md";
@@ -78,7 +77,6 @@ const RequestRefund = () => {
         <main className="container">
             <section className="py-3">
                 <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <GiReturnArrow />
                     {t("buyer_pages.return_request.title")}
                 </h2>
                 <div className="row mt-5">
