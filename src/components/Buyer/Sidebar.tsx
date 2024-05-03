@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import { LiaFileInvoiceSolid as PiInvoiceLight } from "react-icons/lia";
 import { MdListAlt, MdWallet } from "react-icons/md";
 import { BiSolidDownArrow, BiSolidMessageAltDetail } from "react-icons/bi";
 import { LuTextQuote } from "react-icons/lu";
@@ -112,7 +113,15 @@ const Sidebar = (props) => {
                             </li>
                         </ul>
                     </li>
-
+                    <li>
+                        <Link
+                            to="/account/dashboard/invoices"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <PiInvoiceLight size="1.5rem" />
+                            <span className="ms-1">Invoices</span>
+                        </Link>
+                    </li>
                     <li>
                         <Link
                             to="/account/dashboard/statistics"
