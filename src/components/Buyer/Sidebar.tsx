@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import { GiPlatform } from "react-icons/gi";
 import { LiaFileInvoiceSolid as PiInvoiceLight } from "react-icons/lia";
 import { MdListAlt, MdWallet } from "react-icons/md";
 import { BiSolidDownArrow, BiSolidMessageAltDetail } from "react-icons/bi";
@@ -120,6 +121,16 @@ const Sidebar = (props) => {
                         >
                             <PiInvoiceLight size="1.5rem" />
                             <span className="ms-1">Invoices</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/account/dashboard/opportunities"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <GiPlatform size="1.5rem" />
+
+                            <span className="ms-1">Opportunities</span>
                         </Link>
                     </li>
                     <li>

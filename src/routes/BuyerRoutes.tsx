@@ -49,6 +49,7 @@ import Company from "../pages/Buyer/Company";
 import ReturnRequestDetails from "../pages/Buyer/ReturnRequestDetails";
 import Opportunities from "../pages/Buyer/Opportunities.tsx";
 import InvoiceList from "../pages/Buyer/InvoiceList.tsx";
+import RelatedOpportunities from "../pages/Buyer/RelatedOpportunities.tsx";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -267,7 +268,7 @@ const BuyerRoutes = () => {
 
                         <Route
                             path="quotes/:id"
-                            element={<OfferList />}
+                            // element={<OfferList />}
                         />
                         <Route
                             path="quotes/offers/:id/invoice"
@@ -280,6 +281,11 @@ const BuyerRoutes = () => {
                         <Route
                             path="invoices/:id"
                             element={<OfferInvoice />}
+                        />
+
+                        <Route
+                            path="opportunities"
+                            element={<RelatedOpportunities />}
                         />
                     </Route>
                 </Route>
