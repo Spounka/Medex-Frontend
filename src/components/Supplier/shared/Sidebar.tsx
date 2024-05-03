@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import { LiaFileInvoiceSolid as PiInvoiceLight } from "react-icons/lia";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import { BsGearFill } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
@@ -247,7 +248,34 @@ const Sidebar = (props) => {
                             </li>
                         </ul>
                     </li>
-
+                    <li
+                        style={
+                            li == 3
+                                ? {
+                                      backgroundColor: "rgb(250, 250, 251)",
+                                      borderLeft:
+                                          i18n.resolvedLanguage == "en"
+                                              ? "2px solid var(--theme-color-primary)"
+                                              : "",
+                                      borderRight:
+                                          i18n.resolvedLanguage == "ar"
+                                              ? "2px solid var(--theme-color-primary)"
+                                              : "",
+                                      width: "100%",
+                                  }
+                                : {}
+                        }
+                        className={li == 10 ? "px-3" : ""}
+                        onClick={() => setLi(10)}
+                    >
+                        <Link
+                            to="/supplier/invoices/list"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <PiInvoiceLight size="1.5rem" />
+                            <span className="ms-1">Invoices</span>
+                        </Link>
+                    </li>
                     <li
                         style={
                             li == 6
@@ -392,78 +420,6 @@ const Sidebar = (props) => {
                             <span className="ms-1">{t("buyer_sidebar.settings")}</span>
                             {/* <IoIosArrowDown size="0.8rem" /> */}
                         </Link>
-                        {/* <ul
-                            className="collapse nav flex-column mx-3"
-                            id="settings"
-                            data-bs-parent="#menu"
-                        >
-                            <li>
-                                <Link
-                                    to="/supplier/account/password/update"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbPasswordFingerprint size="1.5rem" />
-                                    <span className="ms-1">
-                                        {t("supplier_sidebar.password_update")}
-                                    </span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="#language"
-                                    data-bs-toggle="collapse"
-                                    className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
-                                >
-                                    <TbLanguage size="1.5rem" />
-                                    <span className="ms-1">
-                                        {t("supplier_sidebar.language")}
-                                    </span>
-                                    <IoIosArrowDown size="0.8rem" />
-                                </Link>
-                                <ul
-                                    className="collapse nav flex-column mx-3"
-                                    id="language"
-                                    data-bs-parent="#settings"
-                                >
-                                    <li>
-                                        <Link
-                                            className="dropdown-item d-flex justify-content-around text-center"
-                                            role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("ar")
-                                            }
-                                        >
-                                            <img
-                                                src={arFlag}
-                                                alt="AR"
-                                                width="25"
-                                                height="25"
-                                            />
-                                            <span className="text-dark">
-                                                AR
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            className="dropdown-item d-flex justify-content-around"
-                                            role="button"
-                                            onClick={() =>
-                                                i18n.changeLanguage("en")
-                                            }
-                                        >
-                                            <img
-                                                src={enFlag}
-                                                alt="EN"
-                                                width="25"
-                                                height="25"
-                                            />
-                                            <span className="text-dark">
-                                                EN
-                                            </span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul> */}
                     </li>
                 </ul>
             </div>

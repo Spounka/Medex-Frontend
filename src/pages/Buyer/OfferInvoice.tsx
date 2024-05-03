@@ -35,9 +35,9 @@ const OfferInvoice = () => {
 
     const getOffer = async () => {
         await api
-            .get<Offer>(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`)
+            .get<Offer>(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/`)
             .then((res) => {
-                console.log(res.data);
+                console.info("Offered fetched: ", res.data);
                 setOffer(res.data);
             });
     };
@@ -154,7 +154,7 @@ const OfferInvoice = () => {
                 className="invoice tw-h-full tw-min-h-[60dvh] tw-w-full"
                 ref={pdfRef}
             >
-                {showNew && offer !== null ? (
+                {showNew ? (
                     <NewInvoice quote={offer} />
                 ) : (
                     <>

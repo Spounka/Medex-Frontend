@@ -12,14 +12,15 @@ import userImage from "../../assets/images/user.png";
 
 import useAxios from "../../utils/useAxios";
 import { useTranslation } from "react-i18next";
+import { Quote } from "@domain/quote.ts";
 
 const QuoteList = () => {
     const { t } = useTranslation();
 
     const api = useAxios();
 
-    const [quotes, setQuotes] = useState({});
-    const [selectedQuote, setSelectedQuote] = useState("");
+    const [quotes, setQuotes] = useState<Quote[]>([]);
+    const [selectedQuote, setSelectedQuote] = useState<Quote>();
 
     const getQuotes = async () => {
         await api.get(import.meta.env.VITE_BACKEND_URL + "/api/quote/").then((res) => {
@@ -75,7 +76,7 @@ const QuoteList = () => {
                                             >
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
-                                                        selectedQuote.id == quote.id
+                                                        selectedQuote?.id == quote.id
                                                             ? "bg-primary text-white"
                                                             : ""
                                                     }`}
@@ -102,29 +103,29 @@ const QuoteList = () => {
                                                         <div className="col-9 col-md-10 mx-2">
                                                             <div className="card-body">
                                                                 <h6 className="card-title dashboard__quote-title">
-                                                                    {quote.product_name}
+                                                                    {/*{quote.product_name}*/}
                                                                 </h6>
                                                                 <span className="card-text dashboard__quote-text">
-                                                                    {quote.requirements.substring(
-                                                                        0,
-                                                                        30,
-                                                                    )}
+                                                                    {/*{quote.requirements.substring(*/}
+                                                                    {/*    0,*/}
+                                                                    {/*    30,*/}
+                                                                    {/*)}*/}
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="d-flex align-items-center justify-content-between">
-                                                        <div className="d-flex align-items-center gap-2 dashboard__quote-info">
-                                                            <CgMenuMotion size=".8rem" />
-                                                            {quote.quantity}{" "}
-                                                            {quote.unit_display}
-                                                        </div>
-                                                        <div className="d-flex align-items-center gap-2 dashboard__quote-info">
-                                                            <CiTimer size=".8rem" />
-                                                            {quote.created_since}{" "}
-                                                            {t("ago")}
-                                                        </div>
-                                                    </div>
+                                                    {/*<div className="d-flex align-items-center justify-content-between">*/}
+                                                    {/*    <div className="d-flex align-items-center gap-2 dashboard__quote-info">*/}
+                                                    {/*        <CgMenuMotion size=".8rem" />*/}
+                                                    {/*        {quote.quantity}{" "}*/}
+                                                    {/*        {quote.unit_display}*/}
+                                                    {/*    </div>*/}
+                                                    {/*    <div className="d-flex align-items-center gap-2 dashboard__quote-info">*/}
+                                                    {/*        <CiTimer size=".8rem" />*/}
+                                                    {/*        {quote.created_since}{" "}*/}
+                                                    {/*        {t("ago")}*/}
+                                                    {/*    </div>*/}
+                                                    {/*</div>*/}
                                                 </div>
                                             </Link>
                                         );
@@ -139,7 +140,7 @@ const QuoteList = () => {
                                             return (
                                                 <div
                                                     className={`tab-pane fade ${
-                                                        selectedQuote.id == quote.id
+                                                        selectedQuote?.id == quote.id
                                                             ? "active show"
                                                             : ""
                                                     }`}
@@ -176,9 +177,9 @@ const QuoteList = () => {
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <h5 className="mb-3">
-                                                            {quote.product_name}
-                                                        </h5>
+                                                        {/*<h5 className="mb-3">*/}
+                                                        {/*    {quote.product_name}*/}
+                                                        {/*</h5>*/}
                                                         <p className="mb-3">
                                                             {quote.requirements}
                                                         </p>
@@ -188,15 +189,15 @@ const QuoteList = () => {
                                                             )}
                                                         </h5>
                                                         <ul className="list-group">
-                                                            <li className="list-group-item d-flex align-items-center gap-2">
-                                                                <CgMenuMotion />
-                                                                {t(
-                                                                    "buyer_pages.cart.qty",
-                                                                )}
-                                                                : &nbsp;
-                                                                {quote.quantity}{" "}
-                                                                {quote.unit_display}
-                                                            </li>
+                                                            {/*<li className="list-group-item d-flex align-items-center gap-2">*/}
+                                                            {/*    <CgMenuMotion />*/}
+                                                            {/*    {t(*/}
+                                                            {/*        "buyer_pages.cart.qty",*/}
+                                                            {/*    )}*/}
+                                                            {/*    : &nbsp;*/}
+                                                            {/*    {quote.quantity}{" "}*/}
+                                                            {/*    {quote.unit_display}*/}
+                                                            {/*</li>*/}
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CiTimer />
                                                                 {t(
@@ -215,7 +216,7 @@ const QuoteList = () => {
                                                                 } -{" "}
                                                                 {quote.due_time_display}
                                                             </li>
-                                                            {quote?.attachments.length >
+                                                            {quote?.attachments?.length >
                                                                 0 &&
                                                                 quote.attachments.map(
                                                                     (
@@ -257,7 +258,7 @@ const QuoteList = () => {
                                                             )}
                                                         </h5>
                                                         <Link
-                                                            to={`/account/dashboard/quotes/${selectedQuote.id}`}
+                                                            to={`/account/dashboard/quotes/${selectedQuote?.id}`}
                                                             className="btn btn-primary d-flex align-items-center gap-2 justify-content-center"
                                                         >
                                                             <LuView size="1.4rem" />
