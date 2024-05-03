@@ -17,7 +17,7 @@ import parse from "html-react-parser";
 import userImage from "../../assets/images/user.png";
 
 import useWishlistHandler from "../../utils/useWishlistHandler";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 import Container from "../../components/ui/container";
 import { Product } from "@domain/product.ts";
@@ -25,6 +25,8 @@ import ProductCard from "../../components/Buyer/shared/ProductCard.tsx";
 import { CartContext } from "../../context/CartContext.tsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import clsx from "clsx";
+import { ThreadUser } from "@domain/thread.ts";
+import AuthContext from "../../context/AuthContext.tsx";
 
 function ProductThumbnail(props: {
     url: string;
@@ -51,6 +53,7 @@ function ProductThumbnail(props: {
 const ProductDetails = (props) => {
     const { t } = useTranslation();
     const { addToCart } = useContext(CartContext);
+    const { authTokens } = useContext(AuthContext);
 
     const [currentCount, setCurrentCount] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
@@ -59,15 +62,30 @@ const ProductDetails = (props) => {
     const navigate = useNavigate();
 
     const [product, setProduct] = useState<Product>();
+    const [supplier, setSupplier] = useState<ThreadUser>();
     const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
     const params = useParams();
 
+    const fetchSupplier = async (id: string) => {
+        await axios
+            .get<ThreadUser>(
+                `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/${id}`,
+                { headers: { Authorization: `Bearer ${authTokens.access}` } },
+            )
+            .then((res) => {
+                setSupplier(res.data);
+            })
+            .catch((e: AxiosError) => {
+                console.error("Error fetching supplier", e.response?.data);
+            });
+    };
     const getProduct = async () => {
         let productState = location?.state?.product;
 
         if (productState) {
-            setProduct(location?.state?.product);
+            await fetchSupplier(productState.supplier ?? "");
+            setProduct(productState);
         } else {
             const productID = params?.product_sku;
 
@@ -77,6 +95,7 @@ const ProductDetails = (props) => {
                         import.meta.env.VITE_BACKEND_URL
                     }/api/product/product/${productID}`,
                 );
+                await fetchSupplier(response.data?.supplier ?? "");
                 setProduct(response.data);
             } catch (err) {
                 navigate("/not-found/");
@@ -267,15 +286,28 @@ const ProductDetails = (props) => {
                     </Swiper>
                 </div>
                 <div className="tw-flex tw-h-auto tw-w-full tw-flex-[0_0_50%] tw-flex-col tw-gap-6">
-                    <div className={"tw-flex tw-flex-col tw-gap-2"}>
-                        <h1 className="tw-font-algreya tw-text-xl tw-font-bold lg:tw-text-4xl">
-                            {product.name}
-                        </h1>
-                        {product.is_available ? (
-                            <h4 className="tw-font-poppins tw-text-lg tw-text-green-400">
-                                {t("buyer_pages.product_details.in")}
-                            </h4>
-                        ) : null}
+                    <div className="tw-flex tw-justify-between">
+                        <div className={"tw-flex tw-flex-1 tw-flex-col tw-gap-2"}>
+                            <h1 className="tw-font-algreya tw-text-xl tw-font-bold lg:tw-text-4xl">
+                                {product.name}
+                            </h1>
+                            {product.is_available ? (
+                                <h4 className="tw-font-poppins tw-text-lg tw-text-green-400">
+                                    {t("buyer_pages.product_details.in")}
+                                </h4>
+                            ) : null}
+                        </div>
+                        <div className="tw-flex-1 tw-content-center tw-items-center tw-px-4 tw-text-black">
+                            <h1 className="tw-font-algreya tw-text-xl tw-text-purple lg:tw-text-3xl">
+                                {supplier?.full_name ?? ""}
+                            </h1>
+                            <a
+                                href={`/compnay/undefined`}
+                                className="tw-font-poppins"
+                            >
+                                View Store
+                            </a>
+                        </div>
                     </div>
                     <div className="tw-flex tw-w-fit tw-items-center tw-justify-between tw-gap-6 tw-align-middle">
                         <h3 className="tw-font-poppins tw-text-lg tw-font-normal lg:tw-text-xl">
@@ -290,13 +322,13 @@ const ProductDetails = (props) => {
                     />
 
                     <div className="tw-flex tw-w-min tw-flex-wrap tw-gap-4 lg:tw-w-full">
-                        <div className="tw-flex  tw-w-full tw-overflow-hidden tw-rounded-md tw-border tw-border-gray-600 lg:tw-w-fit">
+                        <div className="tw-flex tw-overflow-hidden tw-rounded-md tw-border tw-border-gray-600">
                             <button
                                 onClick={() => {
                                     setCurrentCount((v) => (v > 1 ? v - 1 : 1));
                                 }}
                                 className={
-                                    "tw-flex-1 tw-border-r tw-border-r-gray-400 tw-bg-none tw-px-4 tw-py-1.5"
+                                    "tw-border-r tw-border-r-gray-400 tw-bg-none tw-px-4 tw-py-1.5"
                                 }
                             >
                                 -
@@ -306,7 +338,7 @@ const ProductDetails = (props) => {
                                 onChange={(e) => {
                                     setCurrentCount(parseInt(e.target.value));
                                 }}
-                                className="tw-h-full tw-w-full tw-flex-1 tw-content-center tw-px-8 tw-text-center tw-font-poppins tw-text-lg focus:tw-outline-none lg:tw-w-min lg:tw-flex-1"
+                                className="tw-h-full tw-w-min tw-max-w-16 tw-content-center tw-text-center tw-text-lg focus:tw-outline-none"
                                 value={currentCount}
                             />
                             <button
@@ -314,7 +346,7 @@ const ProductDetails = (props) => {
                                     setCurrentCount((v) => v + 1);
                                 }}
                                 className={
-                                    "tw-flex-1 tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
+                                    "tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
                                 }
                             >
                                 +
@@ -322,7 +354,7 @@ const ProductDetails = (props) => {
                         </div>
                         <button
                             className={
-                                "tw-flex-[0_0_50%] tw-rounded-md tw-border tw-border-purple tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-purple lg:tw-basis-auto"
+                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-purple lg:tw-basis-auto"
                             }
                         >
                             Request For Quotation

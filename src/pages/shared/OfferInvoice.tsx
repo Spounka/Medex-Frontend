@@ -61,7 +61,7 @@ function InvoiceMetaData({ offer }: Readonly<{ offer: Offer }>) {
             }
         >
             <h3 className="tw-font-title tw-text-4xl tw-font-medium tw-text-arsenic">
-                Invoice {offer.invoice_id}
+                Invoice {offer?.invoice_id ?? "Medex-Invoice-id"}
             </h3>
             <div className="tw-flex tw-justify-between">
                 <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-2">
@@ -69,13 +69,13 @@ function InvoiceMetaData({ offer }: Readonly<{ offer: Offer }>) {
                         Invoice Date:
                     </h4>
                     <p className="tw-font-title tw-text-lg tw-text-arsenic">
-                        {new Date(offer.created).toLocaleDateString()}
+                        {new Date(offer?.created).toLocaleDateString()}
                     </p>
                 </div>
                 <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-2 tw-text-right">
                     <h4 className="tw-font-title tw-text-xl tw-font-bold">Due Date:</h4>
                     <p className="tw-font-title tw-text-lg tw-text-arsenic">
-                        {new Date(offer.delivery_date).toLocaleDateString()}
+                        {new Date(offer?.delivery_date).toLocaleDateString()}
                     </p>
                 </div>
             </div>
@@ -175,19 +175,11 @@ function InvoiceBody({ offer }: Readonly<{ offer: Offer }>) {
             />
 
             <InvoiceBodyRow
-                description={offer.brand}
-                qtt={offer.quantity}
-                unitPrice={offer.product_price}
-                tax={offer.tax}
-                amount={offer.total_price * offer.quantity}
-            />
-            <InvoiceBodyRow
-                description={offer.brand}
-                qtt={offer.quantity}
-                unitPrice={offer.product_price}
-                tax={offer.tax}
-                amount={offer.total_price * offer.quantity}
-                alternate
+                description={offer?.brand ?? "Brand"}
+                qtt={offer?.quantity ?? 0}
+                unitPrice={offer?.product_price ?? 0}
+                tax={offer?.tax ?? 1}
+                amount={offer?.total_price * offer?.quantity ?? 0}
             />
         </div>
     );
@@ -198,10 +190,10 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
         <div className="tw-flex tw-w-full tw-justify-between tw-py-8">
             <div className="tw-flex tw-flex-[2] tw-flex-col tw-justify-center tw-gap-3.5">
                 <p className="tw-text-lg tw-text-grey-storm">
-                    Payment terms: {offer.delivery_date}
+                    Payment terms: {offer?.delivery_date ?? new Date().toDateString()}
                 </p>
                 <p className="tw-text-lg tw-text-grey-storm">
-                    Payment Method: {offer.payment_type}
+                    Payment Method: {offer?.payment_type ?? "Nothing"}
                 </p>
             </div>
             <div className="tw-flex tw-w-full tw-flex-1 tw-flex-col tw-gap-3">
@@ -210,17 +202,29 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
                         <p className="tw-font-title tw-text-lg tw-font-semibold">
                             Untaxed Amount:
                         </p>
-                        <p className="tw-font-title tw-text-lg">{`${offer.product_price * offer.quantity} S.A.R`}</p>
+                        {offer ? (
+                            <p className="tw-font-title tw-text-lg">{`${offer?.product_price * offer?.quantity ?? 0} S.A.R`}</p>
+                        ) : (
+                            <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
+                        )}
                     </div>
                     <div className="tw-flex tw-w-full tw-justify-between">
-                        <p className="tw-font-title tw-text-lg tw-font-medium tw-text-grey-storm">{`Tax: ${offer.tax}%`}</p>
-                        <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity - offer.quantity * offer.product_price} S.A.R`}</p>
+                        <p className="tw-font-title tw-text-lg tw-font-medium tw-text-grey-storm">{`Tax: ${offer?.tax ?? 0}%`}</p>
+                        {offer ? (
+                            <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity - offer.quantity * offer.product_price} S.A.R`}</p>
+                        ) : (
+                            <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
+                        )}
                     </div>
                 </div>
 
                 <div className="tw-flex tw-w-full tw-justify-between tw-px-2">
                     <p className="tw-font-title tw-text-lg tw-font-semibold">Total:</p>
-                    <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity} S.A.R`}</p>
+                    {offer ? (
+                        <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity} S.A.R`}</p>
+                    ) : (
+                        <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
+                    )}
                 </div>
             </div>
         </div>
@@ -230,8 +234,42 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
 export default function OfferInvoice({ quote }: Readonly<{ quote: Offer }>) {
     return (
         <>
-            <InvoiceBusinessInformation address={quote.user.shipping_address} />
-            <InvoiceClientInformation client={quote.quote_obj.user} />
+            <InvoiceBusinessInformation
+                address={
+                    quote?.user?.shipping_address ?? {
+                        address_1: "address1",
+                        postal_code: "postal_code",
+                        city: "city",
+                        state: "state",
+                        country: "country",
+                    }
+                }
+            />
+            <InvoiceClientInformation
+                client={
+                    quote?.quote_obj?.user ?? {
+                        email: "email",
+                        phone: "phone",
+                        full_name: "full client name",
+                        billing_address: {
+                            address_1: "address_1",
+                            id: 0,
+                            city: "city",
+                            country: "country",
+                            state: "state",
+                            postal_code: "postal_code",
+                        },
+                        shipping_address: {
+                            address_1: "address_1",
+                            id: 0,
+                            city: "city",
+                            country: "country",
+                            state: "state",
+                            postal_code: "postal_code",
+                        },
+                    }
+                }
+            />
             <InvoiceMetaData offer={quote} />
             <InvoiceBody offer={quote} />
             <InvoiceFooter offer={quote} />

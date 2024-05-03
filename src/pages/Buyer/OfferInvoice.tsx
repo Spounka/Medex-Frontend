@@ -154,7 +154,7 @@ const OfferInvoice = () => {
                 className="invoice tw-h-full tw-min-h-[60dvh] tw-w-full"
                 ref={pdfRef}
             >
-                {showNew && offer !== null ? (
+                {showNew ? (
                     <NewInvoice quote={offer} />
                 ) : (
                     <>

@@ -4,6 +4,9 @@ import { IoSearchOutline as UilSearch, IoEyeOutline, IoCheckmark } from "react-i
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { OverlayArrow, TooltipTrigger, Tooltip, Button } from "react-aria-components";
+import * as crypto from "node:crypto";
+import { useNavigate } from "react-router-dom";
 
 function LabelCheckbox({
     label,
@@ -43,22 +46,39 @@ function LabelCheckbox({
 }
 
 function OpportunityCard() {
+    const navigate = useNavigate();
     return (
         <article
             className={
-                "tw-flex tw-min-h-24 tw-min-w-24 tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-shadow-[0_0_8px_#00000025]"
+                "tw-flex tw-min-h-24 tw-min-w-24 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-shadow-[0_0_8px_#00000025]"
             }
+            onClick={() => navigate("/opportunities/id")}
         >
             <div className="tw-flex tw-flex-col tw-gap-6 tw-p-4">
                 <div className="tw-flex tw-w-full tw-justify-start tw-gap-6">
                     <span className="tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
                         OPEN
                     </span>
-                    <span className="tw-flex tw-flex-1 tw-cursor-pointer tw-items-center tw-justify-end ">
-                        <IoEyeOutline className={"tw-h-auto tw-w-6"} />
+                    <span className="tw-flex tw-flex-1 tw-items-center tw-justify-end ">
+                        <TooltipTrigger
+                            delay={1}
+                            closeDelay={2}
+                        >
+                            <Button className={"tw-h-auto tw-w-6 tw-cursor-pointer"}>
+                                <IoEyeOutline
+                                    className={"tw-h-auto tw-w-6 tw-stroke-purple"}
+                                />
+                            </Button>
+                            <Tooltip>
+                                <OverlayArrow />
+                                <p className={"tw-font-lg tw-font-poppins tw-text-black"}>
+                                    {`${Math.floor(Math.random() * 100)} views`}
+                                </p>
+                            </Tooltip>
+                        </TooltipTrigger>
                     </span>
                 </div>
-                <h3 className="tw-max-w-[25ch] tw-font-poppins tw-text-xl tw-text-black">
+                <h3 className="tw-max-w-[25ch] tw-font-poppins tw-text-lg tw-text-black">
                     كراسة الشـروط والمواصفات لتقديم خدمة تشييد وتجهيز وتأثيث الخيام لحجاج
                     باكستان بمشعري عرفات ومنى
                 </h3>
@@ -127,11 +147,18 @@ function Opportunities() {
                     <div className="tw-flex tw-gap-6">
                         <Select
                             options={[
-                                { value: "up", label: "Up" },
-                                { value: "down", label: "Down" },
+                                { value: "date-up", label: "Date Ascending" },
+                                { value: "date-down", label: "Date Descending" },
+                                { value: "publish-up", label: "Publish Date Ascending" },
+                                {
+                                    value: "publish-down",
+                                    label: "Publish Date Descending",
+                                },
                             ]}
                             onChange={() => {}}
-                            className={"tw-rounded-md [&&]:tw-border-gray-300"}
+                            className={
+                                "tw-min-w-[22rem] tw-rounded-md [&>input]:tw-border-gray-300"
+                            }
                         />
                         <div
                             className="input-group m-0 tw-w-fit"
