@@ -35,9 +35,9 @@ const OfferInvoice = () => {
 
     const getOffer = async () => {
         await api
-            .get<Offer>(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}/`)
+            .get<Offer>(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/`)
             .then((res) => {
-                console.log(res.data);
+                console.info("Offered fetched: ", res.data);
                 setOffer(res.data);
             });
     };

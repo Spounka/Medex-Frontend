@@ -45,6 +45,8 @@ import { useTranslation } from "react-i18next";
 import Store from "../pages/Supplier/Store";
 import Permissions from "../pages/Supplier/Permissions";
 import Wallet from "../pages/shared/Wallet";
+import InvoiceList from "../pages/Supplier/InvoiceList.tsx";
+import InvoiceDetails from "../pages/Supplier/InvoiceDetails.tsx";
 
 const SupplierRoutes = () => {
     const { t } = useTranslation();
@@ -144,6 +146,14 @@ const SupplierRoutes = () => {
                     <Route
                         path="/quotes/offers"
                         element={<OfferList />}
+                    />
+                    <Route
+                        path="/invoices/list"
+                        element={<InvoiceList />}
+                    />
+                    <Route
+                        path="/invoices/:id"
+                        element={<InvoiceDetails />}
                     />
                 </Route>
 
