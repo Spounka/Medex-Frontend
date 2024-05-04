@@ -12,8 +12,8 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 
-import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.js";
-import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.js";
+import { AG_GRID_LOCALE_AR } from "../../utils/AG-Localization/ar.ts";
+import { AG_GRID_LOCALE_EN } from "../../utils/AG-Localization/en.ts";
 
 import { FcCancel } from "react-icons/fc";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";

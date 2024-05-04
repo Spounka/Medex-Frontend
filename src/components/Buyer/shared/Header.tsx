@@ -177,27 +177,45 @@ const Header = () => {
             }}
         >
             <div
-                className="tw-flex tw-w-full tw-justify-between"
+                className="tw-flex tw-w-full tw-justify-between tw-gap-4"
                 style={{ flexWrap: "nowrap" }}
             >
-                <Link
-                    to="/"
-                    className="tw-content-center tw-font-algreya tw-text-5xl tw-font-extrabold"
-                >
-                    Medex
-                </Link>
-                <div className={"tw-flex tw-items-center md:tw-hidden"}>
-                    <LanguageDropDown />
+                <div className="tw-flex tw-w-full tw-justify-between">
+                    <Link
+                        to="/"
+                        className="tw-font-['Comic Sans'] tw-content-center tw-text-center tw-align-middle tw-text-4xl tw-font-bold lg:tw-text-5xl"
+                    >
+                        Medex
+                    </Link>{" "}
+                    <Link
+                        to={"/opportunities"}
+                        className={
+                            "tw-hidden tw-cursor-pointer tw-content-center tw-font-poppins tw-font-semibold tw-text-gray-600 lg:tw-block"
+                        }
+                    >
+                        Opportunities
+                    </Link>
+                    <div className={"tw-flex tw-items-center tw-gap-4 lg:tw-hidden"}>
+                        <Link
+                            to={"/opportunities"}
+                            className={
+                                "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                            }
+                        >
+                            Opportunities
+                        </Link>
+                        <LanguageDropDown />
+                    </div>
                 </div>
 
-                <div className="collapse navbar-collapse d-none d-md-block">
+                <div className="collapse navbar-collapse tw-hidden tw-flex-[0_0_10%] md:tw-block">
                     <ul
                         className={`navbar-nav ${
                             i18n.resolvedLanguage == "en" ? "ms-auto" : "me-auto"
                         } mb-2 mb-lg-0`}
                     >
-                        <div className="d-flex justify-content-between align-items-center gap-4 navbar__top-section tw-w-full">
-                            <div className="search-bar tw-w-fit">
+                        <div className="d-flex justify-content-between align-items-center navbar__top-section tw-w-full tw-gap-4">
+                            <div className="search-bar tw-w-fit tw-px-0">
                                 <form
                                     method="get"
                                     action="/products"
@@ -211,7 +229,7 @@ const Header = () => {
                                     >
                                         <div className="nav-link">
                                             <div
-                                                className="input-group m-0"
+                                                className="input-group m-0 tw-px-0"
                                                 style={{
                                                     direction: "ltr",
                                                 }}
@@ -260,10 +278,6 @@ const Header = () => {
                                                     "tw-h-auto tw-w-8 tw-stroke-black"
                                                 }
                                             />
-                                            <p className="m-0 header__link">
-                                                {t("header.favorite")}
-                                                <br /> {t("header.wishlist")}
-                                            </p>
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -277,10 +291,6 @@ const Header = () => {
                                                     "tw-h-auto tw-w-8 tw-stroke-black"
                                                 }
                                             />
-                                            <span className="header__link">
-                                                {t("header.your")} <br />{" "}
-                                                {t("header.account")}
-                                            </span>
                                         </div>
                                         <ul
                                             className="dropdown-menu navbar__category-menu"
@@ -345,24 +355,19 @@ const Header = () => {
                                                     "tw-h-auto tw-w-9 tw-stroke-black"
                                                 }
                                             />
-                                            <span
-                                                id="header-cart-count"
-                                                className="badge text-xs p-1 header__cart-badge"
-                                            >
-                                                {countCartItems}
-                                            </span>
+                                            {countCartItems > 0 ? (
+                                                <span
+                                                    id="header-cart-count"
+                                                    className="tw-absolute tw-right-0 tw-top-0 tw-h-4 tw-w-4 tw-content-center tw-rounded-full tw-bg-purple tw-p-1 tw-text-center tw-text-xs tw-text-white"
+                                                >
+                                                    {countCartItems}
+                                                </span>
+                                            ) : null}
                                         </Link>
                                     </li>
                                 </div>
                             </div>
-                            <div
-                                className={clsx(
-                                    "tw-hidden",
-                                    i18n.resolvedLanguage === "en"
-                                        ? "lg:tw-flex"
-                                        : "lg:tw-flex",
-                                )}
-                            >
+                            <div className={clsx("tw-hidden lg:tw-flex")}>
                                 <LanguageDropDown />
                             </div>
                         </div>

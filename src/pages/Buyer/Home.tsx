@@ -10,6 +10,7 @@ import axios from "axios";
 import ProductCard from "../../components/Buyer/shared/ProductCard";
 import { UilAngleRight } from "@iconscout/react-unicons";
 
+import { IoSearchOutline as UilSearch } from "react-icons/io5";
 import { Brand, Category, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
 import { FaPumpMedical } from "react-icons/fa";
@@ -165,27 +166,57 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     };
 
     return (
-        <main className={"tw-flex tw-flex-col tw-gap-4 md:tw-gap-8"}>
+        <main className={"tw-flex tw-flex-col tw-gap-4 tw-py-3 md:tw-gap-8"}>
             <Container node={"section"}>
+                <div
+                    className="input-group m-0 tw-border-none md:tw-hidden"
+                    style={{
+                        direction: "ltr",
+                    }}
+                >
+                    <button
+                        type="submit"
+                        className="input-group-text tw-border-none tw-bg-white"
+                        id="header-search-bar"
+                    >
+                        <UilSearch
+                            width={"2.0rem"}
+                            height={"auto"}
+                            fill={"black"}
+                        />
+                    </button>
+                    <input
+                        type="text"
+                        name="keyword"
+                        className="form-control tw-border-none tw-bg-white tw-py-1.5 tw-font-poppins tw-text-sm focus:tw-bg-white"
+                        placeholder={`${t("header.search_product")}...`}
+                        aria-label={`${t("header.search_product")}...`}
+                        aria-describedby="header-search-bar"
+                    />
+                </div>
                 <Swiper
                     spaceBetween={30}
                     slidesPerView={2}
                     breakpointsBase={"window"}
                     breakpoints={{
                         320: {
-                            slidesPerView: 2,
+                            slidesPerView: 4,
                             spaceBetween: 10,
                         },
                         425: {
                             slidesPerView: 3,
                             spaceBetween: 15,
                         },
+                        640: {
+                            slidesPerView: 6,
+                            spaceBetween: 15,
+                        },
                         768: {
-                            slidesPerView: 4,
+                            slidesPerView: 6,
                             spaceBetween: 15,
                         },
                         1000: {
-                            slidesPerView: 5,
+                            slidesPerView: 8,
                             spaceBetween: 20,
                         },
                         1440: {
@@ -193,11 +224,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             spaceBetween: 25,
                         },
                         1650: {
-                            slidesPerView: 7,
-                        },
-                        1920: {
-                            slidesPerView: 8,
-                            spaceBetween: 30,
+                            slidesPerView: 10,
                         },
                     }}
                     className={
@@ -219,15 +246,14 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <SwiperSlide
                             key={category}
                             className={clsx(
-                                "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-2 tw-py-2 tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-3 lg:tw-px-4",
+                                "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-0.5 tw-py-0.5 tw-text-[0.5rem] tw-text-sm tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-2.5 lg:tw-px-3 2xl:tw-py-1 2xl:tw-text-xs",
                                 i === activeCategory
-                                    ? "tw-bg-purple tw-fill-white tw-font-algreya tw-text-white"
-                                    : "tw-bg-slate-50 tw-font-algreya tw-font-normal tw-text-black",
+                                    ? "tw-bg-black tw-fill-white tw-font-poppins tw-text-white "
+                                    : "tw-bg-none tw-font-poppins tw-font-normal tw-text-gray-600",
                             )}
                             onClick={() => setActiveCategory(i)}
                         >
                             <span className="tw-font-bold">{category}</span>
-                            <UilAngleRight className={"tw-rotate-90 tw-fill-inherit"} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -249,7 +275,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     <div>
                         <div className="row d-flex align-items-center tw-border-b tw-border-b-gray-300">
                             <div className="col-8">
-                                <h3 className="m-0 home__sections-title fw-bolder">
+                                <h3 className="m-0 home__sections-title fw-bolder tw-font-black">
                                     {t("buyer_pages.home.featured_cat")}
                                 </h3>
                             </div>
@@ -279,7 +305,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                         icon={
                                             <FaXRay
                                                 className={
-                                                    "tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
+                                                    "tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
                                                 }
                                             />
                                         }
@@ -288,35 +314,35 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                     <CategoryLink
                                         to={"/products?category=medex"}
                                         icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medll"}
                                         icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medll"}
                                         icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Medical"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=Medx"}
                                         icon={
-                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Labs"}
                                     />
                                     <CategoryLink
                                         to={"/products?category=XxMed"}
                                         icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-6 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
+                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
                                         }
                                         text={"Chemicals"}
                                     />
@@ -567,7 +593,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="tw-flex tw-h-max tw-flex-wrap tw-justify-between tw-gap-3.5 lg:tw-justify-start">
+                        <div className="tw-flex tw-h-max tw-flex-wrap tw-justify-start tw-gap-3.5 lg:tw-justify-start">
                             {brands && brands.length > 0 ? (
                                 brands.slice(1).map((brand) => {
                                     return (
@@ -575,7 +601,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                             brand={brand}
                                             key={brand.id}
                                             className={
-                                                "tw-flex-[0_0_30%] lg:tw-flex-[0_0_18%] xl:tw-flex-[0_0_15%]"
+                                                "tw-flex-[0_0_30%] md:tw-flex-1 lg:tw-flex-[0_0_18%] xl:tw-flex-[0_0_15%]"
                                             }
                                         />
                                     );
