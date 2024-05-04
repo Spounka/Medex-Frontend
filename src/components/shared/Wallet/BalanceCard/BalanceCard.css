@@ -3,7 +3,8 @@
 .balance__card {
     width: 100%;
     height: 230px;
-    background: radial-gradient(circle, #4f007c, #09359b);
+    /*background: radial-gradient(circle, #4f007c, #09359b);*/
+    background-color: #09359b;
     border-radius: 10px;
     z-index: 1;
     overflow: hidden;

@@ -179,7 +179,7 @@ function InvoiceBody({ offer }: Readonly<{ offer: Offer }>) {
                 qtt={offer?.quantity ?? 0}
                 unitPrice={offer?.product_price ?? 0}
                 tax={offer?.tax ?? 1}
-                amount={offer?.total_price * offer?.quantity ?? 0}
+                amount={(offer?.total_price ?? 0) * (offer?.quantity ?? 0)}
             />
         </div>
     );
@@ -203,7 +203,7 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
                             Untaxed Amount:
                         </p>
                         {offer ? (
-                            <p className="tw-font-title tw-text-lg">{`${offer?.product_price * offer?.quantity ?? 0} S.A.R`}</p>
+                            <p className="tw-font-title tw-text-lg">{`${(offer?.product_price ?? 0) * (offer?.quantity ?? 0)} S.A.R`}</p>
                         ) : (
                             <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
                         )}

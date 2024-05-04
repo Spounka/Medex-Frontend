@@ -17,7 +17,7 @@ import { LuBadgeCheck, LuBanknote } from "react-icons/lu";
 import { PiBankBold } from "react-icons/pi";
 import { toast } from "react-toastify";
 
-import { WalletResponseData } from "../../types/wallet";
+import { WalletResponseData } from "@domain/wallet.ts";
 
 const monthNames: Array<string> = [
     "Jan",
