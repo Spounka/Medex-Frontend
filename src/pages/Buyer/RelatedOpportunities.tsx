@@ -17,7 +17,6 @@ import {
     DialogTrigger,
     Group,
     Heading,
-    Input,
     Label,
     Modal,
     Popover,

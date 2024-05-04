@@ -7,6 +7,7 @@ import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 import {
     IoCartOutline as CartIcon,
     IoHeartOutline as HeartIcon,
+    IoHeart as HeartFilledIcon,
     IoRepeat as RepeatIcon,
 } from "react-icons/io5";
 
@@ -292,7 +293,7 @@ const ProductDetails = (props) => {
                                 {product.name}
                             </h1>
                             {product.is_available ? (
-                                <h4 className="tw-font-poppins tw-text-lg tw-text-green-400">
+                                <h4 className="tw-font-poppins tw-text-lg tw-text-gray-500">
                                     {t("buyer_pages.product_details.in")}
                                 </h4>
                             ) : null}
@@ -302,8 +303,8 @@ const ProductDetails = (props) => {
                                 {supplier?.full_name ?? ""}
                             </h1>
                             <a
-                                href={`/compnay/undefined`}
-                                className="tw-font-poppins"
+                                href={`/company/undefined`}
+                                className="tw-font-poppins tw-underline"
                             >
                                 View Store
                             </a>
@@ -346,7 +347,7 @@ const ProductDetails = (props) => {
                                     setCurrentCount((v) => v + 1);
                                 }}
                                 className={
-                                    "tw-border-l tw-border-l-gray-400 tw-bg-purple tw-px-4 tw-py-1.5 tw-text-white"
+                                    "tw-border-l tw-border-l-gray-400 tw-bg-black tw-px-4 tw-py-1.5 tw-text-white"
                                 }
                             >
                                 +
@@ -354,31 +355,35 @@ const ProductDetails = (props) => {
                         </div>
                         <button
                             className={
-                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-purple lg:tw-basis-auto"
+                                "tw-rounded-md tw-border tw-border-black tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-black lg:tw-basis-auto"
                             }
                         >
                             Request For Quotation
                         </button>
                         <button
                             className={
-                                "tw-rounded-md tw-bg-purple tw-px-8 tw-py-1.5 tw-font-poppins tw-text-white"
+                                "tw-flex tw-items-center tw-gap-1 tw-rounded-md tw-bg-black tw-px-8 tw-py-1.5 tw-font-poppins tw-text-white"
                             }
+                            onClick={() => addToCart(product, currentCount)}
                         >
-                            Buy Now
+                            <CartIcon className={"tw-h-auto tw-w-8 tw-stroke-white"} />
+                            Add To cart
                         </button>
                         <button
-                            className={
-                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-stroke-purple tw-px-2 tw-py-1.5 tw-font-poppins tw-text-white"
-                            }
+                            className={clsx(
+                                "tw-rounded-md tw-border tw-border-black tw-bg-none tw-stroke-black tw-px-2 tw-py-1.5",
+                            )}
+                            onClick={() => handleWishButtonClick()}
                         >
-                            <CartIcon className={"tw-h-auto tw-w-8 tw-stroke-inherit"} />
-                        </button>
-                        <button
-                            className={
-                                "tw-rounded-md tw-border tw-border-purple tw-bg-none tw-stroke-purple tw-px-2 tw-py-1.5 tw-font-poppins tw-text-white"
-                            }
-                        >
-                            <HeartIcon className={"tw-h-auto tw-w-8 tw-stroke-inherit"} />
+                            {isInWishlist ? (
+                                <HeartFilledIcon
+                                    className={"tw-h-auto tw-w-8 tw-stroke-inherit"}
+                                />
+                            ) : (
+                                <HeartIcon
+                                    className={"tw-h-auto tw-w-8 tw-stroke-inherit"}
+                                />
+                            )}
                         </button>
                     </div>
                     <div className="tw-flex tw-w-fit tw-flex-col tw-rounded-md tw-border tw-border-gray-600 tw-p-4">
@@ -411,8 +416,8 @@ const ProductDetails = (props) => {
             </div>
             <div className="tw-flex tw-flex-col tw-gap-8 tw-py-8">
                 <div className="tw-flex tw-items-center tw-justify-start tw-gap-4">
-                    <span className="tw-aspect-[9/16] tw-rounded-md tw-bg-purple tw-p-3 " />
-                    <h3 className="tw-font-algreya tw-text-2xl tw-font-medium tw-text-purple">
+                    <span className="tw-aspect-[9/16] tw-rounded-md tw-bg-black tw-p-3 " />
+                    <h3 className="tw-font-algreya tw-text-2xl tw-font-medium tw-text-black">
                         Related Items
                     </h3>
                 </div>
@@ -428,6 +433,7 @@ const ProductDetails = (props) => {
                     ))}
                 </div>
             </div>
+            ;
         </Container>
     );
 };

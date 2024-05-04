@@ -50,13 +50,13 @@ function OpportunityCard() {
     return (
         <article
             className={
-                "tw-flex tw-min-h-24 tw-min-w-24 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-shadow-[0_0_8px_#00000025]"
+                "tw-flex-grow-1 tw-flex tw-min-h-24 tw-w-full tw-min-w-24 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-text-lg tw-text-black tw-shadow-[0_0_8px_#00000025]  md:tw-w-fit md:tw-flex-grow-0"
             }
             onClick={() => navigate("/opportunities/id")}
         >
             <div className="tw-flex tw-flex-col tw-gap-6 tw-p-4">
                 <div className="tw-flex tw-w-full tw-justify-start tw-gap-6">
-                    <span className="tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
+                    <span className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
                         OPEN
                     </span>
                     <span className="tw-flex tw-flex-1 tw-items-center tw-justify-end ">
@@ -78,16 +78,16 @@ function OpportunityCard() {
                         </TooltipTrigger>
                     </span>
                 </div>
-                <h3 className="tw-max-w-[25ch] tw-font-poppins tw-text-lg tw-text-black">
+                <h3 className="tw-max-w-[35ch] tw-font-tajawal tw-text-black tw-text-inherit lg:tw-max-w-[23ch]">
                     كراسة الشـروط والمواصفات لتقديم خدمة تشييد وتجهيز وتأثيث الخيام لحجاج
                     باكستان بمشعري عرفات ومنى
                 </h3>
-                <h4 className="tw-font-poppins tw-text-lg tw-font-light">
+                <h4 className="tw-font-poppins tw-font-light tw-text-inherit">
                     Event Planning, Catering Services
                 </h4>
             </div>
             <div className="tw-border-b tw-border-b-gray-300" />
-            <div className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-lg tw-text-purple">
+            <div className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
                 <h3 className={"tw-font-semibold"}>5</h3>
                 <p className={"tw-text-sm tw-font-light"}>Days To go</p>
             </div>
@@ -144,7 +144,7 @@ function Opportunities() {
                     </details>
                 </div>
                 <div className="tw-flex tw-flex-col tw-gap-6">
-                    <div className="tw-flex tw-gap-6">
+                    <div className="tw-flex tw-flex-col tw-gap-4 lg:tw-flex-row lg:tw-gap-6">
                         <Select
                             options={[
                                 { value: "date-up", label: "Date Ascending" },
@@ -187,7 +187,9 @@ function Opportunities() {
                             />
                         </div>
                     </div>
-                    <div className="tw-flex tw-w-full tw-flex-wrap tw-gap-4">
+                    <div className="tw-flex tw-w-full tw-grid-cols-1 tw-flex-wrap tw-justify-center tw-gap-4 md:tw-grid-cols-2 md:tw-justify-start xl:tw-grid-cols-3 2xl:tw-grid-cols-4">
+                        <OpportunityCard />
+                        <OpportunityCard />
                         <OpportunityCard />
                         <OpportunityCard />
                         <OpportunityCard />

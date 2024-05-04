@@ -43,9 +43,8 @@ const CategoriesList = () => {
             <section className="py-4 d-none d-md-block">
                 <div className="container-xxl">
                     <div className="row tw-w-full">
-                        <div className="col-3 tw-flex tw-flex-col tw-gap-1.5 md:tw-gap-2.5">
+                        <div className="col-2 tw-flex tw-flex-col tw-gap-1.5 md:tw-gap-2.5">
                             <h3 className="home__sections-title fw-bolder d-flex align-items-center gap-2 text-dark">
-                                <BiCategoryAlt size="2rem" />
                                 {t("buyer_pages.categories_list.all")}
                             </h3>
                             <hr />
@@ -82,7 +81,6 @@ const CategoriesList = () => {
                         </div>
                         <div className="col-8 tw-flex tw-flex-grow tw-flex-col tw-gap-2.5">
                             <h3 className="home__sections-title fw-bolder d-flex align-items-center gap-2  text-dark">
-                                <BiCategory size="2rem" />
                                 All &ldquo;
                                 {selectedCategory?.name?.toLocaleUpperCase()}
                                 &rdquo; {t("buyer_pages.categories_list.subcategories")}
@@ -143,14 +141,12 @@ const CategoriesList = () => {
                         <div className="row d-flex align-items-end">
                             <div className="col-5 tw-flex tw-flex-col tw-gap-1.5">
                                 <h6 className="category__sections-title fw-bolder d-flex align-items-center gap-2">
-                                    <BiCategoryAlt size="1rem" />
                                     {t("buyer_pages.categories_list.all")}
                                 </h6>
                                 <hr />
                             </div>
                             <div className="col-7 tw-flex tw-flex-col tw-gap-1.5">
                                 <h6 className="category__sections-title fw-bolder d-flex align-items-center gap-2">
-                                    <BiCategory size="1rem" />
                                     All &ldquo;
                                     {selectedCategory?.name.toLocaleUpperCase()}
                                     &rdquo;{" "}
