@@ -12,6 +12,7 @@ import { MdListAlt, MdShop2, MdSpaceDashboard, MdWallet } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 
 import { useState } from "react";
+import { GiPlatform } from "react-icons/gi";
 
 const Sidebar = (props) => {
     const { t, i18n } = useTranslation();
@@ -274,6 +275,35 @@ const Sidebar = (props) => {
                         >
                             <PiInvoiceLight size="1.5rem" />
                             <span className="ms-1">Invoices</span>
+                        </Link>
+                    </li>
+                    <li
+                        style={
+                            li == 11
+                                ? {
+                                      backgroundColor: "rgb(250, 250, 251)",
+                                      borderLeft:
+                                          i18n.resolvedLanguage == "en"
+                                              ? "2px solid var(--theme-color-primary)"
+                                              : "",
+                                      borderRight:
+                                          i18n.resolvedLanguage == "ar"
+                                              ? "2px solid var(--theme-color-primary)"
+                                              : "",
+                                      width: "100%",
+                                  }
+                                : {}
+                        }
+                        className={li == 11 ? "px-3" : ""}
+                        onClick={() => setLi(11)}
+                    >
+                        <Link
+                            to="/supplier/opportunities"
+                            className="nav-link px-0 d-flex gap-2 align-items-center dashboard__link"
+                        >
+                            <GiPlatform size="1.5rem" />
+
+                            <span className="ms-1">Opportunities</span>
                         </Link>
                     </li>
                     <li

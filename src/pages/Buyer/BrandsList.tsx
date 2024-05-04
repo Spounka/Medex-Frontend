@@ -19,20 +19,20 @@ export function BrandCard({ brand, className }: BrandsListProps) {
         <Link
             to={`/products?brand=${brand.slug}`}
             className={clsx(
-                "tw-flex tw-flex-1 tw-flex-col tw-items-center tw-justify-center tw-gap-4 tw-overflow-hidden tw-rounded-xl tw-border tw-border-gray-200 tw-pb-2.5",
+                "tw-flex tw-flex-1 tw-flex-col tw-items-center tw-justify-center tw-gap-4 tw-overflow-hidden tw-rounded-xl tw-pb-2.5",
                 className,
             )}
         >
-            <div className="tw-w-full tw-border-b tw-border-gray-200">
+            <div className="tw-w-full">
                 <img
                     src={brand.image}
                     alt="Brand"
                     className="tw-h-auto tw-max-h-[120px] tw-w-full tw-object-cover tw-px-2"
                 />
             </div>
-            <p className="tw-font-tajawal tw-text-4xl tw-font-semibold tw-text-black">
-                {brand.name.toLowerCase()}
-            </p>
+            {/*<p className="tw-font-tajawal tw-text-2xl tw-font-semibold tw-text-black">*/}
+            {/*    {brand.name.toLowerCase()}*/}
+            {/*</p>*/}
         </Link>
     );
 }

@@ -1161,7 +1161,7 @@ footer {
 
 .category__sections-link.active {
     border-radius: 8px;
-    background-color: var(--theme-color-primary);
+    background-color: black;
 }
 
 @media screen and (max-width: 768px) {
@@ -2133,5 +2133,17 @@ input[type=number] {
     .react-aria-Heading[slot=title] {
         line-height: 1em;
         margin-top: 0;
+    }
+}
+
+.react-aria-Tab {
+    transition: color 75ms ease-in-out,
+    font-weight 20ms ease-in-out,
+    border 75ms ease-in-out;
+
+    &[data-selected] {
+        border-bottom: 1px solid var(--theme-color-primary);
+        color: var(--theme-color-primary);
+        font-weight: 500;
     }
 }
