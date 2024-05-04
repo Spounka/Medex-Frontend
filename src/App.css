@@ -2019,13 +2019,9 @@ input[type=number] {
     --ag-border-radius: 7px 7px 0 0 !important;
 }
 
-@import "@react-aria/example-theme";
-
 .react-aria-Tooltip {
     box-shadow: 0 8px 20px rgba(0 0 0 / 0.1);
     border-radius: 4px;
-    background: var(--highlight-background);
-    color: var(--highlight-foreground);
     forced-color-adjust: none;
     outline: none;
     padding: 2px 8px;
