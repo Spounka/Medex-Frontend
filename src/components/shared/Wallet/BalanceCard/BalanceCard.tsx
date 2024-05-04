@@ -14,10 +14,10 @@ const BalanceCard: React.FC<BalanceCardProps> = ({ company, balance }) => {
     return (
         <div className="balance__card shadow">
             <div className="card_info">
-                <p>{company}</p>
-                <hr className="text-white bg-white" />
+                <p className={"tw-pb-4"}>{company}</p>
+                <hr className="text-white tw-border-b tw-border-b-white" />
                 <p className="pt-5">
-                    {balance} {t("sar")}
+                    {balance ?? 150} {t("sar")}
                 </p>
             </div>
         </div>

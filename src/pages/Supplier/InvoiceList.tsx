@@ -72,7 +72,7 @@ function InvoiceList(props) {
             code: "INV-0008",
             date: "12/12/2024",
             total: 250,
-            status: "Pending",
+            status: "Cancelled",
         },
     ];
     const columnDefs = [
@@ -102,6 +102,22 @@ function InvoiceList(props) {
         {
             field: "status",
             headerName: "Status",
+            cellRenderer: (params) => {
+                return (
+                    <p className={"tw-flex tw-items-center tw-gap-1 tw-text-start "}>
+                        {params.data.status === "Paid" && (
+                            <span className="tw-h-2 tw-w-2 tw-rounded-full tw-bg-green"></span>
+                        )}
+                        {params.data.status === "Pending" && (
+                            <span className="tw-h-2 tw-w-2 tw-rounded-full tw-bg-orange-400"></span>
+                        )}
+                        {params.data.status === "Cancelled" && (
+                            <span className="tw-h-2 tw-w-2 tw-rounded-full tw-bg-red-700"></span>
+                        )}
+                        {params.data.status}
+                    </p>
+                );
+            },
         },
         {
             flex: 0,
