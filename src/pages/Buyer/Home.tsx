@@ -232,21 +232,21 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     }
                 >
                     {[
-                        "Category 1",
-                        "Category 2",
-                        "Category 3",
-                        "Category 4",
-                        "Category 5",
-                        "Category 6",
-                        "Category 7",
-                        "Category 8",
-                        "Category 9",
-                        "Category 10",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
+                        "Category",
                     ].map((category, i) => (
                         <SwiperSlide
                             key={category}
                             className={clsx(
-                                "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-0.5 tw-py-0.5 tw-text-[0.5rem] tw-text-sm tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-2.5 lg:tw-px-3 2xl:tw-py-1 2xl:tw-text-xs",
+                                "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-0.5 tw-py-0.5 tw-text-[0.6rem] tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-2.5 lg:tw-px-3 lg:tw-text-xs 2xl:tw-py-1 2xl:tw-text-xs",
                                 i === activeCategory
                                     ? "tw-bg-black tw-fill-white tw-font-poppins tw-text-white "
                                     : "tw-bg-none tw-font-poppins tw-font-normal tw-text-gray-600",
@@ -261,7 +261,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             <Container node={"section"}>
                 {ads?.length > 0 ? (
                     <img
-                        className="tw-mx-auto tw-max-h-[300px] tw-w-screen tw-rounded-3xl tw-object-cover"
+                        className="tw-mx-auto tw-max-h-[400px] tw-min-h-[150px] tw-w-screen tw-rounded-3xl tw-object-cover"
                         src={ads[ads.length - 1].thumbnail}
                         key={ads[ads.length - 1].id}
                     />

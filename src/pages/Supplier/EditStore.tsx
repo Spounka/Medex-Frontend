@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { toast } from "react-toastify";
 
-import { Link } from "react-router-dom";
+import { RiEditLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import coverImage from "../../assets/images/cover.jpg";
 import userImage from "../../assets/images/user.png";
