@@ -1,53 +1,230 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
+import { useTranslation } from "react-i18next";
 
-import { MdOutlineClear } from "react-icons/md";
+import React, {
+    FormEvent,
+    useMemo,
+    useState,
+    useRef,
+    useCallback,
+    useEffect,
+    RefObject,
+} from "react";
+
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-material.css";
+import { ColDef } from "ag-grid-community";
+
 import { RiMailSendLine } from "react-icons/ri";
 
-import { Product } from "@domain/product";
-import { ThreadUser } from "@domain/thread";
-import { AxiosResponse } from "axios";
-import { useTranslation } from "react-i18next";
-import { redirect } from "react-router-dom";
-import { toast } from "react-toastify";
 import useAxios from "../../utils/useAxios";
+import { AxiosResponse } from "axios";
+import { ThreadUser } from "@domain/thread";
 
-const TEXT_MAX = 8000;
+import CustomNoRows from "../../components/shared/RFQ/CustomNoRows";
+import { toast } from "react-toastify";
+import Select from "react-select";
 
-const RequestForQuotes = () => {
+let newCount = 1;
+
+const createNewRowData = () => {
+    const newData = {
+        name: "",
+        quantity: null,
+        unit: "Bag / Bags",
+        notes: "",
+    };
+    newCount++;
+    return newData;
+};
+
+const handleReset = (ref: RefObject<HTMLInputElement>) => {
+    if (ref.current) {
+        ref.current.value = "";
+        ref.current.type = "text";
+        ref.current.type = "file";
+    }
+};
+
+const onClear = (ref: RefObject<any>) => {
+    ref.current.clearValue();
+};
+
+const RequestForQuotes: React.FC = () => {
     const { t } = useTranslation();
-
     const api = useAxios();
 
-    // TODO: Add better typing when refactoring
-    const [productNameOptions, setProductNameOptions] = useState<any>([]);
-    const [supplierNameOptions, setSupplierNameOptions] = useState<any>([]);
-
-    const [selectedProduct, setSelectedProduct] = useState("");
-    const [selectedSupplier, setSelectedSupplier] = useState("");
-
+    const gridRef = useRef<AgGridReact>(null);
     const fileRef = useRef<HTMLInputElement | null>(null);
-    const formRef = useRef<HTMLFormElement>(null);
-
-    // TODO: Add better typing when refactoring
-    const creatableSelectInputRef = useRef<any>(null);
+    const formRef = useRef<HTMLFormElement>("");
     const selectInputRef = useRef<any>(null);
 
-    const getProducts = async () => {
-        await api
-            .get(import.meta.env.VITE_BACKEND_URL + "/api/product/product/")
-            .then((res: AxiosResponse<{ products: Product[] }>) => {
-                const nameOptions = res.data.products.map((product) => ({
-                    value: product.slug,
-                    label: product.name,
-                }));
+    const [supplierNameOptions, setSupplierNameOptions] = useState<any>([]);
+    const [formData, setFormData] = useState<any>({
+        supplier: "",
+        products: [],
+        due_date: null,
+    });
 
-                setProductNameOptions(nameOptions);
+    const [rowData, setRowData] = useState<any>([]);
+
+    const [columnDefs, setColumnDefs] = useState<ColDef[]>([
+        {
+            field: "name",
+            headerName: t("product_form.name"),
+            cellDataType: "text",
+            headerCheckboxSelection: true,
+            checkboxSelection: true,
+        },
+        {
+            field: "quantity",
+            headerName: t("buyer_pages.cart.qty"),
+            cellDataType: "number",
+        },
+        {
+            field: "unit",
+            headerName: t("shared.rfq.unit"),
+            cellDataType: "text",
+            cellEditor: "agSelectCellEditor",
+            cellEditorParams: {
+                values: [
+                    t("shared.rfq.bag"),
+                    t("shared.rfq.bar"),
+                    t("shared.rfq.bus"),
+                    t("shared.rfq.cub"),
+                    t("shared.rfq.doz"),
+                    t("shared.rfq.gal"),
+                    t("shared.rfq.gra"),
+                    t("shared.rfq.kg"),
+                    t("shared.rfq.km"),
+                    t("shared.rfq.lt"),
+                    t("shared.rfq.mt"),
+                    t("shared.rfq.mt_t"),
+                    t("shared.rfq.ou"),
+                    t("shared.rfq.pair"),
+                    t("shared.rfq.pack"),
+                    t("shared.rfq.pc"),
+                    t("shared.rfq.pd"),
+                    t("shared.rfq.set"),
+                    t("shared.rfq.st"),
+                    t("shared.rfq.sm"),
+                    t("shared.rfq.ton"),
+                ],
+            },
+        },
+        {
+            field: "note",
+            headerName: t("buyer_pages.offers_invoice.notes"),
+            cellDataType: "text",
+        },
+    ]);
+
+    const defaultColDef = useMemo(() => {
+        return {
+            flex: 1,
+            editable: true,
+        };
+    }, []);
+
+    const getRowData = useCallback(() => {
+        return new Promise((resolve) => {
+            const rowData: any[] = [];
+
+            var empty = true;
+
+            gridRef.current!.api.forEachNode(function (node) {
+                empty = false;
+
+                if (
+                    node.data.name === "" ||
+                    node.data.quantity === 0 ||
+                    node.data.unit === ""
+                ) {
+                    toast.error(t("shared.rfq.missing"));
+
+                    throw new Error("Products must be set correctly!");
+                } else {
+                    rowData.push(node.data);
+                }
             });
+
+            if (empty === true) {
+                toast.error(t("shared.rfq.no_products"));
+
+                throw new Error("Products must be set correctly!");
+            } else {
+                resolve(rowData.length > 0 ? rowData : null);
+            }
+        });
+    }, []);
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        let fd = new FormData();
+
+        const rowData = await getRowData();
+
+        if (rowData) {
+            fd.append("products", JSON.stringify(rowData));
+
+            for (const key in formData) {
+                if (formData.hasOwnProperty(key)) {
+                    fd.append(key, formData[key]);
+                }
+            }
+
+            const fileInput = fileRef.current;
+
+            if (fileInput?.files) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    fd.append("attachments", fileInput.files[i]);
+                }
+            }
+
+            await api
+                .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/", fd)
+
+                .then(() => {
+                    toast.success(`${t("shared.rfq.success")}!`);
+
+                    selectInputRef.current.value = "";
+
+                    onClear(selectInputRef);
+                    handleReset(fileRef);
+                    formRef.current.reset();
+                    clearData();
+                })
+                .catch((err) => {
+                    toast.error(`${t("shared.rfq.err")}!`);
+                    console.log(err);
+                });
+        }
     };
+
+    const addRow = useCallback(() => {
+        const newItems = [createNewRowData()];
+        gridRef.current!.api.applyTransaction({
+            add: newItems,
+        });
+    }, []);
+
+    const removeRow = useCallback(() => {
+        const selectedData = gridRef.current!.api.getSelectedRows();
+        gridRef.current!.api.applyTransaction({ remove: selectedData });
+    }, []);
+
+    const clearData = useCallback(() => {
+        const rowData: any[] = [];
+        gridRef.current!.api.forEachNode(function (node) {
+            rowData.push(node.data);
+        });
+        gridRef.current!.api.applyTransaction({
+            remove: rowData,
+        })!;
+    }, []);
 
     const getSuppliers = async () => {
         await api
@@ -63,63 +240,14 @@ const RequestForQuotes = () => {
     };
 
     useEffect(() => {
-        const countMessage = document.getElementById("count_message");
-        if (countMessage) countMessage.innerHTML = "0 / " + TEXT_MAX;
-
-        getProducts();
+        const tooltipTriggerList = document.querySelectorAll(
+            '[data-bs-toggle="tooltip"]',
+        );
+        const tooltipList = [...tooltipTriggerList].map(
+            (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl),
+        );
         getSuppliers();
     }, []);
-
-    const handleReset = () => {
-        if (fileRef.current) {
-            fileRef.current.value = "";
-            fileRef.current.type = "text";
-            fileRef.current.type = "file";
-        }
-    };
-
-    const onClear = () => {
-        selectInputRef.current.clearValue();
-        creatableSelectInputRef.current.clearValue();
-    };
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        const products = [
-            { name: "test1", quantity: 5, unit: "ton" },
-            { name: "test2", quantity: 10, unit: "kg" },
-        ];
-        formData.append("products", JSON.stringify(products));
-
-        formData.append("supplier", e.currentTarget.supplier.value);
-        formData.append("due_date", e.currentTarget.due_date.value);
-        formData.append("requirements", e.currentTarget.requirements.value);
-
-        const fileInput = e.currentTarget.attachments;
-        for (let i = 0; i < fileInput.files.length; i++) {
-            formData.append("attachments", fileInput.files[i]);
-        }
-
-        await api
-            .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/", formData)
-
-            .then(() => {
-                toast.success(`${t("shared.rfq.success")}!`);
-
-                setSelectedProduct("");
-                setSelectedSupplier("");
-
-                formRef.current.reset();
-                handleReset();
-                onClear();
-            })
-            .catch((err) => {
-                toast.error(`${t("shared.rfq.err")}!`);
-                console.log(err);
-            });
-    };
 
     return (
         <main className="w-100">
@@ -138,272 +266,168 @@ const RequestForQuotes = () => {
                         </div>
                     )}
 
-                    <div className="row">
-                        <div
-                            className={`mt-5 col-12 px-4 ${
-                                window.location.href.indexOf("supplier") === -1 &&
-                                window.location.href.indexOf("dashboard") === -1
-                                    ? "mx-auto"
-                                    : "mt-4"
-                            }`}
-                        >
-                            <form
-                                method="post"
-                                encType="multipart/form-data"
-                                onSubmit={handleSubmit}
-                                ref={formRef}
-                            >
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="name"
-                                        className="form-label"
-                                    >
-                                        {t("product_form.name")} *
-                                    </label>
-                                    <CreatableSelect
-                                        isClearable
-                                        options={productNameOptions}
-                                        required
-                                        name="product"
-                                        defaultValue={selectedProduct}
-                                        onChange={(e) => {
-                                            if (e) setSelectedProduct(e);
-                                        }}
-                                        ref={creatableSelectInputRef}
-                                    />
-                                    <div className="form-text">
-                                        {t("shared.rfq.hint")}.
-                                    </div>
-                                </div>
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="supplier"
-                                        className="form-label"
-                                    >
-                                        {t("shared.rfq.supplier")}
-                                    </label>
-                                    <Select
-                                        className="basic-single"
-                                        classNamePrefix="select"
-                                        isClearable={true}
-                                        placeholder={`${t("shared.rfq.supplier")}`}
-                                        isSearchable={true}
-                                        name="supplier"
-                                        options={supplierNameOptions}
-                                        defaultValue={selectedSupplier}
-                                        onChange={(e) => {
-                                            if (e) setSelectedSupplier(e);
-                                        }}
-                                        ref={selectInputRef}
-                                    />
-                                    <div className="form-text">
-                                        {t("shared.rfq.supplier_hint")}.
-                                    </div>
-                                </div>
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="qty"
-                                        className="d-block form-label"
-                                    >
-                                        {t("shared.rfq.qty")} *
-                                    </label>
-
-                                    <div className="input-group w-100">
-                                        <input
-                                            type="number"
-                                            className="form-control w-50"
-                                            placeholder="Please enter..."
-                                            aria-label="QTY"
-                                            name="quantity"
-                                        />
-                                        <div className="input-group-append w-50">
-                                            <select
-                                                className="form-select quote__select"
-                                                aria-label="QTY UNIT"
-                                                defaultValue="piece"
-                                                name="unit"
-                                                required
-                                            >
-                                                <option value="bag">
-                                                    {t("shared.rfq.bag")}
-                                                </option>
-                                                <option value="barrel">
-                                                    {t("shared.rfq.bar")}
-                                                </option>
-                                                <option value="bushel">
-                                                    {t("shared.rfq.bus")}
-                                                </option>
-                                                <option value="cubic">
-                                                    {t("shared.rfq.cub")}
-                                                </option>
-                                                <option value="dozen">
-                                                    {t("shared.rfq.doz")}
-                                                </option>
-                                                <option value="gallon">
-                                                    {t("shared.rfq.gal")}
-                                                </option>
-                                                <option value="gram">
-                                                    {t("shared.rfq.gra")}
-                                                </option>
-                                                <option value="kilogram">
-                                                    {t("shared.rfq.kg")}
-                                                </option>
-                                                <option value="kilometer">
-                                                    {t("shared.rfq.km")}
-                                                </option>
-                                                <option value="long">
-                                                    {t("shared.rfq.lt")}
-                                                </option>
-                                                <option value="meter">
-                                                    {t("shared.rfq.mt")}
-                                                </option>
-                                                <option value="metric">
-                                                    {t("shared.rfq.mt_t")}
-                                                </option>
-                                                <option value="ounce">
-                                                    {t("shared.rfq.ou")}
-                                                </option>
-                                                <option value="pair">
-                                                    {t("shared.rfq.pair")}
-                                                </option>
-                                                <option value="pack">
-                                                    {t("shared.rfq.pack")}
-                                                </option>
-                                                <option value="piece">
-                                                    {t("shared.rfq.pc")}
-                                                </option>
-                                                <option value="pound">
-                                                    {t("shared.rfq.pd")}
-                                                </option>
-                                                <option value="set">
-                                                    {t("shared.rfq.set")}
-                                                </option>
-                                                <option value="short">
-                                                    {t("shared.rfq.st")}
-                                                </option>
-                                                <option value="square">
-                                                    {t("shared.rfq.sm")}
-                                                </option>
-                                                <option value="ton">
-                                                    {t("shared.rfq.ton")}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mb-4 position-relative">
-                                    <label
-                                        htmlFor="requirements"
-                                        className="form-label"
-                                    >
-                                        {t("shared.rfq.d_req")} *
-                                    </label>
-                                    <textarea
-                                        name="requirements"
-                                        rows={12}
-                                        className="form-control"
-                                        placeholder={`${t("shared.rfq.look")}`}
-                                        maxLength={TEXT_MAX}
-                                        onChange={countLetters}
-                                        required
-                                    ></textarea>
-                                    <span
-                                        className="quote__requirements-clear shadow"
-                                        onClick={clearInput}
-                                    >
-                                        <MdOutlineClear />
-                                    </span>
-                                    <span
-                                        className="quote__requirements-count shadow"
-                                        id="count_message"
-                                    >
-                                        {TEXT_MAX}
-                                    </span>
-                                </div>
-                                <div className="mb-4 position-relative">
-                                    <label
-                                        htmlFor="due_date"
-                                        className="form-label"
-                                    >
-                                        {t("shared.rfq.due_date")} *
-                                    </label>
-                                    <input
-                                        type="datetime-local"
-                                        name="due_date"
-                                        className="form-control"
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="attachments"
-                                        className="form-label text-muted"
-                                    >
-                                        {t("shared.rfq.att")}
-                                    </label>
-                                    <input
-                                        type="file"
-                                        name="attachments"
-                                        className="form-control"
-                                        multiple
-                                        ref={fileRef}
-                                    />
-                                    <div className="form-text">
-                                        {t("shared.rfq.att_hint")}.
-                                    </div>
-                                </div>
-                                <div className="mb-5">
-                                    <div className="form-check form-switch">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            role="switch"
-                                            id="agree"
-                                            name="agree"
-                                            required
-                                        />
+                    <form
+                        method="post"
+                        encType="multipart/form-data"
+                        ref={formRef}
+                        onSubmit={handleSubmit}
+                    >
+                        <div className="row d-flex align-items-center mt-4">
+                            <div className="col-12 col-md-6">
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-12 col-md-3">
                                         <label
-                                            className="form-check-label"
-                                            htmlFor="agree"
+                                            htmlFor="supplier"
+                                            className="w-100"
                                         >
-                                            {t("shared.rfq.consent")}.
+                                            {t("shared.rfq.supplier")}
                                         </label>
                                     </div>
+                                    <div className="col-12 col-md-8 d-flex align-items-center gap-2">
+                                        <Select
+                                            className="basic-single w-100"
+                                            classNamePrefix="select"
+                                            isClearable={true}
+                                            placeholder={`${t("shared.rfq.supplier")}`}
+                                            isSearchable={true}
+                                            name="supplier"
+                                            options={supplierNameOptions}
+                                            defaultValue={formData.supplier}
+                                            onChange={(e) => {
+                                                if (e)
+                                                    setFormData((prevState: any) => ({
+                                                        ...prevState,
+                                                        supplier: e.value,
+                                                    }));
+                                            }}
+                                            ref={selectInputRef}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="rfq__tooltip"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title={t("shared.rfq.supplier_hint")}
+                                        >
+                                            ?
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <button
-                                        type="submit"
-                                        className="gradient-bg-color w-100 py-2 text-white rounded shadow fw-bold login__btn d-flex align-items-center gap-2 justify-content-center"
-                                        onClick={() => {
-                                            return redirect("/account/dashboard/quotes");
-                                        }}
-                                    >
-                                        {t("shared.rfq.submit")}
-                                        <RiMailSendLine size="1.4rem" />
-                                    </button>
+                            </div>
+                            <div className="col-12 col-md-6 mt-4 mt-md-0">
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-12 col-md-4">
+                                        <label htmlFor="due_date">
+                                            {t("shared.rfq.due_date")} *
+                                        </label>
+                                    </div>
+                                    <div className="col-12 col-md-7">
+                                        <input
+                                            type="datetime-local"
+                                            name="due_date"
+                                            className="form-control"
+                                            required
+                                            onChange={(e) => {
+                                                setFormData((prevState: any) => ({
+                                                    ...prevState,
+                                                    due_date: e.target.value,
+                                                }));
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div className="row d-flex align-items-center mt-4">
+                            <div className="col-12 col-md-6">
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-12 col-md-3">
+                                        <label htmlFor="attachments">
+                                            {t("shared.rfq.att")}
+                                        </label>
+                                    </div>
+                                    <div className="col-12 col-md-8 d-flex align-items-center gap-2">
+                                        <input
+                                            type="file"
+                                            name="attachments"
+                                            className="form-control"
+                                            multiple
+                                            ref={fileRef}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="rfq__tooltip"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title={t("shared.rfq.att_hint")}
+                                        >
+                                            ?
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            className="ag-theme-material mt-3"
+                            style={{ height: 200 }}
+                        >
+                            <AgGridReact
+                                rowData={rowData}
+                                ref={gridRef}
+                                columnDefs={columnDefs}
+                                defaultColDef={defaultColDef}
+                                reactiveCustomComponents={true}
+                                noRowsOverlayComponent={CustomNoRows}
+                                rowSelection={"multiple"}
+                                singleClickEdit={true}
+                            />
+                        </div>
+                        <div className="d-flex gap-3">
+                            <button
+                                className="btn btn-secondary btn-sm mt-3 shadow"
+                                onClick={addRow}
+                                type="button"
+                            >
+                                {t("shared.rfq.add")}
+                            </button>
+                            <button
+                                className="btn btn-danger btn-sm mt-3 shadow"
+                                onClick={removeRow}
+                                type="button"
+                            >
+                                {t("shared.rfq.remove")}
+                            </button>
+                        </div>
+                        <div className="form-check form-switch mt-5">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                role="switch"
+                                id="agree"
+                                name="agree"
+                                required
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="agree"
+                            >
+                                {t("shared.rfq.consent")}.
+                            </label>
+                        </div>
+                        <div className="mt-4">
+                            <button
+                                type="submit"
+                                className="btn btn-primary text-white btn-sm rounded shadow fw-bold d-flex align-items-center gap-3 justify-content-center px-3"
+                            >
+                                {t("shared.rfq.submit")}
+                                <RiMailSendLine size="1.2rem" />
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </section>
         </main>
     );
-};
-
-const clearInput = () => {
-    const textarea = document.querySelector(
-        "textarea[name=requirements]",
-    ) as HTMLTextAreaElement;
-    if (textarea) textarea.value = "";
-};
-
-const countLetters = () => {
-    let text_length = (
-        document.querySelector("textarea[name=requirements]") as HTMLTextAreaElement
-    ).value.length;
-    const count_message = document.getElementById("count_message");
-    if (count_message) count_message.innerHTML = text_length + " / " + TEXT_MAX;
 };
 
 export default RequestForQuotes;
