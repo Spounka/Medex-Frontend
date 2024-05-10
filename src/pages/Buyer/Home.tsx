@@ -169,7 +169,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         <main className={"tw-flex tw-flex-col tw-gap-4 tw-py-3 md:tw-gap-8"}>
             <Container node={"section"}>
                 <div
-                    className="input-group m-0 tw-border-none md:tw-hidden"
+                    className="input-group m-0 tw-border-none xl:tw-hidden"
                     style={{
                         direction: "ltr",
                     }}
