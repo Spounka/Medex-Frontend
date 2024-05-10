@@ -42,7 +42,7 @@ const MobileNavigation = () => {
     }, []);
 
     return (
-        <div className="fixed-bottom bg-white d-block d-md-none">
+        <div className="fixed-bottom bg-white tw-block md:tw-hidden">
             <div className="">
                 <div className="d-flex justify-content-between py-1 px-2">
                     <Link

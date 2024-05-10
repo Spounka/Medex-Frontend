@@ -180,22 +180,38 @@ const Header = () => {
                 className="tw-flex tw-w-full tw-justify-between tw-gap-4"
                 style={{ flexWrap: "nowrap" }}
             >
-                <div className="tw-flex tw-w-full tw-justify-between">
+                <div className="tw-flex tw-w-full tw-items-center tw-justify-between">
                     <Link
                         to="/"
                         className="tw-font-['Comic Sans'] tw-content-center tw-text-center tw-align-middle tw-text-4xl tw-font-bold lg:tw-text-5xl"
                     >
                         Medex
-                    </Link>{" "}
-                    <Link
-                        to={"/opportunities"}
-                        className={
-                            "tw-hidden tw-cursor-pointer tw-content-center tw-font-poppins tw-font-semibold tw-text-gray-600 lg:tw-block"
-                        }
-                    >
-                        Opportunities
                     </Link>
-                    <div className={"tw-flex tw-items-center tw-gap-4 lg:tw-hidden"}>
+                    <div className="tw-hidden tw-gap-4 lg:tw-flex">
+                        <Link
+                            to={"/products/"}
+                            className={
+                                "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                            }
+                        >
+                            Products
+                        </Link>
+                        <Link
+                            to={"/brands/"}
+                            className={
+                                "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                            }
+                        >
+                            Brands
+                        </Link>
+                        <Link
+                            to={"/categories/"}
+                            className={
+                                "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                            }
+                        >
+                            Categories
+                        </Link>
                         <Link
                             to={"/opportunities"}
                             className={
@@ -204,18 +220,60 @@ const Header = () => {
                         >
                             Opportunities
                         </Link>
-                        <LanguageDropDown />
+                    </div>
+                    <div
+                        className={
+                            "tw-flex tw-items-center tw-justify-end tw-gap-4 lg:tw-hidden"
+                        }
+                    >
+                        <div className="tw-hidden tw-items-center tw-justify-end tw-gap-4 md:tw-flex">
+                            <Link
+                                to={"/products/"}
+                                className={
+                                    "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                                }
+                            >
+                                Products
+                            </Link>
+                            <Link
+                                to={"/brands/"}
+                                className={
+                                    "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                                }
+                            >
+                                Brands
+                            </Link>
+                            <Link
+                                to={"/categories/"}
+                                className={
+                                    "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                                }
+                            >
+                                Categories
+                            </Link>
+                        </div>
+                        <Link
+                            to={"/opportunities"}
+                            className={
+                                "tw-cursor-pointer tw-font-poppins tw-font-semibold tw-text-gray-600"
+                            }
+                        >
+                            Opportunities
+                        </Link>
+                        <div className="tw-block md:tw-hidden">
+                            <LanguageDropDown />
+                        </div>
                     </div>
                 </div>
 
-                <div className="collapse navbar-collapse tw-hidden tw-flex-[0_0_10%] md:tw-block">
+                <div className="tw-hidden tw-w-auto md:tw-flex">
                     <ul
                         className={`navbar-nav ${
                             i18n.resolvedLanguage == "en" ? "ms-auto" : "me-auto"
                         } mb-2 mb-lg-0`}
                     >
                         <div className="d-flex justify-content-between align-items-center navbar__top-section tw-w-full tw-gap-4">
-                            <div className="search-bar tw-w-fit tw-px-0">
+                            <div className="tw-hidden tw-w-max tw-px-0 xl:tw-flex">
                                 <form
                                     method="get"
                                     action="/products"
@@ -267,7 +325,7 @@ const Header = () => {
                                 </form>
                             </div>
                             <div className="d-flex flex-column justify-content align-items-center navbar__top-section">
-                                <div className="d-flex w-100 navbar__top-links tw-w-full tw-flex-grow tw-items-center tw-justify-end">
+                                <div className="d-flex tw-min-w-100 navbar__top-links tw-w-full tw-flex-grow tw-items-center tw-justify-end">
                                     <li className="nav-item">
                                         <Link
                                             to="/wishlist"
@@ -367,7 +425,7 @@ const Header = () => {
                                     </li>
                                 </div>
                             </div>
-                            <div className={clsx("tw-hidden lg:tw-flex")}>
+                            <div className={clsx("tw-flex tw-min-w-8 lg:tw-flex")}>
                                 <LanguageDropDown />
                             </div>
                         </div>
