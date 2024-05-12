@@ -1,70 +1,89 @@
 import Container from "../../components/ui/container";
 import Select from "react-select";
-import { IoSearchOutline as UilSearch, IoEyeOutline, IoCheckmark } from "react-icons/io5";
+import { IoCheckmark, IoEyeOutline, IoSearchOutline as UilSearch } from "react-icons/io5";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { OverlayArrow, TooltipTrigger, Tooltip, Button } from "react-aria-components";
-import * as crypto from "node:crypto";
+import { useMemo } from "react";
+import {
+    Button,
+    Checkbox,
+    Input,
+    Label,
+    OverlayArrow,
+    Tooltip,
+    TooltipTrigger,
+} from "react-aria-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { OpportunityDisplay } from "@domain/opportunity.ts";
+import { useQuery } from "@tanstack/react-query";
+import useAuthToken from "../../hooks/useAuthToken.tsx";
+import { PaginatedResult } from "@domain/paginatedResult.ts";
+import { CheckboxProps } from "react-aria-components";
 
-function LabelCheckbox({
-    label,
-    checked = false,
-    onChange,
-}: {
-    label: string;
-    checked: boolean;
-    onChange?: () => void;
-}) {
-    const [isChecked, setIsChecked] = useState(checked);
+function LabelCheckbox({ children, ...props }: CheckboxProps) {
     return (
-        <label
-            className={
-                "tw-relative tw-flex tw-cursor-pointer tw-items-center tw-gap-2 tw-font-poppins"
-            }
-        >
-            <input
-                className={"tw-absolute tw-inset-0 tw-cursor-pointer tw-opacity-0"}
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
-            />
-            <span
-                className={clsx(
-                    "tw-relative tw-rounded-md tw-outline tw-outline-1 tw-outline-gray-200",
-                    isChecked ? "tw-bg-purple tw-p-1" : "tw-bg-white tw-p-3 ",
-                )}
+        <>
+            <Checkbox
+                className={
+                    "tw-flex tw-w-fit tw-cursor-pointer tw-gap-1.5 tw-outline-purple"
+                }
             >
-                {isChecked && (
-                    <IoCheckmark className={"tw-h-auto tw-w-full tw-stroke-white"} />
+                {({ isSelected }) => (
+                    <>
+                        <div
+                            className={clsx(
+                                "tw-flex tw-h-5 tw-w-5 tw-items-center tw-rounded-[4px] tw-p-0 tw-transition-colors tw-duration-100",
+                                isSelected ? "tw-bg-purple" : "tw-bg-gray-300",
+                            )}
+                        >
+                            {isSelected && (
+                                <IoCheckmark
+                                    className={"tw-h-full tw-w-full tw-stroke-white"}
+                                />
+                            )}
+                        </div>
+                        {children}
+                    </>
                 )}
-            </span>
-            <p>{label}</p>
-        </label>
+            </Checkbox>{" "}
+        </>
     );
 }
 
-function OpportunityCard() {
+function calculateRemainingDays(targetDate: Date) {
+    const currentDate = new Date();
+    const difference = targetDate.getTime() - currentDate.getTime();
+    return Math.ceil(difference / (1000 * 3600 * 24));
+}
+
+function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
     const navigate = useNavigate();
+    const daysLeft = useMemo<number>(() => {
+        return calculateRemainingDays(new Date(opportunity.delivery_date));
+    }, [opportunity.delivery_date]);
     return (
         <article
             className={
-                "tw-flex-grow-1 tw-flex tw-min-h-24 tw-w-full tw-min-w-24 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-text-lg tw-text-black tw-shadow-[0_0_8px_#00000025]  md:tw-w-fit md:tw-flex-grow-0"
+                "tw-flex-grow-1 tw-flex tw-min-h-24 tw-w-full tw-min-w-72 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-text-lg tw-text-black tw-shadow-[0_0_8px_#00000025]  md:tw-w-fit md:tw-flex-grow-0"
             }
-            onClick={() => navigate("/opportunities/id")}
+            onClick={() => navigate(`/opportunities/${opportunity.id}`)}
         >
-            <div className="tw-flex tw-flex-col tw-gap-6 tw-p-4">
+            <div className="tw-flex tw-flex-grow tw-flex-col tw-gap-6 tw-p-4">
                 <div className="tw-flex tw-w-full tw-justify-start tw-gap-6">
                     <span className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
-                        OPEN
+                        {opportunity.status_display}
                     </span>
                     <span className="tw-flex tw-flex-1 tw-items-center tw-justify-end ">
                         <TooltipTrigger
                             delay={1}
                             closeDelay={2}
                         >
-                            <Button className={"tw-h-auto tw-w-6 tw-cursor-pointer"}>
+                            <Button
+                                className={
+                                    "tw-h-auto tw-w-6 tw-cursor-pointer focus:tw-outline-none"
+                                }
+                            >
                                 <IoEyeOutline
                                     className={"tw-h-auto tw-w-6 tw-stroke-purple"}
                                 />
@@ -72,31 +91,46 @@ function OpportunityCard() {
                             <Tooltip>
                                 <OverlayArrow />
                                 <p className={"tw-font-lg tw-font-poppins tw-text-black"}>
-                                    {`${Math.floor(Math.random() * 100)} views`}
+                                    {`${opportunity.views} views`}
                                 </p>
                             </Tooltip>
                         </TooltipTrigger>
                     </span>
                 </div>
-                <h3 className="tw-max-w-[35ch] tw-font-tajawal tw-text-black tw-text-inherit lg:tw-max-w-[23ch]">
-                    كراسة الشـروط والمواصفات لتقديم خدمة تشييد وتجهيز وتأثيث الخيام لحجاج
-                    باكستان بمشعري عرفات ومنى
+                <h3 className="tw-max-w-[35ch] tw-flex-grow tw-font-tajawal tw-text-black tw-text-inherit lg:tw-max-w-[23ch]">
+                    {opportunity.title}
                 </h3>
                 <h4 className="tw-font-poppins tw-font-light tw-text-inherit">
-                    Event Planning, Catering Services
+                    {opportunity.tags.reverse().join(", ")}
                 </h4>
             </div>
             <div className="tw-border-b tw-border-b-gray-300" />
             <div className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
-                <h3 className={"tw-font-semibold"}>5</h3>
+                <h3 className={"tw-font-semibold"}>{daysLeft}</h3>
                 <p className={"tw-text-sm tw-font-light"}>Days To go</p>
             </div>
         </article>
     );
 }
 
+async function getOpportunities(access: string | null) {
+    const response = await axios.get<PaginatedResult<OpportunityDisplay>>(
+        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=50`,
+        {
+            headers: access ? { Authorization: `Bearer ${access}` } : {},
+        },
+    );
+    return response.data;
+}
+
 function Opportunities() {
     const { t } = useTranslation();
+    const { authTokens } = useAuthToken();
+    const opportunityQuery = useQuery({
+        queryFn: async () => getOpportunities(authTokens.access),
+        queryKey: ["opportunities"],
+        enabled: authTokens.access !== "",
+    });
     return (
         <Container
             className={"tw-flex tw-flex-col tw-gap-8 tw-py-8"}
@@ -110,36 +144,30 @@ function Opportunities() {
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Status</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
-                            <LabelCheckbox
-                                label={"Open"}
-                                checked={false}
-                            />
-                            <LabelCheckbox
-                                label={"Pending"}
-                                checked={false}
-                            />
-                            <LabelCheckbox
-                                label={"Canceled"}
-                                checked={false}
-                            />
+                            <LabelCheckbox>
+                                <p>Open</p>
+                            </LabelCheckbox>
+                            <LabelCheckbox>
+                                <p>Paid</p>
+                            </LabelCheckbox>
+                            <LabelCheckbox>
+                                <p>Closed</p>
+                            </LabelCheckbox>
                         </div>
                     </details>
                     <div className="tw-border-b tw-border-b-gray-200" />
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Category</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
-                            <LabelCheckbox
-                                label={"Medical"}
-                                checked={false}
-                            />
-                            <LabelCheckbox
-                                label={"Lab"}
-                                checked={false}
-                            />
-                            <LabelCheckbox
-                                label={"Chemicals"}
-                                checked={false}
-                            />
+                            <LabelCheckbox>
+                                <p>Something</p>
+                            </LabelCheckbox>
+                            <LabelCheckbox>
+                                <p>New</p>
+                            </LabelCheckbox>
+                            <LabelCheckbox>
+                                <p>Comma</p>
+                            </LabelCheckbox>
                         </div>
                     </details>
                 </div>
@@ -157,7 +185,7 @@ function Opportunities() {
                             ]}
                             onChange={() => {}}
                             className={
-                                "tw-min-w-[22rem] tw-rounded-md [&>input]:tw-border-gray-300"
+                                "tw-w-full tw-rounded-md lg:tw-min-w-[22rem] [&>input]:tw-border-gray-300"
                             }
                         />
                         <div
@@ -188,16 +216,14 @@ function Opportunities() {
                         </div>
                     </div>
                     <div className="tw-flex tw-w-full tw-grid-cols-1 tw-flex-wrap tw-justify-center tw-gap-4 md:tw-grid-cols-2 md:tw-justify-start xl:tw-grid-cols-3 2xl:tw-grid-cols-4">
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
-                        <OpportunityCard />
+                        {opportunityQuery.data?.results.map((opportunity) => {
+                            return (
+                                <OpportunityCard
+                                    opportunity={opportunity}
+                                    key={opportunity.id}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>

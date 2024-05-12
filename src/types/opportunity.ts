@@ -24,6 +24,7 @@ export interface OpportunityDisplay {
     payment_method_display: string;
     status_display: string;
     value_display: string;
+    tags: string[];
 
     suppliers: ThreadUser[] | null;
     created_since: string;
@@ -33,7 +34,7 @@ export interface OpportunityDisplay {
     payment_days: string;
     views: number;
     delivery_address: ShippingAddress;
-    delivery_date: string,
-    created: string,
-    updated: string,
+    delivery_date: string;
+    created: string;
+    updated: string;
 }
