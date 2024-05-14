@@ -99,9 +99,11 @@ const OurStore = (props) => {
             priceValues[0]
         }&price_value_max=${priceValues[1]}&ordering=${query}`;
 
-        await axios.get(url).then((res) => {
-            setProductsList(res.data);
-        });
+        await axios
+            .get<{ random_categories_products: any; products: Product[] }>(url)
+            .then((res) => {
+                setProductsList(res.data.products);
+            });
     };
 
     useEffect(() => {
