@@ -2143,3 +2143,64 @@ input[type=number] {
         font-weight: 500;
     }
 }
+
+.react-aria-RadioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: white;
+}
+
+.react-aria-Radio {
+    display: flex;
+    align-items: center;
+    gap: 0.571rem;
+    font-size: 1.143rem;
+    color: black;
+    forced-color-adjust: none;
+    cursor: pointer;
+    width: fit-content;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 1.286rem;
+        height: 1.286rem;
+        box-sizing: border-box;
+        border: 0.143rem solid var(--theme-color-grey);
+        background: white;
+        border-radius: 1.286rem;
+        transition: all 200ms;
+    }
+
+    &[data-pressed]:before {
+        border-color: var(--theme-color-purple);
+    }
+
+    &[data-selected] {
+        &:before {
+            border-color: var(--theme-color-purple);
+            border-width: 0.429rem;
+        }
+
+        &[data-pressed]:before {
+            border-color: var(--theme-color-purple);
+        }
+    }
+
+}
+
+details[open] summary ~ * {
+    animation: sweep .5s ease-in-out;
+}
+
+@keyframes sweep {
+    0% {
+        opacity: 0;
+        margin-left: -10px
+    }
+    100% {
+        opacity: 1;
+        margin-left: 0px
+    }
+}

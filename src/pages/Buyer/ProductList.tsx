@@ -1,9 +1,9 @@
 import BreadCrumb from "../../components/Buyer/shared/BreadCrumb";
 
-import { BiCategoryAlt, BiSearchAlt, BiFilterAlt } from "react-icons/bi";
+import { IoChevronDown } from "react-icons/io5";
+import { BiFilterAlt } from "react-icons/bi";
 import { TbZoomMoney, TbCurrencyDollarOff } from "react-icons/tb";
 import { AiOutlineCloseCircle, AiOutlineSafetyCertificate } from "react-icons/ai";
-import { BsSortUpAlt } from "react-icons/bs";
 
 import Slider from "react-slider";
 
@@ -16,8 +16,10 @@ import ProductCart from "../../components/Buyer/shared/ProductCard";
 
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Product } from "@domain/product.ts";
+import { Brand, Category, Product } from "@domain/product.ts";
 import Container from "../../components/ui/container";
+import { Radio, RadioGroup } from "react-aria-components";
+import clsx from "clsx";
 
 const MIN = 0;
 const MAX = 100000;
@@ -48,12 +50,17 @@ const OurStore = (props) => {
     );
     const [priceValues, setPriceValues] = useState([MIN, MAX]);
 
-    const [brands, setBrands] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [subCategories, setSubCategories] = useState([]);
+    const [brands, setBrands] = useState<{ value: string; label: string }[]>([]);
+    const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
+    const [subCategories, setSubCategories] = useState<
+        { value: string; label: string }[]
+    >([]);
+
+    const [isCategoriesMenuOpen, setIsCategoriesMenuOpen] = useState(false);
+    const [isSubCategoriesMenuOpen, setIsSubCategoriesMenuOpen] = useState(false);
 
     const fetchBrands = async () => {
-        const response = await axios.get(
+        const response = await axios.get<Brand[]>(
             `${import.meta.env.VITE_BACKEND_URL}/api/product/brand`,
         );
         const brandOptions = response.data.map((brand) => ({
@@ -64,7 +71,7 @@ const OurStore = (props) => {
     };
 
     const fetchCategories = async () => {
-        const response = await axios.get(
+        const response = await axios.get<Category[]>(
             `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
         );
         const categoryOptions = response.data.map((category) => ({
@@ -76,11 +83,9 @@ const OurStore = (props) => {
 
     const fetchSubCategories = async (catName) => {
         await axios
-            .get(
-                `${
-                    import.meta.env.VITE_BACKEND_URL
-                }/api/product/category?level=1&parent=${catName}`,
-            )
+            .get<
+                Category[]
+            >(`${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=1&parent=${catName}`)
             .then((res) => {
                 const categoryOptions = res.data.map((category) => ({
                     value: category.slug,
@@ -99,9 +104,11 @@ const OurStore = (props) => {
             priceValues[0]
         }&price_value_max=${priceValues[1]}&ordering=${query}`;
 
-        await axios.get(url).then((res) => {
-            setProductsList(res.data);
-        });
+        await axios
+            .get<{ random_categories_products: any; products: Product[] }>(url)
+            .then((res) => {
+                setProductsList(res.data.products);
+            });
     };
 
     useEffect(() => {
@@ -144,6 +151,10 @@ const OurStore = (props) => {
         },
     };
 
+    console.log(categories);
+    console.log(subCategories);
+    console.log(queryParameters);
+
     return (
         <main>
             <Container
@@ -153,9 +164,9 @@ const OurStore = (props) => {
                 <div className="row mb-3">
                     <BreadCrumb title={`${t("all_products")}`} />
                 </div>
-                <div className="row mt-2 mt-md-3">
-                    <div className="col-12 col-md-3">
-                        <div className="d-md-none">
+                <div className="tw-flex tw-w-fit tw-flex-col tw-gap-8 md:tw-flex-row lg:tw-w-full">
+                    <div className="md:tw-flex-[0_0_100%]">
+                        <div className="md:tw-hidden">
                             <button
                                 onClick={showFilterMenu}
                                 className="w-75 mx-auto py-1 mb-1 fw-bold text-center d-flex justify-content-center align-items-center gap-2"
@@ -174,48 +185,9 @@ const OurStore = (props) => {
                             className="store__filter-card mb-3 store__filter-menu tw-flex tw-flex-col tw-gap-1.5"
                             style={{
                                 boxShadow: "none",
-                                border: "1px solid rgb(210, 210, 208)",
+                                border: "none",
                             }}
                         >
-                            <div
-                                className="store__sorting-menu py-2"
-                                style={{ border: "1px solid #d2d2d0" }}
-                            >
-                                <div className="d-flex align-items-center gap-5">
-                                    <p className="mb-0 d-flex align-items-center gap-2 tw-text-nowrap">
-                                        <BsSortUpAlt size="1.25rem" />
-                                        {t("buyer_pages.products_list.sort")}
-                                    </p>
-                                    <select
-                                        name="sort"
-                                        className="form-control form-select store__sorting-select"
-                                        defaultValue="alphabet_ascending"
-                                        style={{ borderRight: "1px solid #bbbbbb" }}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    >
-                                        <option value="name">
-                                            {t("buyer_pages.products_list.al_az")}
-                                        </option>
-                                        <option value="-name">
-                                            {t("buyer_pages.products_list.al_za")}
-                                        </option>
-                                        <option value="blended_price">
-                                            {t("buyer_pages.products_list.pr_a")}
-                                        </option>
-                                        <option value="-blended_price">
-                                            {t("buyer_pages.products_list.pr_d")}
-                                        </option>
-                                        <option value="created">
-                                            {t("buyer_pages.products_list.da_a")}
-                                        </option>
-                                        <option value="-created">
-                                            {t("buyer_pages.products_list.da_d")}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr className="my-2" />
-
                             <div className="row mt-3 d-block d-md-none">
                                 <div className="col-12 text-end">
                                     <AiOutlineCloseCircle
@@ -225,10 +197,7 @@ const OurStore = (props) => {
                                     />
                                 </div>
                             </div>
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <BiSearchAlt size="1.6rem" />
-                                {t("buyer_pages.products_list.key")}
-                            </p>
+
                             <input
                                 type="text"
                                 name="keyword"
@@ -238,64 +207,102 @@ const OurStore = (props) => {
                                 onInput={(e) => {
                                     queryParameters.delete("keyword");
                                     setQueryParameters(queryParameters);
-                                    setKeywordFilter(e.target.value);
+                                    setKeywordFilter(e.target.value ?? "");
                                 }}
                             />
                             <hr className="my-2" />
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <BiCategoryAlt size="1.6rem" />
-                                {t("buyer_pages.products_list.cat")}
-                            </p>
-                            <Select
-                                className="basic-single"
-                                classNamePrefix="select"
-                                isClearable={true}
-                                placeholder={`${t(
-                                    "buyer_pages.products_list.select_cat",
-                                )}`}
-                                isSearchable={true}
-                                name="category"
-                                options={categories}
-                                styles={categoryStyles}
-                                onChange={(e) => {
-                                    queryParameters.delete("category");
-                                    queryParameters.delete("sub-category");
-                                    setQueryParameters(queryParameters);
-                                    setSubCategoryFilter("");
-                                    setCategoryFilter(e?.value || "");
-                                    fetchSubCategories(e?.value);
-                                }}
-                            />
-                            <hr className="my-2" />
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <BiCategoryAlt size="1.6rem" />
-                                {t("buyer_pages.products_list.subcategory")}
-                            </p>
-                            <Select
-                                className="basic-single"
-                                classNamePrefix="select"
-                                isClearable={true}
-                                placeholder={`${t(
-                                    "buyer_pages.products_list.select_subcategory",
-                                )}`}
-                                isSearchable={true}
-                                name="subCategory"
-                                options={subCategories}
-                                styles={categoryStyles}
-                                id="sub-category"
-                                onChange={(e) => {
-                                    if (e) {
-                                        setSubCategoryFilter(e?.value);
-                                    } else {
-                                        setSubCategoryFilter("");
+
+                            <details
+                                open={isCategoriesMenuOpen}
+                                onClick={() => setIsCategoriesMenuOpen((v) => !v)}
+                                className={
+                                    "tw-outline-none tw-transition tw-duration-300 focus:tw-outline-none"
+                                }
+                            >
+                                <summary
+                                    className={
+                                        "tw-flex tw-items-center tw-justify-between marker:tw-content-['']"
                                     }
-                                }}
-                            />
+                                >
+                                    {t("buyer_pages.products_list.cat")}
+                                    <IoChevronDown
+                                        className={clsx(
+                                            "tw-stroke-black tw-transition-transform tw-duration-300",
+                                            isCategoriesMenuOpen ? "" : "tw-rotate-180",
+                                        )}
+                                    />
+                                </summary>
+                                <RadioGroup
+                                    aria-label={t("buyer_pages.products_list.cat")}
+                                    className={"tw-flex tw-flex-col"}
+                                    onChange={(e) => {
+                                        queryParameters.delete("category");
+                                        queryParameters.delete("sub-category");
+                                        setQueryParameters(queryParameters);
+                                        setSubCategoryFilter("");
+                                        setCategoryFilter(e);
+                                        fetchSubCategories(e);
+                                    }}
+                                >
+                                    {categories.map((category) => {
+                                        return (
+                                            <Radio
+                                                key={category.value}
+                                                value={category.value}
+                                            >
+                                                {category.label}
+                                            </Radio>
+                                        );
+                                    })}
+                                </RadioGroup>
+                            </details>
                             <hr className="my-2" />
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <AiOutlineSafetyCertificate size="1.6rem" />
-                                {t("buyer_pages.products_list.brand")}
-                            </p>
+
+                            <details
+                                open={isSubCategoriesMenuOpen}
+                                onClick={() => setIsSubCategoriesMenuOpen((v) => !v)}
+                                className={
+                                    "tw-outline-none tw-transition tw-duration-300 focus:tw-outline-none"
+                                }
+                            >
+                                <summary
+                                    className={
+                                        "tw-flex tw-items-center tw-justify-between marker:tw-content-['']"
+                                    }
+                                >
+                                    {t("buyer_pages.products_list.subcategory")}
+                                    <IoChevronDown
+                                        className={clsx(
+                                            "tw-stroke-black tw-transition-transform tw-duration-300",
+                                            isSubCategoriesMenuOpen
+                                                ? ""
+                                                : "tw-rotate-180",
+                                        )}
+                                    />
+                                </summary>
+                                <RadioGroup
+                                    aria-label={t(
+                                        "buyer_pages.products_list.subcategory",
+                                    )}
+                                    className={"tw-flex tw-flex-col"}
+                                    onChange={(e) => {
+                                        setSubCategoryFilter(e ?? "");
+                                    }}
+                                >
+                                    {subCategories.map((category) => {
+                                        return (
+                                            <Radio
+                                                key={category.value}
+                                                value={category.value}
+                                            >
+                                                {category.label}
+                                            </Radio>
+                                        );
+                                    })}
+                                </RadioGroup>
+                            </details>
+                            <hr className="my-2" />
+
                             <Select
                                 className="basic-single"
                                 classNamePrefix="select"
@@ -314,11 +321,11 @@ const OurStore = (props) => {
                                 }}
                             />
                             <hr className="my-2" />
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <TbZoomMoney size="1.6rem" />
+                            <p className="store__filter-title d-flex align-items-center gap-1 tw-font-normal">
+                                {/*<TbZoomMoney size="1.6rem" />*/}
                                 {t("buyer_pages.products_list.range")}
                             </p>
-                            <div className="position-relative my-2">
+                            <div className="position-relative">
                                 <Slider
                                     className={"slider"}
                                     value={priceValues}
@@ -336,10 +343,10 @@ const OurStore = (props) => {
                                 </div>
                             </div>
                             <hr className="mt-5 mb-4" />
-                            <p className="store__filter-title d-flex align-items-center gap-1">
-                                <TbCurrencyDollarOff size="1.6rem" />
-                                {t("buyer_pages.products_list.sale")}
-                            </p>
+                            {/*<p className="store__filter-title d-flex align-items-center gap-1">*/}
+                            {/*    /!*<TbCurrencyDollarOff size="1.6rem" />*!/*/}
+                            {/*    {t("buyer_pages.products_list.sale")}*/}
+                            {/*</p>*/}
                             <div className="form-check">
                                 <input
                                     className="form-check-input"
@@ -360,21 +367,58 @@ const OurStore = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-9">
-                        <div className="tw-flex tw-flex-wrap tw-gap-2">
+                    <div className="col-12 col-md-8">
+                        <div
+                            className="store__sorting-menu py-2 tw-px-0"
+                            style={{ border: "none" }}
+                        >
+                            <div className="d-flex align-items-center tw-gap-4">
+                                <p className="mb-0 d-flex align-items-center gap-2 tw-text-nowrap">
+                                    {/*<BsSortUpAlt size="1.25rem" />*/}
+                                    {t("buyer_pages.products_list.sort")}
+                                </p>
+                                <select
+                                    name="sort"
+                                    className="form-control form-select store__sorting-select"
+                                    defaultValue="alphabet_ascending"
+                                    style={{
+                                        borderRight: "1px solid #bbbbbb",
+                                        borderRadius: "6px",
+                                    }}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                >
+                                    <option value="name">
+                                        {t("buyer_pages.products_list.al_az")}
+                                    </option>
+                                    <option value="-name">
+                                        {t("buyer_pages.products_list.al_za")}
+                                    </option>
+                                    <option value="blended_price">
+                                        {t("buyer_pages.products_list.pr_a")}
+                                    </option>
+                                    <option value="-blended_price">
+                                        {t("buyer_pages.products_list.pr_d")}
+                                    </option>
+                                    <option value="created">
+                                        {t("buyer_pages.products_list.da_a")}
+                                    </option>
+                                    <option value="-created">
+                                        {t("buyer_pages.products_list.da_d")}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="tw-grid tw-grid-cols-2 tw-justify-start tw-gap-2 sm:tw-grid-cols-2 md:tw-grid-cols-3 xl:tw-grid-cols-4">
                             {productsList.length > 0 ? (
                                 productsList.map((product) => {
                                     return (
-                                        <div
-                                            className="tw-flex-[0_0_20%]  tw-overflow-hidden"
+                                        <ProductCart
                                             key={product.sku}
-                                        >
-                                            <ProductCart
-                                                product={product}
-                                                cart={true}
-                                                addToCart={addToCart}
-                                            />
-                                        </div>
+                                            product={product}
+                                            cart={true}
+                                            addToCart={addToCart}
+                                            className={"tw-max-w-max"}
+                                        />
                                     );
                                 })
                             ) : (
