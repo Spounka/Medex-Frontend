@@ -287,7 +287,7 @@
         "products_list": {
             "filter": "Filter",
             "key": "Search By Keywords",
-            "type": "Type To Search",
+            "type": "Search By Keyword",
             "cat": "Filter By Category",
             "select_cat": "Select Category",
             "subcategory": "Filter By Subcategory",

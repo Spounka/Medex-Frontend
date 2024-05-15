@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { HTMLProps, useContext, useEffect, useState } from "react";
 import {
     IoHeart as HeartIcon,
     IoHeartOutline as HeartEmpty,
@@ -17,14 +17,16 @@ import axios, { AxiosError } from "axios";
 import clsx from "clsx";
 import { CartContext } from "../../../context/CartContext.tsx";
 
-const ProductCard = (props: {
-    product: Product;
-    cart: boolean;
-    addToCart: any;
-    isBestSelling?: boolean;
-    wish?: any;
-    key?: string;
-}) => {
+const ProductCard = (
+    props: {
+        product: Product;
+        cart: boolean;
+        addToCart: any;
+        isBestSelling?: boolean;
+        wish?: any;
+        key?: string;
+    } & HTMLProps<HTMLDivElement>,
+) => {
     const { t } = useTranslation();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -93,7 +95,10 @@ const ProductCard = (props: {
 
     return (
         <div
-            className="cardd card home__card tw-flex tw-w-full tw-flex-col tw-gap-3 tw-pb-2"
+            className={clsx(
+                "cardd card home__card tw-flex tw-w-full tw-flex-col tw-gap-3 tw-pb-2",
+                props.className,
+            )}
             style={{ borderRadius: "8px" }}
         >
             <Link
