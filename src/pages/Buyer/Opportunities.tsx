@@ -3,7 +3,7 @@ import Select from "react-select";
 import { IoCheckmark, IoEyeOutline, IoSearchOutline as UilSearch } from "react-icons/io5";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
     Button,
     Checkbox,
@@ -16,7 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { OpportunityDisplay } from "@domain/opportunity.ts";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/useAuthToken.tsx";
 import { PaginatedResult } from "@domain/paginatedResult.ts";
 import { CheckboxProps } from "react-aria-components";
@@ -28,6 +28,8 @@ function LabelCheckbox({ children, ...props }: CheckboxProps) {
                 className={
                     "tw-flex tw-w-fit tw-cursor-pointer tw-gap-1.5 tw-outline-purple"
                 }
+                onChange={props.onChange}
+                isSelected={props.isSelected}
             >
                 {({ isSelected }) => (
                     <>
@@ -46,7 +48,7 @@ function LabelCheckbox({ children, ...props }: CheckboxProps) {
                         {children}
                     </>
                 )}
-            </Checkbox>{" "}
+            </Checkbox>
         </>
     );
 }
@@ -65,7 +67,7 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
     return (
         <article
             className={
-                "tw-flex-grow-1 tw-flex tw-min-h-24 tw-w-full tw-min-w-72 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-text-lg tw-text-black tw-shadow-[0_0_8px_#00000025]  md:tw-w-fit md:tw-flex-grow-0"
+                "tw-flex tw-min-h-24 tw-w-full tw-min-w-72 tw-cursor-pointer tw-flex-col tw-justify-center tw-gap-4 tw-rounded-md tw-text-lg tw-text-black tw-shadow-[0_0_8px_#00000025]  md:tw-w-fit md:tw-flex-grow-0"
             }
             onClick={() => navigate(`/opportunities/${opportunity.id}`)}
         >
@@ -97,10 +99,10 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
                         </TooltipTrigger>
                     </span>
                 </div>
-                <h3 className="tw-max-w-[35ch] tw-flex-grow tw-font-tajawal tw-text-black tw-text-inherit lg:tw-max-w-[23ch]">
+                <h3 className="tw-max-w-[35ch] tw-flex-grow tw-font-tajawal tw-text-black tw-text-inherit md:tw-max-w-[30ch] lg:tw-max-w-[23ch]">
                     {opportunity.title}
                 </h3>
-                <h4 className="tw-font-poppins tw-font-light tw-text-inherit">
+                <h4 className="tw-max-w-[25ch] tw-font-poppins tw-font-light tw-text-inherit lg:tw-max-w-[20ch]">
                     {opportunity.tags.reverse().join(", ")}
                 </h4>
             </div>
@@ -113,9 +115,9 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
     );
 }
 
-async function getOpportunities(access: string | null) {
+async function getOpportunities(access: string | null, page: string) {
     const response = await axios.get<PaginatedResult<OpportunityDisplay>>(
-        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=50`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=25&${page ? "p=" + page : ""}`,
         {
             headers: access ? { Authorization: `Bearer ${access}` } : {},
         },
@@ -123,14 +125,84 @@ async function getOpportunities(access: string | null) {
     return response.data;
 }
 
+interface Tag {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+async function getOpportunitiesTags() {
+    const response = await axios.get<Tag[]>(
+        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/tags/`,
+    );
+    return response.data;
+}
+
+const status_list = ["Open", "Closed", "Canceled", "Pending Payment", "Finished"];
+
 function Opportunities() {
     const { t } = useTranslation();
     const { authTokens } = useAuthToken();
-    const opportunityQuery = useQuery({
-        queryFn: async () => getOpportunities(authTokens.access),
-        queryKey: ["opportunities"],
+    const opportunitiesRef = useRef(null);
+
+    const [enabledTags, setEnabledTags] = useState<Set<string>>(new Set<string>());
+    const [enabledStatus, setEnabledStatus] = useState<Set<string>>(new Set<string>());
+    const nextPage = useRef<string>("");
+
+    const opportunityQuery = useInfiniteQuery({
+        queryFn: async () => getOpportunities(authTokens.access, nextPage.current),
+        queryKey: ["opportunities", "page", nextPage.current],
         enabled: authTokens.access !== "",
+        initialPageParam: "",
+        getNextPageParam: (next, page) => next.next,
     });
+
+    const tagsQuery = useQuery({
+        queryFn: async () => getOpportunitiesTags(),
+        queryKey: ["opportunities", "tags"],
+    });
+
+    const editStatus = (enabled: boolean, name: string) => {
+        setEnabledStatus((prevState) => {
+            const set = new Set(prevState);
+            if (enabled) {
+                set.add(name);
+            } else {
+                set.delete(name);
+            }
+            return set;
+        });
+    };
+
+    const editTags = (enabled: boolean, tag: string) => {
+        setEnabledTags((prevState) => {
+            const set = new Set(prevState);
+            if (enabled) {
+                set.add(tag);
+            } else {
+                set.delete(tag);
+            }
+            return set;
+        });
+    };
+
+    const applyFilter = (
+        opportunity: OpportunityDisplay,
+        index?: number,
+        array?: OpportunityDisplay[],
+    ) => {
+        console.log("Apply filter: tags: ", enabledTags, "\t status: ", enabledStatus);
+        if (enabledTags.size === 0 && enabledStatus.size === 0) return true;
+        const hasTags =
+            enabledTags.size > 0
+                ? opportunity.tags.some((tag) => enabledTags.has(tag))
+                : true;
+        const hasStatus = enabledStatus
+            ? enabledStatus.has(opportunity.status_display)
+            : true;
+        return hasTags && hasStatus;
+    };
+
     return (
         <Container
             className={"tw-flex tw-flex-col tw-gap-8 tw-py-8"}
@@ -144,30 +216,34 @@ function Opportunities() {
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Status</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
-                            <LabelCheckbox>
-                                <p>Open</p>
-                            </LabelCheckbox>
-                            <LabelCheckbox>
-                                <p>Paid</p>
-                            </LabelCheckbox>
-                            <LabelCheckbox>
-                                <p>Closed</p>
-                            </LabelCheckbox>
+                            {status_list.map((status) => {
+                                return (
+                                    <LabelCheckbox
+                                        key={status}
+                                        isSelected={enabledStatus.has(status)}
+                                        onChange={(e) => editStatus(e, status)}
+                                    >
+                                        <p>{status}</p>
+                                    </LabelCheckbox>
+                                );
+                            })}
                         </div>
                     </details>
                     <div className="tw-border-b tw-border-b-gray-200" />
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Category</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
-                            <LabelCheckbox>
-                                <p>Something</p>
-                            </LabelCheckbox>
-                            <LabelCheckbox>
-                                <p>New</p>
-                            </LabelCheckbox>
-                            <LabelCheckbox>
-                                <p>Comma</p>
-                            </LabelCheckbox>
+                            {tagsQuery.data?.map((tag) => {
+                                return (
+                                    <LabelCheckbox
+                                        key={tag.id}
+                                        onChange={(e) => editTags(e, tag.name)}
+                                        isSelected={enabledTags.has(tag.name)}
+                                    >
+                                        <p>{tag.name}</p>
+                                    </LabelCheckbox>
+                                );
+                            })}
                         </div>
                     </details>
                 </div>
@@ -185,7 +261,7 @@ function Opportunities() {
                             ]}
                             onChange={() => {}}
                             className={
-                                "tw-w-full tw-rounded-md lg:tw-min-w-[22rem] [&>input]:tw-border-gray-300"
+                                "tw-w-full tw-rounded-md lg:tw-w-fit lg:tw-min-w-[22rem] [&>input]:tw-border-gray-300"
                             }
                         />
                         <div
@@ -215,16 +291,39 @@ function Opportunities() {
                             />
                         </div>
                     </div>
-                    <div className="tw-flex tw-w-full tw-grid-cols-1 tw-flex-wrap tw-justify-center tw-gap-4 md:tw-grid-cols-2 md:tw-justify-start xl:tw-grid-cols-3 2xl:tw-grid-cols-4">
-                        {opportunityQuery.data?.results.map((opportunity) => {
-                            return (
-                                <OpportunityCard
-                                    opportunity={opportunity}
-                                    key={opportunity.id}
-                                />
-                            );
+                    <div
+                        className={
+                            "tw-grid tw-w-full tw-grid-cols-1 tw-flex-wrap tw-justify-center tw-gap-4 md:tw-grid-cols-2 md:tw-justify-start xl:tw-grid-cols-3 2xl:tw-grid-cols-4"
+                        }
+                        ref={opportunitiesRef}
+                    >
+                        {opportunityQuery.data?.pages.map((page) => {
+                            return page.results.filter(applyFilter).map((opportunity) => {
+                                return (
+                                    <OpportunityCard
+                                        opportunity={opportunity}
+                                        key={opportunity.id}
+                                    />
+                                );
+                            });
                         })}
                     </div>
+                    <button
+                        className={
+                            "tw-w-fit tw-place-self-center tw-rounded-md tw-px-4 tw-py-2 tw-font-poppins tw-outline tw-outline-1 tw-outline-purple"
+                        }
+                        disabled={
+                            !opportunityQuery.hasNextPage ||
+                            opportunityQuery.isFetchingNextPage
+                        }
+                        onClick={() => opportunityQuery.fetchNextPage()}
+                    >
+                        {opportunityQuery.isFetchingNextPage
+                            ? "Loading..."
+                            : opportunityQuery.hasNextPage
+                              ? "Load More"
+                              : "Nothing More to load"}
+                    </button>
                 </div>
             </div>
         </Container>

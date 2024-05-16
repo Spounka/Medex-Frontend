@@ -1,8 +1,29 @@
 import Container from "../../components/ui/container";
 import { IoDocumentLockOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { OpportunityDisplay } from "@domain/opportunity.ts";
+import { useQuery } from "@tanstack/react-query";
+
+async function getOpportunity(id: number, access?: string) {
+    const result = await axios.get<OpportunityDisplay>(
+        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/${id}/`,
+        {
+            headers: access ? { Authorization: `Bearer ${access}` } : {},
+        },
+    );
+    return result.data;
+}
 
 function OpportunityDetails(props) {
+    const { id: idParam } = useParams();
+    if (!idParam) return <div>No Id Provided</div>;
+    const id = parseInt(idParam);
+    const opportunityQuery = useQuery({
+        queryFn: async () => getOpportunity(id),
+        queryKey: ["opportunities", id],
+        enabled: !!idParam && id > 0,
+    });
     return (
         <Container
             node={"main"}
@@ -12,9 +33,9 @@ function OpportunityDetails(props) {
                 <div className="tw-flex tw-w-full tw-flex-col tw-gap-8">
                     <div className="tw-flex tw-flex-col tw-gap-3">
                         <h1 className="tw-font-cairo tw-text-2xl tw-font-semibold">
-                            طابعة كروت
+                            {opportunityQuery.data?.title}
                         </h1>
-                        <p className="tw-text-gray-600">RMC24050401</p>
+                        <p className="tw-text-gray-600">{opportunityQuery.data?.id}</p>
                     </div>
                     <div
                         className={
@@ -23,7 +44,7 @@ function OpportunityDetails(props) {
                     >
                         <div className="tw-flex tw-items-center  tw-gap-2 tw-py-8 tw-text-sm">
                             <p className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
-                                OPEN
+                                {opportunityQuery.data?.status_display}
                             </p>
                             <p
                                 className={
