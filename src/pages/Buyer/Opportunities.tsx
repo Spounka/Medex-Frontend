@@ -191,15 +191,12 @@ function Opportunities() {
         index?: number,
         array?: OpportunityDisplay[],
     ) => {
-        console.log("Apply filter: tags: ", enabledTags, "\t status: ", enabledStatus);
         if (enabledTags.size === 0 && enabledStatus.size === 0) return true;
         const hasTags =
-            enabledTags.size > 0
-                ? opportunity.tags.some((tag) => enabledTags.has(tag))
-                : true;
-        const hasStatus = enabledStatus
-            ? enabledStatus.has(opportunity.status_display)
-            : true;
+            opportunity.tags.some((tag) => enabledTags.has(tag)) ||
+            enabledTags.size === 0;
+        const hasStatus =
+            enabledStatus.has(opportunity.status_display) || enabledStatus.size === 0;
         return hasTags && hasStatus;
     };
 
