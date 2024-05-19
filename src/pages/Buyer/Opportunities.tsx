@@ -20,6 +20,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/useAuthToken.tsx";
 import { PaginatedResult } from "@domain/paginatedResult.ts";
 import { CheckboxProps } from "react-aria-components";
+import { next } from "sucrase/dist/types/parser/tokenizer";
 
 function LabelCheckbox({ children, ...props }: CheckboxProps) {
     return (
@@ -73,7 +74,8 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
         >
             <div className="tw-flex tw-flex-grow tw-flex-col tw-gap-6 tw-p-4">
                 <div className="tw-flex tw-w-full tw-justify-start tw-gap-6">
-                    <span className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
+                    <span
+                        className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
                         {opportunity.status_display}
                     </span>
                     <span className="tw-flex tw-flex-1 tw-items-center tw-justify-end ">
@@ -107,7 +109,8 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
                 </h4>
             </div>
             <div className="tw-border-b tw-border-b-gray-300" />
-            <div className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
+            <div
+                className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
                 <h3 className={"tw-font-semibold"}>{daysLeft}</h3>
                 <p className={"tw-text-sm tw-font-light"}>Days To go</p>
             </div>
@@ -116,12 +119,10 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
 }
 
 async function getOpportunities(access: string | null, page: string) {
-    const response = await axios.get<PaginatedResult<OpportunityDisplay>>(
-        `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=25&${page ? "p=" + page : ""}`,
-        {
-            headers: access ? { Authorization: `Bearer ${access}` } : {},
-        },
-    );
+    const url = page ? page : `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=25`;
+    const response = await axios.get<PaginatedResult<OpportunityDisplay>>(url, {
+        headers: access ? { Authorization: `Bearer ${access}` } : {},
+    });
     return response.data;
 }
 
@@ -151,10 +152,13 @@ function Opportunities() {
 
     const opportunityQuery = useInfiniteQuery({
         queryFn: async () => getOpportunities(authTokens.access, nextPage.current),
-        queryKey: ["opportunities", "page", nextPage.current],
+        queryKey: ["opportunities", "page"],
         enabled: authTokens.access !== "",
         initialPageParam: "",
-        getNextPageParam: (next, page) => next.next,
+        getNextPageParam: (next, page) => {
+            if (next.next) nextPage.current = next.next;
+            return next.next;
+        },
     });
 
     const tagsQuery = useQuery({
@@ -209,7 +213,8 @@ function Opportunities() {
                 Browse Opportunity Marketplace
             </h1>
             <div className="tw-flex tw-flex-col tw-gap-4 lg:tw-flex-row">
-                <div className="tw-flex tw-h-min tw-flex-[0_0_20%] tw-flex-col tw-gap-6 tw-rounded-md tw-border tw-border-gray-200 tw-p-4">
+                <div
+                    className="tw-flex tw-h-min tw-flex-[0_0_20%] tw-flex-col tw-gap-6 tw-rounded-md tw-border tw-border-gray-200 tw-p-4">
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Status</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
@@ -256,7 +261,8 @@ function Opportunities() {
                                     label: "Publish Date Descending",
                                 },
                             ]}
-                            onChange={() => {}}
+                            onChange={() => {
+                            }}
                             className={
                                 "tw-w-full tw-rounded-md lg:tw-w-fit lg:tw-min-w-[22rem] [&>input]:tw-border-gray-300"
                             }
@@ -318,8 +324,8 @@ function Opportunities() {
                         {opportunityQuery.isFetchingNextPage
                             ? "Loading..."
                             : opportunityQuery.hasNextPage
-                              ? "Load More"
-                              : "Nothing More to load"}
+                                ? "Load More"
+                                : "Nothing More to load"}
                     </button>
                 </div>
             </div>
