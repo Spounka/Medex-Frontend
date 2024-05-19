@@ -107,7 +107,7 @@ const BuyerRoutes = () => {
                     element={<Opportunities />}
                 />
                 <Route
-                    path="opportunities/*"
+                    path="opportunities/:id/"
                     element={<OpportunityDetails />}
                 />
 
