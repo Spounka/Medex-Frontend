@@ -25,9 +25,9 @@ import { BrandCard } from "./BrandsList.tsx";
 import { CategoryLink } from "./CategoryLink";
 import { useQuery } from "@tanstack/react-query";
 
-async function getCategories() {
+async function getCategories(featured = false) {
     return await axios.get<Category[]>(
-        `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0${featured ? "&featured=true" : ""}`,
     );
 }
 
@@ -49,6 +49,10 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const categoriesQuery = useQuery({
         queryFn: () => getCategories(),
         queryKey: ["categories"],
+    });
+    const featuredCategoriesQuery = useQuery({
+        queryFn: () => getCategories(true),
+        queryKey: ["categories", "featured"],
     });
 
     const fetchBrands = async () => {
@@ -121,6 +125,17 @@ const Home = ({ addToCart }: { addToCart: any }) => {
         fetchBestSellingProducts();
     }, []);
 
+    const bannersSlider: Settings = {
+        infinite: true,
+        speed: 350,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        lazyLoad: "ondemand",
+        className: "center",
+        arrows: false,
+        autoplaySpeed: 2500,
+    };
     // TODO: re-enable autoplay
     const settings: Settings = {
         infinite: true,
@@ -260,13 +275,17 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                 </Swiper>
             </Container>
             <Container node={"section"}>
-                {ads?.length > 0 ? (
-                    <img
-                        className="tw-mx-auto tw-max-h-[400px] tw-min-h-[150px] tw-w-screen tw-rounded-3xl tw-object-cover"
-                        src={ads[ads.length - 1].thumbnail}
-                        key={ads[ads.length - 1].id}
-                    />
-                ) : null}
+                <Slider {...bannersSlider}>
+                    {ads.map((ad) => {
+                        return (
+                            <img
+                                key={ad.id}
+                                className="tw-mx-auto tw-max-h-[400px] tw-min-h-[150px] tw-w-screen tw-rounded-3xl tw-object-cover"
+                                src={ad.thumbnail}
+                            />
+                        );
+                    })}
+                </Slider>
             </Container>
             <Container
                 node={"section"}
