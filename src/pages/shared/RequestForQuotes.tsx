@@ -14,7 +14,7 @@ import React, {
 
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-material.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import { ColDef } from "ag-grid-community";
 
 import { RiMailSendLine } from "react-icons/ri";
@@ -271,6 +271,7 @@ const RequestForQuotes: React.FC = () => {
                         encType="multipart/form-data"
                         ref={formRef}
                         onSubmit={handleSubmit}
+                        className={"tw-flex tw-flex-col tw-gap-2"}
                     >
                         <div className="row d-flex align-items-center mt-4">
                             <div className="col-12 col-md-6">
@@ -368,7 +369,7 @@ const RequestForQuotes: React.FC = () => {
                             </div>
                         </div>
                         <div
-                            className="ag-theme-material mt-3"
+                            className="ag-theme-alpine mt-3"
                             style={{ height: 200 }}
                         >
                             <AgGridReact
@@ -382,16 +383,16 @@ const RequestForQuotes: React.FC = () => {
                                 singleClickEdit={true}
                             />
                         </div>
-                        <div className="d-flex gap-3">
+                        <div className="gap-3 tw-flex tw-items-center">
                             <button
-                                className="btn btn-secondary btn-sm mt-3 shadow"
+                                className="tw-h-fit tw-rounded-md tw-bg-black tw-px-4 tw-py-2 tw-text-white"
                                 onClick={addRow}
                                 type="button"
                             >
                                 {t("shared.rfq.add")}
                             </button>
                             <button
-                                className="btn btn-danger btn-sm mt-3 shadow"
+                                className="tw-h-fit tw-rounded-md tw-px-4 tw-py-2 tw-text-red-400 tw-outline tw-outline-1 tw-outline-red-400"
                                 onClick={removeRow}
                                 type="button"
                             >
@@ -417,7 +418,7 @@ const RequestForQuotes: React.FC = () => {
                         <div className="mt-4">
                             <button
                                 type="submit"
-                                className="btn btn-primary text-white btn-sm rounded shadow fw-bold d-flex align-items-center gap-3 justify-content-center px-3"
+                                className="align-items-center gap-3 justify-content-center tw-flex tw-items-center tw-rounded-md tw-bg-purple tw-px-4 tw-py-2 tw-text-white"
                             >
                                 {t("shared.rfq.submit")}
                                 <RiMailSendLine size="1.2rem" />
