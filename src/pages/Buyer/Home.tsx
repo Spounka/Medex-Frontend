@@ -23,6 +23,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BrandCard } from "./BrandsList.tsx";
 import { CategoryLink } from "./CategoryLink";
+import { useQuery } from "@tanstack/react-query";
+
+async function getCategories() {
+    return await axios.get<Category[]>(
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/category?level=0`,
+    );
+}
 
 const Home = ({ addToCart }: { addToCart: any }) => {
     const { t, i18n } = useTranslation();
@@ -38,6 +45,11 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const [randomCategories, setRandomCategories] = useState<{
         [key: string]: Product[];
     } | null>(null);
+
+    const categoriesQuery = useQuery({
+        queryFn: () => getCategories(),
+        queryKey: ["categories"],
+    });
 
     const fetchBrands = async () => {
         await axios
@@ -228,23 +240,12 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         },
                     }}
                     className={
-                        "tw-flex tw-flex-wrap tw-gap-2 tw-border-b tw-border-b-gray-300 tw-px-2.5 tw-py-4 md:tw-gap-6"
+                        "tw-flex tw-w-auto tw-flex-wrap tw-gap-2 tw-border-b tw-border-b-gray-300 tw-px-2.5 tw-py-4 md:tw-gap-6"
                     }
                 >
-                    {[
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                        "Category",
-                    ].map((category, i) => (
+                    {categoriesQuery.data?.data.map((category, i) => (
                         <SwiperSlide
-                            key={category}
+                            key={category.id}
                             className={clsx(
                                 "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-0.5 tw-py-0.5 tw-text-[0.6rem] tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-2.5 lg:tw-px-3 lg:tw-text-xs 2xl:tw-py-1 2xl:tw-text-xs",
                                 i === activeCategory
@@ -253,7 +254,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             )}
                             onClick={() => setActiveCategory(i)}
                         >
-                            <span className="tw-font-bold">{category}</span>
+                            <span className="tw-font-bold">{category.name}</span>
                         </SwiperSlide>
                     ))}
                 </Swiper>
