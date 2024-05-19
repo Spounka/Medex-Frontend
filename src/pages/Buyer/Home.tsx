@@ -279,8 +279,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     {ads.map((ad) => {
                         return (
                             <img
+                                alt={""}
                                 key={ad.id}
-                                className="tw-mx-auto tw-max-h-[400px] tw-min-h-[150px] tw-w-screen tw-rounded-3xl tw-object-cover"
+                                className="tw-mx-auto tw-max-h-[250px] tw-min-h-[150px] tw-w-screen tw-rounded-3xl tw-object-cover tw-object-center"
                                 src={ad.thumbnail}
                             />
                         );
