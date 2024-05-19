@@ -49,5 +49,5 @@ export default {
         },
     },
     prefix: "tw-",
-    plugins: [],
+    plugins: [require("tailwindcss-react-aria-components")({ prefix: "rac" })],
 };
