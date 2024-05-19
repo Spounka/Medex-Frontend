@@ -45,6 +45,7 @@ import useAxios from "../../utils/useAxios";
 
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { Quote } from "@domain/quote.ts";
 
 const QuoteList = () => {
     const { t } = useTranslation();
@@ -103,9 +104,11 @@ const QuoteList = () => {
     };
 
     const getQuotes = async () => {
-        await api.get(import.meta.env.VITE_BACKEND_URL + "/api/quote/").then((res) => {
-            setQuotes(res.data);
-        });
+        await api
+            .get<Quote[]>(import.meta.env.VITE_BACKEND_URL + "/api/quote/")
+            .then((res) => {
+                setQuotes(res.data);
+            });
     };
 
     useEffect(() => {
@@ -181,7 +184,7 @@ const QuoteList = () => {
                             {t("supplier_pages.quote_list.title")}
                         </h2>
                     </div>
-                    {/* <div className="row mt-3">
+                    <div className="row mt-3">
                         {quotes.length > 0 ? (
                             <>
                                 <div
@@ -356,9 +359,9 @@ const QuoteList = () => {
                                                                 } -{" "}
                                                                 {quote.due_time_display}
                                                             </li>
-                                                            {quote?.attachments.length >
+                                                            {quote?.attachments?.length >
                                                                 0 &&
-                                                                quote.attachments.map(
+                                                                quote.attachments?.map(
                                                                     (
                                                                         attachment,
                                                                         index,
@@ -987,7 +990,7 @@ const QuoteList = () => {
                                 {t("buyer_pages.quote_requests.none")}!
                             </p>
                         )}
-                    </div> */}
+                    </div>
                 </div>
             </section>
         </main>
