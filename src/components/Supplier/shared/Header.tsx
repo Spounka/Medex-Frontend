@@ -10,6 +10,7 @@ import { RiMenuLine, RiMenu3Line, RiMenu2Line } from "react-icons/ri";
 import { BiLogOut, BiUserCircle } from "react-icons/bi";
 
 import { useTranslation } from "react-i18next";
+import { Label } from "react-aria-components";
 
 const Header = (props) => {
     const { t, i18n } = useTranslation();
@@ -20,12 +21,21 @@ const Header = (props) => {
 
     return (
         <nav className="navbar fixed-top px-2 dashboard__navbar-container">
-            <Link
-                className="navbar-brand fw-bold supplier__header-brand"
-                to="/supplier/dashboard"
-            >
-                Medex Supplier
-            </Link>
+            <div className="tw-flex tw-gap-2">
+                <Link
+                    className="navbar-brand fw-bold supplier__header-brand [&&]:tw-mx-0"
+                    to="/supplier/dashboard"
+                >
+                    Medex Supplier
+                </Link>
+                <Label
+                    className={
+                        "tw-h-fit tw-rounded-full tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-xs tw-text-white"
+                    }
+                >
+                    Beta
+                </Label>
+            </div>
             <ul
                 className={`navbar navbar-nav d-flex flex-row py-0 ${
                     i18n.resolvedLanguage == "en" ? "ms-auto" : "me-auto"
