@@ -41,7 +41,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const [bestSupplier, setBestSupplier] = useState<Product[]>([]);
 
     const [brands, setBrands] = useState<Brand[]>([]);
-    const [activeCategory, setActiveCategory] = useState(0);
+    const [activeCategory, setActiveCategory] = useState<Category | null>(null);
     const [randomCategories, setRandomCategories] = useState<{
         [key: string]: Product[];
     } | null>(null);
@@ -49,7 +49,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     const categoriesQuery = useQuery({
         queryFn: () => getCategories(),
         queryKey: ["categories"],
+        notifyOnChangeProps: "all",
     });
+
     const featuredCategoriesQuery = useQuery({
         queryFn: () => getCategories(true),
         queryKey: ["categories", "featured"],
@@ -89,6 +91,9 @@ const Home = ({ addToCart }: { addToCart: any }) => {
             return null;
         }
     };
+
+    if (categoriesQuery.isSuccess && !activeCategory)
+        setActiveCategory(categoriesQuery.data.data[0]);
 
     useEffect(() => {
         const fetchProductsOnSale = async () => {
@@ -225,6 +230,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     spaceBetween={30}
                     slidesPerView={2}
                     breakpointsBase={"window"}
+                    // onChange={(e) => console.log(e)}
                     breakpoints={{
                         320: {
                             slidesPerView: 4,
@@ -263,11 +269,11 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                             key={category.id}
                             className={clsx(
                                 "tw-flex tw-cursor-pointer tw-items-center tw-justify-center tw-rounded-full tw-px-0.5 tw-py-0.5 tw-text-[0.6rem] tw-transition-colors tw-duration-75 tw-ease-out md:tw-px-2.5 lg:tw-px-3 lg:tw-text-xs 2xl:tw-py-1 2xl:tw-text-xs",
-                                i === activeCategory
+                                category.id === activeCategory?.id
                                     ? "tw-bg-black tw-fill-white tw-font-poppins tw-text-white "
                                     : "tw-bg-none tw-font-poppins tw-font-normal tw-text-gray-600",
                             )}
-                            onClick={() => setActiveCategory(i)}
+                            onClick={() => setActiveCategory(category)}
                         >
                             <span className="tw-font-bold">{category.name}</span>
                         </SwiperSlide>
@@ -321,52 +327,24 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="row pt-4">
                             <div className="col-12">
                                 <div className="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-4 tw-fill-slate-700 lg:tw-gap-0 xl:tw-px-32">
-                                    <CategoryLink
-                                        to={"/products?category=X-Ray"}
-                                        icon={
-                                            <FaXRay
-                                                className={
-                                                    "tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
-                                                }
-                                            />
-                                        }
-                                        text={"XRay"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=medex"}
-                                        icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
-                                        }
-                                        text={"Medical"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=Medll"}
-                                        icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
-                                        }
-                                        text={"Medical"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=Medll"}
-                                        icon={
-                                            <FaPumpMedical className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
-                                        }
-                                        text={"Medical"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=Medx"}
-                                        icon={
-                                            <ImLab className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
-                                        }
-                                        text={"Labs"}
-                                    />
-                                    <CategoryLink
-                                        to={"/products?category=XxMed"}
-                                        icon={
-                                            <GiChemicalTank className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11" />
-                                        }
-                                        text={"Chemicals"}
-                                    />
+                                    {featuredCategoriesQuery.data?.data.map(
+                                        (category) => {
+                                            return (
+                                                <CategoryLink
+                                                    to={"/products?category=XxMed"}
+                                                    icon={
+                                                        <img
+                                                            key={category.id}
+                                                            alt={""}
+                                                            src={`${import.meta.env.VITE_BACKEND_URL}${category.image}`}
+                                                            className=" tw-h-full tw-w-full tw-min-w-5 tw-fill-inherit md:tw-min-w-8 lg:tw-min-w-11"
+                                                        />
+                                                    }
+                                                    text={category.name}
+                                                />
+                                            );
+                                        },
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -572,7 +550,6 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                                             className={"tw-p-0"}
                                         >
                                             {randomCategories[u].map((product) => {
-                                                console.log(product);
                                                 return (
                                                     <SwiperSlide key={product.sku}>
                                                         <ProductCard
