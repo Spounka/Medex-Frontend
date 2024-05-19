@@ -23,6 +23,7 @@ import {
     IoPersonOutline as UilUser,
 } from "react-icons/io5";
 import clsx from "clsx";
+import { Label } from "react-aria-components";
 
 function LanguageDropDown() {
     const { t, i18n } = useTranslation();
@@ -181,12 +182,21 @@ const Header = () => {
                 style={{ flexWrap: "nowrap" }}
             >
                 <div className="tw-flex tw-w-full tw-items-center tw-justify-between">
-                    <Link
-                        to="/"
-                        className="tw-font-['Comic Sans'] tw-content-center tw-text-center tw-align-middle tw-text-4xl tw-font-bold lg:tw-text-5xl"
-                    >
-                        Medex
-                    </Link>
+                    <div className="tw-flex tw-gap-2">
+                        <Link
+                            to="/"
+                            className="tw-font-['Comic Sans'] tw-content-center tw-text-center tw-align-middle tw-text-4xl tw-font-bold lg:tw-text-5xl"
+                        >
+                            Medex
+                        </Link>
+                        <Label
+                            className={
+                                "tw-h-fit tw-rounded-full tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-xs tw-text-white"
+                            }
+                        >
+                            Beta
+                        </Label>
+                    </div>
                     <div className="tw-hidden tw-gap-4 lg:tw-flex">
                         <Link
                             to={"/products/"}
