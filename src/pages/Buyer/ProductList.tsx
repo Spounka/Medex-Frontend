@@ -18,11 +18,11 @@ import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Brand, Category, Product } from "@domain/product.ts";
 import Container from "../../components/ui/container";
-import { Radio, RadioGroup } from "react-aria-components";
+import { Button, Radio, RadioGroup } from "react-aria-components";
 import clsx from "clsx";
 
 const MIN = 0;
-const MAX = 100000;
+const MAX = 10000;
 
 const OurStore = (props) => {
     const { t } = useTranslation();
@@ -165,7 +165,7 @@ const OurStore = (props) => {
                     <BreadCrumb title={`${t("all_products")}`} />
                 </div>
                 <div className="tw-flex tw-w-fit tw-flex-col tw-gap-8 md:tw-flex-row lg:tw-w-full">
-                    <div className="md:tw-flex-[0_0_100%]">
+                    <div className="md:tw-flex-[0_0_20svw]">
                         <div className="md:tw-hidden">
                             <button
                                 onClick={showFilterMenu}
@@ -188,7 +188,7 @@ const OurStore = (props) => {
                                 border: "none",
                             }}
                         >
-                            <div className="row mt-3 d-block d-md-none">
+                            <div className="row mt-3 tw-block min-[769px]:tw-hidden">
                                 <div className="col-12 text-end">
                                     <AiOutlineCloseCircle
                                         onClick={closeFilterMenu}
@@ -214,27 +214,52 @@ const OurStore = (props) => {
 
                             <details
                                 open={isCategoriesMenuOpen}
-                                onClick={() => setIsCategoriesMenuOpen((v) => !v)}
                                 className={
                                     "tw-outline-none tw-transition tw-duration-300 focus:tw-outline-none"
                                 }
                             >
                                 <summary
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setIsCategoriesMenuOpen((v) => !v);
+                                    }}
                                     className={
                                         "tw-flex tw-items-center tw-justify-between marker:tw-content-['']"
                                     }
                                 >
                                     {t("buyer_pages.products_list.cat")}
-                                    <IoChevronDown
-                                        className={clsx(
-                                            "tw-stroke-black tw-transition-transform tw-duration-300",
-                                            isCategoriesMenuOpen ? "" : "tw-rotate-180",
+                                    <div className="tw-flex tw-items-center tw-gap-4">
+                                        <IoChevronDown
+                                            className={clsx(
+                                                "tw-stroke-black tw-transition-transform tw-duration-300",
+                                                isCategoriesMenuOpen
+                                                    ? "tw-rotate-180"
+                                                    : "",
+                                            )}
+                                        />
+                                        {categoryFilter && (
+                                            <Button
+                                                className={
+                                                    "tw-font-poppins tw-font-normal tw-text-purple focus:tw-outline-none"
+                                                }
+                                                onPress={() => {
+                                                    queryParameters.delete("category");
+                                                    queryParameters.delete(
+                                                        "sub-category",
+                                                    );
+                                                    setSubCategoryFilter("");
+                                                    setCategoryFilter("");
+                                                }}
+                                            >
+                                                Clear Filter
+                                            </Button>
                                         )}
-                                    />
+                                    </div>
                                 </summary>
                                 <RadioGroup
                                     aria-label={t("buyer_pages.products_list.cat")}
                                     className={"tw-flex tw-flex-col"}
+                                    value={categoryFilter ?? ""}
                                     onChange={(e) => {
                                         queryParameters.delete("category");
                                         queryParameters.delete("sub-category");
@@ -260,30 +285,53 @@ const OurStore = (props) => {
 
                             <details
                                 open={isSubCategoriesMenuOpen}
-                                onClick={() => setIsSubCategoriesMenuOpen((v) => !v)}
                                 className={
                                     "tw-outline-none tw-transition tw-duration-300 focus:tw-outline-none"
                                 }
                             >
                                 <summary
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setIsSubCategoriesMenuOpen((v) => !v);
+                                    }}
                                     className={
                                         "tw-flex tw-items-center tw-justify-between marker:tw-content-['']"
                                     }
                                 >
                                     {t("buyer_pages.products_list.subcategory")}
-                                    <IoChevronDown
-                                        className={clsx(
-                                            "tw-stroke-black tw-transition-transform tw-duration-300",
-                                            isSubCategoriesMenuOpen
-                                                ? ""
-                                                : "tw-rotate-180",
+                                    <div className="tw-flex tw-items-center tw-gap-4">
+                                        <IoChevronDown
+                                            className={clsx(
+                                                "tw-stroke-black tw-transition-transform tw-duration-300",
+                                                isSubCategoriesMenuOpen
+                                                    ? "tw-rotate-180"
+                                                    : "",
+                                            )}
+                                        />
+                                        {subCategoryFilter && (
+                                            <Button
+                                                className={
+                                                    "tw-font-poppins tw-font-normal tw-text-purple focus:tw-outline-none"
+                                                }
+                                                onPress={() => {
+                                                    queryParameters.delete("category");
+                                                    queryParameters.delete(
+                                                        "sub-category",
+                                                    );
+                                                    setSubCategoryFilter("");
+                                                    setCategoryFilter("");
+                                                }}
+                                            >
+                                                Clear Filter
+                                            </Button>
                                         )}
-                                    />
+                                    </div>
                                 </summary>
                                 <RadioGroup
                                     aria-label={t(
                                         "buyer_pages.products_list.subcategory",
                                     )}
+                                    value={subCategoryFilter}
                                     className={"tw-flex tw-flex-col"}
                                     onChange={(e) => {
                                         setSubCategoryFilter(e ?? "");
@@ -343,10 +391,6 @@ const OurStore = (props) => {
                                 </div>
                             </div>
                             <hr className="mt-5 mb-4" />
-                            {/*<p className="store__filter-title d-flex align-items-center gap-1">*/}
-                            {/*    /!*<TbCurrencyDollarOff size="1.6rem" />*!/*/}
-                            {/*    {t("buyer_pages.products_list.sale")}*/}
-                            {/*</p>*/}
                             <div className="form-check">
                                 <input
                                     className="form-check-input"
@@ -374,7 +418,6 @@ const OurStore = (props) => {
                         >
                             <div className="d-flex align-items-center tw-gap-4">
                                 <p className="mb-0 d-flex align-items-center gap-2 tw-text-nowrap">
-                                    {/*<BsSortUpAlt size="1.25rem" />*/}
                                     {t("buyer_pages.products_list.sort")}
                                 </p>
                                 <select
