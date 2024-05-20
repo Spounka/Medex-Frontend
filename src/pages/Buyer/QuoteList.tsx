@@ -77,7 +77,7 @@ const QuoteList = () => {
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
                                                         selectedQuote?.id == quote.id
-                                                            ? "bg-primary text-white"
+                                                            ? "tw-bg-black tw-text-white"
                                                             : ""
                                                     }`}
                                                 >
@@ -149,7 +149,7 @@ const QuoteList = () => {
                                                     aria-labelledby={`list-${quote.id}-list`}
                                                     key={quote.id}
                                                 >
-                                                    <div className="card p-3 shadow">
+                                                    <div className="card p-3 shadow tw-flex tw-gap-3">
                                                         <div className="d-flex align-items-center gap-4 mb-3">
                                                             <img
                                                                 src={
@@ -252,20 +252,22 @@ const QuoteList = () => {
                                                                 )}
                                                         </ul>
                                                         <hr />
-                                                        <h5 className="fw-bold mb-3">
-                                                            {t(
-                                                                "buyer_pages.quote_requests.income",
-                                                            )}
-                                                        </h5>
-                                                        <Link
-                                                            to={`/account/dashboard/quotes/${selectedQuote?.id}`}
-                                                            className="btn btn-primary d-flex align-items-center gap-2 justify-content-center"
-                                                        >
-                                                            <LuView size="1.4rem" />
-                                                            {t(
-                                                                "buyer_pages.quote_requests.view_inc",
-                                                            )}
-                                                        </Link>
+                                                        <div className="tw-flex tw-flex-col tw-gap-2">
+                                                            <h5 className="fw-bold mb-3">
+                                                                {t(
+                                                                    "buyer_pages.quote_requests.income",
+                                                                )}
+                                                            </h5>
+                                                            <Link
+                                                                to={`/account/dashboard/quotes/${selectedQuote?.id}`}
+                                                                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-bg-black tw-px-4 tw-py-2 tw-text-white"
+                                                            >
+                                                                <LuView size="1.4rem" />
+                                                                {t(
+                                                                    "buyer_pages.quote_requests.view_inc",
+                                                                )}
+                                                            </Link>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             );
