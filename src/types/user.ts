@@ -38,3 +38,19 @@ export interface TempUser {
     setPassword: (value: string) => void;
     setConfirmPassword: (value: string) => void;
 }
+
+export interface Company {
+    id: number;
+    address: ShippingAddress;
+    name: string;
+    email: string;
+    phone: string;
+    website: string;
+    bio: string;
+    register: string;
+    company_profile_picture: string;
+    company_cover_picture: string;
+    created: string;
+    updated: string;
+    user: string;
+}

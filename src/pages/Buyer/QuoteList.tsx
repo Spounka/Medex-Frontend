@@ -77,7 +77,7 @@ const QuoteList = () => {
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
                                                         selectedQuote?.id == quote.id
-                                                            ? "bg-primary text-white"
+                                                            ? "tw-bg-black tw-text-white"
                                                             : ""
                                                     }`}
                                                 >
@@ -100,32 +100,14 @@ const QuoteList = () => {
                                                                 height={50}
                                                             />
                                                         </div>
-                                                        <div className="col-9 col-md-10 mx-2">
-                                                            <div className="card-body">
-                                                                <h6 className="card-title dashboard__quote-title">
-                                                                    {/*{quote.product_name}*/}
-                                                                </h6>
-                                                                <span className="card-text dashboard__quote-text">
-                                                                    {/*{quote.requirements.substring(*/}
-                                                                    {/*    0,*/}
-                                                                    {/*    30,*/}
-                                                                    {/*)}*/}
-                                                                </span>
-                                                            </div>
+                                                    </div>
+                                                    <div className="d-flex align-items-center justify-content-between">
+                                                        <div className="d-flex align-items-center gap-2 dashboard__quote-info">
+                                                            <CiTimer size=".8rem" />
+                                                            {quote.created_since}{" "}
+                                                            {t("ago")}
                                                         </div>
                                                     </div>
-                                                    {/*<div className="d-flex align-items-center justify-content-between">*/}
-                                                    {/*    <div className="d-flex align-items-center gap-2 dashboard__quote-info">*/}
-                                                    {/*        <CgMenuMotion size=".8rem" />*/}
-                                                    {/*        {quote.quantity}{" "}*/}
-                                                    {/*        {quote.unit_display}*/}
-                                                    {/*    </div>*/}
-                                                    {/*    <div className="d-flex align-items-center gap-2 dashboard__quote-info">*/}
-                                                    {/*        <CiTimer size=".8rem" />*/}
-                                                    {/*        {quote.created_since}{" "}*/}
-                                                    {/*        {t("ago")}*/}
-                                                    {/*    </div>*/}
-                                                    {/*</div>*/}
                                                 </div>
                                             </Link>
                                         );
@@ -149,7 +131,7 @@ const QuoteList = () => {
                                                     aria-labelledby={`list-${quote.id}-list`}
                                                     key={quote.id}
                                                 >
-                                                    <div className="card p-3 shadow">
+                                                    <div className="card p-3 shadow tw-flex tw-gap-3">
                                                         <div className="d-flex align-items-center gap-4 mb-3">
                                                             <img
                                                                 src={
@@ -177,9 +159,6 @@ const QuoteList = () => {
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        {/*<h5 className="mb-3">*/}
-                                                        {/*    {quote.product_name}*/}
-                                                        {/*</h5>*/}
                                                         <p className="mb-3">
                                                             {quote.requirements}
                                                         </p>
@@ -189,15 +168,6 @@ const QuoteList = () => {
                                                             )}
                                                         </h5>
                                                         <ul className="list-group">
-                                                            {/*<li className="list-group-item d-flex align-items-center gap-2">*/}
-                                                            {/*    <CgMenuMotion />*/}
-                                                            {/*    {t(*/}
-                                                            {/*        "buyer_pages.cart.qty",*/}
-                                                            {/*    )}*/}
-                                                            {/*    : &nbsp;*/}
-                                                            {/*    {quote.quantity}{" "}*/}
-                                                            {/*    {quote.unit_display}*/}
-                                                            {/*</li>*/}
                                                             <li className="list-group-item d-flex align-items-center gap-2">
                                                                 <CiTimer />
                                                                 {t(
@@ -252,20 +222,22 @@ const QuoteList = () => {
                                                                 )}
                                                         </ul>
                                                         <hr />
-                                                        <h5 className="fw-bold mb-3">
-                                                            {t(
-                                                                "buyer_pages.quote_requests.income",
-                                                            )}
-                                                        </h5>
-                                                        <Link
-                                                            to={`/account/dashboard/quotes/${selectedQuote?.id}`}
-                                                            className="btn btn-primary d-flex align-items-center gap-2 justify-content-center"
-                                                        >
-                                                            <LuView size="1.4rem" />
-                                                            {t(
-                                                                "buyer_pages.quote_requests.view_inc",
-                                                            )}
-                                                        </Link>
+                                                        <div className="tw-flex tw-flex-col tw-gap-2">
+                                                            <h5 className="fw-bold mb-3">
+                                                                {t(
+                                                                    "buyer_pages.quote_requests.income",
+                                                                )}
+                                                            </h5>
+                                                            <Link
+                                                                to={`/account/dashboard/quotes/${selectedQuote?.id}`}
+                                                                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-bg-black tw-px-4 tw-py-2 tw-text-white"
+                                                            >
+                                                                <LuView size="1.4rem" />
+                                                                {t(
+                                                                    "buyer_pages.quote_requests.view_inc",
+                                                                )}
+                                                            </Link>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             );

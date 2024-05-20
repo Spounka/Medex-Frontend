@@ -54,7 +54,7 @@ const QuoteList = () => {
 
     const [brands, setBrands] = useState([]);
 
-    const [quotes, setQuotes] = useState({});
+    const [quotes, setQuotes] = useState<Quote[]>([]);
     const [selectedQuote, setSelectedQuote] = useState("");
 
     const [brand, setBrand] = useState([]);
@@ -220,7 +220,7 @@ const QuoteList = () => {
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
                                                         selectedQuote.id == quote.id
-                                                            ? "bg-primary text-white"
+                                                            ? "tw-bg-black tw-text-white"
                                                             : ""
                                                     }`}
                                                 >
@@ -292,8 +292,8 @@ const QuoteList = () => {
                                                     aria-labelledby={`list-${quote.id}-list`}
                                                     key={quote.id}
                                                 >
-                                                    <div className="card p-3 shadow">
-                                                        <div className="d-flex align-items-center gap-4 mb-3">
+                                                    <div className="card p-3 shadow tw-flex tw-flex-col tw-gap-4">
+                                                        <div className="d-flex align-items-center gap-4">
                                                             <img
                                                                 src={
                                                                     quote.user.profile
@@ -320,107 +320,112 @@ const QuoteList = () => {
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <h5 className="mb-3">
-                                                            {quote.product_name}
-                                                        </h5>
-                                                        <p className="mb-3">
-                                                            {quote.requirements}
-                                                        </p>
-                                                        <h5 className="fw-bold mb-3">
-                                                            {t(
-                                                                "buyer_pages.quote_requests.det",
-                                                            )}
-                                                        </h5>
-                                                        <ul className="list-group">
-                                                            <li className="list-group-item d-flex align-items-center gap-2">
-                                                                <CgMenuMotion />
+                                                        <div className="tw-flex tw-flex-col tw-gap-2">
+                                                            <h5 className="fw-bold mb-3">
                                                                 {t(
-                                                                    "buyer_pages.cart.qty",
+                                                                    "buyer_pages.quote_requests.det",
                                                                 )}
-                                                                : &nbsp;
-                                                                {quote.quantity}{" "}
-                                                                {quote.unit_display}
-                                                            </li>
-                                                            <li className="list-group-item d-flex align-items-center gap-2">
-                                                                <CiTimer />
-                                                                {t(
-                                                                    "buyer_pages.quote_requests.added",
-                                                                )}
-                                                                : &nbsp;
-                                                                {quote.created_since}{" "}
-                                                                {t("ago")}
-                                                            </li>
-                                                            <li className="list-group-item d-flex align-items-center gap-2">
-                                                                <BsCalendar2Date />
-                                                                {t("shared.rfq.due_date")}
-                                                                : &nbsp;
-                                                                {
-                                                                    quote.due_date_display
-                                                                } -{" "}
-                                                                {quote.due_time_display}
-                                                            </li>
-                                                            {quote?.attachments?.length >
-                                                                0 &&
-                                                                quote.attachments?.map(
-                                                                    (
-                                                                        attachment,
-                                                                        index,
-                                                                    ) => {
-                                                                        return (
-                                                                            <li
-                                                                                className="list-group-item"
-                                                                                key={
-                                                                                    index
-                                                                                }
-                                                                            >
-                                                                                <Link
-                                                                                    to={
-                                                                                        import.meta
-                                                                                            .env
-                                                                                            .VITE_BACKEND_URL +
-                                                                                        attachment.attachment
+                                                            </h5>
+                                                            <ul className="list-group">
+                                                                <li className="list-group-item d-flex align-items-center gap-2">
+                                                                    <CgMenuMotion />
+                                                                    {t(
+                                                                        "buyer_pages.cart.qty",
+                                                                    )}
+                                                                    : &nbsp;
+                                                                    {quote.quantity}{" "}
+                                                                    {quote.unit_display}
+                                                                </li>
+                                                                <li className="list-group-item d-flex align-items-center gap-2">
+                                                                    <CiTimer />
+                                                                    {t(
+                                                                        "buyer_pages.quote_requests.added",
+                                                                    )}
+                                                                    : &nbsp;
+                                                                    {
+                                                                        quote.created_since
+                                                                    }{" "}
+                                                                    {t("ago")}
+                                                                </li>
+                                                                <li className="list-group-item d-flex align-items-center gap-2">
+                                                                    <BsCalendar2Date />
+                                                                    {t(
+                                                                        "shared.rfq.due_date",
+                                                                    )}
+                                                                    : &nbsp;
+                                                                    {
+                                                                        quote.due_date_display
+                                                                    }{" "}
+                                                                    -{" "}
+                                                                    {
+                                                                        quote.due_time_display
+                                                                    }
+                                                                </li>
+                                                                {quote?.attachments
+                                                                    ?.length > 0 &&
+                                                                    quote.attachments?.map(
+                                                                        (
+                                                                            attachment,
+                                                                            index,
+                                                                        ) => {
+                                                                            return (
+                                                                                <li
+                                                                                    className="list-group-item"
+                                                                                    key={
+                                                                                        index
                                                                                     }
-                                                                                    className=" d-flex align-items-center gap-2"
                                                                                 >
-                                                                                    <AiOutlineFileText />
-                                                                                    {t(
-                                                                                        "buyer_pages.quote_requests.att",
-                                                                                    )}{" "}
-                                                                                    {index +
-                                                                                        1}
-                                                                                </Link>
-                                                                            </li>
-                                                                        );
-                                                                    },
-                                                                )}
-                                                        </ul>
+                                                                                    <Link
+                                                                                        to={
+                                                                                            import.meta
+                                                                                                .env
+                                                                                                .VITE_BACKEND_URL +
+                                                                                            attachment.attachment
+                                                                                        }
+                                                                                        className=" d-flex align-items-center gap-2"
+                                                                                    >
+                                                                                        <AiOutlineFileText />
+                                                                                        {t(
+                                                                                            "buyer_pages.quote_requests.att",
+                                                                                        )}{" "}
+                                                                                        {index +
+                                                                                            1}
+                                                                                    </Link>
+                                                                                </li>
+                                                                            );
+                                                                        },
+                                                                    )}
+                                                            </ul>
+                                                        </div>
                                                         <hr />
-                                                        <h5 className="fw-bold mb-3">
-                                                            {t(
-                                                                "supplier_pages.quote_list.offer",
-                                                            )}
-                                                        </h5>
-                                                        <button
-                                                            type="button"
-                                                            className="btn btn-primary d-flex align-items-center gap-3 justify-content-center"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target={`#offerModal-${quote.id}`}
-                                                            onClick={() =>
-                                                                document
-                                                                    .querySelector(
-                                                                        "#country .stdropdown-input>input",
-                                                                    )
-                                                                    .setAttribute(
-                                                                        "required",
-                                                                        true,
-                                                                    )
-                                                            }
-                                                        >
-                                                            {t(
-                                                                "supplier_pages.quote_list.submit",
-                                                            )}
-                                                            <MdOutlinePostAdd size="1.2rem" />
-                                                        </button>
+                                                        <div className="tw-flex tw-flex-col tw-gap-2">
+                                                            <h5 className="fw-bold">
+                                                                {t(
+                                                                    "supplier_pages.quote_list.offer",
+                                                                )}
+                                                            </h5>
+                                                            <button
+                                                                type="button"
+                                                                className="tw-flex tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-bg-black tw-px-4 tw-py-2 tw-text-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target={`#offerModal-${quote.id}`}
+                                                                onClick={() =>
+                                                                    document
+                                                                        .querySelector(
+                                                                            "#country .stdropdown-input>input",
+                                                                        )
+                                                                        .setAttribute(
+                                                                            "required",
+                                                                            true,
+                                                                        )
+                                                                }
+                                                            >
+                                                                {t(
+                                                                    "supplier_pages.quote_list.submit",
+                                                                )}
+                                                                <MdOutlinePostAdd size="1.2rem" />
+                                                            </button>
+                                                        </div>
                                                         <div
                                                             className="modal fade"
                                                             id={`offerModal-${quote.id}`}
@@ -945,7 +950,7 @@ const QuoteList = () => {
                                                                             <div className="mb-3">
                                                                                 <button
                                                                                     type="submit"
-                                                                                    className="btn btn-primary w-100 justify-content-center d-flex align-items-center gap-2"
+                                                                                    className="tw-flex tw-w-full tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-bg-black tw-px-4 tw-py-2 tw-text-white"
                                                                                 >
                                                                                     {t(
                                                                                         "supplier_pages.quote_list.send",
@@ -960,11 +965,10 @@ const QuoteList = () => {
                                                                                     state={{
                                                                                         offer: offerInvoice,
                                                                                     }}
-                                                                                    className={`btn btn-danger w-100 justify-content-center align-items-center gap-2 ${
-                                                                                        showDownloadBtn ===
-                                                                                        true
-                                                                                            ? "d-flex"
-                                                                                            : "d-none"
+                                                                                    className={`tw-items-center tw-justify-center tw-gap-2 tw-rounded-md tw-bg-purple tw-px-4 tw-py-2 tw-text-white ${
+                                                                                        showDownloadBtn
+                                                                                            ? "tw-flex"
+                                                                                            : "tw-hidden"
                                                                                     }`}
                                                                                 >
                                                                                     {t(
