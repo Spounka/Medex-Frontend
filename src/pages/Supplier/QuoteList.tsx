@@ -429,7 +429,7 @@ const QuoteList = () => {
                                                         <div
                                                             className="modal fade"
                                                             id={`offerModal-${quote.id}`}
-                                                            tabIndex="-1"
+                                                            tabIndex={-1}
                                                             aria-labelledby={`offerModalLabel${quote.id}`}
                                                             aria-hidden="true"
                                                         >
