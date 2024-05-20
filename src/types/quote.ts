@@ -1,8 +1,19 @@
 import { ThreadUser } from "./thread";
+import { Company } from "@domain/user.ts";
 
 interface QuoteAttachment {
     id: number;
     attachment: string;
+}
+
+export interface QuoteProduct {
+    id: number;
+    unit_display: string;
+    name: string;
+    quantity: number;
+    unit: string;
+    notes: string;
+    quote: number;
 }
 
 export interface Quote {
@@ -14,11 +25,12 @@ export interface Quote {
     created: string;
     created_since: string;
 
-    products: number[];
+    products: QuoteProduct[];
 
     due_date: string;
     due_date_display: string;
     due_time_display: string;
+    offers: Offer[];
 
     requirements: string;
     supplier: string;
@@ -28,9 +40,6 @@ export interface Offer {
     id: number;
     user: ThreadUser;
 
-    quote: string;
-    quote_obj: Quote;
-
     created: string;
     created_since: string;
 
@@ -38,14 +47,13 @@ export interface Offer {
     status_display: string;
 
     notes: string;
-    brand: string;
-    quantity: number;
-    product_price: number;
-    total_price: number;
-    tax: number;
-    delivery_address: string;
+    delivery_address: number;
     delivery_date: string;
     payment_type: string;
+    quote: number;
+    quote_supplier: Company | null;
+    quote_created: string;
+    quote_due_date: string;
 
     invoice_id: string;
 }
