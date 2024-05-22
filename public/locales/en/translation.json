@@ -40,6 +40,8 @@
     "no_account": "Don't have an account yet? Register",
     "here": "Here",
     "wishlist_empty": "You haven't added any items to your Wishlist yet",
+    "details": "View Details",
+    "actions": "Actions",
     "footer": {
         "company_address": "Bab Makkah Dist., P.O.Box : 23054.",
         "company_city_country": "Jeddah, Saudi Arabia",
@@ -220,14 +222,17 @@
             "none": "There are no offers made yet"
         },
         "order_history": {
-            "none": "There are no orders yet",
+            "id": "Product ID",
+            "date": "Order Date",
+            "time": "Order Time",
             "return": "Return Product",
             "return_status": "Return Status",
             "applied": "Applied",
             "declined": "Declined by Supplier",
             "approved": "Approved by Supplier",
             "returned": "Return Completed",
-            "decline_reason": "Reason for decline"
+            "decline_reason": "Reason for decline",
+            "pagination": "Page {{c}} of {{m}}"
         },
         "product_details": {
             "was": "Price Was",
@@ -326,7 +331,23 @@
             "max_files_err": "You can upload a maximum of {{max_files}} files",
             "file_type_err": "Invalid file extension. Only JPG, JPEG, PNG, MP4, AVI, and WAV files are allowed",
             "success": "You have successfully requested to return this product. Please wait for the supplier approval / denial",
-            "exists": "You can only request returning a product once"
+            "created": "Return Request Date",
+            "exists": "You can only request returning a product once",
+            "date": "Return Request Date",
+            "details": "View Request Details"
+        },
+        "return_request_details": {
+            "title": "Return Request Details",
+            "customer_join": "Customer since {{date}}",
+            "comment": "Comment",
+            "return_requested": "Return Requested",
+            "reason": "Reason",
+            "summary": "Summary",
+            "app": "Applied",
+            "apr": "Approved",
+            "dec": "Declined",
+            "cmp": "Completed",
+            "order": "Order"
         },
         "statistics": {
             "title": "My Statistics",
@@ -386,9 +407,14 @@
             "link": "Go To Homepage"
         },
         "rfq": {
+            "empty": "Click on Add Product to add your products",
+            "add": "Add Product",
+            "remove": "Remove Product",
+            "missing": "You must fill the name, quantity, and the unit of measurement of every product, or delete the incomplete product in order to create the quote request",
+            "no_products": "You must at least add 1 product to create a quote request",
+            "unit": "Unit of Measurement",
             "success": "You have created a new quote request successfully",
             "err": "There was an error in creating a new quote request",
-            "hint": "Hint: You can select an existing product name, or create a new one",
             "qty": "Sourcing Quantity",
             "bag": "Bag / Bags",
             "bar": "Barrel / Barrels",
@@ -411,8 +437,6 @@
             "st": "Short Ton / Short Tons",
             "sm": "Square Meter / Square Meters",
             "ton": "Ton / Tons",
-            "d_req": "Detailed requirements",
-            "look": "I am looking for",
             "att": "Attachments",
             "att_hint": "Hint: You can attach relevant images or PDF files here to specify your sourcing needs",
             "consent": "I understand and agree to abide by the buying request posting rules",

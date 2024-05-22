@@ -1,4 +1,4 @@
-import { Offer } from "@domain/quotes";
+import { Offer } from "@domain/quote.ts";
 import { ThreadUser } from "@domain/thread.ts";
 import { ShippingAddress } from "@domain/user";
 import clsx from "clsx";

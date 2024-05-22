@@ -46,6 +46,7 @@ import ComingSoon from "../pages/shared/ComingSoon";
 import Permissions from "../pages/Buyer/Permissions";
 import Wallet from "../pages/shared/Wallet";
 import Company from "../pages/Buyer/Company";
+import ReturnRequestDetails from "../pages/Buyer/ReturnRequestDetails";
 
 const BuyerRoutes = () => {
     const { addToCart, cartItems, removeFromCart, setCartItems } =
@@ -219,6 +220,10 @@ const BuyerRoutes = () => {
                         <Route
                             path="return-requests"
                             element={<ReturnRequests />}
+                        />
+                        <Route
+                            path="return-requests/:id"
+                            element={<ReturnRequestDetails />}
                         />
 
                         <Route

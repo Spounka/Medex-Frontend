@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import userImage from "../../assets/images/user.png";
 
-import MonthlyBarChart from "../../components/Supplier/Charts/MonthlyBarChart";
 import IncomeBarChart from "../../components/Supplier/Charts/IncomeBarChart";
+import MonthlyBarChart from "../../components/Supplier/Charts/MonthlyBarChart";
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -439,7 +439,7 @@ const Dashboard = () => {
                                                         <td className="text-nowrap">
                                                             <Link
                                                                 style={{
-                                                                    color: "#00cab6",
+                                                                    color: "#var(--theme-color-secondary)",
                                                                 }}
                                                                 to={`/supplier/order/${order?.id}`}
                                                                 state={{
@@ -461,7 +461,8 @@ const Dashboard = () => {
                                     <ul
                                         className="pagination justify-content-end mt-3"
                                         style={{
-                                            backgroundColor: "#00cab6",
+                                            backgroundColor:
+                                                "#var(--theme-color-secondary)",
                                             borderRadius: "7px",
                                         }}
                                     >

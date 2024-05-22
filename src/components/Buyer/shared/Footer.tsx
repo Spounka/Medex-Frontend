@@ -7,6 +7,7 @@ import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 
 import { useTranslation } from "react-i18next";
+import Container from "../../shared/Container.tsx";
 
 const Footer = () => {
     const { t, i18n } = useTranslation();
@@ -15,7 +16,10 @@ const Footer = () => {
     return (
         <footer>
             <div className="py-4">
-                <div className="container">
+                <Container
+                    node={"footer"}
+                    className=""
+                >
                     <div className="row">
                         <div className="col-6 col-md-4">
                             <h4 className="mb-4">{t("contact_us")}</h4>
@@ -29,7 +33,7 @@ const Footer = () => {
                                 {i18n.language === "en" ? (
                                     <a
                                         href="tel:+966 072222297"
-                                        className="my-1 text-white d-flex align-items-center gap-2 footer__top-link"
+                                        className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                     >
                                         <BsTelephone />
                                         +966 072222297
@@ -37,7 +41,7 @@ const Footer = () => {
                                 ) : (
                                     <a
                                         href="tel:+966 072222297"
-                                        className="my-1 text-white d-flex align-items-center gap-2 footer__top-link"
+                                        className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                     >
                                         <BsTelephone />
                                         ٩٦٦٠٧٢٢٢٢٢٩٧+
@@ -46,7 +50,7 @@ const Footer = () => {
 
                                 <a
                                     href="mailto:test@test.com"
-                                    className="my-1 text-white d-flex align-items-center gap-2 footer__top-link"
+                                    className="my-1 d-flex align-items-center gap-2 footer__top-link"
                                 >
                                     <BsEnvelopeAt />
                                     test@test.com
@@ -58,31 +62,31 @@ const Footer = () => {
                             <div className="d-flex flex-column">
                                 <Link
                                     to="/"
-                                    className="text-white footer__top-link py-1 mb-1"
+                                    className="footer__top-link py-1 mb-1"
                                 >
                                     {t("home")}
                                 </Link>
                                 <Link
                                     to="/categories"
-                                    className="text-white footer__top-link py-1 mb-1"
+                                    className="footer__top-link py-1 mb-1"
                                 >
                                     {t("all_categories")}
                                 </Link>
                                 <Link
                                     to="/brands"
-                                    className="text-white footer__top-link py-1 mb-1"
+                                    className="footer__top-link py-1 mb-1"
                                 >
                                     {t("all_brands")}
                                 </Link>
                                 <Link
                                     to="/products"
-                                    className="text-white footer__top-link py-1 mb-1"
+                                    className="footer__top-link py-1 mb-1"
                                 >
                                     {t("all_products")}
                                 </Link>
                                 <Link
                                     to="/contact-us"
-                                    className="text-white footer__top-link py-1 mb-1"
+                                    className="footer__top-link py-1 mb-1"
                                 >
                                     {t("contact_us")}
                                 </Link>
@@ -95,13 +99,13 @@ const Footer = () => {
                                     <>
                                         <Link
                                             to="/account/login"
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className="footer__top-link py-1 mb-1"
                                         >
                                             {t("footer.buyer_login")}
                                         </Link>
                                         <Link
                                             to="/account/register"
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className="footer__top-link py-1 mb-1"
                                         >
                                             {t("footer.buyer_register")}
                                         </Link>
@@ -110,14 +114,14 @@ const Footer = () => {
                                     <>
                                         <Link
                                             to="/account/dashboard"
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className="footer__top-link py-1 mb-1"
                                         >
                                             {t("dashboard")}
                                         </Link>
                                         <Link
                                             role="button"
                                             onClick={logoutUser}
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className="footer__top-link py-1 mb-1"
                                         >
                                             {t("logout")}
                                         </Link>
@@ -126,14 +130,14 @@ const Footer = () => {
                                     <>
                                         <Link
                                             to="/supplier/dashboard"
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className=" footer__top-link py-1 mb-1"
                                         >
                                             {t("dashboard")}
                                         </Link>
                                         <Link
                                             role="button"
                                             onClick={logoutUser}
-                                            className="text-white footer__top-link py-1 mb-1"
+                                            className=" footer__top-link py-1 mb-1"
                                         >
                                             {t("logout")}
                                         </Link>
@@ -147,13 +151,13 @@ const Footer = () => {
                                 <div className="d-flex flex-column">
                                     <Link
                                         to="/account/login"
-                                        className="text-white footer__top-link py-1 mb-1"
+                                        className=" footer__top-link py-1 mb-1"
                                     >
                                         {t("footer.supplier_login")}
                                     </Link>
                                     <Link
                                         to="/supplier/account/register"
-                                        className="text-white footer__top-link py-1 mb-1"
+                                        className="footer__top-link py-1 mb-1"
                                     >
                                         {t("footer.supplier_register")}
                                     </Link>
@@ -161,7 +165,7 @@ const Footer = () => {
                             </div>
                         )}
                     </div>
-                </div>
+                </Container>
             </div>
             <div className="py-2 pb-5 mb-4 mb-md-0 pb-md-2 footer__bottom">
                 <div className="container">

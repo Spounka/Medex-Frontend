@@ -7,11 +7,12 @@ import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import axios from "axios";
 
 import { useTranslation } from "react-i18next";
+import { Brand } from "@domain/product.ts";
 
 const BrandsList = () => {
     const { t } = useTranslation();
 
-    const [brands, setBrands] = useState([]);
+    const [brands, setBrands] = useState<Brand[]>([]);
 
     const getBrands = async () => {
         await axios
@@ -39,15 +40,15 @@ const BrandsList = () => {
                                 return (
                                     <Link
                                         to={`/products?brand=${brand.slug}`}
-                                        className="my-2"
+                                        className="tw-flex-[0_1_45%] md:tw-flex-[0_1_32%] lg:tw-flex-[0_1_18%]"
                                         style={{ width: "fit-content" }}
                                         key={brand.id}
                                     >
-                                        <div className="card d-flex align-items-center justify-content-center home__brand-card">
+                                        <div className="card d-flex align-items-center justify-content-center home__brand-card tw-h-full">
                                             <img
                                                 src={brand.image}
                                                 alt="Brand"
-                                                className="img-fluid px-4"
+                                                className="img-fluid px-4 tw-h-full"
                                             />
                                         </div>
                                     </Link>

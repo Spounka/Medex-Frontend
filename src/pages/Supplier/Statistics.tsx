@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import useAxios from "../../utils/useAxios";
 
-import { IoStatsChart } from "react-icons/io5";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 import ProductsPerCategoryChart from "../../components/Supplier/Charts/ProductsPerCategoryChart";
 import QuoteStatisticsChart from "../../components/Supplier/Charts/QuoteStatisticsChart";
@@ -67,8 +66,7 @@ const Statistics = () => {
     return (
         <main className="container">
             <section className="py-3">
-                <h2 className="fw-bold d-flex align-items-center gap-2 dashboard__title">
-                    <IoStatsChart size="2rem" />
+                <h2 className="fw-bold dashboard__title">
                     {t("buyer_pages.statistics.title")}
                 </h2>
                 <div className="mt-5">
