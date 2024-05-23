@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 
 import userImage from "../../assets/images/user.png";
 import { useTranslation } from "react-i18next";
+import { PaginatedResult } from "@domain/paginatedResult.ts";
+import { Offer } from "@domain/quote.ts";
 
 const OfferList = () => {
     const { t } = useTranslation();
@@ -16,13 +18,15 @@ const OfferList = () => {
 
     const { id } = params;
 
-    const [offers, setOffers] = useState([]);
+    const [offers, setOffers] = useState<Offer[]>([]);
 
     const getOffers = async () => {
         await api
-            .get(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/?id=${id}`)
+            .get<
+                PaginatedResult<Offer>
+            >(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/?id=${id}`)
             .then((res) => {
-                setOffers(res.data);
+                setOffers(res.data?.results);
             });
     };
 
@@ -72,10 +76,10 @@ const OfferList = () => {
                                                         <h4 className="m-0">
                                                             {offer.user.full_name}
                                                         </h4>
-                                                        <p className="m-0">
-                                                            {offer.quote_obj.product_name}{" "}
-                                                            * {offer.quantity}
-                                                        </p>
+                                                        {/*<p className="m-0">*/}
+                                                        {/*    {offer.quote_obj.product_name}{" "}*/}
+                                                        {/*    * {offer.quantity}*/}
+                                                        {/*</p>*/}
                                                     </div>
                                                 </div>
                                                 <div
