@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -47,6 +47,14 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { Quote } from "@domain/quote.ts";
 
+interface OfferProduct {
+    id: number;
+    name: string;
+    notes: string;
+    quantity: number;
+    unit: string;
+}
+
 const QuoteList = () => {
     const { t } = useTranslation();
 
@@ -60,17 +68,18 @@ const QuoteList = () => {
     const [brand, setBrand] = useState([]);
     const [notes, setNotes] = useState("");
     const [quantity, setQuantity] = useState(0);
-    const [productPrice, setProductPrice] = useState(0.0);
-    const [totalPrice, setTotalPrice] = useState(0.0);
+    const [productPrice, setProductPrice] = useState("0.0");
+    const [totalPrice, setTotalPrice] = useState("0.0");
     const [country, setCountry] = useState({});
     const [state, setState] = useState({});
     const [city, setCity] = useState({});
     const [postalCode, setPostalCode] = useState("");
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
-    const [tax, setTax] = useState(0.0);
+    const [tax, setTax] = useState("0.0");
     const [deliveryDate, setDeliveryDate] = useState([]);
     const [paymentType, setPaymentType] = useState([]);
+    const [products, setProducts] = useState<OfferProduct[]>([]);
 
     const [showDownloadBtn, setShowDownloadBtn] = useState(false);
     const [offerInvoice, setOfferInvoice] = useState({});
@@ -90,6 +99,7 @@ const QuoteList = () => {
         setAddress2("");
         setDeliveryDate([]);
         setPaymentType("");
+        setProducts([]);
     };
 
     const fetchBrands = async () => {
@@ -116,8 +126,36 @@ const QuoteList = () => {
         fetchBrands();
     }, []);
 
-    const handleSubmit = async (e, quote) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>, quote: number) => {
         e.preventDefault();
+
+        function formDataToJSON(formData: FormData) {
+            const data = {};
+
+            // Iterate over the FormData entries
+            for (const [key, value] of formData.entries()) {
+                // Parse the key to access nested properties
+                const keys = key.split(/[\[\].]+/).filter(Boolean);
+                let current = data;
+
+                // Iterate through the keys to construct the nested structure
+                for (let i = 0; i < keys.length; i++) {
+                    const k = keys[i];
+                    if (i === keys.length - 1) {
+                        // Assign the value if it's the last key
+                        current[k] = value;
+                    } else {
+                        // Create an array or object if it doesn't exist
+                        if (!current[k]) {
+                            current[k] = isNaN(keys[i + 1]) ? {} : [];
+                        }
+                        current = current[k];
+                    }
+                }
+            }
+
+            return data;
+        }
 
         const delivery_address = {
             country: country.name,
@@ -128,17 +166,18 @@ const QuoteList = () => {
             address_2: address2,
         };
 
-        const formData = new FormData();
-        formData.append("quote", quote);
-        formData.append("delivery_address", JSON.stringify(delivery_address));
-        formData.append("brand", brand);
-        formData.append("quantity", quantity);
-        formData.append("product_price", parseFloat(productPrice).toFixed(2));
-        formData.append("total_price", parseFloat(totalPrice).toFixed(2));
-        formData.append("tax", parseFloat(tax).toFixed(2));
-        formData.append("delivery_date", deliveryDate);
-        formData.append("payment_type", paymentType);
-        formData.append("notes", notes);
+        const formData = new FormData(e.currentTarget);
+        formData.set("quote", quote.toString());
+        formData.set("delivery_address", JSON.stringify(delivery_address));
+        formData.set("brand", brand.toString());
+        formData.set("quantity", quantity.toString());
+        formData.set("product_price", parseFloat(productPrice).toFixed(2).toString());
+        formData.set("total_price", parseFloat(totalPrice).toFixed(2).toString());
+        formData.set("tax", parseFloat(tax).toFixed(2).toString());
+        formData.set("delivery_date", deliveryDate.toString());
+        formData.set("payment_type", paymentType.toString());
+        formData.set("notes", notes);
+        formData.set("products", JSON.stringify(products));
 
         await api
             .post(import.meta.env.VITE_BACKEND_URL + "/api/quote/offer/", formData)
@@ -215,7 +254,16 @@ const QuoteList = () => {
                                                         : `list-${quote.id}`
                                                 }
                                                 key={quote.id}
-                                                onClick={() => setSelectedQuote(quote)}
+                                                onClick={() => {
+                                                    setSelectedQuote(quote);
+                                                    setProducts(
+                                                        quote.products.map((product) => {
+                                                            delete product.unit_display;
+                                                            delete product.quote;
+                                                            return product;
+                                                        }),
+                                                    );
+                                                }}
                                             >
                                                 <div
                                                     className={`card mb-2 shadow p-2 ${
@@ -242,31 +290,6 @@ const QuoteList = () => {
                                                                 width={50}
                                                                 height={50}
                                                             />
-                                                        </div>
-                                                        <div className="col-9 col-md-10 mx-2">
-                                                            <div className="card-body">
-                                                                <h6 className="card-title dashboard__quote-title">
-                                                                    {quote.product_name}
-                                                                </h6>
-                                                                <span className="card-text dashboard__quote-text">
-                                                                    {quote?.requirements?.substring(
-                                                                        0,
-                                                                        30,
-                                                                    )}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="d-flex align-items-center justify-content-between">
-                                                        <div className="d-flex align-items-center gap-2 dashboard__quote-info">
-                                                            <CgMenuMotion size=".8rem" />
-                                                            {quote.quantity}{" "}
-                                                            {quote.unit_display}
-                                                        </div>
-                                                        <div className="d-flex align-items-center gap-2 dashboard__quote-info">
-                                                            <CiTimer size=".8rem" />
-                                                            {quote.created_since}{" "}
-                                                            {t("ago")}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -333,8 +356,18 @@ const QuoteList = () => {
                                                                         "buyer_pages.cart.qty",
                                                                     )}
                                                                     : &nbsp;
-                                                                    {quote.quantity}{" "}
-                                                                    {quote.unit_display}
+                                                                    {quote.products.reduce(
+                                                                        (
+                                                                            previous,
+                                                                            current,
+                                                                        ) => {
+                                                                            return (
+                                                                                previous +
+                                                                                current.quantity
+                                                                            );
+                                                                        },
+                                                                        0,
+                                                                    )}
                                                                 </li>
                                                                 <li className="list-group-item d-flex align-items-center gap-2">
                                                                     <CiTimer />
@@ -342,9 +375,7 @@ const QuoteList = () => {
                                                                         "buyer_pages.quote_requests.added",
                                                                     )}
                                                                     : &nbsp;
-                                                                    {
-                                                                        quote.created_since
-                                                                    }{" "}
+                                                                    {quote.created_since}
                                                                     {t("ago")}
                                                                 </li>
                                                                 <li className="list-group-item d-flex align-items-center gap-2">
@@ -355,8 +386,8 @@ const QuoteList = () => {
                                                                     : &nbsp;
                                                                     {
                                                                         quote.due_date_display
-                                                                    }{" "}
-                                                                    -{" "}
+                                                                    }
+                                                                    -
                                                                     {
                                                                         quote.due_time_display
                                                                     }
@@ -414,9 +445,9 @@ const QuoteList = () => {
                                                                         .querySelector(
                                                                             "#country .stdropdown-input>input",
                                                                         )
-                                                                        .setAttribute(
+                                                                        ?.setAttribute(
                                                                             "required",
-                                                                            true,
+                                                                            "true",
                                                                         )
                                                                 }
                                                             >
@@ -429,7 +460,7 @@ const QuoteList = () => {
                                                         <div
                                                             className="modal fade"
                                                             id={`offerModal-${quote.id}`}
-                                                            tabIndex="-1"
+                                                            tabIndex={-1}
                                                             aria-labelledby={`offerModalLabel${quote.id}`}
                                                             aria-hidden="true"
                                                         >
@@ -463,40 +494,100 @@ const QuoteList = () => {
                                                                             }
                                                                         >
                                                                             <div className="mb-3">
-                                                                                <label
-                                                                                    htmlFor="quantity"
-                                                                                    className="form-label d-flex align-items-center gap-2"
-                                                                                >
-                                                                                    <MdOutlineGrid3X3 size="1.4rem" />
-                                                                                    {t(
-                                                                                        "supplier_pages.quote_list.qty",
-                                                                                    )}
-                                                                                    *
-                                                                                </label>
-                                                                                <input
-                                                                                    type="number"
-                                                                                    id="quantity"
-                                                                                    className="form-control"
-                                                                                    placeholder={`${t(
-                                                                                        "supplier_pages.quote_list.qty_plc",
-                                                                                    )}...`}
-                                                                                    required
-                                                                                    min={
-                                                                                        0
-                                                                                    }
-                                                                                    value={
-                                                                                        quantity
-                                                                                    }
-                                                                                    onChange={(
-                                                                                        e,
-                                                                                    ) =>
-                                                                                        setQuantity(
-                                                                                            e
-                                                                                                .target
-                                                                                                .value,
-                                                                                        )
-                                                                                    }
-                                                                                />
+                                                                                {quote.products.map(
+                                                                                    (
+                                                                                        product,
+                                                                                        index,
+                                                                                    ) => {
+                                                                                        return (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    product.id
+                                                                                                }
+                                                                                                className={
+                                                                                                    "tw-flex tw-gap-2"
+                                                                                                }
+                                                                                            >
+                                                                                                <div className="tw-flex tw-flex-col tw-gap-1">
+                                                                                                    <label
+                                                                                                        htmlFor={`products[${index}].name-${product.id}`}
+                                                                                                        className="form-label d-flex align-items-center gap-2"
+                                                                                                    >
+                                                                                                        Product
+                                                                                                        Name
+                                                                                                    </label>
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        name={`products[${index}].name`}
+                                                                                                        id={`products[${index}].name-${product.id}`}
+                                                                                                        className="form-control [&&]:tw-bg-gray-300"
+                                                                                                        readOnly
+                                                                                                        value={
+                                                                                                            product.name
+                                                                                                        }
+                                                                                                    />
+                                                                                                </div>
+                                                                                                <div className="tw-flex tw-flex-col tw-gap-1">
+                                                                                                    <label
+                                                                                                        htmlFor={`products[${index}].quantity-${product.id}`}
+                                                                                                        className="form-label d-flex align-items-center gap-2"
+                                                                                                    >
+                                                                                                        {t(
+                                                                                                            "supplier_pages.quote_list.qty",
+                                                                                                        )}
+                                                                                                    </label>
+                                                                                                    <input
+                                                                                                        type="number"
+                                                                                                        name={`products[${index}].quantity`}
+                                                                                                        id={`products[${index}].quantity-${product.id}`}
+                                                                                                        className="form-control"
+                                                                                                        placeholder={`${t(
+                                                                                                            "supplier_pages.quote_list.qty_plc",
+                                                                                                        )}...`}
+                                                                                                        required
+                                                                                                        min={
+                                                                                                            0
+                                                                                                        }
+                                                                                                        value={
+                                                                                                            products[
+                                                                                                                index
+                                                                                                            ]
+                                                                                                                ?.quantity ??
+                                                                                                            1
+                                                                                                        }
+                                                                                                        onChange={(
+                                                                                                            e,
+                                                                                                        ) =>
+                                                                                                            setProducts(
+                                                                                                                (
+                                                                                                                    previous,
+                                                                                                                ) => {
+                                                                                                                    return previous.map(
+                                                                                                                        (
+                                                                                                                            product,
+                                                                                                                            i,
+                                                                                                                        ) => {
+                                                                                                                            return index ===
+                                                                                                                                i
+                                                                                                                                ? {
+                                                                                                                                      ...product,
+                                                                                                                                      quantity:
+                                                                                                                                          e
+                                                                                                                                              .target
+                                                                                                                                              .value,
+                                                                                                                                  }
+                                                                                                                                : product;
+                                                                                                                        },
+                                                                                                                    );
+                                                                                                                },
+                                                                                                            )
+                                                                                                        }
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        );
+                                                                                    },
+                                                                                )}
                                                                             </div>
                                                                             <div className="mb-3">
                                                                                 <label
@@ -638,18 +729,23 @@ const QuoteList = () => {
                                                                                         "supplier_pages.quote_list.price_tot_plc",
                                                                                     )}...`}
                                                                                     required
-                                                                                    value={
-                                                                                        totalPrice
-                                                                                    }
-                                                                                    onChange={(
-                                                                                        e,
-                                                                                    ) =>
-                                                                                        setTotalPrice(
-                                                                                            e
-                                                                                                .target
-                                                                                                .value,
-                                                                                        )
-                                                                                    }
+                                                                                    value={products.reduce(
+                                                                                        (
+                                                                                            current,
+                                                                                            product,
+                                                                                        ) => {
+                                                                                            return (
+                                                                                                current +
+                                                                                                product.quantity *
+                                                                                                    productPrice +
+                                                                                                product.quantity *
+                                                                                                    productPrice *
+                                                                                                    (tax /
+                                                                                                        100)
+                                                                                            );
+                                                                                        },
+                                                                                        0,
+                                                                                    )}
                                                                                 />
                                                                             </div>
 
