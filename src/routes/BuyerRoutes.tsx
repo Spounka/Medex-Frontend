@@ -273,7 +273,7 @@ const BuyerRoutes = () => {
 
                         <Route
                             path="quotes/:id"
-                            // element={<OfferList />}
+                            element={<OfferList />}
                         />
                         <Route
                             path="quotes/offers/:id/invoice"
