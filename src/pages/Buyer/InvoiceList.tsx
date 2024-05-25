@@ -9,10 +9,24 @@ import { Invoice } from "@domain/invoice.ts";
 import { useQuery } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/useAuthToken.tsx";
 import { ColDef } from "ag-grid-community";
+import { Offer, OfferProduct, QuoteProduct } from "@domain/quote.ts";
+import { PaginatedResult } from "@domain/paginatedResult.ts";
 
 async function getInvoices(access: string) {
     const result = await axios.get<Invoice[]>(
         `${import.meta.env.VITE_BACKEND_URL}/api/quote/invoices/`,
+        {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+        },
+    );
+    return result.data;
+}
+
+async function getOffers(access: string) {
+    const result = await axios.get<PaginatedResult<Offer>>(
+        `${import.meta.env.VITE_BACKEND_URL}/api/quote/offer/`,
         {
             headers: {
                 Authorization: `Bearer ${access}`,
@@ -28,6 +42,11 @@ function InvoiceList(props) {
     const invoicesQuery = useQuery({
         queryFn: async () => getInvoices(authTokens.access),
         queryKey: ["invoices"],
+        enabled: !!authTokens.access,
+    });
+    const offersQuery = useQuery({
+        queryFn: async () => getOffers(authTokens.access),
+        queryKey: ["offers"],
         enabled: !!authTokens.access,
     });
 
@@ -87,7 +106,17 @@ function InvoiceList(props) {
             minWidth: 150,
             flex: 1,
             cellRenderer: (params) => {
-                return <p>1000 {t("sar")}</p>;
+                return (
+                    <p>
+                        {params.data.products.reduce(
+                            (current: number, previous: OfferProduct) => {
+                                return current + (previous.product_price ?? 1);
+                            },
+                            0,
+                        )}{" "}
+                        {t("sar")}
+                    </p>
+                );
             },
         },
         {
@@ -147,7 +176,7 @@ function InvoiceList(props) {
                         }
                         enableRtl={i18n.language === "ar" ? true : false}
                         pagination={true}
-                        paginationPageSize={10}
+                        paginationPageSize={25}
                         suppressPaginationPanel={true}
                         tooltipShowDelay={100}
                     />
