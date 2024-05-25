@@ -303,7 +303,7 @@ const ProductDetails = (props) => {
                                 {supplier?.full_name ?? ""}
                             </h1>
                             <a
-                                href={`/company/undefined`}
+                                href={`/company/${supplier?.id}`}
                                 className="tw-font-poppins tw-underline"
                             >
                                 View Store
