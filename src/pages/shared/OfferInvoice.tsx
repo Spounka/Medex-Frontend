@@ -2,8 +2,12 @@ import { Offer } from "@domain/quote.ts";
 import { ThreadUser } from "@domain/thread.ts";
 import { ShippingAddress } from "@domain/user";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 
-function InvoiceBusinessInformation({ address }: Readonly<{ address: ShippingAddress }>) {
+function InvoiceBusinessInformation({
+    address,
+}: Readonly<{ address: ShippingAddress | null }>) {
+    if (!address) return null;
     return (
         <div className={"tw-flex tw-justify-between tw-gap-4 tw-border-b tw-pb-4"}>
             <h2 className="tw-font-title tw-text-4xl tw-font-bold tw-text-arsenic">
@@ -31,23 +35,27 @@ function InvoiceBusinessInformation({ address }: Readonly<{ address: ShippingAdd
 }
 
 function InvoiceClientInformation({ client }: { client: ThreadUser }) {
+    if (!client) return null;
     return (
         <div
             className={
                 "tw-flex tw-w-full tw-flex-col tw-justify-end tw-pt-4 tw-text-right"
             }
         >
-            <p className={"tw-font-lg tw-font-title tw-font-medium tw-text-arsenic"}>
-                Deco Addict
+            <p className={"tw-font-title tw-text-lg tw-font-medium tw-text-arsenic"}>
+                {client.shipping_address.address_1}
             </p>
-            <p className={"tw-font-lg tw-font-title tw-font-medium tw-text-arsenic"}>
-                77 Santa Barbra Rd
+            <p className={"tw-font-title tw-text-lg tw-font-medium tw-text-arsenic"}>
+                {client.shipping_address.address_2}
             </p>
-            <p className={"tw-font-lg tw-font-title tw-font-medium tw-text-arsenic"}>
-                Pleasant Hill CA 94523
+            <p className={"tw-font-title tw-text-lg tw-font-medium tw-text-arsenic"}>
+                {client.shipping_address.postal_code} {client.shipping_address.city}
             </p>
-            <p className={"tw-font-lg tw-font-title tw-font-medium tw-text-arsenic"}>
-                United States
+            <p className={"tw-font-title tw-text-lg tw-font-medium tw-text-arsenic"}>
+                {client.shipping_address.state}
+            </p>
+            <p className={"tw-font-title tw-text-lg tw-font-medium tw-text-arsenic"}>
+                {client.shipping_address.country}
             </p>
         </div>
     );
@@ -61,7 +69,7 @@ function InvoiceMetaData({ offer }: Readonly<{ offer: Offer }>) {
             }
         >
             <h3 className="tw-font-title tw-text-4xl tw-font-medium tw-text-arsenic">
-                Invoice {offer?.invoice_id ?? "Medex-Invoice-id"}
+                Invoice {offer.invoice_id}
             </h3>
             <div className="tw-flex tw-justify-between">
                 <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-2">
@@ -69,13 +77,13 @@ function InvoiceMetaData({ offer }: Readonly<{ offer: Offer }>) {
                         Invoice Date:
                     </h4>
                     <p className="tw-font-title tw-text-lg tw-text-arsenic">
-                        {new Date(offer?.created).toLocaleDateString()}
+                        {new Date(offer.created).toLocaleDateString()}
                     </p>
                 </div>
                 <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-2 tw-text-right">
                     <h4 className="tw-font-title tw-text-xl tw-font-bold">Due Date:</h4>
                     <p className="tw-font-title tw-text-lg tw-text-arsenic">
-                        {new Date(offer?.delivery_date).toLocaleDateString()}
+                        {new Date(offer.delivery_date).toLocaleDateString()}
                     </p>
                 </div>
             </div>
@@ -100,6 +108,7 @@ function InvoiceBodyRow({
     tax: number | string;
     amount: number | string;
 }>) {
+    const { t } = useTranslation();
     return (
         <div
             className={clsx(
@@ -135,7 +144,7 @@ function InvoiceBodyRow({
                         : "tw-font-medium tw-text-arsenic",
                 )}
             >
-                {`${unitPrice} ${bold ? "" : "S.A.R"}`}
+                {`${unitPrice} ${bold ? "" : t("sar")}`}
             </p>
             <p
                 className={clsx(
@@ -155,14 +164,13 @@ function InvoiceBodyRow({
                         : "tw-font-medium tw-text-arsenic",
                 )}
             >
-                {`${amount} ${bold ? "" : "S.A.R"}`}
+                {`${amount} ${bold ? "" : t("sar")}`}
             </p>
         </div>
     );
 }
 
 function InvoiceBody({ offer }: Readonly<{ offer: Offer }>) {
-    console.log("Offer:", offer);
     return (
         <div className={"tw-flex tw-flex-col tw-gap-2 tw-pt-2"}>
             <InvoiceBodyRow
@@ -174,18 +182,28 @@ function InvoiceBody({ offer }: Readonly<{ offer: Offer }>) {
                 amount={"Amount"}
             />
 
-            <InvoiceBodyRow
-                description={offer?.brand ?? "Brand"}
-                qtt={offer?.quantity ?? 0}
-                unitPrice={offer?.product_price ?? 0}
-                tax={offer?.tax ?? 1}
-                amount={(offer?.total_price ?? 0) * (offer?.quantity ?? 0)}
-            />
+            {offer.products.map((product, index) => {
+                return (
+                    <InvoiceBodyRow
+                        description={product.name}
+                        qtt={product?.quantity}
+                        unitPrice={product.product_price ?? 0}
+                        tax={product.tax}
+                        amount={product.product_price * product.quantity}
+                        alternate={index % 2 === 0}
+                    />
+                );
+            })}
         </div>
     );
 }
 
 function InvoiceFooter({ offer }: { offer: Offer }) {
+    const { t } = useTranslation();
+    const totalPrice = offer.products.reduce(
+        (value, product) => value + product.product_price,
+        0,
+    );
     return (
         <div className="tw-flex tw-w-full tw-justify-between tw-py-8">
             <div className="tw-flex tw-flex-[2] tw-flex-col tw-justify-center tw-gap-3.5">
@@ -203,7 +221,7 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
                             Untaxed Amount:
                         </p>
                         {offer ? (
-                            <p className="tw-font-title tw-text-lg">{`${(offer?.product_price ?? 0) * (offer?.quantity ?? 0)} S.A.R`}</p>
+                            <p className="tw-font-title tw-text-lg">{`${totalPrice} ${t("sar")}`}</p>
                         ) : (
                             <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
                         )}
@@ -211,7 +229,7 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
                     <div className="tw-flex tw-w-full tw-justify-between">
                         <p className="tw-font-title tw-text-lg tw-font-medium tw-text-grey-storm">{`Tax: ${offer?.tax ?? 0}%`}</p>
                         {offer ? (
-                            <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity - offer.quantity * offer.product_price} S.A.R`}</p>
+                            <p className="tw-font-title tw-text-lg">{`${totalPrice * (parseFloat(offer.tax ?? 0) / 100)} S.A.R`}</p>
                         ) : (
                             <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
                         )}
@@ -221,7 +239,7 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
                 <div className="tw-flex tw-w-full tw-justify-between tw-px-2">
                     <p className="tw-font-title tw-text-lg tw-font-semibold">Total:</p>
                     {offer ? (
-                        <p className="tw-font-title tw-text-lg">{`${offer.total_price * offer.quantity} S.A.R`}</p>
+                        <p className="tw-font-title tw-text-lg">{`${totalPrice} S.A.R`}</p>
                     ) : (
                         <p className="tw-font-title tw-text-lg">{`0 S.A.R`}</p>
                     )}
@@ -231,45 +249,12 @@ function InvoiceFooter({ offer }: { offer: Offer }) {
     );
 }
 
-export default function OfferInvoice({ quote }: Readonly<{ quote: Offer }>) {
+export default function OfferInvoice({ quote }: Readonly<{ quote: Offer | null }>) {
+    if (!quote) return null;
     return (
         <>
-            <InvoiceBusinessInformation
-                address={
-                    quote?.user?.shipping_address ?? {
-                        address_1: "address1",
-                        postal_code: "postal_code",
-                        city: "city",
-                        state: "state",
-                        country: "country",
-                    }
-                }
-            />
-            <InvoiceClientInformation
-                client={
-                    quote?.quote_obj?.user ?? {
-                        email: "email",
-                        phone: "phone",
-                        full_name: "full client name",
-                        billing_address: {
-                            address_1: "address_1",
-                            id: 0,
-                            city: "city",
-                            country: "country",
-                            state: "state",
-                            postal_code: "postal_code",
-                        },
-                        shipping_address: {
-                            address_1: "address_1",
-                            id: 0,
-                            city: "city",
-                            country: "country",
-                            state: "state",
-                            postal_code: "postal_code",
-                        },
-                    }
-                }
-            />
+            <InvoiceBusinessInformation address={quote.quote_supplier?.address ?? null} />
+            <InvoiceClientInformation client={quote.user} />
             <InvoiceMetaData offer={quote} />
             <InvoiceBody offer={quote} />
             <InvoiceFooter offer={quote} />
