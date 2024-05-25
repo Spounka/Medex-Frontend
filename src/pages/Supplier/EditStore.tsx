@@ -113,6 +113,7 @@ const EditStore = () => {
         await api
             .get(import.meta.env.VITE_BACKEND_URL + `/api/company/${user?.user_id}/`)
             .then((res) => {
+                console.log("User Data: ", res);
                 const data = res.data.company;
                 setUserId(data?.supplier);
             });
@@ -427,9 +428,27 @@ const EditStore = () => {
                     </Form>
                 </TabPanel>
                 <TabPanel id={"view-categories"}>
-                    <Form>Hello there</Form>
+                    {categories.map((category: PrivateCategory) => {
+                        return <p key={category.id}>{category.name}</p>;
+                    })}
                 </TabPanel>
-                <TabPanel id={"view-products"}>Products Hello there</TabPanel>
+                <TabPanel id={"view-products"}>
+                    <div className={"tw-flex tw-flex-col tw-gap-4"}>
+                        {companyQuery.data?.products.map((category) => {
+                            return (
+                                <div
+                                    key={category.id}
+                                    className="tw-flex tw-gap-2"
+                                >
+                                    {`Category ${category.name}:`}
+                                    {category.products.map((product) => {
+                                        return <p key={product.sku}>{product.name}</p>;
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </TabPanel>
             </Tabs>
         </Container>
     );
