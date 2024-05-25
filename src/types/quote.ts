@@ -45,6 +45,7 @@ export interface Offer {
 
     status: string;
     status_display: string;
+    products: OfferProduct[];
 
     notes: string;
     delivery_address: number;

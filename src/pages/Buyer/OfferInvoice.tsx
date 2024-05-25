@@ -8,13 +8,22 @@ import useAxios from "../../utils/useAxios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-import { Offer } from "@domain/quote.ts";
+import { Offer, Quote } from "@domain/quote.ts";
 import { useTranslation } from "react-i18next";
 import { BiCloudDownload } from "react-icons/bi";
 import { BsClipboard2CheckFill } from "react-icons/bs";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import NewInvoice from "../shared/OfferInvoice";
+import { useQuery } from "@tanstack/react-query";
+import { AxiosInstance } from "axios";
+
+async function getOffer(api: AxiosInstance, id: string) {
+    const result = await api.get<Offer>(
+        import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/${id}`,
+    );
+    return result.data;
+}
 
 const OfferInvoice = () => {
     const [showNew, setShowNew] = useState(true);
@@ -33,14 +42,11 @@ const OfferInvoice = () => {
 
     const [offer, setOffer] = useState<Offer | null>(null);
 
-    const getOffer = async () => {
-        await api
-            .get<Offer>(import.meta.env.VITE_BACKEND_URL + `/api/quote/offer/`)
-            .then((res) => {
-                console.info("Offered fetched: ", res.data);
-                setOffer(res.data);
-            });
-    };
+    const offerQuery = useQuery({
+        queryKey: ["offer", id],
+        queryFn: async () => getOffer(api, id ?? ""),
+        enabled: !!id,
+    });
 
     const approveOffer = async () => {
         await api
@@ -74,14 +80,6 @@ const OfferInvoice = () => {
         if (modalOverlay) {
             modalOverlay.remove();
         }
-
-        let o = location?.state?.offer;
-
-        if (!o) {
-            getOffer();
-        } else {
-            setOffer(o);
-        }
     }, []);
 
     const downloadPDF = () => {
@@ -108,6 +106,9 @@ const OfferInvoice = () => {
             pdf.save(`${offer?.invoice_id}.pdf`);
         });
     };
+
+    if (!offerQuery.data) return <>Loading...</>;
+    if (offerQuery.isSuccess && !offer) setOffer(offerQuery.data);
 
     return (
         <main className="py-5 container tw-h-full">
@@ -155,7 +156,7 @@ const OfferInvoice = () => {
                 ref={pdfRef}
             >
                 {showNew ? (
-                    <NewInvoice quote={offer} />
+                    <NewInvoice quote={offer ?? {}} />
                 ) : (
                     <>
                         <div className="top_line"></div>
