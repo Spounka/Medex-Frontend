@@ -1,3 +1,5 @@
+import { ThreadUser } from "@domain/thread.ts";
+
 export interface Brand {
     id: number;
     name: string;
@@ -45,4 +47,11 @@ export interface Product {
     created: string;
     updated: string;
     supplier: string;
+}
+
+export interface PrivateCategory {
+    id: number;
+    name: string;
+    supplier: string;
+    products: Product[];
 }
