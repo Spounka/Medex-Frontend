@@ -57,3 +57,15 @@ export interface Offer {
 
     invoice_id: string;
 }
+
+export interface OfferProduct {
+    id: number;
+    name: string;
+    notes: string;
+    offer: number;
+    product_price: number;
+    quantity: number;
+    tax: string;
+    unit: string;
+    unit_display: string;
+}
