@@ -13,10 +13,6 @@ import { UilAngleRight } from "@iconscout/react-unicons";
 import { IoSearchOutline as UilSearch } from "react-icons/io5";
 import { Brand, Category, Product } from "@domain/product";
 import { useTranslation } from "react-i18next";
-import { FaPumpMedical } from "react-icons/fa";
-import { FaXRay } from "react-icons/fa6";
-import { GiChemicalTank } from "react-icons/gi";
-import { ImLab } from "react-icons/im";
 import { default as Container } from "../../components/ui/container";
 import clsx from "clsx";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -143,13 +139,12 @@ const Home = ({ addToCart }: { addToCart: any }) => {
     };
     // TODO: re-enable autoplay
     const settings: Settings = {
-        infinite: true,
+        infinite: false,
         speed: 350,
-        slidesToShow: 6,
-        slidesToScroll: 5,
+        slidesToShow: 5,
+        slidesToScroll: 4,
         autoplay: false,
         lazyLoad: "ondemand",
-        className: "center",
         arrows: false,
         autoplaySpeed: 2500,
         responsive: [
@@ -176,6 +171,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     slidesToShow: 3,
                     slidesToScroll: 2,
                     arrows: false,
+                    centerMode: false,
                 },
             },
             {
@@ -184,6 +180,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     arrows: false,
                     slidesToShow: 3,
                     slidesToScroll: 2,
+                    centerMode: false,
                 },
             },
             {
@@ -192,6 +189,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                     arrows: false,
+                    centerMode: false,
                 },
             },
         ],
@@ -380,7 +378,7 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                     </div>
                     <div className="row py-4">
                         <div className="col-14 p-0 p-md-1">
-                            {sale && sale.length > 0 ? (
+                            {sale ? (
                                 <Slider {...settings}>
                                     {sale.map((product) => (
                                         <ProductCard
@@ -429,15 +427,20 @@ const Home = ({ addToCart }: { addToCart: any }) => {
                         <div className="col-14 p-0 p-md-2">
                             {bestSupplier && bestSupplier.length > 0 ? (
                                 <Slider {...settings}>
-                                    {bestSupplier.map((product) => (
-                                        <ProductCard
-                                            product={product}
-                                            cart={true}
-                                            key={product.sku}
-                                            addToCart={addToCart}
-                                            isBestSelling
-                                        />
-                                    ))}
+                                    {/* Exclude products on sale from best selling */}
+                                    {bestSupplier
+                                        .filter(
+                                            (product) => product.sale_price === "0.00",
+                                        )
+                                        .map((product) => (
+                                            <ProductCard
+                                                product={product}
+                                                cart={true}
+                                                key={product.sku}
+                                                addToCart={addToCart}
+                                                isBestSelling
+                                            />
+                                        ))}
                                 </Slider>
                             ) : (
                                 <p className="text-center">
