@@ -74,8 +74,7 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
         >
             <div className="tw-flex tw-flex-grow tw-flex-col tw-gap-6 tw-p-4">
                 <div className="tw-flex tw-w-full tw-justify-start tw-gap-6">
-                    <span
-                        className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
+                    <span className="tw-font-inherit tw-rounded-md tw-bg-purple tw-px-2 tw-py-1 tw-font-poppins tw-text-white">
                         {opportunity.status_display}
                     </span>
                     <span className="tw-flex tw-flex-1 tw-items-center tw-justify-end ">
@@ -109,8 +108,7 @@ function OpportunityCard({ opportunity }: { opportunity: OpportunityDisplay }) {
                 </h4>
             </div>
             <div className="tw-border-b tw-border-b-gray-300" />
-            <div
-                className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
+            <div className="tw-content-center tw-px-4 tw-py-2 tw-align-middle tw-font-poppins tw-text-inherit tw-text-purple">
                 <h3 className={"tw-font-semibold"}>{daysLeft}</h3>
                 <p className={"tw-text-sm tw-font-light"}>Days To go</p>
             </div>
@@ -148,6 +146,9 @@ function Opportunities() {
 
     const [enabledTags, setEnabledTags] = useState<Set<string>>(new Set<string>());
     const [enabledStatus, setEnabledStatus] = useState<Set<string>>(new Set<string>());
+    const [currentSearchKeyword, setCurrentSearchKeyword] = useState<string>("");
+    const [sortingOrder, setSortingOrder] = useState<string>("");
+
     const nextPage = useRef<string>("");
 
     const opportunityQuery = useInfiniteQuery({
@@ -204,6 +205,26 @@ function Opportunities() {
         return hasTags && hasStatus;
     };
 
+    const combinedResults =
+        opportunityQuery.data?.pages?.flatMap((page) => page.results) || [];
+    const filteredResults = combinedResults.filter(applyFilter);
+    const fuse = new Fuse(filteredResults, {
+        keys: ["title"],
+        threshold: 0.3,
+        includeScore: true,
+    });
+
+    const searchedResults = currentSearchKeyword
+        ? fuse.search(currentSearchKeyword).map((result) => result.item)
+        : filteredResults;
+
+    if (
+        searchedResults.length < 4 &&
+        opportunityQuery.hasNextPage &&
+        !opportunityQuery.isFetchingNextPage
+    )
+        opportunityQuery.fetchNextPage();
+
     return (
         <Container
             className={"tw-flex tw-flex-col tw-gap-8 tw-py-8"}
@@ -255,13 +276,10 @@ function Opportunities() {
                             options={[
                                 { value: "date-up", label: "Date Ascending" },
                                 { value: "date-down", label: "Date Descending" },
-                                { value: "publish-up", label: "Publish Date Ascending" },
-                                {
-                                    value: "publish-down",
-                                    label: "Publish Date Descending",
-                                },
                             ]}
-                            onChange={() => {
+                            defaultValue={{ value: "date-up", label: "Date Ascending" }}
+                            onChange={(e) => {
+                                setSortingOrder(e?.value ?? "");
                             }}
                             className={
                                 "tw-w-full tw-rounded-md lg:tw-w-fit lg:tw-min-w-[22rem] [&>input]:tw-border-gray-300"
@@ -285,6 +303,9 @@ function Opportunities() {
                                 <UilSearch />
                             </button>
                             <input
+                                onBlur={(e) =>
+                                    setCurrentSearchKeyword(e.currentTarget.value)
+                                }
                                 type="text"
                                 name="keyword"
                                 className="form-control tw-py-1"
@@ -300,16 +321,26 @@ function Opportunities() {
                         }
                         ref={opportunitiesRef}
                     >
-                        {opportunityQuery.data?.pages.map((page) => {
-                            return page.results.filter(applyFilter).map((opportunity) => {
-                                return (
-                                    <OpportunityCard
-                                        opportunity={opportunity}
-                                        key={opportunity.id}
-                                    />
-                                );
-                            });
-                        })}
+                        {searchedResults.length > 0 ? (
+                            searchedResults
+                                .sort((a, b) => {
+                                    return sortingOrder === "date-up"
+                                        ? new Date(a.delivery_date).getTime() -
+                                              new Date(b.delivery_date).getTime()
+                                        : new Date(b.delivery_date).getTime() -
+                                              new Date(a.delivery_date).getTime();
+                                })
+                                .map((opportunity) => {
+                                    return (
+                                        <OpportunityCard
+                                            opportunity={opportunity}
+                                            key={opportunity.id}
+                                        />
+                                    );
+                                })
+                        ) : (
+                            <p>No results found</p>
+                        )}
                     </div>
                     <button
                         className={
