@@ -7,8 +7,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
     Button,
     Checkbox,
-    Input,
-    Label,
     OverlayArrow,
     Tooltip,
     TooltipTrigger,
@@ -20,7 +18,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import useAuthToken from "../../hooks/useAuthToken.tsx";
 import { PaginatedResult } from "@domain/paginatedResult.ts";
 import { CheckboxProps } from "react-aria-components";
-import { next } from "sucrase/dist/types/parser/tokenizer";
+import Fuse from "fuse.js";
 
 function LabelCheckbox({ children, ...props }: CheckboxProps) {
     return (
@@ -152,9 +150,9 @@ function Opportunities() {
     const nextPage = useRef<string>("");
 
     const opportunityQuery = useInfiniteQuery({
-        queryFn: async () => getOpportunities(authTokens.access, nextPage.current),
+        queryFn: async () => getOpportunities(authTokens?.access, nextPage.current),
         queryKey: ["opportunities", "page"],
-        enabled: authTokens.access !== "",
+        enabled: authTokens?.access !== "",
         initialPageParam: "",
         getNextPageParam: (next, page) => {
             if (next.next) nextPage.current = next.next;
@@ -234,8 +232,7 @@ function Opportunities() {
                 Browse Opportunity Marketplace
             </h1>
             <div className="tw-flex tw-flex-col tw-gap-4 lg:tw-flex-row">
-                <div
-                    className="tw-flex tw-h-min tw-flex-[0_0_20%] tw-flex-col tw-gap-6 tw-rounded-md tw-border tw-border-gray-200 tw-p-4">
+                <div className="tw-flex tw-h-min tw-flex-[0_0_20%] tw-flex-col tw-gap-6 tw-rounded-md tw-border tw-border-gray-200 tw-p-4">
                     <details className={"tw-flex tw-flex-col tw-gap-8"}>
                         <summary className={"marker:tw-content-['']"}>Status</summary>
                         <div className="tw-flex tw-flex-col tw-gap-2 tw-py-4 tw-font-poppins">
@@ -355,8 +352,8 @@ function Opportunities() {
                         {opportunityQuery.isFetchingNextPage
                             ? "Loading..."
                             : opportunityQuery.hasNextPage
-                                ? "Load More"
-                                : "Nothing More to load"}
+                              ? "Load More"
+                              : "Nothing More to load"}
                     </button>
                 </div>
             </div>
