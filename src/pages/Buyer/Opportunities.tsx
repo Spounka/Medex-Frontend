@@ -192,7 +192,7 @@ function Opportunities() {
     const applyFilter = (
         opportunity: OpportunityDisplay,
         _?: number,
-        _?: OpportunityDisplay[],
+        __?: OpportunityDisplay[],
     ) => {
         if (enabledTags.size === 0 && enabledStatus.size === 0) return true;
         const hasTags =
