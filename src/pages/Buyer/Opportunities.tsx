@@ -3,7 +3,7 @@ import Select from "react-select";
 import { IoCheckmark, IoEyeOutline, IoSearchOutline as UilSearch } from "react-icons/io5";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
     Button,
     Checkbox,
@@ -154,7 +154,7 @@ function Opportunities() {
         queryKey: ["opportunities", "page"],
         enabled: authTokens?.access !== "",
         initialPageParam: "",
-        getNextPageParam: (next, page) => {
+        getNextPageParam: (next, _) => {
             if (next.next) nextPage.current = next.next;
             return next.next;
         },
@@ -191,8 +191,8 @@ function Opportunities() {
 
     const applyFilter = (
         opportunity: OpportunityDisplay,
-        index?: number,
-        array?: OpportunityDisplay[],
+        _?: number,
+        _?: OpportunityDisplay[],
     ) => {
         if (enabledTags.size === 0 && enabledStatus.size === 0) return true;
         const hasTags =
