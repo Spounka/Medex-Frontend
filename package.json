@@ -21,6 +21,7 @@
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "file": "^0.2.2",
+    "fuse.js": "^7.0.0",
     "html-react-parser": "^5.1.1",
     "html2canvas": "^1.4.1",
     "i18next": "^23.7.16",
