@@ -20,7 +20,12 @@
         "baseUrl": "./src",
         "paths": {
             "@domain/*": ["types/*"]
-        }
+        },
+        "plugins": [
+            {
+                "name": "typescript-eslint-language-service"
+            }
+        ]
     },
     "include": ["next-env.d.ts", "src", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules", "dist", "build"],

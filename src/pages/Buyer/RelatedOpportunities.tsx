@@ -41,22 +41,24 @@ import { ThreadUser } from "@domain/thread.ts";
 import AuthContext from "../../context/AuthContext.tsx";
 
 async function getOpportunities(access: string | null, page: string) {
-    const url = page ? page : `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=50`;
+    const url = page || `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/?l=50`;
     const response = await axios.get<PaginatedResult<OpportunityDisplay>>(url, {
         headers: access ? { Authorization: `Bearer ${access}` } : {},
     });
     return response.data;
 }
 
-async function createOpportunity(opportunity: OpportunityCreate, access: string) {
-    const json = JSON.stringify(opportunity);
-    console.info(json);
+async function createOpportunity(opportunity: FormData, access: string) {
     return await axios
-        .post(`${import.meta.env.VITE_BACKEND_URL}/api/opportunity/create/`, json, {
-            headers: {
-                Authorization: `Bearer ${access}`,
+        .post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/opportunity/create/`,
+            opportunity,
+            {
+                headers: {
+                    Authorization: `Bearer ${access}`,
+                },
             },
-        })
+        )
         .catch((e) => console.error(e));
 }
 
@@ -68,7 +70,7 @@ function RelatedOpportunities(props) {
     const currentPage = useRef<string>("");
 
     const getUser = async () => {
-        return await axios.get<ThreadUser>(
+        const result = await axios.get<ThreadUser>(
             `${import.meta.env.VITE_BACKEND_URL}/api/account/profile/`,
             {
                 headers: {
@@ -76,6 +78,7 @@ function RelatedOpportunities(props) {
                 },
             },
         );
+        return result.data;
     };
     const userQuery = useQuery({
         queryFn: async () => getUser(),
@@ -97,9 +100,13 @@ function RelatedOpportunities(props) {
         },
     });
     const opportunityMutation = useMutation({
-        mutationFn: (opportunity: OpportunityCreate) =>
+        mutationFn: (opportunity: FormData) =>
             createOpportunity(opportunity, authTokens.access),
         mutationKey: ["opportunity", "create"],
+        onSuccess: async () => {
+            await opportunityQuery.refetch();
+            toast.success("Opportunity created successfully", { autoClose: 2000 });
+        },
     });
 
     const fetchNextPage = async () => {
@@ -112,21 +119,28 @@ function RelatedOpportunities(props) {
     };
     const queryClient = useQueryClient();
 
-    function createOpportunityEvent(e: FormEvent<HTMLFormElement>) {
+    async function createOpportunityEvent(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const opportunity: OpportunityCreate = {};
-        opportunity.opportunity_value = "VS";
-        opportunity.title = formData.get("title")?.toString() ?? "";
-        opportunity.tags = formData.get("tags")?.toString().split(",") ?? [];
-        opportunity.target_suppliers = [];
-        opportunity.delivery_date = formData.get("delivery_date")?.toString() ?? "";
-        opportunity.payment_days = formData.get("payment_days")?.toString() ?? "";
-        opportunity.payment_method = "DIV";
-        opportunity.user = userQuery.data?.data;
-        opportunity.delivery_address = userQuery.data?.data?.shipping_address;
-        opportunityMutation.mutate(opportunity);
-        queryClient.invalidateQueries(["opportunities"]);
+        const form = document.forms[1];
+        console.log(document.forms);
+        let formData = new FormData(form);
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
+        formData.set("opportunity_value", "VS");
+        formData.set("target_suppliers", "[]");
+        formData.set("payment_method", "DIV");
+        formData.set("tags", "");
+        if (userQuery.data) {
+            formData.set("user", JSON.stringify(userQuery.data));
+            formData.set(
+                "delivery_address",
+                JSON.stringify(userQuery.data.shipping_address),
+            );
+        }
+        opportunityMutation.mutate(formData);
+        await queryClient.invalidateQueries({ queryKey: ["opportunities"] });
     }
 
     const columnDefs: ColDef[] = [
@@ -399,14 +413,6 @@ function RelatedOpportunities(props) {
                                             className={
                                                 "tw-rounded-md tw-bg-purple tw-px-4 tw-py-2 tw-font-poppins tw-font-medium tw-text-white"
                                             }
-                                            // onPress={() => {
-                                            //     toast.success("Opportunity created!", {
-                                            //         closeOnClick: true,
-                                            //         autoClose: 1000,
-                                            //         position: "bottom-right",
-                                            //     });
-                                            //     close();
-                                            // }}
                                         >
                                             Submit
                                         </Button>
@@ -450,7 +456,7 @@ function RelatedOpportunities(props) {
                 <div className="tw-flex tw-w-full tw-justify-end tw-gap-4">
                     <Button
                         className={
-                            "rac-disabled:tw-bg-gray-300 rac-disabled:tw-text-gray-400 rac-disabled:tw-outline-white tw-w-fit tw-self-end tw-rounded-md tw-px-2 tw-py-1 tw-outline tw-outline-1 tw-outline-black"
+                            "tw-w-fit tw-self-end tw-rounded-md tw-px-2 tw-py-1 tw-outline tw-outline-1 tw-outline-black rac-disabled:tw-bg-gray-300 rac-disabled:tw-text-gray-400 rac-disabled:tw-outline-white"
                         }
                         isDisabled={
                             !opportunityQuery.hasPreviousPage ||
