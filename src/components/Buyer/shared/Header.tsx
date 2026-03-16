@@ -426,7 +426,7 @@ const Header = () => {
                                             {countCartItems > 0 ? (
                                                 <span
                                                     id="header-cart-count"
-                                                    className="tw-absolute tw-right-0 tw-top-0 tw-h-4 tw-w-4 tw-content-center tw-rounded-full tw-bg-purple tw-p-1 tw-text-center tw-text-xs tw-text-white"
+                                                    className="tw-absolute tw-right-0 tw-top-0 tw-flex tw-h-4 tw-w-4 tw-items-center tw-rounded-full tw-bg-purple tw-p-1 tw-text-center tw-text-xs tw-text-white"
                                                 >
                                                     {countCartItems}
                                                 </span>

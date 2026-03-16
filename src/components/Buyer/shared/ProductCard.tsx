@@ -109,7 +109,7 @@ const ProductCard = (
             >
                 <img
                     src={
-                        product.thumbnail.startsWith("http")
+                        product.thumbnail?.startsWith("http")
                             ? product.thumbnail
                             : import.meta.env.VITE_BACKEND_URL +
                               "/uploads/" +
