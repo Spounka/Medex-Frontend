@@ -354,6 +354,7 @@ const ProductDetails = (props) => {
                             </button>
                         </div>
                         <button
+                            onClick={() => console.log("blyat?")}
                             className={
                                 "tw-rounded-md tw-border tw-border-black tw-bg-none tw-px-8 tw-py-1.5 tw-font-poppins tw-text-black lg:tw-basis-auto"
                             }

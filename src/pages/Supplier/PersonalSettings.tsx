@@ -309,7 +309,9 @@ const PersonalSettings = () => {
                         ) : (
                             <AiOutlineArrowRight className="mb-2" />
                         )}{" "}
-                        <h5 className="fw-normal">{t("supplier_pages.settings.back")}</h5>{" "}
+                        <h5 className="fw-normal">
+                            {t("supplier_pages.settings.back")}
+                        </h5>{" "}
                     </Link>
                     <div className="main-body">
                         <div className="row">
@@ -579,11 +581,11 @@ const PersonalSettings = () => {
                                                     >
                                                         <StateSelect
                                                             defaultValue={state}
-                                                            countryid={country.id}
+                                                            countryid={country?.id ?? 0}
                                                             onChange={(e) => {
                                                                 setState(e);
                                                                 handleStateChange(
-                                                                    country.id,
+                                                                    country?.id ?? 0,
                                                                     e,
                                                                 );
                                                             }}
@@ -605,8 +607,8 @@ const PersonalSettings = () => {
                                                         id="city"
                                                     >
                                                         <CitySelect
-                                                            countryid={country.id}
-                                                            stateid={state.id}
+                                                            countryid={country?.id ?? 0}
+                                                            stateid={state.id ?? 0}
                                                             defaultValue={city}
                                                             onChange={(e) => {
                                                                 setCity(e);
